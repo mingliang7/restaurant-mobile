@@ -1,0 +1,17 @@
+<template name="newProduct">
+    {{#ionModal customTemplate=true}}
+        {{#autoForm collection="Product" id='newProduct' type="insert"}}
+            <div class="bar bar-header bar-stable">
+                <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
+                <h1 class="title">Add Product</h1>
+                <button type="submit" class="button button-positive button-clear">Add</button>
+            </div>
+            <div class="content has-header overflow-scroll">
+                {{>afQuickField name="categoryId" value=categoryId type='hidden'}}
+                {{>afQuickField name="name"}}
+                {{>afQuickField name="price"}}
+                {{>afQuickField name="description"}}
+            </div>
+        {{/autoForm}}
+    {{/ionModal}}
+</template>

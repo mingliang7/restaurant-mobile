@@ -1,0 +1,39 @@
+<template name="tableCategories">
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="tables" text="Table"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">Categories</h1>
+    {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
+        <button class="button button-clear" data-ion-modal="categoryNew">{{> ionIcon icon="ios-plus-empty"}}</button>
+    {{/contentFor}}
+    {{#ionView}}
+        {{#ionContent}}
+            {{#ionList}}
+                {{#each categories}}
+                    {{#ionItem href=getCategoryPath buttonRight=true avatar=true class="item-icon-right"}}
+                        <img src="{{avatarUrl}}">
+                        {{name}} {{description}}
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    {{/ionItem}}
+                {{/each}}
+            {{/ionList}}
+        {{/ionContent}}
+    {{/ionView}}
+    {{>_tabs}}
+</template>
+
+<template name="_tabs">
+    {{#if isAndroid}}
+        {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
+            {{> ionTab title="My Order" path="tabs.one" icon="android-home"}}
+            {{> ionTab title="Order" path="tabs.two" icon="android-star"}}
+        {{/ionTabs}}
+    {{else}}
+        {{#ionTabs style="ios"}}
+            {{> ionTab title="My Order" path="tabs.one" iconOff="ios-home-outline" iconOn="ios-home"}}
+            {{> ionTab title="Order" path="tabs.two" iconOff="ios-star-outline" iconOn="ios-star"}}
+        {{/ionTabs}}
+    {{/if}}
+</template>
