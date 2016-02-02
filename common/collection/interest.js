@@ -25,7 +25,10 @@ InterestSchema = new SimpleSchema({
         type: [String],
         optional: true,
         autoform: {
-            type: 'tags'
+            type: 'select-checkbox',
+            options(){
+                return List.tagsByCategory();
+            }
         }
     }
 });

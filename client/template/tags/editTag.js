@@ -1,6 +1,6 @@
 Template.editTag.helpers({
    tag(){
-       return Book.Collection.Tags.findOne(this.id);
+       return Reading.Collection.Tags.findOne(this.id);
    }
 });
 

@@ -1,0 +1,29 @@
+<template name="books">
+        {{#contentFor "headerButtonLeft"}}
+            {{>ionNavBackButton path="home" text="Home"}}
+        {{/contentFor}}
+        {{#contentFor "headerTitle"}}
+            <h1 class="title">Books</h1>
+        {{/contentFor}}
+        {{#contentFor "headerButtonRight"}}
+            <button class="button button-clear" data-ion-modal="newBook">{{> ionIcon icon="ios-plus-empty"}}</button>
+        {{/contentFor}}
+        {{#ionView}}
+            {{#ionContent}}
+                {{#ionList}}
+                    {{#each tags}}
+                        {{#ionItem  buttonRight=true avatar=true }}
+
+                            <!--{{name}}-->
+                            <!--<a data-ion-modal="editTag" data-id="{{_id}}" class="button-clear">-->
+                                <!--{{> ionIcon icon="android-create"}}-->
+                            <!--</a>-->
+                            <!--<button data-action="confirm" class=" button button-clear"> {{> ionIcon icon="close-circled"}}</button>-->
+
+
+                        {{/ionItem}}
+                    {{/each}}
+                {{/ionList}}
+            {{/ionContent}}
+        {{/ionView}}
+</template>

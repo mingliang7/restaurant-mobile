@@ -18,7 +18,7 @@ indexTpl.rendered = function () {
 indexTpl.helpers({
     tags(){
 
-        return Book.Collection.Tags.find();
+        return Reading.Collection.Tags.find();
     },
 });
 indexTpl.events({

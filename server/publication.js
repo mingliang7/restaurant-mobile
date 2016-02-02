@@ -6,5 +6,5 @@ Meteor.publish('categories',() =>{
 
 
 Meteor.publish('tags', ()=> {
-    return Book.Collection.Tags.find();
+    return Reading.Collection.Tags.find();
 });

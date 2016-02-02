@@ -12,10 +12,11 @@
         {{#ionContent}}
             {{#ionList}}
                 {{#each categories}}
-                    {{#ionItem href=getCategoryPath buttonRight=true avatar=true class="item-icon-right"}}
-                        <img src="{{avatarUrl}}">
+                    {{#ionItem buttonRight=true avatar=true }}
                         {{name}} {{description}}
-                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    <a class="cursor-p categoryEdit" data-ion-modal="editCategory" data-id="{{_id}}"> {{> ionIcon icon="android-create" class="positive"}}</a>
+                        <button data-action="confirm" class=" button button-clear"> {{> ionIcon icon="close-circled"}}</button>
+
                     {{/ionItem}}
                 {{/each}}
             {{/ionList}}

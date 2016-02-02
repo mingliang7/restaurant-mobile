@@ -36,4 +36,24 @@ Router.map(function () {
             this.next();
         }
     });
+    this.route('book.categoriesShow', {
+        path: '/categories/:id',
+        onBeforeAction: function (pause) {
+            if (!Meteor.user()) {
+                // render the login template but keep the url in the browser the same
+                Router.go('/')
+            }
+            this.next();
+        }
+    });
+    this.route('books', {
+        path: '/books',
+        onBeforeAction: function (pause) {
+            if (!Meteor.user()) {
+                // render the login template but keep the url in the browser the same
+                Router.go('/')
+            }
+            this.next();
+        }
+    });
 });

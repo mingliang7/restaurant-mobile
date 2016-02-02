@@ -8,6 +8,9 @@
             {{#autoForm schema="InterestSchema" id="interestUpdate"}}
                 {{> afQuickField name="profile.interest"}}
                 {{> afQuickField name="profile.tags"}}
+                <div class="bar bar-header bar-stable ">
+                    <button class="button button-positive button-positive">{{> ionIcon icon="checkmark-round"}}Save</button>
+                </div>
             {{/autoForm}}
         {{/ionContent}}
     {{/ionView}}
