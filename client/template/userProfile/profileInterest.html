@@ -1,0 +1,11 @@
+<template name="profileInterest">
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">What your is interest?</h1>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+            {{> quickForm schema="UserSchema" id="interestUpdate" template="ionic"}}
+        {{/ionContent}}
+    {{/ionView}}
+</template>

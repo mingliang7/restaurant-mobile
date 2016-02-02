@@ -1,0 +1,24 @@
+<Template name="home">
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">ប្រលោមលោកជាភាសាខ្មែរ</h1>
+    {{/contentFor}}
+
+    {{#contentFor "headerButtonRight"}}
+        <a class="button button-clear" href="/tables">Tables {{> ionIcon icon="ios-arrow-right"}}</a>
+    {{/contentFor}}
+    {{#ionView}}
+        {{#ionContent}}
+            <div class="list card">
+
+                <!--<div class="item item-avatar">-->
+                    <!--<img src="avatar.jpg">-->
+                    <!--<h2>សូមស្វាគមន៍មកកាន់ប្រលោមលោកជាភាសាខ្មែរ</h2>-->
+                    <!--<p>សូមធ្វើការចុះឈ្មោះជាមុនសិន!សូមអរគុណ!</p>-->
+                <!--</div>-->
+
+                {{> current_user}}
+
+            </div>
+        {{/ionContent}}
+    {{/ionView}}
+</Template>

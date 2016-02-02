@@ -1,0 +1,13 @@
+<template name="current_user">
+    {{#if currentUser}}
+        {{#if checkIf currentUser}}
+
+        {{/if}}
+    {{else}}
+        <div class="item item-image">
+            <img src="/content-images/novel-cover.jpg" />
+        </div>
+
+        {{> atForm}}
+    {{/if}}
+</template>
