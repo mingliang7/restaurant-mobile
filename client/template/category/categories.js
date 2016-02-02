@@ -1,10 +1,10 @@
-Template.tableCategories.created = function(){
+Template.bookCategories.created = function(){
     this.autorun(()=>{
         this.subscription = Meteor.subscribe('categories');
     })
 };
 
-Template.tableCategories.rendered = function() {
+Template.bookCategories.rendered = function() {
   this.autorun(() => {
       if (!this.subscription.ready()) {
           IonLoading.show();
@@ -14,7 +14,7 @@ Template.tableCategories.rendered = function() {
   });
 };
 
-Template.tableCategories.helpers({
+Template.bookCategories.helpers({
     categories(){
         return Categories.find();
     },

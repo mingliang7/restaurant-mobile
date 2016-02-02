@@ -1,4 +1,4 @@
-<template name="tableCategories">
+<template name="bookCategories">
     {{#contentFor "headerButtonLeft"}}
         {{>ionNavBackButton path="tables" text="Table"}}
     {{/contentFor}}
@@ -21,19 +21,4 @@
             {{/ionList}}
         {{/ionContent}}
     {{/ionView}}
-    {{>_tabs}}
-</template>
-
-<template name="_tabs">
-    {{#if isAndroid}}
-        {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
-            {{> ionTab title="My Order" path="tabs.one" icon="android-home"}}
-            {{> ionTab title="Order" path="tabs.two" icon="android-star"}}
-        {{/ionTabs}}
-    {{else}}
-        {{#ionTabs style="ios"}}
-            {{> ionTab title="My Order" path="tabs.one" iconOff="ios-home-outline" iconOn="ios-home"}}
-            {{> ionTab title="Order" path="tabs.two" iconOff="ios-star-outline" iconOn="ios-star"}}
-        {{/ionTabs}}
-    {{/if}}
 </template>

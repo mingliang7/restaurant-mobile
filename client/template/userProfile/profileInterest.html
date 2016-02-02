@@ -1,11 +1,14 @@
 <template name="profileInterest">
     {{#contentFor "headerTitle"}}
-        <h1 class="title">What your is interest?</h1>
+        <h1 class="title">What is your interest?</h1>
     {{/contentFor}}
 
     {{#ionView}}
         {{#ionContent}}
-            {{> quickForm schema="UserSchema" id="interestUpdate" template="ionic"}}
+            {{#autoForm schema="InterestSchema" id="interestUpdate"}}
+                {{> afQuickField name="profile.interest"}}
+                {{> afQuickField name="profile.tags"}}
+            {{/autoForm}}
         {{/ionContent}}
     {{/ionView}}
 </template>

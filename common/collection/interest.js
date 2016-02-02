@@ -1,16 +1,15 @@
 
-interestSchema = new SimpleSchema({
-
-});
-
-userSubProfileSchema = new SimpleSchema({
-
-    interest: {
+InterestSchema = new SimpleSchema({
+    profile: {
+        type: Object,
+        optional: true
+    },
+    "profile.interest": {
         type: Object,
         optional: true,
         label: 'Interested In'
     },
-    "interest.category": {
+    "profile.interest.category": {
         type: [String],
         optional: true,
         autoform: {
@@ -22,18 +21,11 @@ userSubProfileSchema = new SimpleSchema({
             }
         }
     },
-    tags: {
+    "profile.tags": {
         type: [String],
         optional: true,
         autoform: {
-            type: 'tagsTypeahead'
+            type: 'tags'
         }
-    }
-});
-
-UserSchema = new SimpleSchema({
-    profile: {
-        type: userSubProfileSchema,
-        optional: true
     }
 });

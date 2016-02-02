@@ -1,15 +1,13 @@
-<template name="tableEdit">
+<template name="editTag">
     {{#ionModal customTemplate=true}}
-        {{#autoForm collection="Table" doc=table id="tableEdit" type="update"}}
+        {{#autoForm collection="Book.Collection.Tags" doc=tag id="editTag" type="update"}}
             <div class="bar bar-header bar-stable">
                 <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
-                <h2 class="title">Update Table</h2>
+                <h2 class="title">Update Tag</h2>
                 <button type="submit" class="button button-positive button-clear">Save</button>
             </div>
             <div class="content has-header overflow-scroll">
-                {{> afQuickField name="number"}}
-                {{> afQuickField name="description"}}
-                {{> afQuickField name="avatarUrl"}}
+                {{> afQuickField name="name"}}
             </div>
         {{/autoForm}}
     {{/ionModal}}

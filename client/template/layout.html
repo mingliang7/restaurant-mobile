@@ -1,8 +1,71 @@
 <template name="layout">
-     {{#ionBody}}
-    {{> ionNavBar class="bar-balanced"}}
-    {{#ionNavView}}
-      {{> yield}}
-    {{/ionNavView}}
-  {{/ionBody}}
+    {{#ionBody}}
+
+        {{#ionSideMenuContainer}}
+
+            {{#ionSideMenus}}
+                {{#if currentUser}}
+                    {{#ionSideMenu}}
+                        <div class="bar bar-header bar-dark">
+                            <h1 class="title">{{currentUser.profile.username}}</h1>
+                        </div>
+                        <div class="content has-header">
+                            <div class="list">
+                                <div class="cursor-p favorite item item-icon-left" data-ion-menu-close>
+                                    {{>ionIcon icon="heart"}} Your Favourite
+                                </div>
+                                <div class="cursor-p setting item item-icon-left" data-ion-menu-close>
+                                    {{>ionIcon icon="gear-b"}} Setting
+                                </div>
+                                <div class="cursor-p sign-out item item-icon-left" data-ion-menu-close>
+                                    {{> ionIcon icon="log-out"}} Logout
+                                </div>
+
+                            </div>
+                        </div>
+                    {{/ionSideMenu}}
+                {{/if}}
+                {{#ionSideMenu side="right"}}
+                    <div class="bar bar-header bar-dark">
+                        <h1 class="title">Right Menu</h1>
+                    </div>
+                    <div class="content has-header">
+                        <div class="list">
+                            <div class="item item-icon-left" data-ion-menu-close>
+                                {{> ionIcon icon="ios-arrow-left"}} Close Me
+                            </div>
+                        </div>
+                    </div>
+                {{/ionSideMenu}}
+
+            {{/ionSideMenus}}
+
+            {{#ionSideMenuContent}}
+
+                {{> ionNavBar class="bar-assertive"}}
+
+                {{#ionNavView}}
+                    {{> yield}}
+                {{/ionNavView}}
+
+            {{/ionSideMenuContent}}
+
+        {{/ionSideMenuContainer}}
+
+    {{/ionBody}}
+</template>
+
+
+<template name="_tabs">
+    {{#if isAndroid}}
+        {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
+            {{> ionTab title="My Order" path="tabs.one" icon="android-home"}}
+            {{> ionTab title="Order" path="tabs.two" icon="android-star"}}
+        {{/ionTabs}}
+    {{else}}
+        {{#ionTabs style="ios"}}
+            {{> ionTab title="My Order" path="tabs.one" iconOff="ios-home-outline" iconOn="ios-home"}}
+            {{> ionTab title="Order" path="tabs.two" iconOff="ios-star-outline" iconOn="ios-star"}}
+        {{/ionTabs}}
+    {{/if}}
 </template>
