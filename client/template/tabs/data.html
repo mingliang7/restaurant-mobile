@@ -1,0 +1,39 @@
+<template name="restaurantData">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="home" text="Home"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Data</h1>
+  {{/contentFor}}
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        <a class="item item-icon-left item-icon-right" href="#">
+          {{> ionIcon icon="ios-people" class="assertive"}}
+          Customer
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+        </a>
+        <a class="item item-icon-left item-icon-right" href="/restaurant/notes">
+          {{> ionIcon icon="compose" class="assertive"}}
+          Note
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+        </a>
+        <a class="item item-icon-left item-icon-right" href="/restaurant/staff">
+          {{> ionIcon icon="man" class="assertive"}}
+          Staff
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+        </a>
+        <a class="item item-icon-left item-icon-right" href="/restaurant/staff">
+          {{> ionIcon icon="android-pin" class="assertive"}}
+          Table Location
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+        </a>
+        <a class="item item-icon-left item-icon-right" href="/restaurant/tables">
+          {{> ionIcon icon="flag" class="assertive"}}
+          Table
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+        </a>
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

@@ -1,0 +1,16 @@
+<template name="tableNew">
+    {{#ionModal customTemplate=true}}
+        {{#autoForm collection="Restaurant.Collection.Tables" id="tableNew" type="insert"}}
+            <div class="bar bar-header bar-stable">
+                <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
+                <h2 class="title">Create Table</h2>
+                <button type="submit" class="button button-positive button-clear">Add</button>
+            </div>
+            <div class="content has-header overflow-scroll">
+              {{> afQuickField name='name'}}
+             {{> afQuickField name='tableLocationId'}}
+              {{> afQuickField name='description'}}
+            </div>
+        {{/autoForm}}
+    {{/ionModal}}
+</template>

@@ -1,10 +1,5 @@
 
 
-Meteor.publish('categories',() =>{
-    return Categories.find();
-});
-
-
-Meteor.publish('tags', ()=> {
-    return Reading.Collection.Tags.find();
+Meteor.publish('tables',() =>{
+    return Restaurant.Collection.Tables.find();
 });

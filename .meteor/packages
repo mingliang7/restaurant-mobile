@@ -31,11 +31,12 @@ underscore
 iron:router
 meteoric:ionic
 accounts-password
-accounts-facebook
+#accounts-facebook
 accounts-ui
 pfafman:font-awesome-4
-useraccounts:ionic
-accounts-google
+#useraccounts:ionic
+#accounts-google
 natestrauser:select2
 theara:collection-cache
 mystor:device-detection
+useraccounts:ionic
