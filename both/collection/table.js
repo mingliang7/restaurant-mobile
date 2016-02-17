@@ -21,10 +21,6 @@ Restaurant.Schema.Tables = new SimpleSchema({
         label: "Description",
         optional: true
     },
-    branchId: {
-        type: String,
-        label: "Branch"
-    },
     left:{
         type:String,
         label:"Left",
