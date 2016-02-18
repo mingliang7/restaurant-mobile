@@ -37,6 +37,9 @@ pfafman:font-awesome-4
 #useraccounts:ionic
 #accounts-google
 natestrauser:select2
-theara:collection-cache
 mystor:device-detection
 useraccounts:ionic
+theara:id-generator
+matb33:collection-hooks
+alanning:roles
+theara:collection-cache

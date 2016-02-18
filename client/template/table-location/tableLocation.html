@@ -15,10 +15,12 @@
       {{#ionList}}
         {{#each tableLocations}}
           {{#ionItem buttonRight=true avatar=true }}
-            {{name}}
-            {{description}}
-            <a class="cursor-p categoryEdit" data-ion-modal="editCategory" data-id="{{_id}}">
-              {{> ionIcon icon="android-create" class="positive"}}</a>
+            <span class="cursor-p" data-ion-modal="editTableLocation" data-id="{{_id}}">
+              {{name}}
+            </span>
+            <p>
+              {{description}}
+            </p>
             <button data-action="confirm" class=" button button-clear">
               {{> ionIcon icon="close-circled"}}</button>
 

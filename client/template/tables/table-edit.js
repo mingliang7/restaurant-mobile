@@ -1,7 +1,7 @@
 Template.tableEdit.helpers({
     table: function () {
         var template = Template.instance();
-        return Table.findOne({_id: template.data.id});
+        return Restaurant.Collection.Tables.findOne({_id: template.data.id});
     }
 });
 

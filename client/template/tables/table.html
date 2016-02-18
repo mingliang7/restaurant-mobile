@@ -14,11 +14,19 @@
     {{#ionContent}}
       {{#ionList}}
         {{#each tables}}
-          {{#ionItem href=getTableShow buttonRight=true avatar=true class="item-icon-right"}}
-            <img src="{{avatarUrl}}">
-            {{number}}
+          {{#ionItem  buttonRight=true avatar=true class="item-icon-right"}}
+
+          <span class="cursor-p" data-ion-modal="tableEdit" data-id="{{_id}}">
+            {{name}}
+          </span>
+          <p>
+            Location: {{_tableLocation.name}}
+          </p>
+          <p>
             {{description}}
-            {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+          </p>
+          <button data-action="confirm" class=" button button-clear">
+            {{> ionIcon icon="close-circled"}}</button>
           {{/ionItem}}
         {{/each}}
       {{/ionList}}

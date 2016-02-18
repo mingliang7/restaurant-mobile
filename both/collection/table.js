@@ -10,7 +10,7 @@ Restaurant.Schema.Tables = new SimpleSchema({
         type: String,
         label: "Table Location",
         autoform: {
-            type: "select2",
+            type: "select",
             options: function () {
                 return Restaurant.List.tableLocations();
             }

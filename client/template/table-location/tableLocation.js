@@ -19,8 +19,8 @@ Template.tableLocations.helpers({
     }
 });
 
-Template.TableLocations.events({
-  'click [data-action="confirm"]': function (event, template) {
+Template.tableLocations.events({
+  'click [data-action="confirm"]'(event, template) {
        IonPopup.confirm({
            title: 'Are you sure?',
            template: `Detele ${this.name}?`,
