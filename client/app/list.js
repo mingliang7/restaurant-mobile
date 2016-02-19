@@ -114,6 +114,9 @@ Restaurant.List = {
   },
   gender: function() {
     return [{
+      label: "(Select One)",
+      value: ""
+    }, {
       label: 'Male',
       value: 'M'
     }, {
@@ -123,6 +126,9 @@ Restaurant.List = {
   },
   status: function() {
     return [{
+      label: "(Select One)",
+      value: ""
+    }, {
       label: "Enable",
       value: "enable"
     }, {
@@ -130,198 +136,25 @@ Restaurant.List = {
       value: "disable"
     }];
   },
-  category: function(param) {
+  category: function() {
     var list = [];
-    if (param != false) {
-      var label = param != null ? param : "(Select One)";
+    Restaurant.Collection.Categories.find().forEach(function(obj) {
       list.push({
-        label: label,
-        value: ""
+        label: obj._id + ' : ' + obj.name,
+        value: obj._id
       });
-    }
-    var categoryId = Session.get('CategoryIdSession');
-    var selector = {};
-    if (categoryId != null) {
-      var arr = [categoryId];
-      var categories = Restaurant.Collection.Categories.find({
-        parentId: categoryId
-      });
-      arr = getCategoryIdsForExclusion(arr, categories);
-      selector._id = {
-        $not: {
-          $in: arr
-        }
-      };
-    }
-
-    var alreadyUse = [];
-    Restaurant.Collection.Categories.find(selector, {
-      sort: {
-        level: 1
-      }
-    }).forEach(function(obj) {
-      if (alreadyUse.indexOf(obj._id) == -1) {
-        debugger;
-        pushToList(list, obj);
-        selector.parentId = obj._id;
-        var categories = Restaurant.Collection.Categories.find(selector);
-        list = getCategoryList(selector, list, categories, alreadyUse);
-      }
-      /*var str = "";
-       for (var i = 0; i < obj.level * 3; i++) {
-       str += "&nbsp;";
-       }
-       list.push({
-       label: Spacebars.SafeString(str + (obj.level + 1) + '. ' + obj.name),
-       value: obj._id
-       });*/
     });
-    return list;
-  },
-  subCategory: function() {
-    var categoryId = Session.get('CategoryIdSession');
-    var list = [{
-      label: "(Select One)",
-      value: ""
-    }];
-    if (categoryId == null) {
-      Restaurant.Collection.SubCategories.find().forEach(function(obj) {
-        list.push({
-          label: obj._id + ' : ' + obj.name,
-          value: obj._id
-        });
-      });
-    } else {
-      Restaurant.Collection.SubCategories.find({
-        categoryId: categoryId
-      }).forEach(function(obj) {
-        list.push({
-          label: obj._id + ' : ' + obj.name,
-          value: obj._id
-        });
-      });
-    }
     return list;
 
   },
   unit: function() {
-    var list = [{
-      label: "(Select One)",
-      value: ""
-    }];
+    var list = [];
     Restaurant.Collection.Units.find().forEach(function(obj) {
       list.push({
         label: obj._id + ' : ' + obj.name,
         value: obj._id
       });
     });
-    return list;
-  },
-  staff: function() {
-    var list = [{
-      label: "All",
-      value: ""
-    }];
-    var branchIdSession = Session.get('branchIds');
-    var branchIds = [];
-    if (branchIdSession != null) {
-      branchIds = branchIdSession;
-    } else {
-      var userId = Meteor.userId();
-      branchIds = Meteor.users.findOne(userId).rolesBranch;
-    }
-    Restaurant.Collection.Staffs.find({
-      branchId: {
-        $in: branchIds
-      }
-    }).forEach(function(obj) {
-      list.push({
-        label: obj._id + ' : ' + obj.name,
-        value: obj._id
-      });
-    });
-    return list;
-  },
-  customer: function() {
-    var list = [{
-      label: "All",
-      value: ""
-    }];
-    var branchIdSession = Session.get('branchIds');
-    var branchIds = [];
-    if (branchIdSession != null) {
-      branchIds = branchIdSession;
-    } else {
-      var userId = Meteor.userId();
-      branchIds = Meteor.users.findOne(userId).rolesBranch;
-    }
-    Restaurant.Collection.Customers.find({
-      branchId: {
-        $in: branchIds
-      }
-    }).forEach(function(obj) {
-      list.push({
-        label: obj._id + ' : ' + obj.name,
-        value: obj._id
-      });
-    });
-
-    return list;
-  },
-  supplier: function() {
-    var list = [{
-      label: "All",
-      value: ""
-    }];
-    var branchIdSession = Session.get('branchIds');
-    var branchIds = [];
-    if (branchIdSession != null) {
-      branchIds = branchIdSession;
-    } else {
-      var userId = Meteor.userId();
-      branchIds = Meteor.users.findOne(userId).rolesBranch;
-    }
-    Restaurant.Collection.Suppliers.find({
-      branchId: {
-        $in: branchIds
-      }
-    }).forEach(function(obj) {
-      list.push({
-        label: obj._id + ' : ' + obj.name,
-        value: obj._id
-      });
-    });
-    return list;
-  },
-  productType: function() {
-    return [{
-      label: "(Select One)",
-      value: ""
-    }, {
-      label: "Stock",
-      value: "Stock"
-    }, {
-      label: "Non Stock",
-      value: "NonStock"
-    }];
-  },
-  branchForUser: function(selectOne, userId) {
-    var list = [];
-    if (!_.isEqual(selectOne, false)) {
-      list.push({
-        label: "All",
-        value: ""
-      });
-    }
-    var userId = _.isUndefined(userId) ? Meteor.userId() : userId;
-    Meteor.users.findOne(userId).rolesBranch
-      .forEach(function(branch) {
-        var label = Cpanel.Collection.Branch.findOne(branch).enName;
-        list.push({
-          label: label,
-          value: branch
-        });
-      });
     return list;
   },
   customerList: function() {
@@ -455,28 +288,6 @@ Restaurant.List = {
     });
     return list;
   },
-
-  /*    getUserByBranchId: function (selectOne) {
-   var list = [];
-   if (!_.isEqual(selectOne, false)) {
-   list.push({label: "(Select One)", value: ""});
-   }
-   var branchId = Session.get('currentBranch');
-   var userIds=Restaurant.Collection.UserStaffs.find().map(function(us){
-   return us.userId;
-   });
-   var user = Meteor.users.find({_id:{$not:{$in:userIds}},username:{$ne:'super'}});
-   user.forEach(function (u) {
-   u.rolesBranch.forEach(function (r) {
-   if (r == branchId){
-   list.push({label: u.username,value: u._id});
-   return false;
-   }
-   });
-   });
-   return list;
-   }*/
-
   backupAndRestoreTypes: function() {
     return [{
       value: '',
@@ -505,5 +316,4 @@ Restaurant.List = {
     }
     return list;
   }
-
-};
+}

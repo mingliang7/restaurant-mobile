@@ -43,4 +43,7 @@ theara:id-generator
 matb33:collection-hooks
 alanning:roles
 theara:collection-cache
+yogiben:autoform-file
+cfs:standard-packages
+cfs:gridfs@0.0.33
 notorii:autoform-datetimepicker
