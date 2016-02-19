@@ -136,7 +136,7 @@ Restaurant.List = {
             value: "disable"
         }];
     },
-    category: function (param) {
+    /*category: function (param) {
         var list = [];
         if (param != false) {
             var label = param != null ? param : "(Select One)";
@@ -180,41 +180,23 @@ Restaurant.List = {
              list.push({
              label: Spacebars.SafeString(str + (obj.level + 1) + '. ' + obj.name),
              value: obj._id
-             });*/
+             });
         });
         return list;
-    },
-    subCategory: function () {
-        var categoryId = Session.get('CategoryIdSession');
-        var list = [{
-            label: "(Select One)",
-            value: ""
-        }];
-        if (categoryId == null) {
-            Restaurant.Collection.SubCategories.find().forEach(function (obj) {
+    },*/
+    category: function () {
+        var list = [];     
+        Restaurant.Collection.Categories.find().forEach(function (obj) {
                 list.push({
                     label: obj._id + ' : ' + obj.name,
                     value: obj._id
                 });
-            });
-        } else {
-            Restaurant.Collection.SubCategories.find({
-                categoryId: categoryId
-            }).forEach(function (obj) {
-                list.push({
-                    label: obj._id + ' : ' + obj.name,
-                    value: obj._id
-                });
-            });
-        }
+            });        
         return list;
 
     },
     unit: function () {
-        var list = [{
-            label: "(Select One)",
-            value: ""
-        }];
+        var list = [];
         Restaurant.Collection.Units.find().forEach(function (obj) {
             list.push({
                 label: obj._id + ' : ' + obj.name,

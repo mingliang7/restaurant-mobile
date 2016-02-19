@@ -1,0 +1,32 @@
+<template name="unit">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.setting" text="Setting"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Unit</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-modal="unitNew">{{> ionIcon icon="ios-plus-empty"}}</button>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#each units}}
+          {{#ionItem buttonRight=true avatar=true }}
+            <span class="cursor-p" data-ion-modal="editUnit" data-id="{{_id}}">
+              {{name}}
+            </span>
+            <p>
+              {{description}}
+            </p>
+            <button data-action="confirm" class=" button button-clear">
+              {{> ionIcon icon="close-circled"}}</button>
+
+          {{/ionItem}}
+        {{/each}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

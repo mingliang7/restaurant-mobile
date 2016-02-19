@@ -5,3 +5,19 @@ Meteor.publish("tableLocations", () =>{
 Meteor.publish('tables',() =>{
     return Restaurant.Collection.Tables.find();
 });
+Meteor.publish('units',()=>{
+	return Restaurant.Collection.Units.find();
+});
+Meteor.publish('categories',()=>{
+	return Restaurant.Collection.Categories.find();
+});
+Meteor.publish('products',()=>{
+	return Restaurant.Collection.Products.find();
+});
+Meteor.publish('exchangeRates',()=>{
+	return Restaurant.Collection.ExchangeRates.find();
+});
+
+Meteor.publish('images',()=>{
+	return Images.find();
+});
