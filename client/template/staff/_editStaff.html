@@ -1,0 +1,21 @@
+<template name="editStaff">
+    {{#ionModal customTemplate=true}}
+        {{#autoForm collection="Restaurant.Collection.Staffs" doc=staff id="editStaff" type="update"}}
+            <div class="bar bar-header bar-stable">
+                <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
+                <h2 class="title">Edit Staff</h2>
+                <button class="button button-positive button-clear">Add</button>
+            </div>
+            <div class="content has-header overflow-scroll">
+              {{> afQuickField name='name'}}
+              {{> afQuickField name='gender'}}
+              {{> afQuickField name='startDate'}}
+              {{> afQuickField name='position'}}
+              {{> afQuickField name='salary'}}
+              {{> afQuickField name='status'}}
+              {{> afQuickField name='phone'}}
+              {{> afQuickField name='address'}}
+            </div>
+        {{/autoForm}}
+    {{/ionModal}}
+</template>
