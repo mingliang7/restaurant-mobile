@@ -30,6 +30,11 @@ Restaurant.Schema.Tables = new SimpleSchema({
         type:String,
         label:"Top",
         optional:true
+    },
+    _tableLocation: {
+      type: Object,
+      optional: true,
+      blackbox: true
     }
 });
 Restaurant.Collection.Tables.attachSchema(Restaurant.Schema.Tables);

@@ -17,3 +17,8 @@ Meteor.publish("notes", ()=> {
 Meteor.publish("staffs", ()=>{
   return Restaurant.Collection.Staffs.find();
 });
+
+
+Meteor.publish("tableInLocationId", (tableLocationId) => {
+  return Restaurant.Collection.Tables.find({tableLocationId: tableLocationId});
+});
