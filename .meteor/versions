@@ -92,6 +92,7 @@ mpowaga:jquery-fileupload@9.11.2
 mpowaga:jquery-ui-widget@1.11.4
 mystor:device-detection@0.2.0
 natestrauser:select2@4.0.0_1
+notorii:autoform-datetimepicker@1.0.6
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7

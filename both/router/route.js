@@ -66,7 +66,7 @@ Router.map(function() {
       }
       this.next();
     }
-  });
+  })
 
   this.route('exchange.rate', {
     path: '/restaurant/exchange-rate',
@@ -89,6 +89,17 @@ Router.map(function() {
       this.next();
     }
   });
+  this.route('restaurant.customer', {
+    path: '/restaurant/customers',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+
 
   this.route('unit', {
     path: '/restaurant/unit',
@@ -100,9 +111,31 @@ Router.map(function() {
       this.next();
     }
   });
+  this.route('restaurant.note', {
+    path: '/restaurant/notes',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+
 
   this.route('product', {
     path: '/restaurant/product',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+
+  this.route('restaurant.staff', {
+    path: '/restaurant/staffs',
     onBeforeAction: function(pause) {
       if (!Meteor.user()) {
         // render the login template but keep the url in the browser the same

@@ -1,13 +1,13 @@
-<template name="restaurantCustomer">
+<template name="restaurantNote">
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton path="restaurant.data" text="Data"}}
   {{/contentFor}}
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Customer</h1>
+    <h1 class="title">Note</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-ion-modal="newCustomer">{{> ionIcon icon="ios-plus-empty"}}</button>
+    <button class="button button-clear" data-ion-modal="newNote">{{> ionIcon icon="ios-plus-empty"}}</button>
   {{/contentFor}}
 
   {{#ionView}}
@@ -15,12 +15,9 @@
       {{#ionList}}
         {{#each customers}}
           {{#ionItem  buttonRight=true avatar=true class="item-icon-right"}}
-          <span class="cursor-p" data-ion-modal="editCustomer" data-id="{{_id}}">
+          <span class="cursor-p" data-ion-modal="editNote" data-id="{{_id}}">
             {{name}}
           </span>
-          <p>
-            Gender: {{gender}}, Phone: {{phone}}, Address: {{address}}
-          </p>
           <button data-action="confirm" class=" button button-clear">
             {{> ionIcon icon="close-circled"}}</button>
           {{/ionItem}}
