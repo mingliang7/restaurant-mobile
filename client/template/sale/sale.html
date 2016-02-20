@@ -1,0 +1,25 @@
+<template name="restaurantSale">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="home" text="Home"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">ទីតាំងតុ</h1>
+  {{/contentFor}}
+
+  <!-- {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-modal="tableNew">{{> ionIcon icon="ios-plus-empty"}}</button>
+  {{/contentFor}} -->
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#each tableLocations}}
+          {{#ionItem  href=goToTable buttonRight=true avatar=true class="cursor-p item-icon-right"}}
+            {{name}}
+            {{>ionIcon icon="chevron-right" class="positive"}}
+          {{/ionItem}}
+        {{/each}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

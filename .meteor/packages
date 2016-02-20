@@ -47,3 +47,4 @@ yogiben:autoform-file
 cfs:standard-packages
 cfs:gridfs@0.0.33
 notorii:autoform-datetimepicker
+momentjs:moment

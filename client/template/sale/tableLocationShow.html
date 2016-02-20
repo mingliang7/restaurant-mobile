@@ -1,0 +1,22 @@
+<template name="restaurantSaleTableLocationShow">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.sale" text="Sale"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">ទីតាំង{{location}}</h1>
+  {{/contentFor}}
+  {{#ionView}}
+    {{#ionContent}}
+      {{#each tables}}
+        <a href="#" class="item item-icon-left item-icon-right">
+          <span class="hidden table-name">{{name}}</span>
+          <span class="hidden table-id">{{_id}}</span>
+          <span class="action-sheet-custom action-sheet">{{>ionIcon icon="navicon" class="assertive"}}</span>
+          <!-- {{>ionIcon icon="android-restaurant" class="action-sheet assertive"}} -->
+          តុលេខៈ {{name}}
+          {{>ionIcon icon="plus-circled" class="balanced"}}
+        </a>
+      {{/each}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

@@ -1,0 +1,10 @@
+.item-image h1 {
+  color: white;
+  top: 0%;
+  padding: 0.25em 0.75em;
+  position: absolute;
+  text-shadow: 2px 2px rgba(0,0,0,0.5);
+  -webkit-text-shadow: 2px 2px rgba(0,0,0,0.5);
+  -moz-text-shadow: 2px 2px rgba(0,0,0,0.5);
+  -o-text-shadow: 2px 2px rgba(0,0,0,0.5);
+}
