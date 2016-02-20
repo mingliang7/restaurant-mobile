@@ -7,7 +7,12 @@
   {{/contentFor}}
   {{#ionView}}
     {{#ionContent}}
-  
+      {{#each categories}}
+        {{#ionItem  href=goToProduct buttonRight=true avatar=true class="cursor-p item-icon-right"}}
+          {{name}}
+          {{>ionIcon icon="chevron-right" class="positive"}}
+        {{/ionItem}}
+      {{/each}}
     {{/ionContent}}
   {{/ionView}}
 </template>

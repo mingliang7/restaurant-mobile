@@ -6,6 +6,11 @@ Template.restaurantSaleTableLocationShow.created = function() {
 }
 
 Template.restaurantSaleTableLocationShow.rendered = function() {
+  let invoiceId = Session.get('invoiceId');
+  if(!_.isUndefined(invoiceId)){
+    Meteor.call('removeSaleIfNoSaleDetailExist', invoiceId);
+    Session.set('invoiceId', undefined);
+  }
   try {
     this.autorun(() => {
       if (!this.subscription.ready()) {

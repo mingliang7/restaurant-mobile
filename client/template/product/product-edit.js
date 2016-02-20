@@ -8,7 +8,7 @@ Template.editProduct.helpers({
 });
 
 AutoForm.hooks({
-  editProduct: {
+  productEdit: {
     onSuccess(formType, result) {
       Bert.alert('Updated', 'success', 'growl-bottom-right');
       IonModal.close();
