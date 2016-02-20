@@ -3,8 +3,16 @@ Restaurant.Schema.Tables = new SimpleSchema({
     name: {
         type: String,
         label: "Name",
-        unique: true,
         max: 200
+    },
+    chairAmount: {
+      type: Number,
+      autoform: {
+        type: "select",
+        options(){
+          return Restaurant.List.chairAmount();
+        }
+      }
     },
     tableLocationId: {
         type: String,
