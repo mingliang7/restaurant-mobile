@@ -1,5 +1,5 @@
 Meteor.methods({
     removeCategory(id){
-        Categories.remove(id);
+        Restaurant.Collection.Categories.remove(id);
     }
 });
