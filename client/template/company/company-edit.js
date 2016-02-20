@@ -1,14 +1,14 @@
-Template.editUnit.helpers({
-  unit() {
+Template.editCompany.helpers({
+  company() {
     var template = Template.instance();
-    return Restaurant.Collection.Units.findOne({
+    return Restaurant.Collection.Company.findOne({
       _id: template.data.id
     });
   }
 });
 
 AutoForm.hooks({
-  editUnit: {
+  editCompany: {
     onSuccess(formType, result) {
       Bert.alert('Updated', 'success', 'growl-bottom-right');
       IonModal.close();
