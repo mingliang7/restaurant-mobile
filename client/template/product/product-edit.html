@@ -1,0 +1,22 @@
+<template name="editProduct">
+  {{#ionModal customTemplate=true}}
+      {{#autoForm collection="Restaurant.Collection.Products" doc=product id="productEdit" type="update"}}
+          <div class="bar bar-header bar-stable">
+              <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
+              <h2 class="title">Update Product</h2>
+              <button type="submit" class="button button-positive button-clear">Update</button>
+          </div>
+          <div class="content has-header overflow-scroll">   
+            {{> afQuickField name='name'}}
+            {{> afQuickField name='unitId'}}
+            {{> afQuickField name='price'}}
+            {{> afQuickField name='categoryId'}}
+            {{> afQuickField name='productType' }}
+            {{> afQuickField name='status' }}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='barcode'}}
+            {{> afQuickField name="picture"}}
+          </div>
+      {{/autoForm}}
+  {{/ionModal}}
+</template>

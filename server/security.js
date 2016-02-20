@@ -1,6 +1,11 @@
-Restaurant.Collection.Tables.permit(['insert', 'update', 'remove']).apply();
-Restaurant.Collection.TableLocations.permit(['insert', 'update', 'remove']).apply();
-Restaurant.Collection.Customers.permit(['insert', 'update', 'remove']).apply();
-Restaurant.Collection.Notes.permit(['insert', 'update', 'remove']).apply();
-Restaurant.Collection.Staffs.permit(['insert', 'update', 'remove']).apply();
-Restaurant.Collection.Sales.permit(['insert', 'update', 'remove']).apply();
+Security.permit(['insert', 'update', 'remove']).collections([
+    Restaurant.Collection.Categories,
+    Restaurant.Collection.Units,
+    Restaurant.Collection.Products,
+    Restaurant.Collection.Customers,
+    Restaurant.Collection.Notes,
+    Restaurant.Collection.Staffs,
+    Restaurant.Collection.Tables,
+    Restaurant.Collection.TableLocations,
+    Images
+]).apply();
