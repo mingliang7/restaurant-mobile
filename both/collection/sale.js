@@ -25,7 +25,11 @@ Restaurant.Schema.Sales = new SimpleSchema({
     staffId: {
         type: String,
         label: "Staff",
-        optional: true
+        autoValue(){
+          if(this.isInsert){
+            return Meteor.userId();
+          }
+        }
         //regEx: /^[a-z0-9A-Z_]{3,15}$/
     },
     status: {

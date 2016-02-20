@@ -44,3 +44,8 @@ Meteor.publish("tableInLocationId", (tableLocationId) => {
 Meteor.publish("productByCategory", (categoryId) => {
   return Restaurant.Collection.Products.find({categoryId: categoryId});
 });
+
+
+// Meteor.publish("sales", (){
+//   return Restaurant.Collection.Sales.find(id);
+// });

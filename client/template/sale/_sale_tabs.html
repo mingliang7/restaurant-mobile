@@ -1,14 +1,18 @@
 <template name="_sale_tabs">
   {{#if isAndroid}}
     {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
-      {{> ionTab title="Home" path="home" icon="android-home"}}
       {{> ionTab title="ជ្រើសរើសផ្នែក" class="categories" icon="clipboard"}}
+      {{#if saleDetailExist}}
+        {{> ionTab title="កម្ម៉ង់" class="order" icon="android-cart"}}
+      {{/if}}
       {{> ionTab title="Sale" path="tabs.one" icon="coffee"}}
     {{/ionTabs}}
     {{else}}
     {{#ionTabs style="ios"}}
-      {{> ionTab title="Home" path="home" iconOff="ios-home-outline" iconOn="ios-home"}}
       {{> ionTab title="ជ្រើសរើសផ្នែក" class="categories" icon="clipboard"}}
+      {{#if saleDetailExist}}
+        {{> ionTab title="កម្ម៉ង់" class="order" iconOff="android-cart" iconOn="android-cart"}}
+      {{/if}}
       {{> ionTab title="Sale" path="restaurant.sale" iconOff="coffee" iconOn="coffee"}}
     {{/ionTabs}}
   {{/if}}

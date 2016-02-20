@@ -24,7 +24,7 @@
 <template name="productList">
   <div class="list card">
   <div class="item item-icon-left">
-    {{>ionIcon icon="plus-circled" class="icon-add-new-product balanced cursor-p"}}
+    <i class=" cursor-p icon {{#if productAdded _id}}icon-remove ion-close-circled assertive{{else}}icon-add-new-product ion-plus-circled balanced{{/if}} "></i>
     <h2>{{name}}</h2>
     <p>តម្លៃៈ <b>{{price}}</b></p>
   </div>
