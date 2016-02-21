@@ -16,6 +16,44 @@ Template.exchangeRateNew.helpers({
         }
     }
 });
+Template.exchangeRateNew.events({
+    'click #save-exchange-rate': function () {
+        var valid=true;
+        $('.to-currency-value').each(function () {
+            valid = $(this).val() != "";
+            if(valid==false){
+                return false;
+            }
+        });
+
+        //if ($('.to-currency-value').val() == "" ||) {
+        if (!valid) {
+            Bert.alert( 'The value can\'t be empty', 'danger', 'growl-top-right' );
+            //alertify.error("The value can't be empty.");
+            return;
+        }
+        debugger;
+        var exchangeRate = {};
+        exchangeRate.base = $('#base-currency-id').val();
+        exchangeRate.rates = [];
+        $('#to-currency-list .row').each(function () {
+            exchangeRate.rates.push({
+                toCurrencyId: $(this).find('.to-currency-id').val(),
+                rate: parseFloat($(this).find('.to-currency-value').val())
+            });
+        });
+        Meteor.call('insertExchangeRate', exchangeRate,function(er,re){
+            if(er){
+                Bert.alert(er.message,'danger','growl-top-right');
+            }else{
+                Bert.alert( 'ExchangeRate is set successful', 'success', 'growl-top-right' );
+            }
+        });
+
+        //alertify.success('ExchangeRate is set successful.');
+        //alertify.exchangeRate().close();
+    }
+});
 AutoForm.hooks({
    exchangeRateNew:{
        onSuccess(formType, res){
