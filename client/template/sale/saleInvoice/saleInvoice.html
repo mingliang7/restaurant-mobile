@@ -1,0 +1,47 @@
+<template name="restaurantSaleTableSaleInvoice">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton href="/restaurant/sale" text='ត្រលប់ទៅកាន់តុ'}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{{invoiceNumber}}}</h1>
+  {{/contentFor}}
+  {{#ionView}}
+    {{#ionContent class="padding contact-detail"}}
+        <div class="list card">
+
+          <div class="item item-avatar">
+            <img src="{{avatarUrl}}">
+            <h2>Name</h2>
+            <p>location</p>
+          </div>
+
+          <div class="item item-body">
+            thkeam
+
+            <h4>Notes</h4>
+            <p>
+              {{details.notes}}
+            </p>
+          </div>
+
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="#" data-action="fake">
+              <i class="icon ion-email"></i>
+              Send Email
+            </a>
+            <a class="tab-item" href="#" data-action="fake">
+              <i class="icon ion-iphone"></i>
+              Call
+            </a>
+            <a class="tab-item" href="#" data-action="fake">
+              <i class="icon ion-share"></i>
+              Share
+            </a>
+          </div>
+
+        </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
+
+<!--  http://localhost:3000/restaurant/sale/001/table/00001/saleInvoice/160221001/-->

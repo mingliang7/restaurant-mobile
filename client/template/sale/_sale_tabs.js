@@ -61,6 +61,8 @@ Template._sale_tabs.events({
           } else {
             Bert.alert(`កម្ម៉ង់បានសម្រេច!`, 'success', 'growl-bottom-right', 'fa-check')
             Session.set('saleDetailObj', {});
+            let params = Router.current().params;
+            Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`)
           }
         });
       },

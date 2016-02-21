@@ -1,7 +1,19 @@
-//Meteor.startup(function(){
-//    if(Table.find().count() == 0) {
-//        for(i=0;i<20;i++) {
-//            Table.insert({text: `text ${i}`, content: `table ${i}`, avatarUrl: 'https://placehold.it/350x150'});
-//        }
-//    }
-//})
+Meteor.startup(function() {
+  Restaurant.Collection.Sales._ensureIndex({
+    total: 1
+  });
+  Meteor.defer(function() {
+    let emptySales = Restaurant.Collection.Sales.find({
+      total: {
+        $exists: false
+      }
+    }, {
+      multi: true
+    });
+    if (emptySales.count != 0) {
+      emptySales.forEach((emptySale) => {
+        Restaurant.Collection.Sales.direct.remove(emptySale._id);
+      });
+    }
+  })
+})

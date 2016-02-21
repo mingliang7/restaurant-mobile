@@ -26,12 +26,7 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   },
   quantity: {
     type: Number,
-    label: "Quantity",
-    autoValue(){
-      if(this.isInsert){
-        return 1;
-      }
-    }
+    label: "Quantity"
   },
   amount: {
     type: Number,
@@ -109,6 +104,11 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
         return true;
       }
     }
+  },
+  _product:{
+    type: Object,
+    blackbox: true,
+    optional: true
   }
 });
 Restaurant.Collection.SaleDetails.attachSchema(Restaurant.Schema.SaleDetails);

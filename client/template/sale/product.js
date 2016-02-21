@@ -45,6 +45,7 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.events({
       productId: this._id,
       price: this.price,
       amount: this.price,
+      quantity: 1
     }
     Session.set('saleDetailObj', selector);
   },
@@ -52,6 +53,38 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.events({
     let selector = Session.get('saleDetailObj');
     delete selector[this._id];
     Session.set('saleDetailObj', selector)
+  },
+  'click .ion-android-add' (event) {
+    let selector = Session.get('saleDetailObj')
+    let current = $(event.currentTarget);
+    let qty = current.parents('.custom-qty').find('.qty').text();
+    let currentQty = parseInt(qty) + 1;
+    current.parents('.custom-qty').find('.qty').text(currentQty);
+    setSelector(selector, currentQty, this);
+  },
+  'click .ion-android-remove' (event) {
+    let selector = Session.get('saleDetailObj')
+    let current = $(event.currentTarget);
+    let qty = current.parents('.custom-qty').find('.qty').text();
+    if (qty != '1') {
+      let currentQty = parseInt(qty) - 1;
+      current.parents('.custom-qty').find('.qty').text(currentQty);
+      setSelector(selector, currentQty, this);
+    }
+  },
+  'keyup .qty' (event) {
+    let selector = Session.get('saleDetailObj');
+    let currentQty = $(event.currentTarget).val();
+    if (currentQty != '0' && currentQty != '') {
+      setSelector(selector, parseInt(currentQty), this);
+    }
+    if (currentQty == '0') {
+      $(event.currentTarget).val('1')
+    }
+  },
+  'keypress .qty' (evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
   }
 });
 
@@ -70,3 +103,10 @@ Template.productList.helpers({
     }
   }
 })
+
+
+var setSelector = (selector, currentQty, self) => {
+  selector[self._id].amount = self.price * currentQty;
+  selector[self._id].quantity = currentQty;
+  Session.set('saleDetailObj', selector);
+}
