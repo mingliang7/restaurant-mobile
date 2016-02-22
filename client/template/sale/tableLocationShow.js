@@ -52,15 +52,10 @@ Template.restaurantSaleTableLocationShow.events({
   "click .action-sheet" (event, template) {
     let tableName = $(event.currentTarget).parents('.item').find('.table-name').text();
     let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();
-    var sales = Restaurant.Collection.Sales.find().fetch();
-    var mapSale = sales.map((sale) => {
-      if(sale.tableId == tableId){
-        return sale;
-      }
-    })
+    var sales = Restaurant.Collection.Sales.find({tableId: tableId}).fetch();
     IonActionSheet.show({
       titleText: `ជម្រើសសម្រាប់វិក័យប័ត្រតុលេខ ${tableName}`,
-      buttons: mapSale,
+      buttons: sales,
       destructiveText: 'ផ្ទេរវិក័យប័ត្រ',
       cancelText: 'Cancel',
       cancel: function() {
@@ -85,6 +80,7 @@ Template.restaurantSaleTableLocationShow.events({
     selector.saleDate = new Date();
     selector.status = "unsaved";
     selector.tableId = tableId;
+    selector.tableLocation = tableLocationId;
     Meteor.call('insertSale', selector, (err, result) => {
       if (err) {
         console.log(err)

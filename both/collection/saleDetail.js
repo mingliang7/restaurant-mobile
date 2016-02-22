@@ -31,16 +31,16 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   amount: {
     type: Number,
     label: "Amount",
-    decimal: true,
-    autoform: {
-      afFieldInput: {
-        value(){
-          let price= AutoForm.getFieldInput('price');
-          let quantity = AutoForm.getFieldInput('price');
-          return price * quantity;
-        }
-      }
-    }
+    decimal: true
+    // autoform: {
+    //   afFieldInput: {
+    //     value(){
+    //       let price= AutoForm.getFieldValue('price');
+    //       let quantity = AutoForm.getFieldValue('quantity');
+    //       return price * quantity;
+    //     }
+    //   }
+    // }
   },
   status: {
     type: String,
@@ -54,7 +54,24 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   note: {
     type: [String],
     label: "Note",
-    optional: true
+    optional: true,
+    autoform: {
+      type: 'select-checkbox',
+      multiple: true,
+      options(){
+        let list = [];
+        let sub = Meteor.subscribe("notes");
+        if(!sub.ready()){
+          IonLoading.show();
+        }else{
+          IonLoading.hide();
+          Restaurant.Collection.Notes.find().forEach((note) => {
+            list.push({label: note.name, value: note._id});
+          });
+          return list;
+        }
+      }
+    }
   },
   qtyPrinted: {
     type: Number,
