@@ -76,7 +76,7 @@ Template.restaurantSaleTableLocationShow.events({
     let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();
     let selector = {}
     selector.saleDate = new Date();
-    selector.status = "Unsaved";
+    selector.status = "unsaved";
     selector.tableId = tableId;
     Meteor.call('insertSale', selector, (err, result) => {
       if (err) {

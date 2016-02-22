@@ -17,10 +17,16 @@
           {{#ionItem buttonRight=true avatar=true }}
             <img src="{{url}}">
             <span class="cursor-p" data-ion-modal="editProduct" data-id="{{_id}}">
-              {{name}}
+              {{_category.name}}
             </span>
             <p>
-              {{_category.name}}
+              <b>{{name}}</b>
+            </p>
+            <p>
+              តម្លៃៈ <b>{{price}}</b>
+            </p>
+            <p>
+              Barcode: <b>{{barcode}}</b>
             </p>
             <button data-action="confirm" class=" button button-clear">
               {{> ionIcon icon="close-circled"}}</button>
