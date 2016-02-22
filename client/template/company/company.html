@@ -11,11 +11,20 @@
       {{#ionList}}
         {{#with company}}
           {{#ionItem buttonRight=true avatar=true }}
-            s<span class="cursor-p" data-ion-modal="editCompany" data-id="{{_id}}">
-             Name: {{name}}
+            <span class="cursor-p" data-ion-modal="editCompany" data-id="{{_id}}">
+             ឈ្មោះ: {{khName}}
             </span>
             <p>
+              Name: {{enName}}
+            </p>
+            <p>
              BaseCurrency: {{baseCurrency}}
+            </p>
+            <p>
+              អាស័យដ្ឋានៈ {{khAddress}}
+            </p>
+            <p>
+              Address: {{enAddress}}
             </p>
           {{/ionItem}}
         {{/with}}
