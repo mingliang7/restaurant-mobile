@@ -11,7 +11,13 @@
         <a href="#" class="item item-icon-left item-icon-right">
           <span class="hidden table-name">{{name}}</span>
           <span class="hidden table-id">{{_id}}</span>
-          <span class="action-sheet-custom action-sheet">{{>ionIcon icon="navicon" class="assertive"}}</span>
+            <span class="action-sheet-custom action-sheet">
+              {{#if saleHasSaleDetails _id}}
+                {{>ionIcon icon="navicon" class="assertive"}}
+              {{else}}
+                {{>ionIcon icon="plus" class="positive"}}
+              {{/if}}
+            </span>
           <!-- {{>ionIcon icon="android-restaurant" class="action-sheet assertive"}} -->
           &nbsp;&nbsp;តុលេខៈ {{name}}
           {{>ionIcon icon="plus-circled" class="balanced"}}

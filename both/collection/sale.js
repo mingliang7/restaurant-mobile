@@ -59,6 +59,20 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: Object,
     optional: true,
     blackbox: true
+  },
+  text: { //using this field for action-sheet event
+    type: String,
+    optional: true
+  },
+  _customer: {
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
+  _staff: {
+    type: Object,
+    optional: true,
+    blackbox: true
   }
 });
 Restaurant.Collection.Sales.attachSchema(Restaurant.Schema.Sales);

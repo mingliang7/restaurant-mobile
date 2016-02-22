@@ -10,6 +10,9 @@
   {{/contentFor}}
   {{#ionView}}
     {{#ionContent class="padding contact-detail"}}
+    {{#with saleInvoice}}
+      {{> tableHeader}}
+    {{/with}}
     <div class="list card">
       <div class="item item-body">
         <div class="row">
@@ -34,7 +37,9 @@
         {{> saleDetail}}
       {{/each}}
     </div>
-    {{> saleInvoiceTotal}}
+    {{#with saleInvoice}}
+      {{> saleInvoiceTotal}}
+    {{/with}}
     {{/ionContent}}
   {{/ionView}}
   {{> _sale_invoice_tabs}}
@@ -93,17 +98,8 @@
 
 <template name="saleInvoiceTotal">
   <div class="col col-50 col-offset-50">
-    {{#with saleInvoice}}
     <div class="list card">
       <div class="item item-body">
-        <div class="row">
-          <div class="col col-20">
-            តុលេខៈ
-          </div>
-          <div class="col col-50">
-            <b>{{_table.name}}</b>
-          </div>
-        </div>
         <div class="row">
           <div class="col col-20">
             សរុប
@@ -114,7 +110,6 @@
         </div>
       </div>
     </div>
-    {{/with}}
   </div>
 </template>
 
@@ -132,4 +127,37 @@
       {{> ionTab title="Sale" path="restaurant.sale" class="positive" iconOff="coffee" iconOn="coffee"}}
     {{/ionTabs}}
   {{/if}}
+</template>
+
+<template name="tableHeader">
+  <div class="list card">
+    <div class="item item-body">
+      <div class="row">
+        <div class="col col-10">
+          តុលេខៈ
+        </div>
+        <div class="col col-10">
+          <b>{{_table.name}}</b>
+        </div>
+        <div class="col col-10">
+          ថ្ងៃទីៈ
+        </div>
+        <div class="col col-15">
+          <b>{{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}</b>
+        </div>
+        <div class="col col-10">
+          អតិថិជនៈ {{_customer.name}}
+        </div>
+        <div class="col col-15">
+          <b></b>
+        </div>
+        <div class="col col-10">
+          បុគ្គលិក: {{_staff.profile.username}}
+        </div>
+        <div class="col col-15">
+          <b></b>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

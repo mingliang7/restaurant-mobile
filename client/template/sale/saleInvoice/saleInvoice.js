@@ -27,15 +27,13 @@ Template.restaurantSaleTableSaleInvoice.helpers({
   },
   saleDetails(){
     return Restaurant.Collection.SaleDetails.find({},{sort: {_id: 1}});
-  }
-});
-
-
-Template.saleInvoiceTotal.helpers({
+  },
   saleInvoice(){
     return Restaurant.Collection.Sales.findOne();
   }
 });
+
+
 
 Template._sale_invoice_tabs.helpers({
   goToCheckout(){
