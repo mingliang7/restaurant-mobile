@@ -54,6 +54,11 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: Number,
     label: "Owed Amount",
     optional: true
+  },
+  _table: {
+    type: Object,
+    optional: true,
+    blackbox: true
   }
 });
 Restaurant.Collection.Sales.attachSchema(Restaurant.Schema.Sales);
