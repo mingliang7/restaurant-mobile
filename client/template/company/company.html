@@ -1,0 +1,25 @@
+<template name="company">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.setting" text="Setting"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Company</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#with company}}
+          {{#ionItem buttonRight=true avatar=true }}
+            s<span class="cursor-p" data-ion-modal="editCompany" data-id="{{_id}}">
+             Name: {{name}}
+            </span>
+            <p>
+             BaseCurrency: {{baseCurrency}}
+            </p>
+          {{/ionItem}}
+        {{/with}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

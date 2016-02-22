@@ -1,16 +1,53 @@
-<!-- <template name="unitNew">
+<template name="exchangeRateNew">
     {{#ionModal customTemplate=true}}
-        {{#autoForm collection="Restaurant.Collection.Units" id="unitNew" type="insert"}}
+        <!--{{#autoForm collection="Restaurant.Collection.ExchangeRates" id="exchangeRateNew" type="insert"}}
             <div class="bar bar-header bar-stable">
                 <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
-                <h2 class="title">Create Unit</h2>
+                <h2 class="title">Create ExchangeRate</h2>
                 <button type="submit" class="button button-positive button-clear">Add</button>
             </div>
             <div class="content has-header overflow-scroll">
               {{> afQuickField name='name'}}
-              {{> afQuickField name='description'}}
+            {{> afQuickField name='description'}}
             </div>
-        {{/autoForm}}
+        {{/autoForm}}-->
+        <div class="bar bar-header bar-stable">
+            <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
+            <h2 class="title">Create ExchangeRate</h2>
+            <button id="save-exchange-rate" class="button button-positive button-clear">Add</button>
+        </div>
+        <div class="content has-header overflow-scroll">
+            <h4> Base Currency: <b>{{baseCurrency.name}} ({{baseCurrency._id}})</b></h4>
+            <input class="hidden" type="hidden" id="base-currency-id" value="{{baseCurrency._id}}">
+            <div class="row">
+                <div class="col col-50">
+                    <b>1{{baseCurrency.symbol}} Exchange to</b>
+                </div>
+                <div class="col col-50">
+                    <b>Value</b>
+                </div>
+            </div>
+            <span id="to-currency-list">
+                {{#each currencies}}
+                    <div class="row">
+                        <div class="col col-50">
+                            <label class="item item-input">
+                                <input type="text" class="to-currency-id form-control" value="{{_id}}" readonly>
+                            </label>
+                        </div>
+                        <div class="col col-50">
+                            <label class="item item-input">
+                                <input type="text" class="to-currency-value form-control">
+                            </label>
+                        </div>
+
+                    </div>
+                {{/each}}
+            </span>
+            <!--<div class="row">
+                <button class="button button-positive" id="save-exchange-rate">Save</button>
+            </div>-->
+
+        </div>
     {{/ionModal}}
 </template>
- -->

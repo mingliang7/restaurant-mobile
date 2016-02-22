@@ -1,14 +1,14 @@
-Template.editExchangeRate.helpers({
-  unit() {
+Template.editCompany.helpers({
+  company() {
     var template = Template.instance();
-    return Restaurant.Collection.ExchangeRates.findOne({
+    return Restaurant.Collection.Company.findOne({
       _id: template.data.id
     });
   }
 });
 
 AutoForm.hooks({
-  editExchangeRate: {
+  editCompany: {
     onSuccess(formType, result) {
       Bert.alert('Updated', 'success', 'growl-bottom-right');
       IonModal.close();

@@ -81,6 +81,17 @@ Restaurant.ListForReport = {
 
 
 Restaurant.List = {
+  currency:function(){
+    var list = [];
+    Restaurant.Collection.Currency.find({
+    }).forEach(function(obj) {
+      list.push({
+        label: obj._id,
+        value: obj._id
+      });
+    });
+    return list;
+  },
   tableLocations: function() {
     // var list = [{
     //     label: "(Select One)",

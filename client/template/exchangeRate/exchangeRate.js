@@ -1,9 +1,9 @@
-/*Template.unit.created = function () {
+Template.exchangeRate.created = function () {
     this.autorun(function () {
-        this.subscription = Meteor.subscribe('units');
+        this.subscription = Meteor.subscribe('exchangeRates');
     }.bind(this));
 };
-Template.unit.rendered = function () {
+Template.exchangeRate.rendered = function () {
     this.autorun(function () {
         if (!this.subscription.ready()) {
             IonLoading.show();
@@ -13,19 +13,19 @@ Template.unit.rendered = function () {
     }.bind(this));
 };
 
-Template.unit.helpers({
-    units(){
-        return Restaurant.Collection.Units.find()
+Template.exchangeRate.helpers({
+    exchangeRates(){
+        return Restaurant.Collection.ExchangeRates.find()
     }
 });
 
-Template.unit.events({
+Template.exchangeRate.events({
   'click [data-action="confirm"]'(event, template) {
        IonPopup.confirm({
            title: 'Are you sure?',
            template: `Detele ${this.name}?`,
            onOk: () => {
-               Meteor.call('removeUnit', this._id);
+               Meteor.call('removeExchangeRate', this._id);
            },
            onCancel: function () {
                console.log('Cancelled');
@@ -33,4 +33,3 @@ Template.unit.events({
        });
    }
 });
-*/

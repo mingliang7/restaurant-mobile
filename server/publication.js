@@ -60,3 +60,11 @@ Meteor.publish("saleDetails", (saleId) => {
     saleId: saleId
   });
 });
+
+Meteor.publish("company", () => {
+    return Restaurant.Collection.Company.find();
+});
+
+Meteor.publish("currencies", () => {
+    return Restaurant.Collection.Currency.find();
+});
