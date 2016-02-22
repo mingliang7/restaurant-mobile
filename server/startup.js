@@ -1,3 +1,12 @@
+/*khName
+ khShortName
+ enName
+ enShortName
+ khAddress
+ enAddress
+ telephone
+ email
+ website     */
 Meteor.startup(function(){
    /*if(Table.find().count() == 0) {
        for(i=0;i<20;i++) {
@@ -28,15 +37,22 @@ Meteor.startup(function(){
         };
         Restaurant.Collection.Company.insert(company);
     }
-});
 
-
-/*khName
- khShortName
- enName
- enShortName
- khAddress
- enAddress
- telephone
- email
- website     */
+  Restaurant.Collection.Sales._ensureIndex({
+    total: 1
+  });
+  Meteor.defer(function() {
+    let emptySales = Restaurant.Collection.Sales.find({
+      total: {
+        $exists: false
+      }
+    }, {
+      multi: true
+    });
+    if (emptySales.count != 0) {
+      emptySales.forEach((emptySale) => {
+        Restaurant.Collection.Sales.direct.remove(emptySale._id);
+      });
+    }
+  })
+})

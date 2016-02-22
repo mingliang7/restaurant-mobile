@@ -5,13 +5,17 @@ Template.restaurantSale.created = function() {
 }
 
 Template.restaurantSale.rendered = function() {
-  this.autorun(() => {
-    if (!this.subscription.ready()) {
-      IonLoading.show();
-    } else {
-      IonLoading.hide();
-    }
-  });
+  try {
+    this.autorun(() => {
+      if (!this.subscription.ready()) {
+        IonLoading.show();
+      } else {
+        IonLoading.hide();
+      }
+    });
+  } catch (e) {
+
+  }
 }
 
 Template.restaurantSale.helpers({

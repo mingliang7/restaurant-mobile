@@ -17,7 +17,12 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   discount: {
     type: Number,
     label: "Discount",
-    decimal: true
+    decimal: true,
+    autoValue(){
+      if(this.isInsert){
+        return 0;
+      }
+    }
   },
   quantity: {
     type: Number,
@@ -26,20 +31,30 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   amount: {
     type: Number,
     label: "Amount",
-    decimal: true
+    decimal: true,
+    autoform: {
+      afFieldInput: {
+        value(){
+          let price= AutoForm.getFieldInput('price');
+          let quantity = AutoForm.getFieldInput('price');
+          return price * quantity;
+        }
+      }
+    }
   },
   status: {
     type: String,
-    label: "Status"
+    label: "Status",
+    autoValue(){
+      if(this.isInsert){
+        return 'unsaved'
+      }
+    }
   },
   note: {
     type: [String],
     label: "Note",
     optional: true
-  },
-  branchId: {
-    type: String,
-    label: "Branch"
   },
   qtyPrinted: {
     type: Number,
@@ -89,6 +104,11 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
         return true;
       }
     }
+  },
+  _product:{
+    type: Object,
+    blackbox: true,
+    optional: true
   }
 });
 Restaurant.Collection.SaleDetails.attachSchema(Restaurant.Schema.SaleDetails);

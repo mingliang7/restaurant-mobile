@@ -109,10 +109,7 @@ Restaurant.List = {
     return list;
   },
   locations: function() {
-    var list = [{
-      label: "(Select One)",
-      value: ""
-    }];
+    var list = [];
     Restaurant.Collection.Locations.find({
       branchId: Session.get('currentBranch')
     }).forEach(function(obj) {
@@ -125,9 +122,6 @@ Restaurant.List = {
   },
   gender: function() {
     return [{
-      label: "(Select One)",
-      value: ""
-    }, {
       label: 'Male',
       value: 'M'
     }, {
@@ -136,10 +130,7 @@ Restaurant.List = {
     }];
   },
   status: function() {
-    return [{
-      label: "(Select One)",
-      value: ""
-    }, {
+    return [ {
       label: "Enable",
       value: "enable"
     }, {
@@ -169,10 +160,7 @@ Restaurant.List = {
     return list;
   },
   customerList: function() {
-    var list = [{
-      label: "(Select One)",
-      value: ""
-    }];
+    var list = [];
     var branchIdSession = Session.get('currentBranch');
     var selector = {};
     if (branchIdSession != null) selector.branchId = branchIdSession;
@@ -324,6 +312,22 @@ Restaurant.List = {
           value: note.name
         });
       });
+    }
+    return list;
+  },
+  productType: function() {
+    return [{
+      label: "Stock",
+      value: "Stock"
+    }, {
+      label: "Non Stock",
+      value: "NonStock"
+    }];
+  },
+  chairAmount(){
+    let list = [];
+    for(let i = 0 ; i <=15 ; i++){
+      list.push({label: `${i}`, value: i});
     }
     return list;
   }

@@ -178,8 +178,31 @@ Router.map(function() {
     }
   });
 
+
   this.route('company', {
     path: '/restaurant/company',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+
+  this.route('restaurant.sale.checkout.invoice.category.product', {
+    path: '/restaurant/sale/:tableLocationId/table/:tableId/checkout/:invoiceId/category/:categoryId',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+
+  this.route('restaurant.sale.table.saleInvoice', {
+    path: '/restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId',
     onBeforeAction: function(pause) {
       if (!Meteor.user()) {
         // render the login template but keep the url in the browser the same

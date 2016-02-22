@@ -1,0 +1,135 @@
+<template name="restaurantSaleTableSaleInvoice">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton href="/restaurant/sale" text='ត្រលប់ទៅកាន់តុ'}}
+  {{/contentFor}}
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-modal="#">{{> ionIcon icon="calculator"}}គិតលុយ</button>
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{{invoiceNumber}}}</h1>
+  {{/contentFor}}
+  {{#ionView}}
+    {{#ionContent class="padding contact-detail"}}
+    <div class="list card">
+      <div class="item item-body">
+        <div class="row">
+          <div class="col col-25">
+            <b>បរិយាយ</b>
+          </div>
+          <div class="col col-15">
+            <b>តម្លៃ</b>
+          </div>
+          <div class="col col-15">
+            <b>ចំនួន</b>
+          </div>
+          <div class="col col-15">
+            <b>បញ្ចុះតម្លៃ</b>
+          </div>
+          <div class="col col-25">
+            <b>សរុប</b>
+          </div>
+        </div>
+      </div>
+      {{#each saleDetails}}
+        {{> saleDetail}}
+      {{/each}}
+    </div>
+    {{> saleInvoiceTotal}}
+    {{/ionContent}}
+  {{/ionView}}
+  {{> _sale_invoice_tabs}}
+</template>
+
+<template name="saleDetail">
+    <div class="item item-body">
+      <div class="row">
+        <div class="col col-25">
+          <h4>{{_product._category.name}}{{_product.name}}</h4>
+          {{#if note}}
+            <p>
+              {{note}}
+            </p>
+          {{/if}}
+        </div>
+        <div class="col col-15">
+          <h4>{{price}}</h4>
+          <p>
+            {{details.notes}}
+          </p>
+        </div>
+        <div class="col col-15">
+          <h4 >{{quantity}}</h4>
+          <p>
+            {{details.notes}}
+          </p>
+        </div>
+        <div class="col col-15">
+          <h4>{{discount}}</h4>
+          <p>
+            {{details.notes}}
+          </p>
+        </div>
+        <div class="col col-25">
+          <h4>{{amount}}</h4>
+          <p>
+            {{details.notes}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="item tabs tabs-secondary tabs-icon-left" style="background: #ddd;">
+      <a class="tab-item" href="#" data-action="fake">
+        <i class="icon ion-ios-compose-outline"></i>
+        <b>កែប្រែ</b>
+      </a>
+      <a class="tab-item" href="#" data-action="fake">
+        <i class="icon ion-trash-a"></i>
+        <b>លុបចោល</b>
+      </a>
+    </div>
+</template>
+<!--  http://localhost:3000/restaurant/sale/001/table/00001/saleInvoice/160222001/-->
+
+
+<template name="saleInvoiceTotal">
+  <div class="col col-50 col-offset-50">
+    {{#with saleInvoice}}
+    <div class="list card">
+      <div class="item item-body">
+        <div class="row">
+          <div class="col col-20">
+            តុលេខៈ
+          </div>
+          <div class="col col-50">
+            <b>{{_table.name}}</b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-20">
+            សរុប
+          </div>
+          <div class="col col-50">
+            <b>{{total}}</b>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/with}}
+  </div>
+</template>
+
+
+
+<template name="_sale_invoice_tabs">
+  {{#if isAndroid}}
+    {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
+      {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
+      {{> ionTab title="Sale" path="tabs.one" icon="coffee"}}
+    {{/ionTabs}}
+  {{else}}
+    {{#ionTabs style="ios"}}
+      {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
+      {{> ionTab title="Sale" path="restaurant.sale" class="positive" iconOff="coffee" iconOn="coffee"}}
+    {{/ionTabs}}
+  {{/if}}
+</template>

@@ -6,6 +6,11 @@ Template.restaurantSaleTableLocationShow.created = function() {
 }
 
 Template.restaurantSaleTableLocationShow.rendered = function() {
+  let invoiceId = Session.get('invoiceId');
+  if(!_.isUndefined(invoiceId)){
+    Meteor.call('removeSaleIfNoSaleDetailExist', invoiceId);
+    Session.set('invoiceId', undefined);
+  }
   try {
     this.autorun(() => {
       if (!this.subscription.ready()) {
@@ -71,7 +76,7 @@ Template.restaurantSaleTableLocationShow.events({
     let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();
     let selector = {}
     selector.saleDate = new Date();
-    selector.status = "Unsaved";
+    selector.status = "unsaved";
     selector.tableId = tableId;
     Meteor.call('insertSale', selector, (err, result) => {
       if (err) {

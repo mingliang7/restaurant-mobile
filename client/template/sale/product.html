@@ -1,0 +1,61 @@
+<template name="restaurantSaleCheckoutInvoiceCategoryProduct">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton href=goToCategory text=''}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{categoryName}}</h1>
+  {{/contentFor}}
+  {{#ionView}}
+    {{#ionContent}}
+
+        {{#each products}}
+          <div class="col-edit col-20-edit responsive-sm" >
+            {{> productList}}
+          </div>
+        {{/each}}
+
+    {{/ionContent}}
+  {{/ionView}}
+  {{> _sale_tabs}}
+</template>
+
+
+
+<template name="productList">
+  <div class="list card {{#if productAdded _id}}border-blue{{/if}}">
+  <div class="item item-icon-left">
+    <i class=" cursor-p icon {{#if productAdded _id}}icon-remove ion-close-circled assertive{{else}}icon-add-new-product ion-plus-circled balanced{{/if}} "></i>
+    <h2 style="font-size: 1vw;">{{name}}</h2>
+    <p>តម្លៃៈ <b>{{price}}</b></p>
+  </div>
+
+
+  <div class="item item-body">
+    {{#if picture}}
+    <img class="full-image" src="delorean.jpg">
+    {{else}}
+      <img src="/content-images/no-image-available.jpg" alt="" width="100%"/>
+    {{/if}}
+  </div>
+  {{#if productAdded _id}}
+    <p class="item item-icon-left item-icon-right custom-qty">
+        <i class="button button-icon icon ion-android-remove assertive"></i>
+        <!-- <label id = "rounded" class="item item-input">
+          <input type="text" value="1" style="text-align: center;" class="qty">
+        </label> -->
+        <span class="col-offset-50 qty" >1</span>
+        <i class="button button-icon icon ion-android-add balanced"></i>
+    </p>
+  {{else}}
+  <p class="item item-icon-left item-icon-right" style="font-size: 1vw;">
+    <!-- <i class="button button-icon icon ion-ios-cart-outline"></i> -->
+    <!-- <label id = "rounded" class="item item-input">
+      <input type="text" value="មិនបានកម្ម៉ង់" >
+    </label> -->
+    គិតជាៈ {{_unit.name}}
+    <br>
+  </p>
+  {{/if}}
+
+</div>
+</template>
