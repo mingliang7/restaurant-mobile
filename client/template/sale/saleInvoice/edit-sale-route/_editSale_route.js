@@ -5,11 +5,13 @@ Template.restaurantSaleTableSaleInvoiceEditSale.created = function() {
 }
 
 Template.restaurantSaleTableSaleInvoiceEditSale.rendered = function() {
-  if (!this.subscribtion.ready()) {
-    IonLoading.show()
-  } else {
-    IonLoading.hide();
-  }
+  try {
+    if (!this.subscribtion.ready()) {
+      IonLoading.show()
+    } else {
+      IonLoading.hide();
+    }
+  } catch (e) {}
 }
 
 Template.restaurantSaleTableSaleInvoiceEditSale.helpers({
@@ -21,7 +23,7 @@ Template.restaurantSaleTableSaleInvoiceEditSale.helpers({
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`;
   },
-  invoiceNumber(){
+  invoiceNumber() {
     let params = Router.current().params;
     return params.invoiceId;
   }
@@ -34,11 +36,16 @@ Template.restaurantSaleTableSaleInvoiceEditDiscount.created = function() {
 }
 
 Template.restaurantSaleTableSaleInvoiceEditDiscount.rendered = function() {
-  if (!this.subscribtion.ready()) {
-    IonLoading.show()
-  } else {
-    IonLoading.hide();
+  try {
+    if (!this.subscribtion.ready()) {
+      IonLoading.show()
+    } else {
+      IonLoading.hide();
+    }
+  } catch (e) {
+
   }
+
 }
 
 Template.restaurantSaleTableSaleInvoiceEditDiscount.helpers({
@@ -50,7 +57,7 @@ Template.restaurantSaleTableSaleInvoiceEditDiscount.helpers({
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`;
   },
-  invoiceNumber(){
+  invoiceNumber() {
     let params = Router.current().params;
     return params.invoiceId;
   }

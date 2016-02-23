@@ -1,6 +1,6 @@
 Template.restaurantCustomer.created =function() {
   this.autorun(function(){
-    this.subscription = Meteor.subscribe('customers');
+    this.subscription = Meteor.subscribe('customers', 10);
   }.bind(this));
 };
 

@@ -23,8 +23,8 @@ Meteor.publish('images', () => {
   return Images.find();
 });
 
-Meteor.publish("customers", () => {
-  return Restaurant.Collection.Customers.find();
+Meteor.publish("customers", (limit) => {
+  return Restaurant.Collection.Customers.find({}, {limit: limit});
 });
 
 Meteor.publish("notes", () => {

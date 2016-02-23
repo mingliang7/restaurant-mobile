@@ -30,6 +30,10 @@ Template.restaurantSaleTableSaleInvoice.helpers({
   },
   saleInvoice(){
     return Restaurant.Collection.Sales.findOne();
+  },
+  goToPayment(){
+    let params = Router.current().params;
+    return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
   }
 });
 
