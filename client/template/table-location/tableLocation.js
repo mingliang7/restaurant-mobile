@@ -20,16 +20,23 @@ Template.tableLocations.helpers({
 });
 
 Template.tableLocations.events({
-  'click [data-action="confirm"]'(event, template) {
-       IonPopup.confirm({
-           title: 'Are you sure?',
-           template: `Detele ${this.name}?`,
-           onOk: () => {
-               Meteor.call('removeCategory', this._id);
-           },
-           onCancel: function () {
-               console.log('Cancelled');
-           }
-       });
-   }
+  'click [data-action="confirm"]' (event, template) {
+    let name = this.name;
+    IonPopup.confirm({
+      title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
+      template: `លុប ${name} ?`,
+      onOk: () => {
+        Meteor.call('removeTableLocation', this._id, function(err, result) {
+          if (err) {
+            Bert.alert(`Can't Removed ${name}`,'danger','growl-bottom-right','fa-remove')
+          } else {
+            Bert.alert(`លុប ${name} បានជោគជ័យ !`,'success','growl-bottom-right','fa-check')
+          }
+        });
+      },
+      onCancel: function() {
+        Bert.alert('មិនយល់ព្រមក្នុងការលុប !','info','growl-bottom-right','fa-info')
+      }
+    });
+  }
 });

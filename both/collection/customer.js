@@ -2,13 +2,13 @@ Restaurant.Collection.Customers = new Mongo.Collection("restaurant_customers");
 Restaurant.Schema.Customers = new SimpleSchema({
     name: {
         type: String,
-        label: "Name",
+        label: "ឈ្មោះ",
         unique: true,
         max: 200
     },
     gender: {
         type: String,
-        label: "Gender",
+        label: "ភេទ",
         autoform: {
             type: "select",
             options: function () {
@@ -18,12 +18,12 @@ Restaurant.Schema.Customers = new SimpleSchema({
     },
     phone: {
         type: String,
-        label: "Phone",
+        label: "លេខទូរស័ព្ទ",
         optional:true
     },
     address: {
         type: String,
-        label: "Address",
+        label: "អាសយដ្ឋាន",
         autoform: {
             afFieldInput: {
                 type: "textarea"

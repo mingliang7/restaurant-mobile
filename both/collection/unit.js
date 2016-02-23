@@ -2,13 +2,13 @@ Restaurant.Collection.Units = new Mongo.Collection("restaurant_units");
 Restaurant.Schema.Units = new SimpleSchema({
     name: {
         type: String,
-        label: "Name",
+        label: "ឈ្មោះ",
         unique: true,
         max: 200
     },
     description:{
         type:String,
-        label:"Description",
+        label:"ពិពណ៌នា",
         optional:true
     },
 });

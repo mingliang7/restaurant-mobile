@@ -2,7 +2,7 @@ Restaurant.Collection.Notes = new Mongo.Collection("restaurant_notes");
 Restaurant.Schema.Notes = new SimpleSchema({
     name: {
         type: String,
-        label: "Note",
+        label: "កត់ត្រា",
         optional: true
     },
     description: {
