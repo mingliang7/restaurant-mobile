@@ -17,19 +17,42 @@ Template.restaurantSaleTableSaleInvoiceEditSale.helpers({
     let saleId = Router.current().params.invoiceId;
     return Restaurant.Collection.Sales.findOne(`${saleId}`);
   },
-  goToSale(){
+  goToSale() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`;
+  },
+  invoiceNumber(){
+    let params = Router.current().params;
+    return params.invoiceId;
   }
 });
 
-Template.restaurantSaleTableSaleInvoiceEditSale.events({
-});
+Template.restaurantSaleTableSaleInvoiceEditDiscount.created = function() {
+  this.autorun(() => {
+    this.subscribe = Meteor.subscribe("sale", Router.current().params.invoiceId);
+  });
+}
+
+Template.restaurantSaleTableSaleInvoiceEditDiscount.rendered = function() {
+  if (!this.subscribtion.ready()) {
+    IonLoading.show()
+  } else {
+    IonLoading.hide();
+  }
+}
 
 Template.restaurantSaleTableSaleInvoiceEditDiscount.helpers({
   sale() {
-    let saleId = Template.instance().data.id;
+    let saleId = Router.current().params.invoiceId;
     return Restaurant.Collection.Sales.findOne(`${saleId}`);
+  },
+  goToSale() {
+    let params = Router.current().params;
+    return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`;
+  },
+  invoiceNumber(){
+    let params = Router.current().params;
+    return params.invoiceId;
   }
 });
 Template.restaurantSaleTableSaleInvoiceEditDiscount.events({
@@ -70,7 +93,8 @@ AutoForm.hooks({
   editDiscountCustom: {
     onSuccess(formType, result) {
       Bert.alert('កែប្រែបានសម្រេច', 'success', 'growl-bottom-right');
-      IonModal.close();
+      let params = Router.current().params;
+      Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`);;
     },
     onError(formType, err) {
       Bert.alert(err.message, 'danger', 'growl-bottom-right');

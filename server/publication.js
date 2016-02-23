@@ -61,8 +61,12 @@ Meteor.publish("saleDetails", (saleId) => {
   });
 });
 
-Meteor.publish("saleDetail", (id)=> {
+Meteor.publish("saleDetail", (id) => {
   return Restaurant.Collection.Sales.find(id)
+});
+
+Meteor.publish('saleDetailBySelfId', (saleId, selfId) => {
+  return Restaurant.Collection.SaleDetails.find({saleId: saleId, _id: selfId});
 });
 
 Meteor.publish("company", () => {
@@ -74,5 +78,7 @@ Meteor.publish("currencies", () => {
 });
 
 Meteor.publish("existSales", () => {
-  return Restaurant.Collection.Sales.find({status: 'unsaved'});
+  return Restaurant.Collection.Sales.find({
+    status: 'unsaved'
+  });
 });

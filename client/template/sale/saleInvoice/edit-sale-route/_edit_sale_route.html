@@ -4,7 +4,7 @@
  {{/contentFor}}
 
  {{#contentFor "headerTitle"}}
-   <h1 class="title">កែប្រែវិក័យប័ត្រ</h1>
+   <h1 class="title">កែប្រែវិក័យប័ត្រ: {{invoiceNumber}}</h1>
  {{/contentFor}}
 
  {{#ionView}}
@@ -15,6 +15,8 @@
            {{> afQuickField name='tableId'}}
            {{> afQuickField name='saleDate'}}
            {{> afQuickField name='customerId'}}
+         </div>
+         <div class="bar bar-header">
            <button type="submit" class="button button-positive">រក្សាទុក</button>
          </div>
      {{/autoForm}}
@@ -29,19 +31,20 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-   <h1 class="title">កែប្រែវិក័យប័ត្រ</h1>
+   <h1 class="title">កែប្រែវិក័យប័ត្រ: {{invoiceNumber}}</h1>
   {{/contentFor}}
-
+  {{#ionView}}
+    {{#ionContent}}
     {{#autoForm collection="Restaurant.Collection.Sales" doc=sale id="editDiscountCustom" type="update"}}
-        <div class="bar bar-header bar-stable">
-            <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
-            <h2 class="title">កែប្រែការបញ្ចុះតម្លៃ</h2>
-            <button type="submit" class="button button-positive button-clear">រក្សាទុក</button>
-        </div>
         <div class="content has-header overflow-scroll">
           {{> afQuickField name="subTotal" readonly=true}}
           {{> afQuickField name='discount'}}
           {{> afQuickField name='total' readonly=true label="Grand Total"}}
         </div>
+        <div class="bar bar-header">
+          <button type="submit" class="button button-positive">រក្សាទុក</button>
+        </div>
     {{/autoForm}}
+    {{/ionContent}}
+  {{/ionView}}
 </template>
