@@ -8,7 +8,11 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: Number,
     label: "Discount",
     decimal: true,
-    optional: true
+    autoValue(){
+      if(this.isInsert){
+        return 0;
+      }
+    }
   },
   subTotal: {
     type: Number,

@@ -1,5 +1,6 @@
 Template.restaurantSaleTableLocationShow.created = function() {
   let tableLocationId = Router.current().params.tableLocationId;
+  Session.set('saleDetailObj', {}); //set saleDetailObj for order product
   this.autorun(() => {
     this.subscribe = Meteor.subscribe('tableInLocationId', tableLocationId);
     this.subscribe = Meteor.subscribe("existSales");

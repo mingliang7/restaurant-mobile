@@ -93,7 +93,7 @@
           </a>
         </div>
         <div class="col col-5">
-          <a class="tab-item assertive " href="#" data-action="fake">
+          <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
             <i class="icon ion-trash-a"></i>
             <b>លុបចោល</b>
           </a>
@@ -119,8 +119,29 @@
     <div class="list card">
       <div class="item item-body">
         <div class="row">
+          <div class="col col-10"></div>
           <div class="col col-20">
-            សរុប
+            Sub Total
+          </div>
+          <div class="col col-50">
+            <b>{{subTotal}}</b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-10">
+            <a href="#" class="assertive edit-sale" data-ion-modal="_editDiscount" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a>
+          </div>
+          <div class="col col-20">
+            បញ្ចុះតម្លៃ
+          </div>
+          <div class="col col-50">
+            <b>{{discount}}</b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-10"></div>
+          <div class="col col-20">
+            Total
           </div>
           <div class="col col-50">
             <b>{{total}}</b>

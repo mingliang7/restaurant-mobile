@@ -66,7 +66,7 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
         }else{
           IonLoading.hide();
           Restaurant.Collection.Notes.find().forEach((note) => {
-            list.push({label: note.name, value: note._id});
+            list.push({label: note.name, value: note.name});
           });
           return list;
         }
