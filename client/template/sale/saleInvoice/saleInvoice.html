@@ -10,10 +10,13 @@
   {{/contentFor}}
   {{#ionView}}
     {{#ionContent class="padding contact-detail"}}
+    {{#with saleInvoice}}
+      {{> tableHeader}}
+    {{/with}}
     <div class="list card">
       <div class="item item-body">
         <div class="row">
-          <div class="col col-25">
+          <div class="col col-20">
             <b>បរិយាយ</b>
           </div>
           <div class="col col-15">
@@ -25,8 +28,14 @@
           <div class="col col-15">
             <b>បញ្ចុះតម្លៃ</b>
           </div>
-          <div class="col col-25">
+          <div class="col col-20">
             <b>សរុប</b>
+          </div>
+          <div class="col col-5" align="right">
+            <b>ជម្រើស</b>
+          </div>
+          <div class="col col-5">
+
           </div>
         </div>
       </div>
@@ -34,7 +43,9 @@
         {{> saleDetail}}
       {{/each}}
     </div>
-    {{> saleInvoiceTotal}}
+    {{#with saleInvoice}}
+      {{> saleInvoiceTotal}}
+    {{/with}}
     {{/ionContent}}
   {{/ionView}}
   {{> _sale_invoice_tabs}}
@@ -43,7 +54,7 @@
 <template name="saleDetail">
     <div class="item item-body">
       <div class="row">
-        <div class="col col-25">
+        <div class="col col-20">
           <h4>{{_product._category.name}}{{_product.name}}</h4>
           {{#if note}}
             <p>
@@ -69,15 +80,27 @@
             {{details.notes}}
           </p>
         </div>
-        <div class="col col-25">
+        <div class="col col-20">
           <h4>{{amount}}</h4>
           <p>
             {{details.notes}}
           </p>
         </div>
+        <div class="col col-5">
+          <a class="tab-item positive" href="#" data-action="fake" data-ion-modal="_editSaleDetail" data-id="{{_id}}">
+            <i class="icon ion-ios-compose-outline"></i>
+            <b>កែប្រែ</b>
+          </a>
+        </div>
+        <div class="col col-5">
+          <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
+            <i class="icon ion-trash-a"></i>
+            <b>លុបចោល</b>
+          </a>
+        </div>
       </div>
     </div>
-    <div class="item tabs tabs-secondary tabs-icon-left" style="background: #ddd;">
+    <!-- <div class="item tabs tabs-secondary tabs-icon-left" style="background: #ddd;">
       <a class="tab-item" href="#" data-action="fake">
         <i class="icon ion-ios-compose-outline"></i>
         <b>កែប្រែ</b>
@@ -86,27 +109,39 @@
         <i class="icon ion-trash-a"></i>
         <b>លុបចោល</b>
       </a>
-    </div>
+    </div> -->
 </template>
 <!--  http://localhost:3000/restaurant/sale/001/table/00001/saleInvoice/160222001/-->
 
 
 <template name="saleInvoiceTotal">
   <div class="col col-50 col-offset-50">
-    {{#with saleInvoice}}
     <div class="list card">
       <div class="item item-body">
         <div class="row">
+          <div class="col col-10"></div>
           <div class="col col-20">
-            តុលេខៈ
+            Sub Total
           </div>
           <div class="col col-50">
-            <b>{{_table.name}}</b>
+            <b>{{subTotal}}</b>
           </div>
         </div>
         <div class="row">
+          <div class="col col-10">
+            <a href="#" class="assertive edit-sale" data-ion-modal="_editDiscount" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a>
+          </div>
           <div class="col col-20">
-            សរុប
+            បញ្ចុះតម្លៃ
+          </div>
+          <div class="col col-50">
+            <b>{{discount}}</b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-10"></div>
+          <div class="col col-20">
+            Total
           </div>
           <div class="col col-50">
             <b>{{total}}</b>
@@ -114,7 +149,6 @@
         </div>
       </div>
     </div>
-    {{/with}}
   </div>
 </template>
 
@@ -132,4 +166,40 @@
       {{> ionTab title="Sale" path="restaurant.sale" class="positive" iconOff="coffee" iconOn="coffee"}}
     {{/ionTabs}}
   {{/if}}
+</template>
+
+<template name="tableHeader">
+  <div class="list card">
+    <div class="item item-body">
+      <div class="row">
+        <div class="col col-10">
+          <a href="#" class="assertive edit-sale" data-ion-modal="_editSale" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a>
+        </div>
+        <div class="col col-10">
+          <b>តុលេខៈ</b>
+        </div>
+        <div class="col col-10">
+          {{_table.name}}
+        </div>
+        <div class="col col-10">
+          <b>ថ្ងៃទីៈ</b>
+        </div>
+        <div class="col col-15">
+          {{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}
+        </div>
+        <div class="col col-10">
+          <b>អតិថិជនៈ</b>
+        </div>
+        <div class="col col-10">
+          {{_customer.name}}
+        </div>
+        <div class="col col-10">
+          <b>បុគ្គលិក:</b>
+        </div>
+        <div class="col col-15">
+          {{_staff.profile.username}}
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

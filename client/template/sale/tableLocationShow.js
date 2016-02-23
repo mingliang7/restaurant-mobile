@@ -1,13 +1,15 @@
 Template.restaurantSaleTableLocationShow.created = function() {
   let tableLocationId = Router.current().params.tableLocationId;
+  Session.set('saleDetailObj', {}); //set saleDetailObj for order product
   this.autorun(() => {
     this.subscribe = Meteor.subscribe('tableInLocationId', tableLocationId);
+    this.subscribe = Meteor.subscribe("existSales");
   });
 }
 
 Template.restaurantSaleTableLocationShow.rendered = function() {
   let invoiceId = Session.get('invoiceId');
-  if(!_.isUndefined(invoiceId)){
+  if (!_.isUndefined(invoiceId)) {
     Meteor.call('removeSaleIfNoSaleDetailExist', invoiceId);
     Session.set('invoiceId', undefined);
   }
@@ -37,31 +39,32 @@ Template.restaurantSaleTableLocationShow.helpers({
     } catch (e) {
 
     }
+  },
+  saleHasSaleDetails(tableId){
+    let sales = Restaurant.Collection.Sales.findOne({tableId: tableId});
+    if(!_.isUndefined(sales)){
+      return true;
+    }
+    return false;
   }
 });
 
 Template.restaurantSaleTableLocationShow.events({
   "click .action-sheet" (event, template) {
     let tableName = $(event.currentTarget).parents('.item').find('.table-name').text();
+    let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();
+    var sales = Restaurant.Collection.Sales.find({tableId: tableId}).fetch();
     IonActionSheet.show({
       titleText: `ជម្រើសសម្រាប់វិក័យប័ត្រតុលេខ ${tableName}`,
-      buttons: [{
-        text: 'Share <i class="icon ion-share"></i>'
-      }, {
-        text: 'Move <i class="icon ion-arrow-move"></i>'
-      }, ],
+      buttons: sales,
       destructiveText: 'ផ្ទេរវិក័យប័ត្រ',
       cancelText: 'Cancel',
       cancel: function() {
         console.log('Cancelled!');
       },
       buttonClicked: function(index) {
-        if (index === 0) {
-          console.log('Shared!');
-        }
-        if (index === 1) {
-          console.log('Moved!');
-        }
+        let params = Router.current().params;
+        Router.go(`/restaurant/sale/${params.tableLocationId}/table/${sales[index].tableId}/saleInvoice/${sales[index]._id}`);
         return true;
       },
       destructiveButtonClicked: function() {
@@ -78,6 +81,7 @@ Template.restaurantSaleTableLocationShow.events({
     selector.saleDate = new Date();
     selector.status = "unsaved";
     selector.tableId = tableId;
+    selector.tableLocation = tableLocationId;
     Meteor.call('insertSale', selector, (err, result) => {
       if (err) {
         console.log(err)

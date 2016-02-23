@@ -1,0 +1,35 @@
+<template name="_editSale">
+  {{#ionModal customTemplate=true}}
+      {{#autoForm collection="Restaurant.Collection.Sales" doc=sale id="editSale" type="update"}}
+          <div class="bar bar-header bar-stable">
+              <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
+              <h2 class="title">កែប្រែវិក័យប័ត្រ</h2>
+              <button type="submit" class="button button-positive button-clear">រក្សាទុក</button>
+          </div>
+          <div class="content has-header overflow-scroll">
+            {{> afQuickField name='tableLocation'}}
+            {{> afQuickField name='tableId'}}
+            {{> afQuickField name='saleDate'}}
+            {{> afQuickField name='customerId'}}
+          </div>
+      {{/autoForm}}
+  {{/ionModal}}
+</template>
+
+
+<template name="_editDiscount">
+  {{#ionModal customTemplate=true}}
+      {{#autoForm collection="Restaurant.Collection.Sales" doc=sale id="editDiscount" type="update"}}
+          <div class="bar bar-header bar-stable">
+              <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
+              <h2 class="title">កែប្រែការបញ្ចុះតម្លៃ</h2>
+              <button type="submit" class="button button-positive button-clear">រក្សាទុក</button>
+          </div>
+          <div class="content has-header overflow-scroll">
+            {{> afQuickField name="subTotal" readonly=true}}
+            {{> afQuickField name='discount'}}
+            {{> afQuickField name='total' readonly=true label="Grand Total"}}
+          </div>
+      {{/autoForm}}
+  {{/ionModal}}
+</template>

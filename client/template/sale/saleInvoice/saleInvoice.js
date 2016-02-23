@@ -27,19 +27,40 @@ Template.restaurantSaleTableSaleInvoice.helpers({
   },
   saleDetails(){
     return Restaurant.Collection.SaleDetails.find({},{sort: {_id: 1}});
-  }
-});
-
-
-Template.saleInvoiceTotal.helpers({
+  },
   saleInvoice(){
     return Restaurant.Collection.Sales.findOne();
   }
 });
 
+
+
 Template._sale_invoice_tabs.helpers({
   goToCheckout(){
+    Session.set('saleDetailObj', {});
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`;
+  }
+});
+
+Template.saleDetail.events({
+  'click .remove-sale-detail'(){
+    let data = this;
+    IonPopup.confirm({
+      title: 'តើអ្នកត្រូវការលុបឬ?',
+      template: `លុបទំនិញ ${data._product._category.name}${data._product.name}?`,
+      onOk: () => {
+        Meteor.call('removeSaleDetail', data._id, (err, result) => {
+          if (err) {
+            Bert.alert(`លុបមិនបានជោគជ័យ! ${data._product.name}`,'danger','growl-bottom-right','fa-remove')
+          } else {
+            Bert.alert(`លុបបានជោគជ័យ! ${data._product.name}`,'success','growl-bottom-right','fa-check')
+          }
+        });
+      },
+      onCancel: function() {
+        Bert.alert('Cancelled','info','growl-bottom-right','fa-info')
+      }
+    });
   }
 });
