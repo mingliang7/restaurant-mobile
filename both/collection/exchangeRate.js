@@ -6,6 +6,10 @@ Restaurant.Schema.ExchangeRates = new SimpleSchema({
         label: "base CurrencyId",
         max: 50
     },
+    symbol:{
+        type:String,
+        label:"Symbol"
+    },
     rates: {
         type: [Object],
         optional: true,

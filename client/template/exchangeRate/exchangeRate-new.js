@@ -1,40 +1,41 @@
 Template.exchangeRateNew.helpers({
     baseCurrency: function () {
         var company = Restaurant.Collection.Company.findOne();
-        if(company){
+        if (company) {
             return Restaurant.Collection.Currency.findOne(company.baseCurrency);
-        }else{
+        } else {
             return {};
         }
     },
     currencies: function () {
         var company = Restaurant.Collection.Company.findOne();
-        if(company){
+        if (company) {
             return Restaurant.Collection.Currency.find({_id: {$ne: company.baseCurrency}});
-        }else{
+        } else {
             return [];
         }
     }
 });
 Template.exchangeRateNew.events({
     'click #save-exchange-rate': function () {
-        var valid=true;
+        var valid = true;
         $('.to-currency-value').each(function () {
             valid = $(this).val() != "";
-            if(valid==false){
+            if (valid == false) {
                 return false;
             }
         });
 
         //if ($('.to-currency-value').val() == "" ||) {
         if (!valid) {
-            Bert.alert( 'The value can\'t be empty', 'danger', 'growl-top-right' );
+            Bert.alert('The value can\'t be empty', 'danger', 'growl-top-right');
             //alertify.error("The value can't be empty.");
             return;
         }
         debugger;
         var exchangeRate = {};
         exchangeRate.base = $('#base-currency-id').val();
+        exchangeRate.symbol = $('#base-currency-symbol').val();
         exchangeRate.rates = [];
         $('#to-currency-list .row').each(function () {
             exchangeRate.rates.push({
@@ -42,11 +43,12 @@ Template.exchangeRateNew.events({
                 rate: parseFloat($(this).find('.to-currency-value').val())
             });
         });
-        Meteor.call('insertExchangeRate', exchangeRate,function(er,re){
-            if(er){
-                Bert.alert(er.message,'danger','growl-top-right');
-            }else{
-                Bert.alert( 'ExchangeRate is set successful', 'success', 'growl-top-right' );
+        Meteor.call('insertExchangeRate', exchangeRate, function (er, re) {
+            if (er) {
+                Bert.alert(er.message, 'danger', 'growl-top-right');
+            } else {
+                Bert.alert('ExchangeRate is set successful', 'success', 'growl-top-right');
+                IonModal.close();
             }
         });
 
@@ -55,13 +57,13 @@ Template.exchangeRateNew.events({
     }
 });
 AutoForm.hooks({
-   exchangeRateNew:{
-       onSuccess(formType, res){
-           Bert.alert('Added', 'success', 'growl-bottom-right');
-           //IonModal.close();
-       },
-       onError(formType, err){
-           Bert.alert( err.message, 'danger', 'growl-bottom-right' );
-       }
-   }
+    exchangeRateNew: {
+        onSuccess(formType, res){
+            Bert.alert('Added', 'success', 'growl-bottom-right');
+            //IonModal.close();
+        },
+        onError(formType, err){
+            Bert.alert(err.message, 'danger', 'growl-bottom-right');
+        }
+    }
 });
