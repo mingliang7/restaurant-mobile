@@ -23,19 +23,19 @@ Template.category.events({
   'click [data-action="confirm"]' (event, template) {
     let name = this.name;
     IonPopup.confirm({
-      title: 'Are you sure?',
-      template: `Detele ${name}?`,
+      title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
+      template: `លុប ${name} ?`,
       onOk: () => {
         Meteor.call('removeCategory', this._id, function(err, result) {
           if (err) {
             Bert.alert(`Can't Removed ${name}`,'danger','growl-bottom-right','fa-remove')
           } else {
-            Bert.alert(`Removed ${name}`, 'success', 'growl-bottom-right', 'fa-check')
+            Bert.alert(`លុប ${name} បានជោគជ័យ !`, 'success', 'growl-bottom-right', 'fa-check')
           }
         });
       },
       onCancel: function() {
-        Bert.alert('Cancelled','info','growl-bottom-right','fa-info')
+        Bert.alert('មិនយល់ព្រមក្នុងការលុប !','info','growl-bottom-right','fa-info')
       }
     });
   }

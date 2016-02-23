@@ -20,16 +20,23 @@ Template.exchangeRate.helpers({
 });
 
 Template.exchangeRate.events({
-  'click [data-action="confirm"]'(event, template) {
-       IonPopup.confirm({
-           title: 'Are you sure?',
-           template: `Detele ${this.name}?`,
-           onOk: () => {
-               Meteor.call('removeExchangeRate', this._id);
-           },
-           onCancel: function () {
-               console.log('Cancelled');
-           }
-       });
-   }
+  'click [data-action="confirm"]' (event, template) {
+    let base = this.base;
+    IonPopup.confirm({
+      title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
+      template: `លុប ${base} ?`,
+      onOk: () => {
+        Meteor.call('removeExchangeRate', this._id, function(err, result) {
+          if (err) {
+            Bert.alert(`Can't Removed ${base}`,'danger','growl-bottom-right','fa-remove')
+          } else {
+            Bert.alert(`លុប ${base}​ បានជោគជ័យ !`,'success','growl-bottom-right','fa-check')
+          }
+        });
+      },
+      onCancel: function() {
+        Bert.alert('មិនយល់ព្រមក្នុងការលុប !','info','growl-bottom-right','fa-info')
+      }
+    });
+  }
 });

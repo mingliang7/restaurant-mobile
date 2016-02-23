@@ -19,7 +19,7 @@ Restaurant.Collection.Products = new Mongo.Collection("restaurant_products");
 Restaurant.Schema.Products = new SimpleSchema({
   picture: {
     type: String,
-    label: 'Choose file',
+    label: 'រូបភាពផលិតផល',
     autoform: {
       afFieldInput: {
         type: 'fileUpload',
@@ -30,7 +30,7 @@ Restaurant.Schema.Products = new SimpleSchema({
   },
   name: {
     type: String,
-    label: "Name",
+    label: "ឈ្មោះ",
     max: 200
   },
   barcode: {
@@ -40,12 +40,12 @@ Restaurant.Schema.Products = new SimpleSchema({
   },
   price: {
     type: Number,
-    label: "Price",
+    label: "តម្លៃ",
     decimal: true
   },
   productType: {
     type: String,
-    label: "Type",
+    label: "ប្រភេទ",
     autoform: {
       type: "select",
       options: function() {
@@ -55,7 +55,7 @@ Restaurant.Schema.Products = new SimpleSchema({
   },
   categoryId: {
     type: String,
-    label: "Category",
+    label: "ផ្នែក",
     autoform: {
       type: "select",
       options: function() {
@@ -65,7 +65,7 @@ Restaurant.Schema.Products = new SimpleSchema({
   },
   unitId: {
     type: String,
-    label: "Unit",
+    label: "ខ្នាត",
     autoform: {
       type: "select",
       options: function() {
@@ -85,7 +85,7 @@ Restaurant.Schema.Products = new SimpleSchema({
   },
   description: {
     type: String,
-    label: "Description",
+    label: "ពិពណ៌នា",
     optional: true
   },
   _category: {
