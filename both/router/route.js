@@ -211,4 +211,34 @@ Router.map(function() {
       this.next();
     }
   });
+  this.route('restaurant.sale.table.saleInvoice.editSale', {
+    path: '/restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editSale',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+  this.route('restaurant.sale.table.saleInvoice.edit.discount', {
+    path: '/restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editDiscount',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+  this.route('edit.sale.detail', {
+    path: '/restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editSaleDetail/:saleDetailId',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
 });

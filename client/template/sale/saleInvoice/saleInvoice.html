@@ -87,7 +87,7 @@
           </p>
         </div>
         <div class="col col-5">
-          <a class="tab-item positive" href="#" data-action="fake" data-ion-modal="_editSaleDetail" data-id="{{_id}}">
+          <a class="tab-item positive" href="{{goToSaleDetailEdit}}" data-action="fake">
             <i class="icon ion-ios-compose-outline"></i>
             <b>កែប្រែ</b>
           </a>
@@ -129,7 +129,8 @@
         </div>
         <div class="row">
           <div class="col col-10">
-            <a href="#" class="assertive edit-sale" data-ion-modal="_editDiscount" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a>
+            <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editDiscount" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
+            <a href="{{goToEditDiscount}}" class="assertive edit-discount">{{> ionIcon icon="edit"}}</a>
           </div>
           <div class="col col-20">
             បញ្ចុះតម្លៃ
@@ -173,7 +174,8 @@
     <div class="item item-body">
       <div class="row">
         <div class="col col-10">
-          <a href="#" class="assertive edit-sale" data-ion-modal="_editSale" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a>
+          <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editSale" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
+          <a href="{{goToEditSale}}" class="assertive edit-sale" >{{> ionIcon icon="edit"}}កែប្រែ</a>
         </div>
         <div class="col col-10">
           <b>តុលេខៈ</b>

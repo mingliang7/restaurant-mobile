@@ -1,16 +1,37 @@
-Template._editSaleDetail.helpers({
-  saleDetail() {
-    let id = Template.instance().data.id;
-    let saleDetail = Restaurant.Collection.SaleDetails.findOne({
-      _id: `${id}`
-    });
-    console.log(saleDetail);
-    return saleDetail;
+Template.editSaleDetail.created = function() {
+  this.autorun(() => {
+    let params = Router.current().params;
+    this.subscribe = Meteor.subscribe("saleDetailBySelfId", params.invoiceId, params.saleDetailId );
+  });
+}
+
+Template.editSaleDetail.rendered = function() {
+  if (!this.subscribtion.ready()) {
+    IonLoading.show()
+  } else {
+    IonLoading.hide();
   }
+}
+
+
+Template.editSaleDetail.helpers({
+  saleDetail() {
+    let params = Router.current().params;
+    let saleDetail = Restaurant.Collection.SaleDetails.findOne(params.saleDetailId);
+    return saleDetail;
+  },
+  goToSale(){
+    let params = Router.current().params;
+    return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`;
+  },
+  productName(saleDetail){
+    return `${saleDetail._product._category.name}${saleDetail._product.name}`;
+  }
+
 });
 
 
-Template._editSaleDetail.events({
+Template.editSaleDetail.events({
   "keyup [name='quantity']" (event, template) {
     let currentQty = $("[name='quantity']").val();
     let currentPrice = $('[name="price"]').val();
@@ -67,7 +88,8 @@ AutoForm.hooks({
   editSaleDetail: {
     onSuccess(formType, result) {
       Bert.alert('កែប្រែបានសម្រេច!', 'success', 'growl-bottom-right');
-      IonModal.close();
+      let params = Router.current().params;
+      Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`);
     },
     onError(formType, err) {
       Bert.alert(err.message, 'danger', 'growl-bottom-right');
