@@ -1,5 +1,3 @@
-
-
 Template._editSale.helpers({
   sale() {
     let saleId = Template.instance().data.id;

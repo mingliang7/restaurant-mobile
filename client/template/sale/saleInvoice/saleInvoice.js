@@ -64,3 +64,11 @@ Template.saleDetail.events({
     });
   }
 });
+
+//go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editSale
+Template.tableHeader.helpers({
+  goToEditSale(){
+    let params = Router.current().params;
+    return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editSale`;
+  }
+})
