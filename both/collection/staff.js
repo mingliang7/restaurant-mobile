@@ -2,17 +2,17 @@ Restaurant.Collection.Staffs = new Mongo.Collection("restaurant_staffs");
 Restaurant.Schema.Staffs = new SimpleSchema({
     name: {
         type: String,
-        label: "Name",
+        label: "ឈ្មោះ",
         unique: true,
         max: 200
     },
     startDate: {
         type: Date,
-        label: "Start Date"
+        label: "កាលបរិចេ្ឆទចាប់ផ្តើម"
     },
     gender: {
         type: String,
-        label: "Gender",
+        label: "ភេទ",
         autoform: {
             type: "select",
             options: function () {
@@ -22,11 +22,11 @@ Restaurant.Schema.Staffs = new SimpleSchema({
     },
     position: {
         type: String,
-        label: "Position"
+        label: "តួនាទី"
     },
     salary: {
         type: Number,
-        label: "Salary",
+        label: "បា្រក់ខែ",
         decimal: true,
         optional:true
         //regEx: /^[a-z0-9A-Z_]{3,15}$/
@@ -44,12 +44,12 @@ Restaurant.Schema.Staffs = new SimpleSchema({
     },
     phone: {
         type: String,
-        label: "Phone",
+        label: "លេខទូរស័ព្ទ",
         optional:true
     },
     address: {
         type: String,
-        label: "Address",
+        label: "អាសយដ្ឋាន",
         autoform: {
             afFieldInput: {
                 type: "textarea"

@@ -1,5 +1,4 @@
 Template.restaurantSaleCheckoutInvoiceCategoryProduct.created = function() {
-  Session.set('saleDetailObj', {});
   this.autorun(() => {
     let categoryId = Router.current().params.categoryId;
     this.subscribe = Meteor.subscribe('productByCategory', categoryId);

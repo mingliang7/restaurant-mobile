@@ -8,7 +8,11 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: Number,
     label: "Discount",
     decimal: true,
-    optional: true
+    autoValue(){
+      if(this.isInsert){
+        return 0;
+      }
+    }
   },
   subTotal: {
     type: Number,
@@ -38,12 +42,78 @@ Restaurant.Schema.Sales = new SimpleSchema({
   },
   customerId: {
     type: String,
-    label: "Phone",
-    optional: true
+    label: "អតិថិជន",
+    optional: true,
+    autoform: {
+      type: 'select',
+      options(){
+        var sub = Meteor.subscribe("customers");
+        if (!sub.ready()) {
+          IonLoading.show()
+        } else {
+          IonLoading.hide();
+          let customers = Restaurant.Collection.Customers.find();
+          let list = []
+          customers.forEach(function(customer) {
+            list.push({
+              label: `${customer.name}`,
+              value: customer._id
+            });
+          });
+          return list;
+        }
+      }
+    }
+  },
+  tableLocation: {
+    type: String,
+    optional: true,
+    label: 'ទីតាំងតុ',
+    autoform: {
+      type: 'select',
+      options() {
+        var sub = Meteor.subscribe("tableLocations");
+        if (!sub.ready()) {
+          IonLoading.show()
+        } else {
+          IonLoading.hide();
+          let tableLocations = Restaurant.Collection.TableLocations.find();
+          let list = []
+          tableLocations.forEach(function(location) {
+            list.push({
+              label: `${location.name}`,
+              value: location._id
+            });
+          });
+          return list;
+        }
+      }
+    }
   },
   tableId: {
     type: String,
-    label: "Table"
+    label: "តុ",
+    autoform: {
+      type: 'select',
+      options() {
+        let currentLocation = AutoForm.getFieldValue('tableLocation');
+        let sub = Meteor.subscribe("tableInLocationId", currentLocation);
+        if (!sub.ready()) {
+          IonLoading.show();
+        } else {
+          IonLoading.hide();
+          let list = [];
+          let tables = Restaurant.Collection.Tables.find();
+          tables.forEach(function(table) {
+            list.push({
+              label: `${table.name}`,
+              value: table._id
+            });
+          });
+          return list;
+        }
+      }
+    }
   },
   exchangeRateId: {
     type: String,
@@ -56,6 +126,20 @@ Restaurant.Schema.Sales = new SimpleSchema({
     optional: true
   },
   _table: {
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
+  text: { //using this field for action-sheet event
+    type: String,
+    optional: true
+  },
+  _customer: {
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
+  _staff: {
     type: Object,
     optional: true,
     blackbox: true

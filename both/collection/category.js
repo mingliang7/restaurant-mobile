@@ -2,13 +2,13 @@ Restaurant.Collection.Categories = new Mongo.Collection("restaurant_categories")
 Restaurant.Schema.Categories = new SimpleSchema({
     name: {
         type: String,
-        label: "Name",
+        label: "ឈ្មោះ",
         //unique: true,
         max: 200
     },
     description:{
         type:String,
-        label:"Description",
+        label:"ពិពណ៌នា",
         optional:true
     },
   /*  parentId:{

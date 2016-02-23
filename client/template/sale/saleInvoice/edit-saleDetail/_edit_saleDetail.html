@@ -1,0 +1,26 @@
+<template name="editSaleDetail">
+  {{#contentFor "headerButtonLeft"}}
+   {{>ionNavBackButton href=goToSale title="Cancel"}}
+ {{/contentFor}}
+
+ {{#contentFor "headerTitle"}}
+   <h1 class="title">កែ្រមុខទំនិញៈ {{productName saleDetail}}</h1>
+ {{/contentFor}}
+
+ {{#ionView}}
+   {{#ionContent}}
+      {{#autoForm collection="Restaurant.Collection.SaleDetails" doc=saleDetail id="editSaleDetail" type="update"}}
+          <div class="content has-header overflow-scroll">
+            {{> afQuickField name='price'}}
+            {{> afQuickField name='quantity'}}
+            {{> afQuickField name='amount' readonly=true}}
+            {{> afQuickField name='discount'}}
+            {{> afQuickField name='note'}}
+          </div>
+          <div class="bar bar-header" >
+            <button type="submit" class="button button-positive">រក្សាទុក</button>
+          </div>
+      {{/autoForm}}
+  {{/ionContent}}
+{{/ionView}}
+</template>

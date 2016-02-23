@@ -2,11 +2,12 @@ Restaurant.Collection.Tables = new Mongo.Collection("restaurant_tables");
 Restaurant.Schema.Tables = new SimpleSchema({
     name: {
         type: String,
-        label: "Name",
+        label: "ឈ្មោះ",
         max: 200
     },
     chairAmount: {
       type: Number,
+      label:"ចំនួនកៅអី",
       autoform: {
         type: "select",
         options(){
@@ -16,7 +17,7 @@ Restaurant.Schema.Tables = new SimpleSchema({
     },
     tableLocationId: {
         type: String,
-        label: "Table Location",
+        label: "ទីតាំងតុ",
         autoform: {
             type: "select",
             options: function () {
@@ -26,7 +27,7 @@ Restaurant.Schema.Tables = new SimpleSchema({
     },
     description: {
         type: String,
-        label: "Description",
+        label: "ពិពណ៌នា",
         optional: true
     },
     left:{
