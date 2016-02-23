@@ -17,6 +17,22 @@ Template.exchangeRateNew.helpers({
     }
 });
 Template.exchangeRateNew.events({
+    'change .to-currency-value': function (e) {
+        if ($(e.currentTarget).val() == "") {
+            $(e.currentTarget).val(0);
+            $(e.currentTarget).focus();
+            return false;
+        }
+    },
+    'keypress .to-currency-value': function (evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ($(evt.currentTarget).val().indexOf('.') != -1) {
+            if (charCode == 46) {
+                return false;
+            }
+        }
+        return !(charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57));
+    },
     'click #save-exchange-rate': function () {
         var valid = true;
         $('.to-currency-value').each(function () {
