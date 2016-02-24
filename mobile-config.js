@@ -6,14 +6,17 @@ App.info({
 });
 
 App.icons({
-    // 'android_hdpi': 'resources/icons/icon-72x72.png',
-    'android_xhdpi': 'resources/icons/icon.png'
-  // ... more screen sizes and platforms ...
+  //android
+  'android_xhdpi': 'resources/icons/icon-android.png',
+  //ios
+  'ipad': 'resources/icons/icon-ios.png',
 });
 
 App.launchScreens({
+  //android
   'android_xhdpi_portrait': 'resources/splash/rabbit.png',
-  // ... more screen sizes and platforms ...
+  //ios
+  'ipad_portrait': 'resources/splash/rabbit.png',
 });
 
 App.setPreference('StatusBarOverlaysWebView', 'false');
