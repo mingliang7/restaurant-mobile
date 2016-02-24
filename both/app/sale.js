@@ -10,6 +10,6 @@ Sale = {
         subTotal += saleDetail.amount;
       });
       total = subTotal * (1 - sale.discount/100);
-      Restaurant.Collection.Sales.direct.update(saleId, {$set: {total: total, subTotal: subTotal}});
+      Restaurant.Collection.Sales.direct.update(saleId, {$set: {total: total, subTotal: subTotal, paidAmount: 0, balanceAmount: total}});
   }
 }

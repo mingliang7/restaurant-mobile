@@ -51,3 +51,5 @@ momentjs:moment
 lbee:moment-helpers
 simple:reactive-method
 numeral:numeral
+tmeasday:publish-counts
+meteorhacks:kadira

@@ -1,0 +1,28 @@
+<template name="restaurantSalePayment">
+  {{#contentFor "headerButtonLeft"}}
+   {{>ionNavBackButton href=goToSale title="Cancel"}}
+ {{/contentFor}}
+
+ {{#contentFor "headerTitle"}}
+   <h1 class="title">គិតលុយវិក័យប័ត្រៈ {{paymentInvoiceNumber}}</h1>
+ {{/contentFor}}
+
+ {{#ionView}}
+   {{#ionContent}}
+      {{#autoForm collection="Restaurant.Collection.Payments" doc=sale id="payment" type="insert"}}
+          <div class="content has-header overflow-scroll">
+            {{> afQuickField name='customerId'}}
+            {{> afQuickField name='saleId' readonly=true}}
+            {{> afQuickField name='paymentDate' type='datetime-local'}}
+            {{> afQuickField name='paidAmount'}}
+            {{> afQuickField name='dueAmount' readonly=true}}
+            {{> afQuickField name='balanceAmount' readonly=true}}
+            {{> afQuickField name='description' type="textarea"}}
+          </div>
+          <div class="bar bar-header" >
+            <button type="submit" class="button button-positive">រក្សាទុក</button>
+          </div>
+      {{/autoForm}}
+  {{/ionContent}}
+{{/ionView}}
+</template>

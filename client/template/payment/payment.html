@@ -1,0 +1,67 @@
+<template name="restaurantActivePayment">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="home" text="Home"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">ទូរទាត់ទឹកប្រាក់</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <!-- <button class="button button-clear" data-ion-modal="tableNew">{{> ionIcon icon="ios-plus-empty"}}</button> -->
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#each activeSales}}
+          {{#ionItem  href=goToActivePaymentInvoice buttonRight=true avatar=true class="item-icon-right"}}
+            {{> activeSale}}
+          {{/ionItem}}
+        {{/each}}
+      {{/ionList}}
+      {{#if hasMore}}
+        <div class="col col-offset-50">
+          <button class="button button-positive loadMore">Load More</button>
+        </div>
+      {{/if}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>
+
+
+<template name="activeSale">
+  <span>
+    តុលេខៈ {{_table.name}}
+  </span>
+  <p>
+    រាយមុខទំនិញៈ
+    {{#if listSaleDetails}}
+      {{#each listSaleDetails}}
+        <b>{{_product.name}},&nbsp; </b>
+      {{/each}}
+    {{else}}
+      {{> ionSpinner icon="ios-small"}}
+    {{/if}}
+  </p>
+  <p>
+    លក់នៅថ្ងៃទី: <b>{{moFormat saleDate 'DD/MM/YY HH:mm:ss'}}</b>
+  </p>
+  <p>
+    អតិថិជន: <b>{{_customer.name}}</b>
+  </p>
+  <p>
+    វិក័យប័ត្រលេខៈ <b>{{_id}}</b>
+  </p>
+  <p>
+    ទឹកប្រាក់សរុបៈ <b>{{total}}</b>
+  </p>
+  <p>
+    ទឹកប្រាក់បានបង់ៈ <b>{{paidAmount}}</b>
+  </p>
+  <p>
+    ទឹកប្រាក់នៅសល់ៈ <b>{{balanceAmount}}</b>
+  </p>
+  <!-- <button data-action="confirm" class=" button button-clear">
+    {{> ionIcon icon="chevron-right" class="positive"}}
+  </button> -->
+</template>

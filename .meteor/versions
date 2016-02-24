@@ -77,6 +77,8 @@ logging@1.0.8
 matb33:collection-hooks@0.8.1
 meteor@1.1.10
 meteor-base@1.0.1
+meteorhacks:kadira@2.27.3
+meteorhacks:meteorx@1.4.1
 meteoric:autoform-ionic@0.1.6
 meteoric:ionic@0.2.0
 meteoric:ionic-sass@0.3.0
@@ -124,6 +126,7 @@ templating-tools@1.0.0
 theara:collection-cache@0.8.5
 theara:id-generator@0.0.7
 themeteorchef:bert@2.1.0
+tmeasday:publish-counts@0.7.3
 tracker@1.0.9
 ui@1.0.8
 underscore@1.0.4
