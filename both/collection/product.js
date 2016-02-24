@@ -97,6 +97,10 @@ Restaurant.Schema.Products = new SimpleSchema({
     type: Object,
     blackbox: true,
     optional: true
+  },
+  tags:{
+    type: [String],
+    optional: true
   }
 
 });

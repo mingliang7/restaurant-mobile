@@ -12,8 +12,9 @@ Meteor.publish('units', () => {
 Meteor.publish('categories', () => {
   return Restaurant.Collection.Categories.find();
 });
-Meteor.publish('products', () => {
-  return Restaurant.Collection.Products.find();
+Meteor.publish('products', (limit) => {
+  let amount = limit || 10
+  return Restaurant.Collection.Products.find({},{limit: amount});
 });
 Meteor.publish('exchangeRates', () => {
   return Restaurant.Collection.ExchangeRates.find();
