@@ -6,10 +6,15 @@ Template.editSaleDetail.created = function() {
 }
 
 Template.editSaleDetail.rendered = function() {
-  if (!this.subscribtion.ready()) {
-    IonLoading.show()
-  } else {
-    IonLoading.hide();
+  try {
+    if (!this.subscribtion.ready()) {
+      IonLoading.show()
+    } else {
+      IonLoading.hide();
+    }
+
+  } catch (e) {
+
   }
 }
 
@@ -25,7 +30,11 @@ Template.editSaleDetail.helpers({
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`;
   },
   productName(saleDetail){
-    return `${saleDetail._product._category.name}${saleDetail._product.name}`;
+    try {
+      return `${saleDetail._product._category.name}${saleDetail._product.name}`;
+    } catch (e) {
+
+    }
   }
 
 });

@@ -1,7 +1,9 @@
 Template.restaurantSaleCheckoutInvoiceCategoryProduct.created = function() {
+  let limit = Session.set('limited', 12);
   this.autorun(() => {
     let categoryId = Router.current().params.categoryId;
-    this.subscribe = Meteor.subscribe('productByCategory', categoryId);
+    this.subscribe = Meteor.subscribe('productByCategory', categoryId, Session.get('limited'));
+    this.subscribe = Meteor.subscribe('countProductByCategory', categoryId);
   });
 }
 
@@ -27,15 +29,32 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.helpers({
     } catch (e) {}
   },
   products() {
-    return Restaurant.Collection.Products.find();
+    let limit = Session.get('limited')
+    return Restaurant.Collection.Products.find({},{limit: limit});
   },
   goToCategory() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`;
+  },
+  hasMore() {
+    let productCount = Counts.get('productCount')
+    let productLimit = Session.get('limited');
+    debugger
+    return productLimit < productCount;
   }
 });
 
 Template.restaurantSaleCheckoutInvoiceCategoryProduct.events({
+  'click .loadMore' (event) {
+    let limit = Session.get('limited') + 12;
+    Session.set('limited', limit);
+    var sub = Meteor.subscribe('productByCategory', categoryId, limit)
+    if (!sub.ready()) {
+      IonLoading.show();
+    } else {
+      IonLoading.hide();
+    }
+  },
   'click .icon-add-new-product' (event) {
     let params = Router.current().params;
     let selector = Session.get('saleDetailObj');
