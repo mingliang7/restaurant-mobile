@@ -108,6 +108,17 @@ Meteor.publish("currencies", () => {
 
 Meteor.publish("existSales", () => {
   return Restaurant.Collection.Sales.find({
-    status: 'unsaved'
+    status: 'active', _payment: {$exists: false}
   });
 });
+
+//find active sale
+Meteor.publish("activeSales", (limit) => {
+  let amount = limit || 20;
+  return Restaurant.Collection.Sales.find({status: 'active'}, {limit: amount});
+});
+
+Meteor.publish('activeSalesCount', () => {
+  Counts.publish(this, 'activeSalesCount', Restaurant.Collection.Sales.find({status: 'active'}));
+  this.ready();
+})

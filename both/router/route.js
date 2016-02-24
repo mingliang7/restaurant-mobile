@@ -251,4 +251,28 @@ Router.map(function() {
       this.next();
     }
   });
+
+  //payment
+  this.route('restaurant.active.payment',{
+    path: '/restaurant/payment',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+
+  //payment
+  this.route('restaurant.active.payment.invoice',{
+    path: '/restaurant/payment/:invoiceId',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
 });
