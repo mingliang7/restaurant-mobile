@@ -34,7 +34,7 @@ Restaurant.Schema.Payments = new SimpleSchema({
         type: Date,
         label: "Payment Date"
     },
-    payAmount:{
+    paidAmount:{
         type:Number,
         label:"Pay Amount",
         decimal:true
@@ -50,7 +50,12 @@ Restaurant.Schema.Payments = new SimpleSchema({
     },
     status:{
         type:String,
-        label:"Status"
+        label:"Status",
+        optional: true
+    },
+    description: {
+      type: String,
+      optional: true
     }
 });
 Restaurant.Collection.Payments.attachSchema(Restaurant.Schema.Payments);

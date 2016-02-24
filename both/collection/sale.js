@@ -8,8 +8,8 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: Number,
     label: "Discount",
     decimal: true,
-    autoValue(){
-      if(this.isInsert){
+    autoValue() {
+      if (this.isInsert) {
         return 0;
       }
     }
@@ -26,6 +26,17 @@ Restaurant.Schema.Sales = new SimpleSchema({
     decimal: true,
     optional: true
   },
+  paidAmount: {
+    type: Number,
+    decimal: true,
+    optional: true
+
+  },
+  balanceAmount: {
+    type: Number,
+    decimal: true,
+    optional: true
+  },
   staffId: {
     type: String,
     label: "Staff",
@@ -38,7 +49,8 @@ Restaurant.Schema.Sales = new SimpleSchema({
   },
   status: {
     type: String,
-    label: "Status"
+    label: "Status",
+    optional: true
   },
   customerId: {
     type: String,
@@ -46,7 +58,7 @@ Restaurant.Schema.Sales = new SimpleSchema({
     optional: true,
     autoform: {
       type: 'select',
-      options(){
+      options() {
         var sub = Meteor.subscribe("customers");
         if (!sub.ready()) {
           IonLoading.show()
@@ -141,6 +153,11 @@ Restaurant.Schema.Sales = new SimpleSchema({
   },
   _staff: {
     type: Object,
+    optional: true,
+    blackbox: true
+  },
+  _payment: {
+    type: [Object],
     optional: true,
     blackbox: true
   }

@@ -9,14 +9,15 @@
 
  {{#ionView}}
    {{#ionContent}}
-      {{#autoForm collection="Restaurant.Collection.Payments" doc=sale id="editSaleDetail" type="insert"}}
+      {{#autoForm collection="Restaurant.Collection.Payments" doc=sale id="payment" type="insert"}}
           <div class="content has-header overflow-scroll">
             {{> afQuickField name='customerId'}}
-            {{> afQuickField name='saleId'}}
-            {{> afQuickField name='paymentDate'}}
-            {{> afQuickField name='payAmount'}}
-            {{> afQuickField name='dueAmount'}}
-            {{> afQuickField name='balanceAmount'}}
+            {{> afQuickField name='saleId' readonly=true}}
+            {{> afQuickField name='paymentDate' type='datetime-local'}}
+            {{> afQuickField name='paidAmount'}}
+            {{> afQuickField name='dueAmount' readonly=true}}
+            {{> afQuickField name='balanceAmount' readonly=true}}
+            {{> afQuickField name='description' type="textarea"}}
           </div>
           <div class="bar bar-header" >
             <button type="submit" class="button button-positive">រក្សាទុក</button>

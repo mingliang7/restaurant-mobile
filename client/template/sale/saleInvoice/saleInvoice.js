@@ -1,17 +1,19 @@
-Template.restaurantSaleTableSaleInvoice.created = function(){
-   let saleId = Router.current().params.invoiceId;
-   this.autorun(()=>{
-     this.subscribe = Meteor.subscribe("sale", saleId);
-     this.subscribe = Meteor.subscribe("saleDetails", saleId);
-   });
+Template.restaurantSaleTableSaleInvoice.created = function() {
+  let saleId = Router.current().params.invoiceId;
+  let limit = Session.set('saleDetailLimited', 3)
+  this.autorun(() => {
+    this.subscribe = Meteor.subscribe("sale", saleId);
+    this.subscribe = Meteor.subscribe("saleDetails", saleId, limit);
+    this.subscribe = Meteor.subscribe("saleDetailCount", saleId);
+  });
 };
 
-Template.restaurantSaleTableSaleInvoice.rendered = function(){
+Template.restaurantSaleTableSaleInvoice.rendered = function() {
   try {
-    this.autorun(()=>{
-      if(!this.subscription.ready()){
+    this.autorun(() => {
+      if (!this.subscription.ready()) {
         IonLoading.show();
-      }else{
+      } else {
         IonLoading.hide();
       }
     });
@@ -21,26 +23,48 @@ Template.restaurantSaleTableSaleInvoice.rendered = function(){
 }
 
 Template.restaurantSaleTableSaleInvoice.helpers({
-  invoiceNumber(){
+  invoiceNumber() {
     let invoiceId = Router.current().params.invoiceId;
     return `វិក័យប័ត្រលេខ: ${invoiceId}`;
   },
-  saleDetails(){
-    return Restaurant.Collection.SaleDetails.find({},{sort: {_id: 1}});
+  saleDetails() {
+    let limit = Session.get('saleDetailLimited');
+    let saleId = Router.current().params.invoiceId;
+    return Restaurant.Collection.SaleDetails.find({
+      saleId: saleId
+    }, {
+      sort: {
+        _id: 1
+      },
+      limit: limit
+    });
   },
-  saleInvoice(){
+  saleInvoice() {
     return Restaurant.Collection.Sales.findOne();
   },
-  goToPayment(){
+  goToPayment() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
+  },
+  hasMore() {
+    let currentLimited = Session.get('saleDetailLimited');
+    let counts = Counts.get('saleDetailCount');
+    return currentLimited < counts
+  }
+});
+Template.restaurantSaleTableSaleInvoice.events({
+  "click .loadMore" () {
+    let saleId = Router.current().params.invoiceId;
+    let limit = Session.get('saleDetailLimited') + 3;
+    Session.set('saleDetailLimited', limit);
+    let sub = Meteor.subscribe("saleDetails", saleId, limit);
+
   }
 });
 
 
-
 Template._sale_invoice_tabs.helpers({
-  goToCheckout(){
+  goToCheckout() {
     Session.set('saleDetailObj', {});
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`;
@@ -48,7 +72,7 @@ Template._sale_invoice_tabs.helpers({
 });
 
 Template.saleDetail.events({
-  'click .remove-sale-detail'(){
+  'click .remove-sale-detail' () {
     let data = this;
     IonPopup.confirm({
       title: 'តើអ្នកត្រូវការលុបឬ?',
@@ -56,14 +80,14 @@ Template.saleDetail.events({
       onOk: () => {
         Meteor.call('removeSaleDetail', data._id, (err, result) => {
           if (err) {
-            Bert.alert(`លុបមិនបានជោគជ័យ! ${data._product.name}`,'danger','growl-bottom-right','fa-remove')
+            Bert.alert(`លុបមិនបានជោគជ័យ! ${data._product.name}`, 'danger', 'growl-bottom-right', 'fa-remove')
           } else {
-            Bert.alert(`លុបបានជោគជ័យ! ${data._product.name}`,'success','growl-bottom-right','fa-check')
+            Bert.alert(`លុបបានជោគជ័យ! ${data._product.name}`, 'success', 'growl-bottom-right', 'fa-check')
           }
         });
       },
       onCancel: function() {
-        Bert.alert('Cancelled','info','growl-bottom-right','fa-info')
+        Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
       }
     });
   }
@@ -71,7 +95,7 @@ Template.saleDetail.events({
 
 //go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editSale
 Template.tableHeader.helpers({
-  goToEditSale(){
+  goToEditSale() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editSale`;
   }
@@ -80,7 +104,7 @@ Template.tableHeader.helpers({
 //go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editDiscount
 
 Template.saleInvoiceTotal.helpers({
-  goToEditDiscount(){
+  goToEditDiscount() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editDiscount`;
   }

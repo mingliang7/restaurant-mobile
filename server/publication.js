@@ -24,7 +24,9 @@ Meteor.publish('images', () => {
 });
 
 Meteor.publish("customers", (limit) => {
-  return Restaurant.Collection.Customers.find({}, {limit: limit});
+  return Restaurant.Collection.Customers.find({}, {
+    limit: limit
+  });
 });
 
 Meteor.publish("notes", () => {
@@ -42,23 +44,47 @@ Meteor.publish("tableInLocationId", (tableLocationId) => {
   });
 });
 
-
-Meteor.publish("productByCategory", (categoryId) => {
+Meteor.publish("productByCategory", (categoryId, limit) => {
+  let amount = limit || 12;
   return Restaurant.Collection.Products.find({
     categoryId: categoryId
+  }, {
+    sort: {
+      name: 1
+    },
+    limit: amount
   });
 });
-
+//count product by category
+Meteor.publish("countProductByCategory", function(categoryId) {
+  Counts.publish(this, 'productCount', Restaurant.Collection.Products.find({
+    categoryId: categoryId
+  }));
+  this.ready();
+});
 
 Meteor.publish("sale", (id) => {
-  return Restaurant.Collection.Sales.find(id);
+  return Restaurant.Collection.Sales.find(id, {status: 'active'});
 });
 
 
-Meteor.publish("saleDetails", (saleId) => {
+Meteor.publish("saleDetails", (saleId, limit) => {
+  let amount = limit || 5;
+  console.log(amount)
   return Restaurant.Collection.SaleDetails.find({
     saleId: saleId
+  }, {
+    limit: amount
   });
+  this.ready();
+});
+//count saleDetail by saleId
+Meteor.publish("saleDetailCount", function(saleId) {
+  console.log(saleId);
+  Counts.publish(this, 'saleDetailCount', Restaurant.Collection.SaleDetails.find({
+    saleId: saleId
+  }));
+  this.ready();
 });
 
 Meteor.publish("saleDetail", (id) => {
@@ -66,7 +92,10 @@ Meteor.publish("saleDetail", (id) => {
 });
 
 Meteor.publish('saleDetailBySelfId', (saleId, selfId) => {
-  return Restaurant.Collection.SaleDetails.find({saleId: saleId, _id: selfId});
+  return Restaurant.Collection.SaleDetails.find({
+    saleId: saleId,
+    _id: selfId
+  });
 });
 
 Meteor.publish("company", () => {
