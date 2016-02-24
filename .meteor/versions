@@ -96,6 +96,7 @@ natestrauser:select2@4.0.0_1
 notorii:autoform-datetimepicker@1.0.6
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
+numeral:numeral@1.5.3_1
 observe-sequence@1.0.7
 ongoworks:security@1.3.0
 ordered-dict@1.0.4
@@ -112,6 +113,7 @@ routepolicy@1.0.6
 service-configuration@1.0.5
 session@1.1.1
 sha@1.0.4
+simple:reactive-method@1.0.2
 softwarerero:accounts-t9n@1.1.7
 spacebars@1.0.7
 spacebars-compiler@1.0.7

@@ -46,7 +46,8 @@ Template.editExchangeRate.events({
         $('#to-currency-list .row').each(function () {
             exchangeRate.rates.push({
                 toCurrencyId: $(this).find('.to-currency-id').val(),
-                rate: parseFloat($(this).find('.to-currency-value').val())
+                rate: parseFloat($(this).find('.to-currency-value').val()),
+                symbol:$(this).find('.to-currency-symbol').val()
             });
         });
         Meteor.call('updateExchangeRate', id, exchangeRate, function (er, re) {
