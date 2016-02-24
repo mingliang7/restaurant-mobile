@@ -49,6 +49,7 @@ Template.restaurantSaleTableSaleInvoice.helpers({
   hasMore() {
     let currentLimited = Session.get('saleDetailLimited');
     let counts = Counts.get('saleDetailCount');
+    debugger
     return currentLimited < counts
   }
 });

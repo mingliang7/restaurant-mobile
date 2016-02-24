@@ -1,52 +1,59 @@
 <template name="restaurantSaleTableSaleInvoice">
-    {{#contentFor "headerButtonLeft"}}
-        {{>ionNavBackButton href="/restaurant/sale" text='ត្រលប់ទៅកាន់តុ'}}
-    {{/contentFor}}
-    {{#contentFor "headerButtonRight"}}
-        <button class="button button-clear" data-ion-modal="#">{{> ionIcon icon="calculator"}}គិតលុយ</button>
-    {{/contentFor}}
-    {{#contentFor "headerTitle"}}
-        <h1 class="title">{{{invoiceNumber}}}</h1>
-    {{/contentFor}}
-    {{#ionView}}
-        {{#ionContent class="padding contact-detail"}}
-            {{#with saleInvoice}}
-                {{> tableHeader}}
-            {{/with}}
-            <div class="list card">
-                <div class="item item-body">
-                    <div class="row">
-                        <div class="col col-20">
-                            <b>បរិយាយ</b>
-                        </div>
-                        <div class="col col-15">
-                            <b>តម្លៃ</b>
-                        </div>
-                        <div class="col col-15">
-                            <b>ចំនួន</b>
-                        </div>
-                        <div class="col col-15">
-                            <b>បញ្ចុះតម្លៃ</b>
-                        </div>
-                        <div class="col col-20">
-                            <b>សរុប</b>
-                        </div>
-                        <div class="col col-5" align="right">
-                            <b>ជម្រើស</b>
-                        </div>
-                        <div class="col col-5">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton href="/restaurant/sale" text='ត្រលប់ទៅកាន់តុ'}}
+  {{/contentFor}}
+  {{#contentFor "headerButtonRight"}}
+    <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">{{{invoiceNumber}}}</h1>
+  {{/contentFor}}
+  {{#ionView}}
+    {{#ionContent class="padding contact-detail"}}
+    {{#with saleInvoice}}
+      {{> tableHeader}}
+    {{/with}}
+    <div class="list card">
+      <div class="item item-body">
+        <div class="row">
+          <div class="col col-20">
+            <b>បរិយាយ</b>
+          </div>
+          <div class="col col-15">
+            <b>តម្លៃ</b>
+          </div>
+          <div class="col col-15">
+            <b>ចំនួន</b>
+          </div>
+          <div class="col col-15">
+            <b>បញ្ចុះតម្លៃ</b>
+          </div>
+          <div class="col col-20">
+            <b>សរុប</b>
+          </div>
+          <div class="col col-5" align="right">
+            <b>ជម្រើស</b>
+          </div>
+          <div class="col col-5">
 
-                        </div>
-                    </div>
-                </div>
-                {{#each saleDetails}}
-                    {{> saleDetail}}
-                {{/each}}
-            </div>
-            {{> saleInvoiceTotal}}
-        {{/ionContent}}
-    {{/ionView}}
-    {{> _sale_invoice_tabs}}
+          </div>
+        </div>
+      </div>
+      {{#each saleDetails}}
+        {{> saleDetail}}
+      {{/each}}
+      {{#if hasMore}}
+      <div class="col col-20 col-offset-50">
+        <button class="button button-positive loadMore">Load More</button>
+      </div>
+      {{/if}}
+    </div>
+    {{#with saleInvoice}}
+      {{> saleInvoiceTotal}}
+    {{/with}}
+    {{/ionContent}}
+  {{/ionView}}
+  {{> _sale_invoice_tabs}}
 </template>
 
 <template name="saleDetail">

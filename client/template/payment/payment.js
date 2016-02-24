@@ -27,7 +27,7 @@ Template.restaurantActivePayment.events({
 });
 Template.restaurantActivePayment.helpers({
   activeSales(){
-    return Restaurant.Collection.Sales.find({status: 'active'})
+    return Restaurant.Collection.Sales.find({status: 'active'}, {sort: {_id: 1}})
   },
   goToActivePaymentInvoice(){
     return `/restaurant/payment/${this._id}`
