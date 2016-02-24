@@ -31,14 +31,19 @@
             <span id="to-currency-list">
                 {{#each currencies}}
                     <div class="row">
-                        <div class="col col-50">
+                        <div class="col col-40">
                             <label class="item item-input">
                                 <input type="text" class="to-currency-id form-control" value="{{_id}}" readonly>
                             </label>
                         </div>
-                        <div class="col col-50">
+                        <div class="col col-40">
                             <label class="item item-input">
                                 <input type="text" class="to-currency-value form-control">
+                            </label>
+                        </div>
+                        <div class="col col-20">
+                            <label class="item item-input">
+                                <input type="text" class="to-currency-symbol form-control" value="{{symbol}}" readonly>
                             </label>
                         </div>
 

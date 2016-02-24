@@ -1,6 +1,6 @@
 Template.restaurantSaleTableSaleInvoice.created = function() {
   let saleId = Router.current().params.invoiceId;
-  let limit = Session.set('saleDetailLimited', 3)
+  let limit = Session.set('saleDetailLimited', 5)
   this.autorun(() => {
     this.subscribe = Meteor.subscribe("sale", saleId);
     this.subscribe = Meteor.subscribe("saleDetails", saleId, limit);
@@ -55,13 +55,12 @@ Template.restaurantSaleTableSaleInvoice.helpers({
 Template.restaurantSaleTableSaleInvoice.events({
   "click .loadMore" () {
     let saleId = Router.current().params.invoiceId;
-    let limit = Session.get('saleDetailLimited') + 3;
+    let limit = Session.get('saleDetailLimited') + 5;
     Session.set('saleDetailLimited', limit);
     let sub = Meteor.subscribe("saleDetails", saleId, limit);
 
   }
 });
-
 
 Template._sale_invoice_tabs.helpers({
   goToCheckout() {
@@ -104,9 +103,55 @@ Template.tableHeader.helpers({
 //go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editDiscount
 
 Template.saleInvoiceTotal.helpers({
+  multiply: function(val1, val2, id) {
+    debugger;
+    if (val1 != null && val2 != null) {
+      var value = (val1 * val2);
+      if (id != null && id == "KHR") {
+        value = roundRielCurrency(value);
+        return numeral(value).format('0,0.00');
+      }
+      return numeral(value).format('0,0.00');
+    }
+  },
+  exchangeRate: function() {
+    debugger;
+    let invoiceId = Router.current().params.invoiceId;
+    var sale = Restaurant.Collection.Sales.findOne(invoiceId);
+    if (sale != null) {
+      var selector = {
+        _id: sale.exchangeRateId
+      };
+      return ReactiveMethod.call('findOneRecord', 'Restaurant.Collection.ExchangeRates', selector, {});
+      // return Restaurant.Collection.ExchangeRates.findOne(sale.exchangeRateId);
+    } else {
+      var id = "";
+      var company = Restaurant.Collection.Company.findOne();
+      if (company != null) {
+        id = company.baseCurrency;
+      }
+      var selector = {
+        base: id
+      };
+      var option = {
+        sort: {
+          _id: -1,
+          createdAt: -1
+        }
+      };
+      return ReactiveMethod.call('findONeRecord', 'Restaurant.Collection.ExchangeRates', selector, option);
+      /*return Restaurant.Collection.ExchangeRates.findOne({
+       base: id,
+       }, {sort: {_id: -1, createdAt: -1}});*/
+    }
+
+  },
   goToEditDiscount() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editDiscount`;
+  },
+  saleInvoice() {
+    return Restaurant.Collection.Sales.findOne();
   }
 });
 

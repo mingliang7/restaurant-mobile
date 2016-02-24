@@ -77,14 +77,15 @@ Template.restaurantSaleTableLocationShow.events({
     IonLoading.show();
     let tableLocationId = Router.current().params.tableLocationId;;
     let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();
-    let selector = {}
+    let selector = {};
     selector.saleDate = new Date();
     selector.status = "active";
     selector.tableId = tableId;
     selector.tableLocation = tableLocationId;
     Meteor.call('insertSale', selector, (err, result) => {
       if (err) {
-        console.log(err)
+        Bert.alert(err.message,'danger', 'growl-bottom-right');
+        IonLoading.hide();
       } else {
         IonLoading.hide();
         Router.go(`/restaurant/sale/${tableLocationId}/table/${tableId}/checkout/${result}`);
