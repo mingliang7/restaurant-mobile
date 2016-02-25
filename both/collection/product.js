@@ -98,7 +98,7 @@ Restaurant.Schema.Products = new SimpleSchema({
     blackbox: true,
     optional: true
   },
-  tags:{
+  tags: {
     type: [String],
     optional: true
   }
@@ -114,3 +114,28 @@ Images.allow({
     return true;
   }
 });
+
+//search product
+
+
+Restaurant.Collection.Products.search = function(query) {
+  if (!query) {
+    return;
+  }
+  let regPattern = `${query}`
+  let reg = new RegExp(regPattern, 'i') //match all case
+  return Restaurant.Collection.Products.find({
+    $or: [{
+      name: {
+        $regex: reg
+      }
+    }, {
+      barcode: {
+        $regex: reg
+      }
+
+    }]
+  }, {
+    limit: 20
+  });
+};

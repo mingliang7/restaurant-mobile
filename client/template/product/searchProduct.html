@@ -1,0 +1,39 @@
+<template name="productSearch">
+  {{#ionModal focusFirstInput=true title="Search"}}
+      <div class="list">
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            {{> ionIcon icon="ios-search" class="placeholder-icon"}}
+            <input type="text" placeholder="Search" value="{{searchQuery}}">
+          </label>
+        </div>
+      <ul>
+        {{#each products}}
+          {{> _productItem}}
+        {{/each}}
+        </ul>
+      </div>
+
+    {{/ionModal}}
+</template>
+
+<template name="_productItem">
+      {{#ionItem buttonRight=true avatar=true }}
+        <img src="{{url}}">
+        <span class="cursor-p" data-ion-modal="editProduct" data-id="{{_id}}">
+          {{_category.name}}
+        </span>
+        <p>
+          <b>{{name}}</b>
+        </p>
+        <p>
+          តម្លៃៈ <b>{{price}}</b>
+        </p>
+        <p>
+          Barcode: <b>{{barcode}}</b>
+        </p>
+        <button data-action="confirm" class=" button button-clear">
+          {{> ionIcon icon="close-circled"}}</button>
+
+      {{/ionItem}}
+</template>

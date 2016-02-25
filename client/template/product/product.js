@@ -1,6 +1,7 @@
 Template.product.created = function() {
   this.autorun(function() {
     this.subscription = Meteor.subscribe('products');
+    this.subscription = Meteor.subscribe("productCount");
   }.bind(this));
 };
 Template.product.rendered = function() {
@@ -16,7 +17,7 @@ Template.product.rendered = function() {
 Template.product.helpers({
   products() {
     var arr = [];
-    var products = Restaurant.Collection.Products.find();
+    var products = Restaurant.Collection.Products.find({}, {sort: {name: 1}});
     products.forEach(function(product) {
       if (product.picture) {
         var img = Images.findOne(product.picture);
