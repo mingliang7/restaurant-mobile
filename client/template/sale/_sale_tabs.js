@@ -52,8 +52,8 @@ Template._sale_tabs.events({
   'click .order' () {
     var selector = Session.get('saleDetailObj');
     IonPopup.confirm({
-      title: 'ត្រូវការ Confirm',
-      template: `កម្ម៉ង់មែនហីបង? :)`,
+      title: 'បញ្ជាក់',
+      template: `យល់ព្រមកម្ម៉ង់?`,
       onOk: () => {
         Meteor.call('insertSaleDetail', selector, function(err, result) {
           if (err) {

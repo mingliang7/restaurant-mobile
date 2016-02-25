@@ -9,16 +9,16 @@ App.icons({
   //android
   'android_xhdpi': 'resources/icons/icon-android.png',
   //ios
-  'ipad': 'resources/icons/icon-ios.png',
+  'ipad': 'resources/icons/icon-ios.png'
 });
 
 App.launchScreens({
   //android
   'android_xhdpi_portrait': 'resources/splash/rabbit-p.png',
-  'android_xhdpi_landscape': 'resources/splash/rabbit-l.png'
+  'android_xhdpi_landscape': 'resources/splash/rabbit-l.png',
   //ios
   'ipad_portrait': 'resources/splash/rabbit-p.png',
-  'ipad_landscape': 'resources/splash/rabbit-l.png',
+  'ipad_landscape': 'resources/splash/rabbit-l.png'
 });
 
 // Set PhoneGap/Cordova preferences

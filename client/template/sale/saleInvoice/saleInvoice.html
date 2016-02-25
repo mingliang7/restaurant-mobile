@@ -1,59 +1,59 @@
 <template name="restaurantSaleTableSaleInvoice">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton href="/restaurant/sale" text='ត្រលប់ទៅកាន់តុ'}}
-  {{/contentFor}}
-  {{#contentFor "headerButtonRight"}}
-    <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
-  {{/contentFor}}
-  {{#contentFor "headerTitle"}}
-    <h1 class="title">{{{invoiceNumber}}}</h1>
-  {{/contentFor}}
-  {{#ionView}}
-    {{#ionContent class="padding contact-detail"}}
-    {{#with saleInvoice}}
-      {{> tableHeader}}
-    {{/with}}
-    <div class="list card">
-      <div class="item item-body">
-        <div class="row">
-          <div class="col col-20">
-            <b>បរិយាយ</b>
-          </div>
-          <div class="col col-15">
-            <b>តម្លៃ</b>
-          </div>
-          <div class="col col-15">
-            <b>ចំនួន</b>
-          </div>
-          <div class="col col-15">
-            <b>បញ្ចុះតម្លៃ</b>
-          </div>
-          <div class="col col-20">
-            <b>សរុប</b>
-          </div>
-          <div class="col col-5" align="right">
-            <b>ជម្រើស</b>
-          </div>
-          <div class="col col-5">
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton href="/restaurant/sale" text='ត្រលប់ទៅកាន់តុ'}}
+    {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
+        <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">{{{invoiceNumber}}}</h1>
+    {{/contentFor}}
+    {{#ionView}}
+        {{#ionContent class="padding contact-detail"}}
+            {{#with saleInvoice}}
+                {{> tableHeader}}
+            {{/with}}
+            <div class="list card">
+                <div class="item item-body">
+                    <div class="row">
+                        <div class="col col-20">
+                            <b>បរិយាយ</b>
+                        </div>
+                        <div class="col col-15">
+                            <b>តម្លៃ</b>
+                        </div>
+                        <div class="col col-15">
+                            <b>ចំនួន</b>
+                        </div>
+                        <div class="col col-15">
+                            <b>បញ្ចុះតម្លៃ</b>
+                        </div>
+                        <div class="col col-20">
+                            <b>សរុប</b>
+                        </div>
+                        <div class="col col-5" align="right">
+                            <b>ជម្រើស</b>
+                        </div>
+                        <div class="col col-5">
 
-          </div>
-        </div>
-      </div>
-      {{#each saleDetails}}
-        {{> saleDetail}}
-      {{/each}}
-      {{#if hasMore}}
-      <div class="col col-20 col-offset-50">
-        <button class="button button-positive loadMore">Load More</button>
-      </div>
-      {{/if}}
-    </div>
-    {{#with saleInvoice}}
-      {{> saleInvoiceTotal}}
-    {{/with}}
-    {{/ionContent}}
-  {{/ionView}}
-  {{> _sale_invoice_tabs}}
+                        </div>
+                    </div>
+                </div>
+                {{#each saleDetails}}
+                    {{> saleDetail}}
+                {{/each}}
+                {{#if hasMore}}
+                    <div class="col col-20 col-offset-50">
+                        <button class="button button-positive loadMore">Load More</button>
+                    </div>
+                {{/if}}
+            </div>
+            {{#with saleInvoice}}
+                {{> saleInvoiceTotal}}
+            {{/with}}
+        {{/ionContent}}
+    {{/ionView}}
+    {{> _sale_invoice_tabs}}
 </template>
 
 <template name="saleDetail">
@@ -123,47 +123,45 @@
     <div class="col col-50 col-offset-50">
         <div class="list card">
             <div class="item item-body">
-            {{#with saleInvoice}}
-                <div class="row">
-                    <div class="col col-10"></div>
-                    <div class="col col-20">
-                        Sub Total
+                {{#with saleInvoice}}
+                    <div class="row">
+                        <div class="col col-10"></div>
+                        <div class="col col-20">
+                            Sub Total
+                        </div>
+                        <div class="col col-50">
+                            <b>{{subTotal}} {{exchangeRate.symbol}}</b>
+                        </div>
                     </div>
-                    <div class="col col-50">
-                        <b>{{subTotal}} {{exchangeRate.symbol}}</b>
+                    <div class="row">
+                        <div class="col col-10">
+                            <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editDiscount" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
+                            <a href="{{goToEditDiscount}}" class="assertive edit-discount">{{> ionIcon icon="edit"}}</a>
+                        </div>
+                        <div class="col col-20">
+                            បញ្ចុះតម្លៃ
+                        </div>
+                        <div class="col col-50">
+                            <b>{{discount}}</b>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col col-10">
-                        <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editDiscount" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
-                        <a href="{{goToEditDiscount}}" class="assertive edit-discount">{{> ionIcon icon="edit"}}</a>
-                    </div>
-                    <div class="col col-20">
-                        បញ្ចុះតម្លៃ
-                    </div>
-                    <div class="col col-50">
-                        <b>{{discount}}</b>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-10"></div>
-                    <div class="col col-20">
-                        Total
-                    </div>
-                    <div class="col col-50">
-                        <b>{{total}} {{exchangeRate.symbol}}</b>
+                    <div class="row">
+                        <div class="col col-10"></div>
+                        <div class="col col-20">
+                            Total
+                        </div>
+                        <div class="col col-50">
+                            <b>{{total}} {{exchangeRate.symbol}}</b>
+                        </div>
+
                     </div>
 
-                </div>
-
-                    {{/with}}
+                {{/with}}
 
                 {{#each exchangeRate.rates}}
                     <div class="row">
                         <div class="col col-10"></div>
-                        <div class="col col-20">
-                            Total {{toCurrencyId}}
-                        </div>
+                        <div class="col col-20"></div>
                         <div class="col col-50">
                             <b>{{multiply rate saleInvoice.total toCurrencyId}} {{symbol}}</b>
                         </div>
