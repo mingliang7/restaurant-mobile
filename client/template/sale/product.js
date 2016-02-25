@@ -38,7 +38,7 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.helpers({
       Session.set('productCountFromMethod', 1);
       return result.products;
     }
-    return Restaurant.Collection.Products.find({categoryId: categoryId}, {
+    return Restaurant.Collection.Products.find({categoryId: categoryId}, {sort: {name: 1},
       limit: limit
     });
   },
