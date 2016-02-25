@@ -13,7 +13,11 @@
       {{#if saleDetailExist}}
         {{> ionTab title="កម្ម៉ង់" class="order" iconOff="android-cart" iconOn="android-cart"}}
       {{/if}}
-      {{> ionTab title="Sale" path="restaurant.sale" iconOff="coffee" iconOn="coffee"}}
+      <a class="tab-item" data-ion-modal="categoryTags">
+        <i class="icon ion-ios-pricetags-outline"></i>
+        Tags
+      </a>
+      <!-- {{> ionTab title="Tags" data-ion-modal="productTags" iconOff="coffee" iconOn="coffee"}} -->
     {{/ionTabs}}
   {{/if}}
 </template>

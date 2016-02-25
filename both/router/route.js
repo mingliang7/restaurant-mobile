@@ -197,6 +197,10 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Session.set('categoryTags', {
+        tags: {}
+      })
+      Session.set('productCountFromMethod', undefined);
       this.next();
     }
   });

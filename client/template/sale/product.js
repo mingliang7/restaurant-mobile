@@ -25,12 +25,22 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.rendered = function() {
 Template.restaurantSaleCheckoutInvoiceCategoryProduct.helpers({
   categoryName() {
     try {
-      return Restaurant.Collection.Products.findOne()._category.name;
+      return Restaurant.Collection.Products.findOne({categoryId: Router.current().params.categoryId})._category.name;
     } catch (e) {}
   },
   products() {
     let limit = Session.get('limited')
-    return Restaurant.Collection.Products.find({},{limit: limit});
+    let categoryId = Router.current().params.categoryId;
+    let categoryTags = Session.get('categoryTags');
+    if (!_.isUndefined(categoryTags.search)) {
+      let amountLimit = categoryTags.limit || 12;
+      let result = ReactiveMethod.call('queryProductTags', Router.current().params.categoryId, categoryTags.search, amountLimit);
+      Session.set('productCountFromMethod', 1);
+      return result.products;
+    }
+    return Restaurant.Collection.Products.find({categoryId: categoryId}, {
+      limit: limit
+    });
   },
   goToCategory() {
     let params = Router.current().params;
@@ -39,8 +49,10 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.helpers({
   hasMore() {
     let productCount = Counts.get('productCount')
     let productLimit = Session.get('limited');
-    debugger
-    return productLimit < productCount;
+    let count = Session.get('productCountFromMethod');
+    if (_.isUndefined(count)) {
+      return productLimit < productCount;
+    }
   }
 });
 
@@ -48,12 +60,13 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.events({
   'click .loadMore' (event) {
     let limit = Session.get('limited') + 12;
     Session.set('limited', limit);
-    var sub = Meteor.subscribe('productByCategory', categoryId, limit)
-    if (!sub.ready()) {
-      IonLoading.show();
-    } else {
-      IonLoading.hide();
-    }
+    let categoryId = Router.current().params.categoryId;
+    var sub = Meteor.subscribe('productByCategory', categoryId, limit, {})
+    // if (!sub.ready()) {
+    //   IonLoading.show();
+    // } else {
+    //   IonLoading.hide();
+    // }
   },
   'click .icon-add-new-product' (event) {
     let params = Router.current().params;

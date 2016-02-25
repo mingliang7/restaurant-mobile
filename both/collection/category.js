@@ -11,6 +11,10 @@ Restaurant.Schema.Categories = new SimpleSchema({
         label:"ពិពណ៌នា",
         optional:true
     },
+    tags: {
+      type: [String],
+      optional: true
+    }
   /*  parentId:{
         type:String,
         label:"ParentId",

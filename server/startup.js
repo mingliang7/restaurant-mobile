@@ -51,7 +51,12 @@ Meteor.startup(function() {
   Restaurant.Collection.Sales._ensureIndex({
     status: 1
   });
+  Restaurant.Collection.Products._ensureIndex({
+    name: 1
+  });
+  Restaurant.Collection.Products._ensureIndex({tags: 'text'});
   //end ensure index
+
   Meteor.defer(function() {
     let emptySales = Restaurant.Collection.Sales.find({
       total: {
