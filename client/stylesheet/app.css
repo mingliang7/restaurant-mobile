@@ -14,7 +14,7 @@
     -moz-box-flex: 1;
     -moz-flex: 1;
     -ms-flex: 1;
-    display: inline-block;
+    display: inline;
     width: 100%;
 }
 
