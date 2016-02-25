@@ -33,5 +33,34 @@ Meteor.methods({
                 Restaurant.Collection.Sales.direct.remove(saleId);
             }
         });
+    },
+    transferSaleAndSaleDetails: function (saleDetailId, fromSaleId, toSaleId) {
+        Restaurant.Collection.SaleDetails.update(saleDetailId, {$set: {saleId: toSaleId}});
+        Meteor.defer(function () {
+            // Meteor._sleepForMs(500);
+            var saleDetails = Restaurant.Collection.SaleDetails.find({saleId: fromSaleId});
+            if (saleDetails.count() > 0) {
+                var set = {};
+                var sale = Restaurant.Collection.Sales.findOne(fromSaleId);
+                var discount = sale && sale.discount ? sale.discount : 0;
+                var saleSubTotal = 0;
+                saleDetails.forEach(function (saleDetail) {
+                    saleSubTotal += parseFloat(saleDetail.amount);
+                });
+                var baseCurrencyId = Restaurant.Collection.Company.findOne().baseCurrency;
+                var total = saleSubTotal * (1 - discount / 100);
+                if (baseCurrencyId == "KHR") {
+                    total = roundRielCurrency(total);
+                }
+                set.subTotal = saleSubTotal;
+                set.total = total;
+                set.owedAmount = total;
+                Restaurant.Collection.Sales.direct.update(fromSaleId, {$set: set});
+
+            }
+            else {
+                Restaurant.Collection.Sales.remove(fromSaleId);
+            }
+        });
     }
 });

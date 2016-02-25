@@ -45,6 +45,7 @@ ddp-rate-limiter@1.0.0
 ddp-server@1.2.2
 deps@1.0.9
 diff-sequence@1.0.1
+dsyko:jquery-ui-touch-punch@1.2.4
 ecmascript@0.1.6
 ecmascript-runtime@0.2.6
 ejson@1.0.7
@@ -93,6 +94,7 @@ mongo-id@1.0.1
 mongo-livedata@1.0.9
 mpowaga:jquery-fileupload@9.11.2
 mpowaga:jquery-ui-widget@1.11.4
+mrt:jquery-ui@1.9.2
 mystor:device-detection@0.2.0
 natestrauser:select2@4.0.0_1
 notorii:autoform-datetimepicker@1.0.6
