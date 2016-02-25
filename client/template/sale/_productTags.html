@@ -1,0 +1,14 @@
+<template name="categoryTags">
+  {{#ionModal customTemplate=true}}
+      {{#autoForm schema="Restaurant.Schema.CategoryTags" id="categoryTags"}}
+          <div class="bar bar-header bar-stable">
+              <button data-dismiss="modal" type="button" class="button button-balanced search-tags">Ok</button>
+              <h2 class="title">ជ្រើសរើស Tags</h2>
+              <!-- <button type="submit" class="button button-positive button-clear">Add</button> -->
+          </div>
+          <div class="content has-header overflow-scroll">
+            {{> afQuickField name='tags' options=categoryTags class="categoryTag"}}
+          </div>
+      {{/autoForm}}
+  {{/ionModal}}
+</template>

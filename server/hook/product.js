@@ -7,5 +7,5 @@ Restaurant.Collection.Products.after.insert((userId, doc)=>{
 });
 
 Restaurant.Collection.Products.after.update((userId, doc)=>{
-  Meteor.call('updateTag', doc._id);
+  Meteor.call('updateTag', doc._id, true);
 });

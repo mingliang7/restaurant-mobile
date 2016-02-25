@@ -6,15 +6,18 @@ Meteor.methods({
       checkTag(tags); //
     })
   },
-  updateTag(productId) {
+  updateTag(productId, update) {
     Meteor.defer(() => {
       let tags = Sale.tags.name; //calling form both/app/sale.js
-      checkTag(tags, productId);
+      checkTag(tags, productId, update);
     })
   }
 });
 
-var checkTag = (tags, productId) => {
+var checkTag = (tags, productId, update) => {
+  if(update){
+    Restaurant.Collection.Products.direct.update(productId, {$unset: {tags: ''}});
+  }
   for (let i = 0; i < tags.length; i++) {
     let regPattern = `${tags[i]}`
     let reg = new RegExp(regPattern, 'i') //match all case

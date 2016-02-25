@@ -25,6 +25,9 @@ Template.product.helpers({
       arr.push(product);
     });
     return arr;
+  },
+  join(tags){
+    return tags.join(' ');
   }
 });
 

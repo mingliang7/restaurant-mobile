@@ -28,6 +28,14 @@
             <p>
               Barcode: <b>{{barcode}}</b>
             </p>
+            <p>
+              Tags:
+              {{#if tags}}
+                <b>{{join tags}}</b>
+              {{else}}
+                {{> ionSpinner icon="ios-small"}}
+              {{/if}}
+            </p>
             <button data-action="confirm" class=" button button-clear">
               {{> ionIcon icon="close-circled"}}</button>
 

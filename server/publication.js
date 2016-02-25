@@ -12,9 +12,14 @@ Meteor.publish('units', () => {
 Meteor.publish('categories', () => {
   return Restaurant.Collection.Categories.find();
 });
+Meteor.publish('category', (categoryId) => {
+  return Restaurant.Collection.Categories.find(categoryId);
+});
 Meteor.publish('products', (limit) => {
   let amount = limit || 10
-  return Restaurant.Collection.Products.find({},{limit: amount});
+  return Restaurant.Collection.Products.find({}, {
+    limit: amount
+  });
 });
 Meteor.publish('exchangeRates', () => {
   return Restaurant.Collection.ExchangeRates.find();
@@ -46,15 +51,8 @@ Meteor.publish("tableInLocationId", (tableLocationId) => {
 });
 
 Meteor.publish("productByCategory", (categoryId, limit) => {
-  let amount = limit || 12;
-  return Restaurant.Collection.Products.find({
-    categoryId: categoryId
-  }, {
-    sort: {
-      name: 1
-    },
-    limit: amount
-  });
+    let amount = limit || 12;
+    return Restaurant.Collection.Products.find({categoryId: categoryId}, {limit: amount});
 });
 //count product by category
 Meteor.publish("countProductByCategory", function(categoryId) {
@@ -65,7 +63,9 @@ Meteor.publish("countProductByCategory", function(categoryId) {
 });
 
 Meteor.publish("sale", (id) => {
-  return Restaurant.Collection.Sales.find(id, {status: 'active'});
+  return Restaurant.Collection.Sales.find(id, {
+    status: 'active'
+  });
 });
 
 
@@ -109,17 +109,26 @@ Meteor.publish("currencies", () => {
 
 Meteor.publish("existSales", () => {
   return Restaurant.Collection.Sales.find({
-    status: 'active', _payment: {$exists: false}
+    status: 'active',
+    _payment: {
+      $exists: false
+    }
   });
 });
 
 //find active sale
 Meteor.publish("activeSales", (limit) => {
   let amount = limit || 20;
-  return Restaurant.Collection.Sales.find({status: 'active'}, {limit: amount});
+  return Restaurant.Collection.Sales.find({
+    status: 'active'
+  }, {
+    limit: amount
+  });
 });
 
 Meteor.publish('activeSalesCount', () => {
-  Counts.publish(this, 'activeSalesCount', Restaurant.Collection.Sales.find({status: 'active'}));
+  Counts.publish(this, 'activeSalesCount', Restaurant.Collection.Sales.find({
+    status: 'active'
+  }));
   this.ready();
 })

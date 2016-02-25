@@ -51,6 +51,7 @@ Template.restaurantSaleTableLocationShow.helpers({
 
 Template.restaurantSaleTableLocationShow.events({
   "click .action-sheet" (event, template) {
+    Session.set('saleDetailObj', {}); //set saleDetailObj for order product
     let tableName = $(event.currentTarget).parents('.item').find('.table-name').text();
     let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();
     var sales = Restaurant.Collection.Sales.find({tableId: tableId}).fetch();
@@ -74,6 +75,7 @@ Template.restaurantSaleTableLocationShow.events({
     });
   },
   "click .balanced" (event) {
+    Session.set('saleDetailObj', {}); //set saleDetailObj for order product
     IonLoading.show();
     let tableLocationId = Router.current().params.tableLocationId;;
     let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();

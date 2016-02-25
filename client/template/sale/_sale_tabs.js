@@ -19,6 +19,7 @@ Template._sale_tabs.helpers({
 
 Template._sale_tabs.events({
   'click .categories' () {
+    // Session.set('categoryTags', {tags: {}})
     var arr = [];
     var index = 0;
     var categories = Restaurant.Collection.Categories.find();
