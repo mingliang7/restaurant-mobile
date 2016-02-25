@@ -53,3 +53,5 @@ simple:reactive-method
 numeral:numeral
 tmeasday:publish-counts
 meteorhacks:kadira
+mrt:jquery-ui
+dsyko:jquery-ui-touch-punch

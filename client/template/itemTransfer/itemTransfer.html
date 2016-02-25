@@ -1,0 +1,94 @@
+<template name="restaurantItemTransfer">
+
+
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.data" text="Data"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">Item Transfer</h1>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+            <div class="row">
+                <div class="col-50">
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            From
+                        </div>
+                        <select id="from-sale-id">
+                            <option value="">(Please Select one)</option>
+                            {{#each fromSales}}
+                                <option value="{{_id}}">
+                                    {{_id}} | {{_customer.name}} | {{_table.name}}
+                                </option>
+                            {{/each}}
+                        </select>
+                    </label>
+                    <br>
+                    <div class="row">
+                        <!--<div class="col-100">
+                            <ul id="from-sortable-sale" class="list-group connectedSortable">
+                                {{#each fromSaleDetails}}
+                                    <li class="cursor-p list-group-item ui-state-default" id="{{_id}}">
+                                        {{_product.name}}({{_product._unit.name}}) | Qty:{{quantity}} | Price: {{price}}
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>-->
+                        <div id="from-sortable-sale" class="list connectedSortable">
+                            {{#each fromSaleDetails}}
+                                <a class="item cursor-p" id="{{_id}}">
+                                    <!--<li class="cursor-p list-group-item ui-state-default" id="{{_id}}">-->
+                                    {{_product.name}}({{_product._unit.name}}) | Qty:{{quantity}} | Price: {{price}}
+                                    <!--</li>-->
+                                </a>
+                            {{/each}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-50">
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            To
+                        </div>
+                        <select id="to-sale-id">
+                            <option value="">(Please Select one)</option>
+                            {{#each toSales}}
+                                <option value="{{_id}}">
+                                    {{_id}} | {{_customer.name}} | {{_table.name}}
+                                </option>
+                            {{/each}}
+                        </select>
+                    </label>
+                    <br>
+                    <div class="row">
+                        <div class="col-100">
+                            <div id="to-sortable-sale" class="list connectedSortable">
+                                <!--<ul id="to-sortable-sale" class="list-group connectedSortable">-->
+                                {{#each toSaleDetails}}
+                                    <!--  <li class="cursor-p list-group-item ui-state-default" id="{{_id}}">
+                                        {{_product.name}}({{_product._unit.name}}) | Qty:{{quantity}} |
+                                        Price: {{price}}</li>-->
+
+
+                                    <a class="item cursor-p" id="{{_id}}">
+                                        <!--<li class="cursor-p list-group-item ui-state-default" id="{{_id}}">-->
+                                        {{_product.name}}({{_product._unit.name}}) | Qty:{{quantity}} | Price: {{price}}
+                                        <!--</li>-->
+                                    </a>
+
+                                {{/each}}
+                                <!--</ul>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        {{/ionContent}}
+    {{/ionView}}
+
+</template>
