@@ -1,7 +1,7 @@
 // Set up resources such as icons and launch screens.
 App.info({
-  name: 'Restaurant-App',
-  description: 'An Android app built with Meteor',
+  name: 'ប្រព័ន្ធគ្រប់គ្រងភោជនីយដ្ឋាន',
+  description: 'Best Salution App For Your Business',
   version: '0.0.1'
 });
 
@@ -23,8 +23,7 @@ App.launchScreens({
   'iphone': 'resources/splash/launch-screen-iphone-4-4s.png',
   'iphone_2x': 'resources/splash/launch-screen-iphone-4-4s.png',
   'iphone5': 'resources/splash/launch-screen-iphone5.png',
-  'iphone6_portrait': 'resources/splash/iphone6-portrait.png',
-  'iphone6_landscape': 'resources/splash/iphone6-landscape.png',
+  'iphone6': 'resources/splash/launch-screen-iphone6.png',
   'ipad_portrait': 'resources/splash/rabbit-p.png',
   'ipad_landscape': 'resources/splash/rabbit-l.png'
 });
