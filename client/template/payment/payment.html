@@ -7,7 +7,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <!-- <button class="button button-clear" data-ion-modal="tableNew">{{> ionIcon icon="ios-plus-empty"}}</button> -->
+    <button class="button button-clear search" data-ion-modal="saleSearch">{{> ionIcon icon="search"}}</button>
   {{/contentFor}}
 
   {{#ionView}}
@@ -31,8 +31,12 @@
 
 <template name="activeSale">
   <span>
+    វិក័យប័ត្រលេខៈ <b>{{_id}}</b> |
     តុលេខៈ {{_table.name}}
   </span>
+  <p>
+    លក់នៅថ្ងៃទី: <b>{{moFormat saleDate 'DD/MM/YY HH:mm:ss'}}</b>
+  </p>
   <p>
     រាយមុខទំនិញៈ
     {{#if listSaleDetails}}
@@ -44,13 +48,9 @@
     {{/if}}
   </p>
   <p>
-    លក់នៅថ្ងៃទី: <b>{{moFormat saleDate 'DD/MM/YY HH:mm:ss'}}</b>
-  </p>
-  <p>
     អតិថិជន: <b>{{_customer.name}}</b>
   </p>
   <p>
-    វិក័យប័ត្រលេខៈ <b>{{_id}}</b>
   </p>
   <p>
     ទឹកប្រាក់សរុបៈ <b>{{total}}</b>

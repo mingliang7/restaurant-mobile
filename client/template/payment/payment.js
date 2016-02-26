@@ -1,16 +1,21 @@
-Template.restaurantActivePayment.created = function(){
-  Session.set('activeSaleLimit', 20);
-  this.autorun(()=>{
-    this.subscribe = Meteor.subscribe("activeSales");
-  })
+Tracker.autorun(function() {
+  if (Session.get('activeSaleLimit')) {
+    Meteor.subscribe("activeSales", Session.get('activeSaleLimit'));
+  }
+});
+
+Template.restaurantActivePayment.created = function() {
+  Session.set('activeSaleLimit', 10);
+  Meteor.subscribe("activeSalesCount");
+  this.autorun(() => {})
 }
 
-Template.restaurantActivePayment.rendered = function(){
+Template.restaurantActivePayment.rendered = function() {
   try {
-    this.autorun(()=>{
-      if(!this.subscription.ready()){
+    this.autorun(() => {
+      if (!this.subscription.ready()) {
         IonLoading.show();
-      }else{
+      } else {
         IonLoading.hide();
       }
     });
@@ -19,33 +24,41 @@ Template.restaurantActivePayment.rendered = function(){
   }
 }
 Template.restaurantActivePayment.events({
-  'click .loadMore'(){
-    let limit = Session.get('activeSaleLimit') + 10;
+  'click .loadMore' () {
+    let limit = Session.get('activeSaleLimit') + 5;
     Session.set('activeSaleLimit', limit);
-    Meteor.subscribe("activeSales", limit);
   }
 });
 Template.restaurantActivePayment.helpers({
-  activeSales(){
-    return Restaurant.Collection.Sales.find({status: 'active'}, {sort: {_id: 1}})
+  activeSales() {
+    return Restaurant.Collection.Sales.find({
+      status: 'active'
+    }, {
+      sort: {
+        _id: 1
+      }
+    })
   },
-  goToActivePaymentInvoice(){
+  goToActivePaymentInvoice() {
     return `/restaurant/payment/${this._id}`
   },
-  hasMore(){
+  hasMore() {
     let limit = Session.get('activeSaleLimit');
     let count = Counts.get('activeSalesCount');
+    debugger
     return limit < count;
   }
 })
 
 
 Template.activeSale.helpers({
-  listSaleDetails(){
+  listSaleDetails() {
     var sub = Meteor.subscribe("saleDetails", this._id);
-    if(!sub.ready()){
+    if (!sub.ready()) {
       return false;
     }
-    return Restaurant.Collection.SaleDetails.find({saleId: this._id});
+    return Restaurant.Collection.SaleDetails.find({
+      saleId: this._id
+    });
   }
 });

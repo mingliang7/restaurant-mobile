@@ -1,0 +1,20 @@
+<template name="saleSearch">
+  {{#ionModal focusFirstInput=true title="Search"}}
+      <div class="list">
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            {{> ionIcon icon="ios-search" class="placeholder-icon"}}
+            <input type="text" placeholder="Search" value="{{searchQuery}}">
+          </label>
+        </div>
+      <ul>
+        {{#each products}}
+          {{#ionItem  href=goToActivePaymentInvoice buttonRight=true avatar=true class="item-icon-right"}}
+            {{> activeSale}}
+          {{/ionItem}}
+        {{/each}}
+        </ul>
+      </div>
+
+    {{/ionModal}}
+</template>

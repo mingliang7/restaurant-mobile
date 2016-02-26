@@ -51,8 +51,12 @@ Meteor.publish("tableInLocationId", (tableLocationId) => {
 });
 
 Meteor.publish("productByCategory", (categoryId, limit) => {
-    let amount = limit || 12;
-    return Restaurant.Collection.Products.find({categoryId: categoryId}, {limit: amount});
+  let amount = limit || 12;
+  return Restaurant.Collection.Products.find({
+    categoryId: categoryId
+  }, {
+    limit: amount
+  });
 });
 //count product by category
 Meteor.publish("countProductByCategory", function(categoryId) {
@@ -71,7 +75,6 @@ Meteor.publish("sale", (id) => {
 
 Meteor.publish("saleDetails", (saleId, limit) => {
   let amount = limit || 5;
-  console.log(amount)
   return Restaurant.Collection.SaleDetails.find({
     saleId: saleId
   }, {
@@ -81,7 +84,6 @@ Meteor.publish("saleDetails", (saleId, limit) => {
 });
 //count saleDetail by saleId
 Meteor.publish("saleDetailCount", function(saleId) {
-  console.log(saleId);
   Counts.publish(this, 'saleDetailCount', Restaurant.Collection.SaleDetails.find({
     saleId: saleId
   }));
@@ -118,7 +120,7 @@ Meteor.publish("existSales", () => {
 
 //find active sale
 Meteor.publish("activeSales", (limit) => {
-  let amount = limit || 20;
+  let amount = limit || 10;
   return Restaurant.Collection.Sales.find({
     status: 'active'
   }, {
@@ -126,7 +128,7 @@ Meteor.publish("activeSales", (limit) => {
   });
 });
 
-Meteor.publish('activeSalesCount', () => {
+Meteor.publish('activeSalesCount', function() {
   Counts.publish(this, 'activeSalesCount', Restaurant.Collection.Sales.find({
     status: 'active'
   }));
@@ -140,7 +142,6 @@ Meteor.publish('productsSearch', function(query) {
     return this.ready();
   }
   let restaurant = Restaurant.Collection.Products.search(query);
-  console.log(restaurant.count())
   return restaurant;
 });
 
@@ -148,3 +149,11 @@ Meteor.publish('productCount', function() {
   Counts.publish(this, 'productCounts', Restaurant.Collection.Products.find());
   this.ready();
 })
+
+//sale search
+Meteor.publish('salesSearch', function(query) {
+  if (_.isEmpty(query)) {
+    return this.ready();
+  }
+  return Restaurant.Collection.Sales.search(query);
+});
