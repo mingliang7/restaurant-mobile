@@ -1,9 +1,14 @@
+Tracker.autorun(function(){
+    if(Session.get('saleDetailLimited')){
+      Meteor.subscribe("saleDetails", Router.current().params.invoiceId, Session.get('saleDetailLimited'));
+    }
+});
+
 Template.restaurantSaleTableSaleInvoice.created = function() {
   let saleId = Router.current().params.invoiceId;
-  let limit = Session.set('saleDetailLimited', 5)
+  Session.set('saleDetailLimited', 5)
   this.autorun(() => {
     this.subscribe = Meteor.subscribe("sale", saleId);
-    this.subscribe = Meteor.subscribe("saleDetails", saleId, limit);
     this.subscribe = Meteor.subscribe("saleDetailCount", saleId);
   });
 };
@@ -58,7 +63,7 @@ Template.restaurantSaleTableSaleInvoice.events({
     let saleId = Router.current().params.invoiceId;
     let limit = Session.get('saleDetailLimited') + 5;
     Session.set('saleDetailLimited', limit);
-    let sub = Meteor.subscribe("saleDetails", saleId, limit);
+    // let sub = Meteor.subscribe("saleDetails", saleId, limit);
 
   }
 });

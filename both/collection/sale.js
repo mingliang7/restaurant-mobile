@@ -1,4 +1,25 @@
 Restaurant.Collection.Sales = new Mongo.Collection("restaurant_sales");
+Restaurant.Collection.Sales.search = function(query){
+  if (!query) {
+    return;
+  }
+  let regPattern = `${query}`
+  let reg = new RegExp(regPattern, 'i') //match all case
+  return Restaurant.Collection.Sales.find({status: 'active',
+    $or: [{
+      _id: {
+        $regex: reg
+      }
+    }, {
+      description: {
+        $regex: reg
+      }
+
+    }]
+  }, {
+    limit: 20
+  });
+}
 Restaurant.Schema.Sales = new SimpleSchema({
   saleDate: {
     type: Date,
@@ -13,6 +34,11 @@ Restaurant.Schema.Sales = new SimpleSchema({
         return 0;
       }
     }
+  },
+  description:{
+    type: String,
+    label: 'បរិយាយ',
+    optional: true
   },
   subTotal: {
     type: Number,

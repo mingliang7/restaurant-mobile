@@ -1,8 +1,14 @@
+Tracker.autorun(function(){
+  if(Session.get('limited')){
+    console.log(Router.current().params.categoryId)
+    Meteor.subscribe('productByCategory', Router.current().params.categoryId, Session.get('limited'));
+  }
+});
+
 Template.restaurantSaleCheckoutInvoiceCategoryProduct.created = function () {
-    let limit = Session.set('limited', 12);
+    Session.set('limited', 12);
     this.autorun(() => {
         let categoryId = Router.current().params.categoryId;
-        this.subscribe = Meteor.subscribe('productByCategory', categoryId, Session.get('limited'));
         this.subscribe = Meteor.subscribe('countProductByCategory', categoryId);
     });
 }
@@ -68,13 +74,6 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.events({
     'click .loadMore' (event) {
         let limit = Session.get('limited') + 12;
         Session.set('limited', limit);
-        let categoryId = Router.current().params.categoryId;
-        var sub = Meteor.subscribe('productByCategory', categoryId, limit, {})
-        // if (!sub.ready()) {
-        //   IonLoading.show();
-        // } else {
-        //   IonLoading.hide();
-        // }
     },
     'click .icon-add-new-product' (event) {
         let params = Router.current().params;

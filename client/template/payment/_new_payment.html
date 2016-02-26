@@ -10,6 +10,10 @@
  {{#ionView}}
    {{#ionContent}}
       {{#autoForm collection="Restaurant.Collection.Payments" doc=sale id="activePayment" type="insert"}}
+          <div class="bar bar-header" >
+            <button type="submit" class="button button-positive">រក្សាទុក</button>
+            <button type="submit" class="button button-balanced savePrint">រក្សាទុក&Print</button>
+          </div>
           <div class="content has-header overflow-scroll">
             {{> afQuickField name='customerId'}}
             {{> afQuickField name='saleId' readonly=true}}
@@ -18,9 +22,6 @@
             {{> afQuickField name='dueAmount' readonly=true}}
             {{> afQuickField name='balanceAmount' readonly=true}}
             {{> afQuickField name='description' type="textarea"}}
-          </div>
-          <div class="bar bar-header" >
-            <button type="submit" class="button button-positive">រក្សាទុក</button>
           </div>
       {{/autoForm}}
   {{/ionContent}}
