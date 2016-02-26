@@ -1,0 +1,67 @@
+<template name="restaurantInvoice">
+  {{#ionView}}
+    {{#ionContent}}
+      {{#if data}}
+        {{#with data}}
+        <div class="row">
+          <div class="col col-20 offset-10"></div>
+          <div class="col col-50">
+            {{#with header}}
+              <h4 align="center">
+                <b>{{company.khName}}</b><br>
+                <small>អាស័យដ្ឋានៈ {{company.address}}</small><br>
+                <small>Tel: {{company.phoneNumber}}</small>
+              </h4>
+              <p align="center">
+                <smal>
+                  <b>វិក័យប័ត្រ</b>
+                </smal>
+              </p>
+            {{/with}}
+          </div>
+          <div class="col col-20"></div>
+        </div>
+        <div class="row">
+          <div class="col col-20 offset-15"></div>
+          <div class="col col-33 col-offset-10" align='center'>
+            <div class="row" style="border: 1px solid #ddd;">
+            <div class="col col-33"><b>បរិយាយ</b></div>
+            <div class="col col-15"><b>តម្លៃ</b></div>
+            <div class="col col-10"><b>ចំនួន</b></div>
+            <div class="col col-20"><b>សរុប</b></div>
+            </div>
+              {{#each content}}
+                <div class="row" style="border: 1px solid #ddd;">
+                <div class="col col-33">{{_product.name}}</div>
+                <div class="col col-15">{{price}}</div>
+                <div class="col col-10">{{quantity}}</div>
+                <div class="col col-20">{{amount}}</div>
+                </div>
+              {{/each}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-20 offset-15"></div>
+          <div class="col col-33 col-offset-10" align='center'>
+            <div class="col" align="right">សរុប: &nbsp;&nbsp;{{footer.subTotal}}</div>
+            <div class="col" align="right">បញ្ចុះតម្លៃៈ &nbsp;&nbsp;{{footer.discount}}</div>
+            <div class="col" align="right">សរុបរួមៈ &nbsp;&nbsp;{{footer.total}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-33 col-offset-10" align='right'>
+            <div class="col">បានបង់ៈ {{footer.paidAmount}}</div>
+          </div>
+          <div class="col col-25 col-offset-10" align='left'>
+            <div class="col">នៅសល់ៈ {{footer.balanceAmount}}</div>
+          </div>
+        </div>
+        {{/with}}
+      {{else}}
+       <div class="col col-offset-50">
+         {{> ionSpinner icon="spiral"}}
+       </div>
+      {{/if}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

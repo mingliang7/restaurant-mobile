@@ -1,4 +1,8 @@
 Restaurant.Collection.Payments.before.insert((userId, doc) => {
+  let prefix = `${doc.saleId}`;
+  let currentId = doc._id;
+  doc._id = idGenerator.genWithPrefix(Restaurant.Collection.Payments, prefix, 2);
+  Sale.State.set(currentId, doc._id);
   if(doc.balanceAmount == 0){
     doc.status = 'closed';
   }else{

@@ -55,6 +55,7 @@ Meteor.startup(function() {
     name: 1
   });
   Restaurant.Collection.Products._ensureIndex({tags: 'text'});
+  Restaurant.Collection.SaleDetails._ensureIndex({saleId: 1});
   //end ensure index
 
   Meteor.defer(function() {

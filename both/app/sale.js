@@ -85,3 +85,4 @@ Sale = {
           ]
   }
 }
+Sale.State = new ReactiveObj();

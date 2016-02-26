@@ -95,7 +95,9 @@ mongo-livedata@1.0.9
 mpowaga:jquery-fileupload@9.11.2
 mpowaga:jquery-ui-widget@1.11.4
 mrt:jquery-ui@1.9.2
+msavin:fetcher@1.1.0
 mystor:device-detection@0.2.0
+natestrauser:animate-css@3.5.1
 natestrauser:select2@4.0.0_1
 notorii:autoform-datetimepicker@1.0.6
 npm-bcrypt@0.7.8_2
@@ -138,6 +140,7 @@ useraccounts:core@1.13.1
 useraccounts:ionic@1.13.1
 webapp@1.2.3
 webapp-hashing@1.0.5
+xamfoo:reactive-obj@0.5.0
 yogiben:autoform-file@0.4.2
 zimme:collection-behaviours@1.0.4
 zimme:collection-softremovable@1.0.5

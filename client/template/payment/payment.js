@@ -5,7 +5,7 @@ Tracker.autorun(function() {
 });
 
 Template.restaurantActivePayment.created = function() {
-  Session.set('activeSaleLimit', 10);
+  Session.set('activeSaleLimit', 5);
   Meteor.subscribe("activeSalesCount");
   this.autorun(() => {})
 }
