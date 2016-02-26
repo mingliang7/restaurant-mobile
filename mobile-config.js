@@ -9,6 +9,9 @@ App.icons({
   //android
   'android_xhdpi': 'resources/icons/icon-android.png',
   //ios
+  'iphone': 'resources/icons/icon-iphone.png',
+  'iphone_2x': 'resources/icons/icon-iphone.png',
+  'iphone_3x': 'resources/icons/icon-iphone.png',
   'ipad': 'resources/icons/icon-ios.png'
 });
 
@@ -17,6 +20,11 @@ App.launchScreens({
   'android_xhdpi_portrait': 'resources/splash/rabbit-p.png',
   'android_xhdpi_landscape': 'resources/splash/rabbit-l.png',
   //ios
+  'iphone': 'resources/splash/launch-screen-iphone-4-4s.png',
+  'iphone_2x': 'resources/splash/launch-screen-iphone-4-4s.png',
+  'iphone5': 'resources/splash/launch-screen-iphone5.png',
+  'iphone6_portrait': 'resources/splash/iphone6-portrait.png',
+  'iphone6_landscape': 'resources/splash/iphone6-landscape.png',
   'ipad_portrait': 'resources/splash/rabbit-p.png',
   'ipad_landscape': 'resources/splash/rabbit-l.png'
 });
