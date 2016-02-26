@@ -1,6 +1,6 @@
 // Set up resources such as icons and launch screens.
 App.info({
-  name: 'ប្រព័ន្ធគ្រប់គ្រងភោជនីយដ្ឋាន',
+  name: 'Restaurant-App',
   description: 'Best Salution App For Your Business',
   version: '0.0.1'
 });
