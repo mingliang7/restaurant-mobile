@@ -188,6 +188,10 @@
         {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
             {{> ionTab title="Sale" path="tabs.one" icon="coffee"}}
+            <a class="tab-item" data-ion-modal="searchSaleForMerge">
+              <i class="icon ion-ios-download assertive"></i>
+              បញ្ចូលវិក័យប័ត្រ
+            </a>
             {{#if hasDetachSaleDetail}}
               {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
             {{/if}}
@@ -196,6 +200,10 @@
         {{#ionTabs style="ios"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
             {{> ionTab title="Sale" path="restaurant.sale" class="positive" iconOff="coffee" iconOn="coffee"}}
+            <a class="tab-item" data-ion-modal="searchSaleForMerge">
+              <i class="icon ion-ios-download assertive"></i>
+              បញ្ចូលវិក័យប័ត្រ
+            </a>
             {{#if hasDetachSaleDetail}}
               {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
             {{/if}}

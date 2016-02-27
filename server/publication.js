@@ -157,3 +157,12 @@ Meteor.publish('salesSearch', function(query) {
   }
   return Restaurant.Collection.Sales.search(query);
 });
+
+Meteor.publish('searchSaleForMerge', function(query, saleId) {
+  if (_.isEmpty(query)) {
+    return this.ready();
+  }
+  let sales = Restaurant.Collection.Sales.search(query, saleId);
+  console.log(sales.count());
+  return sales;
+});
