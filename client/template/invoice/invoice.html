@@ -3,9 +3,9 @@
     {{#ionContent}}
       {{#if data}}
         {{#with data}}
+        <div style="width: 260px;margin:0 auto;">
         <div class="row">
-          <div class="col col-20 offset-10"></div>
-          <div class="col col-50">
+          <div class="col col-100">
             {{#with header}}
               <h4 align="center">
                 <b>{{company.khName}}</b><br>
@@ -19,30 +19,28 @@
               </p>
             {{/with}}
           </div>
-          <div class="col col-20"></div>
         </div>
         <div class="row">
-          <div class="col col-20 offset-15"></div>
-          <div class="col col-33 col-offset-10" align='center'>
+
+          <div class="col col-100" align='center'>
             <div class="row" style="border: 1px solid #ddd;">
-            <div class="col col-33"><b>បរិយាយ</b></div>
-            <div class="col col-15"><b>តម្លៃ</b></div>
-            <div class="col col-10"><b>ចំនួន</b></div>
+            <div class="col col-45"><b>បរិយាយ</b></div>
+            <div class="col col-20"><b>តម្លៃ</b></div>
+            <div class="col col-15"><b>ចំនួន</b></div>
             <div class="col col-20"><b>សរុប</b></div>
             </div>
               {{#each content}}
                 <div class="row" style="border: 1px solid #ddd;">
-                <div class="col col-33">{{_product.name}}</div>
-                <div class="col col-15">{{price}}</div>
-                <div class="col col-10">{{quantity}}</div>
+                <div class="col col-45">{{_product.name}}</div>
+                <div class="col col-20">{{price}}</div>
+                <div class="col col-15">{{quantity}}</div>
                 <div class="col col-20">{{amount}}</div>
                 </div>
               {{/each}}
           </div>
         </div>
         <div class="row">
-          <div class="col col-20 offset-15"></div>
-          <div class="col col-33 col-offset-10" align='center'>
+          <div class="col" align='center'>
             <div class="col" align="right">សរុប: &nbsp;&nbsp;{{footer.subTotal}}</div>
             <div class="col" align="right">បញ្ចុះតម្លៃៈ &nbsp;&nbsp;{{footer.discount}}</div>
             <div class="col" align="right">សរុបរួមៈ &nbsp;&nbsp;{{footer.total}}</div>
@@ -56,6 +54,7 @@
             <div class="col">នៅសល់ៈ {{footer.balanceAmount}}</div>
           </div>
         </div>
+      </div>
         {{/with}}
       {{else}}
        <div class="col col-offset-50">

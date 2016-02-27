@@ -31,8 +31,11 @@
                         <div class="col col-20">
                             <b>សរុប</b>
                         </div>
-                        <div class="col col-5" align="right">
-                            <b>ជម្រើស</b>
+                        <div class="col col-5">
+
+                        </div>
+                        <div class="col col-5" align="center">
+                          <b>ជម្រើស</b>
                         </div>
                         <div class="col col-5">
 
@@ -94,14 +97,20 @@
             <div class="col col-5">
                 <a class="tab-item positive" href="{{goToSaleDetailEdit}}" data-action="fake">
                     <i class="icon ion-ios-compose-outline"></i>
-                    <b>កែប្រែ</b>
                 </a>
             </div>
             <div class="col col-5">
                 <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
                     <i class="icon ion-trash-a"></i>
-                    <b>លុបចោល</b>
                 </a>
+            </div>
+            <div class="col col-5" align="center">
+              <label class="toggle">
+               <input type="checkbox" class="detach">
+                 <div class="track">
+                  <div class="handle"></div>
+                 </div>
+              </label>
             </div>
         </div>
     </div>
@@ -150,6 +159,7 @@
                         <div class="col col-20">
                             Total
                         </div>
+                        <span class="hidden total">{{total}}</span>
                         <div class="col col-50">
                             <b>{{total}} {{exchangeRate.symbol}}</b>
                         </div>
@@ -178,11 +188,17 @@
         {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
             {{> ionTab title="Sale" path="tabs.one" icon="coffee"}}
+            {{#if hasDetachSaleDetail}}
+              {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
+            {{/if}}
         {{/ionTabs}}
     {{else}}
         {{#ionTabs style="ios"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
             {{> ionTab title="Sale" path="restaurant.sale" class="positive" iconOff="coffee" iconOn="coffee"}}
+            {{#if hasDetachSaleDetail}}
+              {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
+            {{/if}}
         {{/ionTabs}}
     {{/if}}
 </template>
@@ -204,7 +220,7 @@
                 <div class="col col-10">
                     <b>ថ្ងៃទីៈ</b>
                 </div>
-                <div class="col col-15">
+                <div class="col col-15 saleDate">
                     {{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}
                 </div>
                 <div class="col col-10">
