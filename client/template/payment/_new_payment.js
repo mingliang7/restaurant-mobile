@@ -53,10 +53,7 @@ Template.restaurantActivePaymentInvoice.events({
     var dueAmount, paidAmount;
     dueAmount = parseFloat($('[name="dueAmount"]').val());
     paidAmount = $('[name="paidAmount"]').val();
-    if (parseFloat(paidAmount) > dueAmount) {
-      $('[name="paidAmount"]').val(dueAmount);
-      $('[name="balanceAmount"]').val(0);
-    } else if (paidAmount === '') {
+    if (paidAmount === '') {
       $('[name="balanceAmount"]').val(dueAmount);
     } else {
       $('[name="balanceAmount"]').val(dueAmount - parseFloat(
@@ -77,11 +74,15 @@ AutoForm.hooks({
   activePayment:{
     onSuccess(formType, result){
       Bert.alert('គិតលុយរួចរាល់', 'success', 'growl-bottom-right', 'fa-check');
+      debugger;
       if(Session.get('savePrint')){
-        window.open(`/restaurant/invoice/${result}`, '_blank');
+        //window.open(`/restaurant/invoice/${result}`, '_blank');
+       Router.go(`/restaurant/invoice/${result}`);
+      }else{
+        Router.go('/restaurant/payment');
       }
-      Router.go('/restaurant/payment');
       Session.set('savePrint', false);
+
     },
     onError(formType, err){
       Bert.alert(err.message, 'danger', 'growl-bottom-right');

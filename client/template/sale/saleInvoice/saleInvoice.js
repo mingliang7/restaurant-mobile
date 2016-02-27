@@ -1,15 +1,11 @@
-Tracker.autorun(function(){
-    if(Session.get('saleDetailLimited')){
-      Meteor.subscribe("saleDetails", Router.current().params.invoiceId, Session.get('saleDetailLimited'));
-    }
-});
-
 Template.restaurantSaleTableSaleInvoice.created = function() {
   let saleId = Router.current().params.invoiceId;
-  Session.set('saleDetailLimited', 5)
+  Session.set('saleDetailLimited', 5) // using for limit
+  Session.set('detachSaleDetailObj', {}) //using for detach sale detail
   this.autorun(() => {
     this.subscribe = Meteor.subscribe("sale", saleId);
     this.subscribe = Meteor.subscribe("saleDetailCount", saleId);
+    this.subscribe = Meteor.subscribe("saleDetails", Router.current().params.invoiceId, Session.get('saleDetailLimited'));
   });
 };
 
@@ -63,7 +59,7 @@ Template.restaurantSaleTableSaleInvoice.events({
     let saleId = Router.current().params.invoiceId;
     let limit = Session.get('saleDetailLimited') + 5;
     Session.set('saleDetailLimited', limit);
-    // let sub = Meteor.subscribe("saleDetails", saleId, limit);
+    let sub = Meteor.subscribe("saleDetails", saleId, limit);
 
   }
 });
@@ -95,6 +91,21 @@ Template.saleDetail.events({
         Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
       }
     });
+  },
+  'click .detach' (e) {
+    let detachObj = Session.get('detachSaleDetailObj');
+    let currentProp = $(e.currentTarget).prop('checked');
+    let currentDate = $('.saleDate').text().trim();
+    if (currentProp) {
+      detachObj[this._id] = this._id
+      detachObj[this._id] = {
+        saleDate: currentDate,
+        oldSaleId: this.saleId
+      }
+    } else {
+      delete detachObj[this._id]
+    }
+    Session.set('detachSaleDetailObj', detachObj);
   }
 });
 
@@ -110,7 +121,6 @@ Template.tableHeader.helpers({
 
 Template.saleInvoiceTotal.helpers({
   multiply: function(val1, val2, id) {
-    debugger;
     if (val1 != null && val2 != null) {
       var value = (val1 * val2);
       if (id != null && id == "KHR") {
@@ -121,7 +131,6 @@ Template.saleInvoiceTotal.helpers({
     }
   },
   exchangeRate: function() {
-    debugger;
     let invoiceId = Router.current().params.invoiceId;
     var sale = Restaurant.Collection.Sales.findOne(invoiceId);
     if (sale != null) {
@@ -169,3 +178,41 @@ Template.saleDetail.helpers({
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editSaleDetail/${this._id}`;
   }
 })
+
+Template._sale_invoice_tabs.helpers({
+  hasDetachSaleDetail() {
+    let saleDetailObj = Session.get('detachSaleDetailObj');
+    if (!_.isEmpty(saleDetailObj)) {
+      return true
+    }
+    return false;
+  }
+});
+
+
+Template._sale_invoice_tabs.events({
+  'click .detachSaleDetail' () {
+    let params = Router.current().params;
+    let detachObj = Session.get('detachSaleDetailObj');
+    IonPopup.confirm({
+      title: 'បញ្ជាក់',
+      template: `តើអ្នកពិតជាចង់បំបែកវិក័យប័ត្រ?`,
+      onOk: () => {
+        IonLoading.show()
+        Meteor.call('detachSaleDetail', params.tableId, params.tableLocationId, detachObj, (err, result) => {
+          if (err) {
+            Bert.alert(`បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
+            IonLoading.hide()
+          } else {
+            IonLoading.hide()
+            Bert.alert(`បំបែកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
+            Session.set('detachSaleDetailObj', {});
+          }
+        });
+      },
+      onCancel: function() {
+        Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
+      }
+    });
+  }
+});

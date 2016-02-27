@@ -49,6 +49,19 @@ Meteor.methods({
   },
   removeSaleDetail(id) {
     Restaurant.Collection.SaleDetails.remove(id);
+  },
+  detachSaleDetail(tableId, tableLocation, obj){
+    let count = 1;
+    let saleId, oldSaleId;
+    for(let k in obj){
+      if(count <= 1){
+        saleId = insertSale(tableId, tableLocation, obj[k].saleDate);
+        oldSaleId = obj[k].oldSaleId;
+      }
+      count++;
+      Restaurant.Collection.SaleDetails.update(k, {$set: {saleId: saleId}});
+    }
+    Sale.sumSaleDetail(oldSaleId);
   }
 });
 
@@ -61,4 +74,34 @@ var updateExistSaleDetail = (currentSaleDetail, existSaleDetail) => {
       quantity:newQty
     }
   })
+}
+
+
+let insertSale = (tableId, location, saleDate) => {
+  let selector = {}
+  var date = moment(saleDate).format('YYMMDD');
+  selector._id = idGenerator.genWithPrefix(Restaurant.Collection.Sales, date, 3);
+  selector.text = selector._id;
+  selector.tableId = tableId;
+  selector.tableLocation = location
+  selector.saleDate = moment(saleDate).toDate();
+  selector.status = 'active';
+  selector.staff = Meteor.userId();
+  var customerId = Restaurant.Collection.Customers.findOne({}, {sort: {_id: 1}})._id;
+  selector.customerId = customerId;
+  var id = "";
+  var company = Restaurant.Collection.Company.findOne();
+  if (company != null) {
+      id = company.baseCurrency;
+  }
+  var exchangeRate = Restaurant.Collection.ExchangeRates.findOne({
+      base: id,
+  }, {sort: {_id: -1, createdAt: -1}});
+  if (! exchangeRate) {
+      throw new Meteor.Error("សូមមេត្តាបញ្ចូលអត្រាប្តូរប្រាក់");
+  }else{
+      selector.exchangeRateId = exchangeRate._id;
+  }
+  var restaurantId = Restaurant.Collection.Sales.insert(selector)
+  return restaurantId;
 }

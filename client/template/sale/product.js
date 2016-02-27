@@ -1,15 +1,9 @@
-Tracker.autorun(function(){
-  if(Session.get('limited')){
-    console.log(Router.current().params.categoryId)
-    Meteor.subscribe('productByCategory', Router.current().params.categoryId, Session.get('limited'));
-  }
-});
-
 Template.restaurantSaleCheckoutInvoiceCategoryProduct.created = function () {
     Session.set('limited', 12);
     this.autorun(() => {
         let categoryId = Router.current().params.categoryId;
         this.subscribe = Meteor.subscribe('countProductByCategory', categoryId);
+        this.subscribe = Meteor.subscribe('productByCategory', Router.current().params.categoryId, Session.get('limited'));
     });
 }
 
@@ -74,6 +68,7 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.events({
     'click .loadMore' (event) {
         let limit = Session.get('limited') + 12;
         Session.set('limited', limit);
+        Meteor.subscribe('productByCategory', Router.current().params.categoryId, Session.get('limited'));
     },
     'click .icon-add-new-product' (event) {
         let params = Router.current().params;
