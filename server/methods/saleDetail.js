@@ -62,6 +62,7 @@ Meteor.methods({
       Restaurant.Collection.SaleDetails.update(k, {$set: {saleId: saleId}});
     }
     Sale.sumSaleDetail(oldSaleId);
+    return saleId;
   }
 });
 

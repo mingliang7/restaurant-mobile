@@ -204,9 +204,11 @@ Template._sale_invoice_tabs.events({
             Bert.alert(`បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
             IonLoading.hide()
           } else {
+            let params = Router.current().params;
             IonLoading.hide()
             Bert.alert(`បំបែកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
             Session.set('detachSaleDetailObj', {});
+            Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`)
           }
         });
       },
@@ -216,3 +218,18 @@ Template._sale_invoice_tabs.events({
     });
   }
 });
+
+
+let goToNewInvoice = (location, tableId, saleId) =>{
+  console.log(saleId)
+  IonPopup.confirm({
+    title: 'បញ្ជាក់',
+    template: `ចូលទៅកាន់វិក័យប័ត្រថ្មី`,
+    onOk: () => {
+      Router.go(`/restaurant/sale/${location}/table/${tableId}/saleInvoice/${saleId}}`)
+    },
+    onCancel: function() {
+      console.log('cancel')
+    }
+  });
+}

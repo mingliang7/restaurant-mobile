@@ -1,0 +1,31 @@
+<template name="searchSaleForMerge">
+  {{#ionModal focusFirstInput=true title="Search"}}
+  <div class="list">
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+        {{> ionIcon icon="ios-search" class="placeholder-icon"}}
+        <input type="text" placeholder="Search" value="{{searchQuery}}">
+      </label>
+    </div>
+    <ul>
+      {{#each sales}} {{> searchSaleItem}} {{/each}}
+    </ul>
+  </div>
+
+  {{/ionModal}}
+</template>
+
+
+<template name="searchSaleItem">
+  {{#ionItem}}
+    <span>
+      វិក័យប័ត្រលេខៈ <b>{{_id}}</b> |លក់នៅថ្ងៃទី: <b>{{moFormat saleDate 'DD/MM/YY HH:mm:ss'}}</b>
+    </span>
+    <p>
+      តុលេខៈ {{_table.name}}
+    </p>
+    <p>
+      ទឹកប្រាក់សរុបៈ <b>{{total}}</b>
+    </p>
+  {{/ionItem}}
+</template>
