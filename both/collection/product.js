@@ -36,7 +36,7 @@ Restaurant.Schema.Products = new SimpleSchema({
   barcode: {
     type: String,
     label: "Barcode",
-    unique: true
+    optional: true
   },
   price: {
     type: Number,
