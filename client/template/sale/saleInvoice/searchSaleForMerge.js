@@ -27,7 +27,7 @@ Template.searchSaleForMerge.events({
             Bert.alert(err.message, 'danger')
           }else{
             IonLoading.hide();
-            Bert.alert('បញ្ចូលវិក័យប័ត្របានជោគជ័យ', 'success')
+            Bert.alert('បញ្ចូលវិក័យប័ត្របានជោគជ័យ', 'success', 'growl-bottom-right')
             Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${selectedSaleId}`);
           }
         });

@@ -1,6 +1,6 @@
 <template name="restaurantSaleTableSaleInvoice">
     {{#contentFor "headerButtonLeft"}}
-        {{>ionNavBackButton href="/restaurant/sale" text='ត្រលប់ទៅកាន់តុ'}}
+        {{>ionNavBackButton href=goToTable text='ត្រលប់ទៅកាន់តុ'}}
     {{/contentFor}}
     {{#contentFor "headerButtonRight"}}
         <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
@@ -187,7 +187,7 @@
     {{#if isAndroid}}
         {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
-            {{> ionTab title="Sale" path="tabs.one" icon="coffee"}}
+            {{> ionTab title="Sale" href=goToTable icon="coffee"}}
             <a class="tab-item" data-ion-modal="searchSaleForMerge">
               <i class="icon ion-ios-download assertive"></i>
               បញ្ចូលវិក័យប័ត្រ
@@ -199,7 +199,7 @@
     {{else}}
         {{#ionTabs style="ios"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
-            {{> ionTab title="Sale" path="restaurant.sale" class="positive" iconOff="coffee" iconOn="coffee"}}
+            {{> ionTab title="Sale" href=goToTable class="positive" iconOff="coffee" iconOn="coffee"}}
             <a class="tab-item" data-ion-modal="searchSaleForMerge">
               <i class="icon ion-ios-download assertive"></i>
               បញ្ចូលវិក័យប័ត្រ

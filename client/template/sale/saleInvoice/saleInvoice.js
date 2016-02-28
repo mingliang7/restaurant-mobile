@@ -1,5 +1,5 @@
 Tracker.autorun(function() {
-  if(Session.get('paramsInvoiceId')){
+  if (Session.get('paramsInvoiceId')) {
     Meteor.subscribe("sale", Session.get('paramsInvoiceId'));
   }
 });
@@ -52,6 +52,10 @@ Template.restaurantSaleTableSaleInvoice.helpers({
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
   },
+  goToTable() {
+    let params = Router.current().params;
+    return `/restaurant/sale/${params.tableLocationId}`;
+  },
   hasMore() {
     let currentLimited = Session.get('saleDetailLimited');
     let counts = Counts.get('saleDetailCount');
@@ -73,6 +77,10 @@ Template._sale_invoice_tabs.helpers({
     Session.set('saleDetailObj', {});
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`;
+  },
+  goToTable() {
+    let params = Router.current().params;
+    return `/restaurant/sale/${params.tableLocationId}`;
   }
 });
 
