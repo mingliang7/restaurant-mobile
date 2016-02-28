@@ -136,6 +136,9 @@ Restaurant.Collection.Products.search = function(query) {
 
     }]
   }, {
+    sort: {
+      name: 1
+    },
     limit: 20
   });
 };

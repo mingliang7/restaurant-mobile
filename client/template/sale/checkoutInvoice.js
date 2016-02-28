@@ -6,7 +6,7 @@ Template.restaurantSaleCheckoutInvoice.created = function() {
 
 Template.restaurantSaleCheckoutInvoice.rendered = function() {
   Session.set('invoiceId', Router.current().params.invoiceId);
-  try {    
+  try {
     this.autorun(()=> {
       if(!this.subscription.ready()){
         IonLoading.show();
@@ -29,7 +29,7 @@ Template.restaurantSaleCheckoutInvoice.helpers({
     return `/restaurant/sale/${tableLocationId}`;
   },
   categories(){
-    return Restaurant.Collection.Categories.find();
+    return Restaurant.Collection.Categories.find({}, {sort: {name: 1}});
   },
   goToProduct(){
     let params = Router.current().params;
