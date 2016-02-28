@@ -19,6 +19,13 @@
               {{name}}
             </span>
             <p>
+              {{#if tags}}
+                Tags: {{tags}}
+              {{else}}
+                No Tags
+              {{/if}}
+            </p>
+            <p>
               {{description}}
             </p>
             <button data-action="confirm" class=" button button-clear">

@@ -6,11 +6,22 @@ Meteor.methods({
       checkTag(tags); //
     })
   },
-  updateTag(productId, update) {
+  updateTag(categoryId, productId, update) {
     Meteor.defer(() => {
-      let tags = Sale.tags.name; //calling form both/app/sale.js
+      let category = Restaurant.Collection.Categories.findOne(categoryId);
+      let tags = category.tags == undefined ? Sale.tags.name : category.tags; //calling form both/app/sale.js
       checkTag(tags, productId, update);
     })
+  },
+  updateProductTagByCategory(categoryId, tags){
+    Meteor.defer(()=>{
+      let products = Restaurant.Collection.Products.find({categoryId: categoryId});
+      if(products.count > 0){
+        products.forEach(function(product) {
+          checkTag(tags, product._id, true)
+        });
+      }
+    });
   }
 });
 

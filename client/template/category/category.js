@@ -15,7 +15,7 @@ Template.category.rendered = function() {
 
 Template.category.helpers({
   categories() {
-    return Restaurant.Collection.Categories.find()
+    return Restaurant.Collection.Categories.find({}, {sort: {name: 1}})
   }
 });
 

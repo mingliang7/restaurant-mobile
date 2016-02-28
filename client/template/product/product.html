@@ -27,11 +27,14 @@
               តម្លៃៈ <b>{{price}}</b>
             </p>
             <p>
+              គិតជាៈ <b>{{_unit.name}}</b>
+            </p>
+            <p>
               Tags:
               {{#if tags}}
                 <b>{{join tags}}</b>
               {{else}}
-                {{> ionSpinner icon="ios-small"}}
+                No tags
               {{/if}}
             </p>
             <button data-action="confirm" class=" button button-clear">
