@@ -22,7 +22,8 @@
             <input class="hidden" type="hidden" id="base-currency-symbol" value="{{baseCurrency.symbol}}">
             <div class="row">
                 <div class="col col-50">
-                    <b>1{{baseCurrency.symbol}} Exchange to</b>
+                    <!--<b>1{{baseCurrency.symbol}} Exchange to</b>-->
+                    <b>Exchange to</b>
                 </div>
                 <div class="col col-50">
                     <b>Value</b>
@@ -41,7 +42,7 @@
                                 <input type="text" class="to-currency-value form-control">
                             </label>
                         </div>
-                        <div class="col col-20">
+                        <div class="col col-20" style="display: none">
                             <label class="item item-input">
                                 <input type="text" class="to-currency-symbol form-control" value="{{symbol}}" readonly>
                             </label>

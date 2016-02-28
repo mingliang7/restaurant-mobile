@@ -3,7 +3,7 @@
         <div class="bar bar-header bar-stable">
             <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
             <h2 class="title">Update ExchangeRate</h2>
-            <button id="update-exchange-rate" class= "button button-positive button-clear">Update</button>
+            <button id="update-exchange-rate" class="button button-positive button-clear">Update</button>
         </div>
         <div class="content has-header overflow-scroll">
             <h4> Base Currency: <b>{{exchangeRate.base}} ({{exchangeRate.symbol}})</b></h4>
@@ -23,7 +23,8 @@
                     <div class="row">
                         <div class="col col-40">
                             <label class="item item-input">
-                                <input type="text" class="to-currency-id form-control" value="{{toCurrencyId}}" readonly>
+                                <input type="text" class="to-currency-id form-control" value="{{toCurrencyId}}"
+                                       readonly>
                             </label>
                         </div>
                         <div class="col col-40">
@@ -31,7 +32,7 @@
                                 <input type="text" class="to-currency-value form-control" value="{{rate}}">
                             </label>
                         </div>
-                        <div class="col col-20">
+                        <div class="col col-20" style="display: none;">
                             <label class="item item-input">
                                 <input type="text" class="to-currency-symbol form-control" value="{{symbol}}" readonly>
                             </label>
