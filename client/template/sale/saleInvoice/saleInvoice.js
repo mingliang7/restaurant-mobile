@@ -1,3 +1,8 @@
+Tracker.autorun(function() {
+  if(Session.get('paramsInvoiceId')){
+    Meteor.subscribe("sale", Session.get('paramsInvoiceId'));
+  }
+});
 Template.restaurantSaleTableSaleInvoice.created = function() {
   let saleId = Router.current().params.invoiceId;
   Session.set('saleDetailLimited', 5) // using for limit
@@ -41,7 +46,7 @@ Template.restaurantSaleTableSaleInvoice.helpers({
     });
   },
   saleInvoice() {
-    return Restaurant.Collection.Sales.findOne();
+    return Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
   },
   goToPayment() {
     let params = Router.current().params;
@@ -50,7 +55,6 @@ Template.restaurantSaleTableSaleInvoice.helpers({
   hasMore() {
     let currentLimited = Session.get('saleDetailLimited');
     let counts = Counts.get('saleDetailCount');
-    debugger
     return currentLimited < counts
   }
 });
@@ -166,7 +170,8 @@ Template.saleInvoiceTotal.helpers({
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editDiscount`;
   },
   saleInvoice() {
-    return Restaurant.Collection.Sales.findOne();
+    let sale = Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
+    return sale;
   }
 });
 
@@ -220,7 +225,7 @@ Template._sale_invoice_tabs.events({
 });
 
 
-let goToNewInvoice = (location, tableId, saleId) =>{
+let goToNewInvoice = (location, tableId, saleId) => {
   console.log(saleId)
   IonPopup.confirm({
     title: 'បញ្ជាក់',

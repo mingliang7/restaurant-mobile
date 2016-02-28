@@ -8,7 +8,11 @@
       </label>
     </div>
     <ul>
-      {{#each sales}} {{> searchSaleItem}} {{/each}}
+      {{#each sales}}
+        {{#ionItem class="cursor-p saleDetailItem" data=_id}}
+          {{> searchSaleItem}}
+        {{/ionItem}}
+      {{/each}}
     </ul>
   </div>
 
@@ -17,15 +21,13 @@
 
 
 <template name="searchSaleItem">
-  {{#ionItem}}
     <span>
       វិក័យប័ត្រលេខៈ <b>{{_id}}</b> |លក់នៅថ្ងៃទី: <b>{{moFormat saleDate 'DD/MM/YY HH:mm:ss'}}</b>
     </span>
     <p>
-      តុលេខៈ {{_table.name}}
+      តុលេខៈ {{_table.name}} | ទីតាំងៈ {{_table._tableLocation.name}}
     </p>
     <p>
       ទឹកប្រាក់សរុបៈ <b>{{total}}</b>
     </p>
-  {{/ionItem}}
 </template>
