@@ -207,12 +207,18 @@ Router.map(function() {
 
   this.route('restaurant.sale.table.saleInvoice', {
     path: '/restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId',
+    // action(){
+    //   console.log(this)
+    // },
     onBeforeAction: function(pause) {
       if (!Meteor.user()) {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
       this.next();
+    },
+    onAfterAction: function(){
+      Session.set('paramsInvoiceId', this.router.current().params.invoiceId);
     }
   });
   this.route('restaurant.sale.table.saleInvoice.editSale', {

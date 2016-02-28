@@ -173,11 +173,6 @@ Restaurant.Schema.Sales = new SimpleSchema({
     optional: true,
     blackbox: true
   },
-  _location: {
-    type: Object,
-    optional: true,
-    blackbox: true
-  },
   text: { //using this field for action-sheet event
     type: String,
     optional: true
