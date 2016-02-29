@@ -3,8 +3,11 @@ Meteor.methods({
         var date = moment(selector.saleDate).format('YYMMDD');
         selector._id = idGenerator.genWithPrefix(Restaurant.Collection.Sales, date, 3);
         selector.text = selector._id;
-        var customerId = Restaurant.Collection.Customers.findOne({}, {sort: {_id: 1}})._id;
-        selector.customerId = customerId;
+        var customer = Restaurant.Collection.Customers.findOne({}, {sort: {_id: 1}});
+        if (! customer) {
+            throw new Meteor.Error("សូមមេត្តាបញ្ចូលឈ្មោះអតិថិជន");
+        }
+        selector.customerId = customer._id;
 
         var id = "";
         var company = Restaurant.Collection.Company.findOne();

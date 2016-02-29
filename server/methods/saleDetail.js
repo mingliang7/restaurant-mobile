@@ -7,7 +7,7 @@ Meteor.methods({
     var sale = Restaurant.Collection.Sales.findOne(saleDetails[0].saleId);
     if (_.isUndefined(sale.total)) {
       Meteor.defer(() => {
-        Meteor._sleepForMs(200);
+        Meteor._sleepForMs(500);
         saleDetails.forEach((saleDetail) => {
           saleDetail._id = idGenerator.genWithPrefix(Restaurant.Collection.SaleDetails, saleDetail.saleId, 2);
           Restaurant.Collection.SaleDetails.insert(saleDetail);
@@ -51,6 +51,7 @@ Meteor.methods({
     Restaurant.Collection.SaleDetails.remove(id);
   },
   detachSaleDetail(tableId, tableLocation, obj) {
+    Meteor._sleepForMs(500);
     let count = 1;
     let saleId, oldSaleId;
     for (let k in obj) {
@@ -59,13 +60,37 @@ Meteor.methods({
         oldSaleId = obj[k].oldSaleId;
       }
       count++;
-      Restaurant.Collection.SaleDetails.update(k, {
-        $set: {
+      if (obj[k].qtyChanged) {
+        let saleDetail = Restaurant.Collection.SaleDetails.findOne(k);
+        let newSaleDetail = {
+          _id: idGenerator.genWithPrefix(Restaurant.Collection.SaleDetails, saleId, 2),
+          price: saleDetail.price,
+          quantity: obj[k].qtyChanged,
+          amount: obj[k].qtyChanged * saleDetail.price,
+          productId: saleDetail.productId,
           saleId: saleId
         }
-      });
+        Restaurant.Collection.SaleDetails.insert(newSaleDetail);
+        Meteor.defer(() => {
+          let remainQty = obj[k].defaultQty - obj[k].qtyChanged;
+          Restaurant.Collection.SaleDetails.update(k, {
+            $set: {
+              quantity: remainQty,
+              amount: remainQty * saleDetail.price
+            }
+          })
+        });
+      } else {
+        Restaurant.Collection.SaleDetails.update(k, {
+          $set: {
+            saleId: saleId
+          }
+        });
+      }
     }
-    Sale.sumSaleDetail(oldSaleId);
+    Meteor.defer(function(){
+      Sale.sumSaleDetail(oldSaleId);
+    })
     return saleId;
   },
   mergeSaleInvoice(currentSaleId, selectedSaleId) {
@@ -74,7 +99,15 @@ Meteor.methods({
       saleId: currentSaleId
     });
     saleDetails.forEach(function(saleDetail) {
-      Restaurant.Collection.SaleDetails.update({_id: saleDetail._id}, {$set: {saleId: selectedSaleId}}, {multi: true});
+      Restaurant.Collection.SaleDetails.update({
+        _id: saleDetail._id
+      }, {
+        $set: {
+          saleId: selectedSaleId
+        }
+      }, {
+        multi: true
+      });
     });
     Restaurant.Collection.Sales.remove(currentSaleId);
   }

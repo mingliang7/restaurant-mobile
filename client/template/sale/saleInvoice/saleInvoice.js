@@ -112,7 +112,8 @@ Template.saleDetail.events({
       detachObj[this._id] = this._id
       detachObj[this._id] = {
         saleDate: currentDate,
-        oldSaleId: this.saleId
+        oldSaleId: this.saleId,
+        defaultQty: this.quantity
       }
     } else {
       delete detachObj[this._id]
@@ -189,6 +190,18 @@ Template.saleDetail.helpers({
   goToSaleDetailEdit() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editSaleDetail/${this._id}`;
+  },
+  hasDetachSaleDetail() {
+    let id = this._id;
+    debugger
+    let saleDetailObj = Session.get('detachSaleDetailObj');
+    if (!_.isEmpty(saleDetailObj)) {
+      if (_.has(saleDetailObj, id)) {
+        let qty = saleDetailObj[id].qtyChanged == undefined ? '' : saleDetailObj[id].qtyChanged;
+        return {qty: qty, flag: true}
+      }
+    }
+    return {flag: false};
   }
 })
 
