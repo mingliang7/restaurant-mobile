@@ -34,8 +34,8 @@
                         <div class="col col-5">
 
                         </div>
-                        <div class="col col-5">
-                          <b>ជម្រើស</b>
+                        <div class="col col-5" align="center">
+                            <b>ជម្រើស</b>
                         </div>
                         <div class="col col-5" align="center">
                         </div>
@@ -107,12 +107,12 @@
                 </a>
             </div>
             <div class="col col-5" align="center">
-              <label class="toggle">
-               <input type="checkbox" class="detach">
-                 <div class="track">
-                  <div class="handle"></div>
-                 </div>
-              </label>
+                <label class="toggle">
+                    <input type="checkbox" class="detach">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
             </div>
             <div class="col col-5">
               {{#if hasDetachSaleDetail.flag}}
@@ -188,7 +188,7 @@
                         <div class="col col-10"></div>
                         <div class="col col-20"></div>
                         <div class="col col-50">
-                            <b>{{multiply rate saleInvoice.total toCurrencyId}} {{symbol}}</b>
+                            <b>{{multiply saleInvoice.total rate toCurrencyId}} {{symbol}}</b>
                         </div>
                     </div>
                 {{/each}}
@@ -201,6 +201,7 @@
 <template name="_sale_invoice_tabs">
     {{#if isAndroid}}
         {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
+            {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
             {{> ionTab title="Sale" href=goToTable icon="coffee"}}
             <a class="tab-item" data-ion-modal="searchSaleForMerge">
@@ -208,11 +209,12 @@
               បញ្ចូលវិក័យប័ត្រ
             </a>
             {{#if hasDetachSaleDetail}}
-              {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
+                {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
             {{/if}}
         {{/ionTabs}}
     {{else}}
         {{#ionTabs style="ios"}}
+            {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
             {{> ionTab title="Sale" href=goToTable class="positive" iconOff="coffee" iconOn="coffee"}}
             <a class="tab-item" data-ion-modal="searchSaleForMerge">
@@ -220,7 +222,7 @@
               បញ្ចូលវិក័យប័ត្រ
             </a>
             {{#if hasDetachSaleDetail}}
-              {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
+                {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
             {{/if}}
         {{/ionTabs}}
     {{/if}}

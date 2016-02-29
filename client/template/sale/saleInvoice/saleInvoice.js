@@ -134,8 +134,9 @@ Template.tableHeader.helpers({
 
 Template.saleInvoiceTotal.helpers({
   multiply: function(val1, val2, id) {
+    debugger;
     if (val1 != null && val2 != null) {
-      var value = (val1 * val2);
+      var value = (val1 / val2);
       if (id != null && id == "KHR") {
         value = roundRielCurrency(value);
         return numeral(value).format('0,0.00');
@@ -217,6 +218,10 @@ Template._sale_invoice_tabs.helpers({
 
 
 Template._sale_invoice_tabs.events({
+  'click .sale-print' () {
+    let invoiceId = Router.current().params.invoiceId;
+    Router.go('/restaurant/sale-print/' + invoiceId);
+  },
   'click .detachSaleDetail' () {
     let params = Router.current().params;
     let detachObj = Session.get('detachSaleDetailObj');

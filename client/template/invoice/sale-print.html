@@ -1,4 +1,4 @@
-<template name="restaurantInvoice">
+<template name="restaurantSalePrint">
     {{#if data}}
         {{#with data}}
             <div style="width: 260px;margin:0 auto; font-size: 10px;font-family:'Khmer OS Battambang','Khmer OS ';">
@@ -82,17 +82,6 @@
                         <td>សរុបរួមៈ</td>
                         <td align="right"><b>{{footer.total}}</b></td>
                     </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td>បានបង់ៈ</td>
-                        <td align="right"><b>{{footer.paidAmount}}</b></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td>លុយអាប់ៈ</td>
-                        <td align="right"><b>{{footer.balanceAmount}}</b></td>
-                    </tr>
-
                 </table>
                 <div>សូមអរគុណ!</div>
                 <div style="width: 260px;margin:0 auto;">

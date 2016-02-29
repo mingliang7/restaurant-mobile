@@ -4,5 +4,11 @@ Template.restaurantInvoice.helpers({
     Fetcher.setDefault(paymentId, false);
     Fetcher.retrieve(paymentId, 'findPaymentInvoice', paymentId);
     return Fetcher.get(paymentId);
+  },
+  goBack() {
+    Meteor.setTimeout(() => {
+      window.print();
+      Router.go('/restaurant/sale');
+    }, 1000)
   }
 });

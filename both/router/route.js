@@ -263,7 +263,7 @@ Router.map(function() {
   });
 
   //payment
-  this.route('restaurant.active.payment',{
+  this.route('restaurant.active.payment', {
     path: '/restaurant/payment',
     onBeforeAction: function(pause) {
       if (!Meteor.user()) {
@@ -275,7 +275,7 @@ Router.map(function() {
   });
 
   //payment
-  this.route('restaurant.active.payment.invoice',{
+  this.route('restaurant.active.payment.invoice', {
     path: '/restaurant/payment/:invoiceId',
     onBeforeAction: function(pause) {
       if (!Meteor.user()) {
@@ -297,8 +297,19 @@ Router.map(function() {
       this.next();
     }
   });
-  this.route('restaurant.invoice',{
+  this.route('restaurant.invoice', {
     path: '/restaurant/invoice/:paymentId',
+    layoutTemplate: 'invoiceLayout',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+  this.route('restaurant.sale.print', {
+    path: '/restaurant/sale-print/:saleId',
     layoutTemplate: 'invoiceLayout',
     onBeforeAction: function(pause) {
       if (!Meteor.user()) {
