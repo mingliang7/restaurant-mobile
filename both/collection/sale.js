@@ -22,7 +22,7 @@ Restaurant.Collection.Sales.search = function(query, saleId) {
 
     }]
   }, {
-    limit: 20
+    limit: 10
   });
 }
 Restaurant.Schema.Sales = new SimpleSchema({
