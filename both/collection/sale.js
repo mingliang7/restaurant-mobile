@@ -1,11 +1,16 @@
 Restaurant.Collection.Sales = new Mongo.Collection("restaurant_sales");
-Restaurant.Collection.Sales.search = function(query){
+Restaurant.Collection.Sales.search = function(query, saleId) {
+  saleId = saleId || '';
   if (!query) {
     return;
   }
   let regPattern = `${query}`
   let reg = new RegExp(regPattern, 'i') //match all case
-  return Restaurant.Collection.Sales.find({status: 'active',
+  return Restaurant.Collection.Sales.find({
+    status: 'active',
+    _id: {
+      $ne: saleId
+    },
     $or: [{
       _id: {
         $regex: reg
@@ -35,7 +40,7 @@ Restaurant.Schema.Sales = new SimpleSchema({
       }
     }
   },
-  description:{
+  description: {
     type: String,
     label: 'បរិយាយ',
     optional: true
@@ -188,4 +193,5 @@ Restaurant.Schema.Sales = new SimpleSchema({
     blackbox: true
   }
 });
+//search
 Restaurant.Collection.Sales.attachSchema(Restaurant.Schema.Sales);

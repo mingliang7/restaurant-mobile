@@ -1,3 +1,8 @@
+Tracker.autorun(function() {
+  if (Session.get('paramsInvoiceId')) {
+    Meteor.subscribe("sale", Session.get('paramsInvoiceId'));
+  }
+});
 Template.restaurantSaleTableSaleInvoice.created = function() {
   let saleId = Router.current().params.invoiceId;
   Session.set('saleDetailLimited', 5) // using for limit
@@ -41,16 +46,19 @@ Template.restaurantSaleTableSaleInvoice.helpers({
     });
   },
   saleInvoice() {
-    return Restaurant.Collection.Sales.findOne();
+    return Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
   },
   goToPayment() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
   },
+  goToTable() {
+    let params = Router.current().params;
+    return `/restaurant/sale/${params.tableLocationId}`;
+  },
   hasMore() {
     let currentLimited = Session.get('saleDetailLimited');
     let counts = Counts.get('saleDetailCount');
-    debugger
     return currentLimited < counts
   }
 });
@@ -69,6 +77,10 @@ Template._sale_invoice_tabs.helpers({
     Session.set('saleDetailObj', {});
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`;
+  },
+  goToTable() {
+    let params = Router.current().params;
+    return `/restaurant/sale/${params.tableLocationId}`;
   }
 });
 
@@ -100,7 +112,8 @@ Template.saleDetail.events({
       detachObj[this._id] = this._id
       detachObj[this._id] = {
         saleDate: currentDate,
-        oldSaleId: this.saleId
+        oldSaleId: this.saleId,
+        defaultQty: this.quantity
       }
     } else {
       delete detachObj[this._id]
@@ -167,7 +180,8 @@ Template.saleInvoiceTotal.helpers({
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editDiscount`;
   },
   saleInvoice() {
-    return Restaurant.Collection.Sales.findOne();
+    let sale = Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
+    return sale;
   }
 });
 
@@ -177,6 +191,18 @@ Template.saleDetail.helpers({
   goToSaleDetailEdit() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editSaleDetail/${this._id}`;
+  },
+  hasDetachSaleDetail() {
+    let id = this._id;
+    debugger
+    let saleDetailObj = Session.get('detachSaleDetailObj');
+    if (!_.isEmpty(saleDetailObj)) {
+      if (_.has(saleDetailObj, id)) {
+        let qty = saleDetailObj[id].qtyChanged == undefined ? '' : saleDetailObj[id].qtyChanged;
+        return {qty: qty, flag: true}
+      }
+    }
+    return {flag: false};
   }
 })
 
@@ -209,9 +235,11 @@ Template._sale_invoice_tabs.events({
             Bert.alert(`បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
             IonLoading.hide()
           } else {
+            let params = Router.current().params;
             IonLoading.hide()
             Bert.alert(`បំបែកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
             Session.set('detachSaleDetailObj', {});
+            Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`)
           }
         });
       },
@@ -221,3 +249,18 @@ Template._sale_invoice_tabs.events({
     });
   }
 });
+
+
+let goToNewInvoice = (location, tableId, saleId) => {
+  console.log(saleId)
+  IonPopup.confirm({
+    title: 'បញ្ជាក់',
+    template: `ចូលទៅកាន់វិក័យប័ត្រថ្មី`,
+    onOk: () => {
+      Router.go(`/restaurant/sale/${location}/table/${tableId}/saleInvoice/${saleId}}`)
+    },
+    onCancel: function() {
+      console.log('cancel')
+    }
+  });
+}

@@ -1,6 +1,16 @@
-Restaurant.Collection.Categories.before.insert(function (userId, doc) {
-    doc._id = idGenerator.gen(Restaurant.Collection.Categories, 3);
-    //doc.level = doc.parentId == null ? 0 : Restaurant.Collection.Categories.findOne(doc.parentId).level + 1;
+Restaurant.Collection.Categories.before.insert(function(userId, doc) {
+  doc._id = idGenerator.gen(Restaurant.Collection.Categories, 3);
+  //doc.level = doc.parentId == null ? 0 : Restaurant.Collection.Categories.findOne(doc.parentId).level + 1;
+});
+Restaurant.Collection.Categories.after.insert(function(userId, doc) {
+  if (doc.tags) {
+    Meteor.call('updateProductTagByCategory', doc._id, doc.tags);
+  }
+});
+Restaurant.Collection.Categories.after.update(function(userId, doc) {
+  if (doc.tags) {
+    Meteor.call('updateProductTagByCategory', doc._id, doc.tags);
+  }
 });
 /*
 Restaurant.Collection.Categories.before.update(function (userId, doc, fieldNames, modifier, options) {

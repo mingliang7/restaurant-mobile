@@ -23,6 +23,7 @@ Template.categoryTags.helpers({
     for(let i = 0 ; i < category.tags.length; i++){
       list.push({label: category.tags[i], value: category.tags[i]})
     }
+    debugger
     return _.sortBy(list, function(e) { return e.label});
   }
 })

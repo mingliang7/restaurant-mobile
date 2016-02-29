@@ -22,7 +22,7 @@ Template._sale_tabs.events({
     // Session.set('categoryTags', {tags: {}})
     var arr = [];
     var index = 0;
-    var categories = Restaurant.Collection.Categories.find();
+    var categories = Restaurant.Collection.Categories.find({},{sort: {name: 1}});
     categories.forEach((category) => {
       category.text = category.name
       category.index = index;
