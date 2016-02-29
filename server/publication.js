@@ -5,6 +5,13 @@ Meteor.publish("tableLocations", () => {
 Meteor.publish('tables', () => {
   return Restaurant.Collection.Tables.find();
 });
+Meteor.publish("tableByLocation", function(tableLocationId, tableId) {
+  let tables = Restaurant.Collection.Tables.find({
+    _id: tableId,
+    tableLocationId: tableLocationId
+  });
+  return tables;
+});
 
 Meteor.publish('units', () => {
   return Restaurant.Collection.Units.find();

@@ -8,7 +8,7 @@ Template.editCompany.helpers({
 });
 
 AutoForm.hooks({
-  editCompany: {
+  companyEdit: {
     onSuccess(formType, result) {
       Bert.alert('Updated', 'success', 'growl-bottom-right');
       IonModal.close();
