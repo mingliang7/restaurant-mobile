@@ -194,7 +194,7 @@ Template._sale_invoice_tabs.helpers({
 Template._sale_invoice_tabs.events({
     'click .sale-print'(){
         let invoiceId = Router.current().params.invoiceId;
-        Router.go('/restaurant/sale-printer/' + invoiceId);
+        Router.go('/restaurant/sale-print/' + invoiceId);
     },
     'click .detachSaleDetail' () {
         let params = Router.current().params;

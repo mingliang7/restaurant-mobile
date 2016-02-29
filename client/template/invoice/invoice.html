@@ -1,19 +1,26 @@
 <template name="restaurantInvoice">
     {{#if data}}
         {{#with data}}
-            <div style="width: 260px;margin:0 auto; font-size: 10px;">
+            <div style="width: 260px;margin:0 auto; font-size: 10px;font-family:'Khmer OS Battambang','Khmer OS ';">
                 {{#with header}}
-                    <h4 align="center">
-                        <b>{{company.khName}}</b><br>
-                        <small>អាស័យដ្ឋានៈ {{company.address}}</small>
-                        <br>
-                        <small>Tel: {{company.phoneNumber}}</small>
-                    </h4>
-                    <p align="center">
-                        <smal>
-                            <b style="text-decoration: underline;">វិក័យប័ត្រ</b>
-                        </smal>
-                    </p>
+                    <div align="center">
+                        <h4>
+                        <span style="font-family: 'Khmer OS Muol light','Khmer OS Muol';">
+                            {{company.khName}}
+                        </span><br>
+                        </h4>
+                        <p>
+                    <span style="font-family:'Khmer OS Fasthand','Khmer OS Freehand';">
+                        អាស័យដ្ឋានៈ {{company.address}}</span>
+                            <br>
+                            <span>Tel: {{company.phoneNumber}}</span>
+                        </p>
+                        <p>
+                            <smal>
+                                <b style="text-decoration: underline;font-size: 12px;font-family: 'Khmer OS Muol light','Khmer OS Muol';">វិក័យប័ត្រ</b>
+                            </smal>
+                        </p>
+                    </div>
 
                 {{/with}}
                 <hr style="border-top: 1px dashed #8c8b8b;
@@ -21,13 +28,13 @@
                 <table border="1">
 
                     <tr>
-                        <td style="width: 120px" >#{{sale._id}}</td>
-                        <td ><b>បុគ្គលិកៈ</b>Lady kaka</td>
+                        <td style="width: 120px">#{{sale._id}}</td>
+                        <td><b>បុគ្គលិកៈ</b>{{sale._staff.profile.username}}</td>
 
                     </tr>
                     <tr>
                         <td style="width: 120px"><b>តុៈ</b>{{sale._table.name}}</td>
-                        <td ><b>អតិថិជនៈ</b>{{sale._customer.name}}</td>
+                        <td><b>អតិថិជនៈ</b>{{sale._customer.name}}</td>
                     </tr>
                     <tr>
                         <td colspan="2"><b>កាលបរិច្ឆេទៈ</b>{{sale.saleDate}}</td>
@@ -39,7 +46,7 @@
                 <table border="1" width="260">
 
                     <tr align="center" style="text-decoration: underline;">
-                        <td align="left"><b>បរិយាយ</b></td>
+                        <td align="left"><b>ទំនិញ</b></td>
                         <td><b>តម្លៃ</b></td>
                         <td><b>ចំនួន</b></td>
                         <td><b>សរុប</b></td>
@@ -48,15 +55,17 @@
 
                     {{#each content}}
                         <tr>
-                            <td>{{_product.name}}</td>
+                            <td>{{order}}. {{_product.name}}</td>
                             <td align="center">{{price}}</td>
                             <td align="center">{{quantity}}</td>
                             <td align="center">{{amount}}</td>
                         </tr>
                     {{/each}}
                     <tr>
-                        <td colspan="4"><hr style="border-top: 1px dashed #8c8b8b;
-	border-bottom: 1px dashed #fff;"></td>
+                        <td colspan="4">
+                            <hr style="border-top: 1px dashed #8c8b8b;
+	border-bottom: 1px dashed #fff;">
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
@@ -86,8 +95,10 @@
 
                 </table>
                 <div>សូមអរគុណ!</div>
-                <div style="width: 260px;margin:0 auto;"><hr style="border-top: 1px dashed #8c8b8b;
-	border-bottom: 1px dashed #fff;"></div>
+                <div style="width: 260px;margin:0 auto;">
+                    <hr style="border-top: 1px dashed #8c8b8b;
+	border-bottom: 1px dashed #fff;">
+                </div>
                 <div style="text-align: center; font-size: 9px;">Powered by Rabbit IT Solution Tel:053 50 66 777</div>
 
             </div>
