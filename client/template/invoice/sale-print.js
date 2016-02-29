@@ -8,7 +8,7 @@ Template.restaurantSalePrint.helpers({
   goBack() {
     Meteor.setTimeout(() => {
       window.print();
-      Router.go('/restaurant/sale');
+      history.go(-1);
     }, 1000)
   }
 });
