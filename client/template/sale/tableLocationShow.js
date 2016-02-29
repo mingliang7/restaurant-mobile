@@ -58,7 +58,7 @@ Template.restaurantSaleTableLocationShow.events({
     IonActionSheet.show({
       titleText: `ជម្រើសសម្រាប់វិក័យប័ត្រតុលេខ ${tableName}`,
       buttons: sales,
-      destructiveText: 'ផ្ទេរវិក័យប័ត្រ',
+      // destructiveText: 'ផ្ទេរវិក័យប័ត្រ',
       cancelText: 'Cancel',
       cancel: function() {
         console.log('Cancelled!');
