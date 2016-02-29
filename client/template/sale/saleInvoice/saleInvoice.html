@@ -28,14 +28,16 @@
                         <div class="col col-15">
                             <b>បញ្ចុះតម្លៃ</b>
                         </div>
-                        <div class="col col-20">
+                        <div class="col col-15">
                             <b>សរុប</b>
                         </div>
                         <div class="col col-5">
 
                         </div>
-                        <div class="col col-5" align="center">
+                        <div class="col col-5">
                           <b>ជម្រើស</b>
+                        </div>
+                        <div class="col col-5" align="center">
                         </div>
                         <div class="col col-5">
 
@@ -88,7 +90,7 @@
                     {{details.notes}}
                 </p>
             </div>
-            <div class="col col-20">
+            <div class="col col-15">
                 <h4>{{amount}}</h4>
                 <p>
                     {{details.notes}}
@@ -111,6 +113,19 @@
                   <div class="handle"></div>
                  </div>
               </label>
+            </div>
+            <div class="col col-5">
+              {{#if hasDetachSaleDetail.flag}}
+              <a href="#" class="tab-item assertive" data-ion-modal="takeOutQty" data-id="{{_id}}" data-qty="{{quantity}}">
+                {{#with hasDetachSaleDetail}}
+                  {{#if qty}}
+                      <i class="icon">{{qty}}</i>
+                    {{else}}
+                      <i class="icon ion-grid"></i>
+                    {{/if}}
+                {{/with}}
+              </a>
+              {{/if}}
             </div>
         </div>
     </div>
