@@ -1,6 +1,6 @@
 Deps.autorun(function() {
   if (Session.get('searchSaleQuery')) {
-    Meteor.subscribe('salesSearch', Session.get('searchSaleQuery'));
+    Meteor.subscribe('searchSaleByTable', Session.get('searchSaleQuery'));
   }
 });
 
@@ -16,7 +16,7 @@ Template.saleSearch.events({
 
 Template.saleSearch.helpers({
   products: function() {
-    return Restaurant.Collection.Sales.search(Session.get('searchSaleQuery'));
+    return Restaurant.Collection.Sales.searchByTable(Session.get('searchSaleQuery'));
   },
   searchQuery: function() {
     return Session.get('searchSaleQuery');

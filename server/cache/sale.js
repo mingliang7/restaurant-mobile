@@ -6,6 +6,7 @@ Restaurant.Collection.Sales.cacheDocBack('payment', Restaurant.Collection.Paymen
     'dueAmount',
     'balanceAmount',
     'paidAmount',
+    'truelyPaid',
     'status'
   ],
   'saleId'

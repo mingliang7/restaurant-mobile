@@ -15,5 +15,11 @@ Template.layout.events({
   },
   'click .setting' () {
     Router.go('restaurant.setting')
+  },
+  'click .sale'(){
+    Router.go('/restaurant/sale');
+  },
+  'click .activeSaleList'(){
+    Router.go('/restaurant/payment');
   }
 });

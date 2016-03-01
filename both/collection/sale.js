@@ -25,6 +25,32 @@ Restaurant.Collection.Sales.search = function(query, saleId) {
     limit: 5
   });
 }
+Restaurant.Collection.Sales.searchByTable = function(query) {
+  if (!query) {
+    return;
+  }
+  let regPattern = `${query}`
+  let reg = new RegExp(regPattern, 'i') //match all case
+  return Restaurant.Collection.Sales.find({
+    status: 'active',
+    $or: [{
+      '_table._tableLocation.name': {
+        $regex: reg
+      }
+    }, {
+      '_table.name': {
+        $regex: reg
+      }
+
+    }]
+  }, {
+    sort: {
+      _id: 1
+    },
+    limit: 5
+  });
+}
+
 Restaurant.Schema.Sales = new SimpleSchema({
   saleDate: {
     type: Date,

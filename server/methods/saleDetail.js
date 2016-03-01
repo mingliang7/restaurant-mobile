@@ -10,6 +10,7 @@ Meteor.methods({
         Meteor._sleepForMs(500);
         saleDetails.forEach((saleDetail) => {
           saleDetail._id = idGenerator.genWithPrefix(Restaurant.Collection.SaleDetails, saleDetail.saleId, 2);
+          saleDetail.transferOrSplit = false;
           Restaurant.Collection.SaleDetails.insert(saleDetail);
         });
       })
@@ -68,7 +69,8 @@ Meteor.methods({
           quantity: obj[k].qtyChanged,
           amount: obj[k].qtyChanged * saleDetail.price,
           productId: saleDetail.productId,
-          saleId: saleId
+          saleId: saleId,
+          transferOrSplit: true
         }
         Restaurant.Collection.SaleDetails.insert(newSaleDetail);
         Meteor.defer(() => {
@@ -83,7 +85,8 @@ Meteor.methods({
       } else {
         Restaurant.Collection.SaleDetails.update(k, {
           $set: {
-            saleId: saleId
+            saleId: saleId,
+            transferOrSplit: true
           }
         });
       }
@@ -103,7 +106,8 @@ Meteor.methods({
         _id: saleDetail._id
       }, {
         $set: {
-          saleId: selectedSaleId
+          saleId: selectedSaleId,
+          transferOrSplit: true
         }
       }, {
         multi: true

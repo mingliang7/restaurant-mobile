@@ -10,7 +10,10 @@ Meteor.publish("tableByLocation", function(tableLocationId, tableId) {
     _id: tableId,
     tableLocationId: tableLocationId
   });
-  return tables;
+  if (tables) {
+    return tables;
+  }
+  return this.ready();
 });
 
 Meteor.publish('units', () => {
@@ -20,13 +23,21 @@ Meteor.publish('categories', () => {
   return Restaurant.Collection.Categories.find();
 });
 Meteor.publish('category', (categoryId) => {
-  return Restaurant.Collection.Categories.find(categoryId);
+  let categories = Restaurant.Collection.Categories.find(categoryId);
+  if (categories) {
+    return categories;
+  }
+  return this.ready()
 });
 Meteor.publish('products', (limit) => {
   let amount = limit || 10
-  return Restaurant.Collection.Products.find({}, {
+  let products = Restaurant.Collection.Products.find({}, {
     limit: amount
   });
+  if (products) {
+    return products;
+  }
+  return this.ready();
 });
 Meteor.publish('exchangeRates', () => {
   return Restaurant.Collection.ExchangeRates.find();
@@ -52,18 +63,26 @@ Meteor.publish("staffs", () => {
 
 
 Meteor.publish("tableInLocationId", (tableLocationId) => {
-  return Restaurant.Collection.Tables.find({
+  let tables = Restaurant.Collection.Tables.find({
     tableLocationId: tableLocationId
   });
+  if (tables) {
+    return tables;
+  }
+  return this.ready();
 });
 
 Meteor.publish("productByCategory", (categoryId, limit) => {
   let amount = limit || 12;
-  return Restaurant.Collection.Products.find({
+  let products = Restaurant.Collection.Products.find({
     categoryId: categoryId
   }, {
     limit: amount
   });
+  if (products) {
+    return products;
+  }
+  return this.ready();
 });
 //count product by category
 Meteor.publish("countProductByCategory", function(categoryId) {
@@ -74,20 +93,27 @@ Meteor.publish("countProductByCategory", function(categoryId) {
 });
 
 Meteor.publish("sale", (id) => {
-  return Restaurant.Collection.Sales.find(id, {
+  let sales = Restaurant.Collection.Sales.find(id, {
     status: 'active'
   });
+  if (sales) {
+    return sales;
+  }
+  return this.ready()
 });
 
 
 Meteor.publish("saleDetails", (saleId, limit) => {
   let amount = limit || 5;
-  return Restaurant.Collection.SaleDetails.find({
+  let saleDetails = Restaurant.Collection.SaleDetails.find({
     saleId: saleId
   }, {
     limit: amount
   });
-  this.ready();
+  if (saleDetails) {
+    return saleDetails;
+  }
+  return this.ready();
 });
 //count saleDetail by saleId
 Meteor.publish("saleDetailCount", function(saleId) {
@@ -98,14 +124,22 @@ Meteor.publish("saleDetailCount", function(saleId) {
 });
 
 Meteor.publish("saleDetail", (id) => {
-  return Restaurant.Collection.Sales.find(id)
+  let saleDetail = Restaurant.Collection.Sales.find(id)
+  if (saleDetail) {
+    return saleDetail;
+  }
+  return this.ready();
 });
 
 Meteor.publish('saleDetailBySelfId', (saleId, selfId) => {
-  return Restaurant.Collection.SaleDetails.find({
+  let saleDetails = Restaurant.Collection.SaleDetails.find({
     saleId: saleId,
     _id: selfId
   });
+  if (saleDetails) {
+    return saleDetails;
+  }
+  return this.ready();
 });
 
 Meteor.publish("company", () => {
@@ -125,11 +159,15 @@ Meteor.publish("existSales", function() {
 //find active sale
 Meteor.publish("activeSales", (limit) => {
   let amount = limit || 10;
-  return Restaurant.Collection.Sales.find({
+  let sales = Restaurant.Collection.Sales.find({
     status: 'active'
   }, {
     limit: amount
   });
+  if (sales) {
+    return sales;
+  }
+  return this.ready();
 });
 
 Meteor.publish('activeSalesCount', function() {
@@ -162,11 +200,20 @@ Meteor.publish('salesSearch', function(query) {
   return Restaurant.Collection.Sales.search(query);
 });
 
+Meteor.publish("searchSaleByTable", function(query){
+  if (_.isEmpty(query)) {
+    return this.ready();
+  }
+  return Restaurant.Collection.Sales.searchByTable(query);
+});
+
 Meteor.publish('searchSaleForMerge', function(query, saleId) {
   if (_.isEmpty(query)) {
     return this.ready();
   }
   let sales = Restaurant.Collection.Sales.search(query, saleId);
-  console.log(sales.count());
-  return sales;
+  if(sales){
+    return sales;
+  }
+  return this.ready();
 });

@@ -49,8 +49,13 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.helpers({
     if (!_.isUndefined(categoryTags.search)) {
       let amountLimit = categoryTags.limit || 12;
       let result = ReactiveMethod.call('queryProductTags', Router.current().params.categoryId, categoryTags.search, amountLimit);
-      Session.set('productCountFromMethod', 1);
-      return result.products;
+      if(!result){
+        IonLoading.show();
+      }else{
+        IonLoading.hide();
+        Session.set('productCountFromMethod', 1);
+        return result.products;
+      }
     }
     return Restaurant.Collection.Products.find({
       categoryId: categoryId

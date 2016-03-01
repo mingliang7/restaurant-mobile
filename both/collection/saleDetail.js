@@ -122,6 +122,10 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
       }
     }
   },
+  transferOrSplit:{
+    type: Boolean,
+    optional: true
+  },
   _product:{
     type: Object,
     blackbox: true,

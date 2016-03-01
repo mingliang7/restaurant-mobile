@@ -31,11 +31,14 @@
 
 <template name="activeSale">
   <span>
-    វិក័យប័ត្រលេខៈ <b>{{_id}}</b> |
-    តុលេខៈ {{_table.name}}
+    ទីតាំង: {{_table._tableLocation.name}} |
+    តុលេខៈ {{_table.name}} |
+    វិក័យប័ត្រលេខៈ <b>{{_id}}</b>
+
   </span>
   <p>
-    លក់នៅថ្ងៃទី: <b>{{moFormat saleDate 'DD/MM/YY HH:mm:ss'}}</b>
+    លក់នៅថ្ងៃទី: <b>{{moFormat saleDate 'DD/MM/YY HH:mm:ss'}}</b> |
+    អតិថិជន: <b>{{_customer.name}}</b>
   </p>
   <p>
     រាយមុខទំនិញៈ
@@ -48,18 +51,11 @@
     {{/if}}
   </p>
   <p>
-    អតិថិជន: <b>{{_customer.name}}</b>
   </p>
   <p>
-  </p>
-  <p>
-    ទឹកប្រាក់សរុបៈ <b>{{total}}</b>
-  </p>
-  <p>
-    ទឹកប្រាក់បានបង់ៈ <b>{{paidAmount}}</b>
-  </p>
-  <p>
-    ទឹកប្រាក់នៅសល់ៈ <b>{{balanceAmount}}</b>
+    ទឹកប្រាក់សរុបៈ <b>{{total}}</b> |
+    បានបង់ៈ <b>{{paidAmount}}</b> |
+    នៅសល់ៈ <b>{{balanceAmount}}</b>
   </p>
   <!-- <button data-action="confirm" class=" button button-clear">
     {{> ionIcon icon="chevron-right" class="positive"}}

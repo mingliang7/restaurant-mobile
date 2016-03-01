@@ -58,6 +58,7 @@ Meteor.methods({
                 set.subTotal = saleSubTotal;
                 set.total = total;
                 set.owedAmount = total;
+                set.transferOrSplit = true;
                 Restaurant.Collection.Sales.direct.update(fromSaleId, {$set: set});
 
             }
