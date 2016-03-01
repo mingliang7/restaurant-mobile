@@ -64,14 +64,24 @@ Template.restaurantSalePayment.events({
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
   },
+  'click .savePrint'(event){
+    Session.set('savePrint', true)
+  }
 });
 
 
 AutoForm.hooks({
-  payment:{
+  activePayment:{
     onSuccess(formType, result){
       Bert.alert('គិតលុយរួចរាល់', 'success', 'growl-bottom-right', 'fa-check');
-      Router.go('/restaurant/sale');
+      if(Session.get('savePrint')){
+        //window.open(`/restaurant/invoice/${result}`, '_blank');
+        Router.go(`/restaurant/invoice/${result}`);
+      }else{
+        Router.go(`/restaurant/payment`);
+      }
+      Session.set('savePrint', false);
+
     },
     onError(formType, err){
       Bert.alert(err.message, 'danger', 'growl-bottom-right');

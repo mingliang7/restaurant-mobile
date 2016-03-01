@@ -116,12 +116,9 @@ Meteor.publish("currencies", () => {
   return Restaurant.Collection.Currency.find();
 });
 
-Meteor.publish("existSales", () => {
+Meteor.publish("existSales", function() {
   return Restaurant.Collection.Sales.find({
-    status: 'active',
-    _payment: {
-      $exists: false
-    }
+    status: 'active'
   });
 });
 

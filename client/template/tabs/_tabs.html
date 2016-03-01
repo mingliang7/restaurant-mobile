@@ -1,19 +1,19 @@
 <template name="_data_tabs">
   {{#if isAndroid}}
     {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
-      {{> ionTab title="Home" path="home" icon="android-home"}}
-      {{> ionTab title="Sale" path="restaurant.sale" icon="coffee"}}
-      {{> ionTab title="Data" path="restaurant.data" icon="filing"}}
-      {{> ionTab title="ទូរទាត់លុយ" path="restaurant.active.payment" icon="cash"}}
-      {{> ionTab title="Setting" path="restaurant.setting" icon="gear-b"}}
+      {{> ionTab title="ទំព័រដើម" path="home" icon="android-home"}}
+      {{> ionTab title="លក់ថ្មី" path="restaurant.sale" icon="coffee"}}
+      {{> ionTab title="ទិន្នន័យ" path="restaurant.data" icon="filing"}}
+      {{> ionTab title="តារាងទូរទាត់ទឹកប្រាក់" path="restaurant.active.payment" icon="cash"}}
+      {{> ionTab title="ការកំណត់" path="restaurant.setting" icon="gear-b"}}
     {{/ionTabs}}
     {{else}}
     {{#ionTabs style="ios"}}
-      {{> ionTab title="Home" path="home" iconOff="ios-home-outline" iconOn="ios-home"}}
-      {{> ionTab title="Sale" path="restaurant.sale" iconOff="coffee" iconOn="coffee"}}
-      {{> ionTab title="Data" path="restaurant.data" iconOff="filing" iconOn="filing"}}
-      {{> ionTab title="ទូរទាត់លុយ" path="restaurant.active.payment" iconOff="cash" iconOn="cash"}}
-      {{> ionTab title="Setting" path="restaurant.setting" iconOff="ios-gear-outline" iconOn="ios-gear"}}
+      {{> ionTab title="ទំព័រដើម" path="home" iconOff="ios-home-outline" iconOn="ios-home"}}
+      {{> ionTab title="លក់ថ្មី" path="restaurant.sale" iconOff="coffee" iconOn="coffee"}}
+      {{> ionTab title="ទិន្នន័យ" path="restaurant.data" iconOff="filing" iconOn="filing"}}
+      {{> ionTab title="តារាងទូរទាត់ទឹកប្រាក់" path="restaurant.active.payment" iconOff="cash" iconOn="cash"}}
+      {{> ionTab title="ការកំណត់" path="restaurant.setting" iconOff="ios-gear-outline" iconOn="ios-gear"}}
     {{/ionTabs}}
   {{/if}}
 </template>

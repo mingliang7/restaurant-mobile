@@ -70,23 +70,23 @@ Template.restaurantActivePaymentInvoice.events({
 });
 
 
-AutoForm.hooks({
-  activePayment:{
-    onSuccess(formType, result){
-      Bert.alert('គិតលុយរួចរាល់', 'success', 'growl-bottom-right', 'fa-check');
-      debugger;
-      if(Session.get('savePrint')){
-        //window.open(`/restaurant/invoice/${result}`, '_blank');
-       Router.go(`/restaurant/invoice/${result}`);
-      }else{
-        Router.go('/restaurant/payment');
-      }
-      Session.set('savePrint', false);
-
-    },
-    onError(formType, err){
-      Bert.alert(err.message, 'danger', 'growl-bottom-right');
-
-    }
-  }
-})
+// AutoForm.hooks({
+//   activePayment:{
+//     onSuccess(formType, result){
+//       Bert.alert('គិតលុយរួចរាល់', 'success', 'growl-bottom-right', 'fa-check');
+//       debugger;
+//       if(Session.get('savePrint')){
+//         //window.open(`/restaurant/invoice/${result}`, '_blank');
+//        Router.go(`/restaurant/invoice/${result}`);
+//       }else{
+//         Router.go('/restaurant/payment');
+//       }
+//       Session.set('savePrint', false);
+//
+//     },
+//     onError(formType, err){
+//       Bert.alert(err.message, 'danger', 'growl-bottom-right');
+//
+//     }
+//   }
+// })

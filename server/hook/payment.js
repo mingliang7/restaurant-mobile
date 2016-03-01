@@ -3,15 +3,18 @@ Restaurant.Collection.Payments.before.insert((userId, doc) => {
   let currentId = doc._id;
   doc._id = idGenerator.genWithPrefix(Restaurant.Collection.Payments, prefix, 2);
   Sale.State.set(currentId, doc._id);
-  if(doc.balanceAmount == 0){
+  if(doc.paidAmount >=  doc.dueAmount){
     doc.status = 'closed';
+    doc.truelyPaid = doc.dueAmount
   }else{
     doc.status = 'partial';
+    doc.truelyPaid = doc.paidAmount;
   }
 });
 
 Restaurant.Collection.Payments.after.insert((userId, doc)=>{
   Meteor.defer(()=>{
+    doc.paidAmount = doc.truelyPaid
     updateSale(doc);
   });
 })

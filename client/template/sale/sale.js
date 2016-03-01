@@ -20,7 +20,7 @@ Template.restaurantSale.rendered = function() {
 
 Template.restaurantSale.helpers({
   tableLocations() {
-    return Restaurant.Collection.TableLocations.find();
+    return Restaurant.Collection.TableLocations.find({}, {sort: {name: 1}});
   },
   goToTable() {
     return `/restaurant/sale/${this._id}` ;

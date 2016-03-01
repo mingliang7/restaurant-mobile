@@ -22,6 +22,6 @@ Template.saleSearch.helpers({
     return Session.get('searchSaleQuery');
   },
   goToActivePaymentInvoice(){
-    return `/restaurant/payment/${this._id}`
+    return `/restaurant/sale/${this.tableLocation}/table/${this.tableId}/saleInvoice/${this._id}`;
   }
 });

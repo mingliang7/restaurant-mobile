@@ -29,7 +29,7 @@ Template.restaurantSaleTableLocationShow.helpers({
     let tableLocationId = Router.current().params.tableLocationId;
     return Restaurant.Collection.Tables.find({
       tableLocationId: tableLocationId
-    });
+    }, {sort: {name: 1}});
   },
   location() {
     try {
@@ -41,7 +41,7 @@ Template.restaurantSaleTableLocationShow.helpers({
     }
   },
   saleHasSaleDetails(tableId){
-    let sales = Restaurant.Collection.Sales.findOne({tableId: tableId});
+    let sales = Restaurant.Collection.Sales.findOne({status: 'active', tableId: tableId});
     if(!_.isUndefined(sales)){
       return true;
     }
@@ -54,7 +54,7 @@ Template.restaurantSaleTableLocationShow.events({
     Session.set('saleDetailObj', {}); //set saleDetailObj for order product
     let tableName = $(event.currentTarget).parents('.item').find('.table-name').text();
     let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();
-    var sales = Restaurant.Collection.Sales.find({tableId: tableId}).fetch();
+    var sales = Restaurant.Collection.Sales.find({status: 'active', tableId: tableId}).fetch();
     IonActionSheet.show({
       titleText: `ជម្រើសសម្រាប់វិក័យប័ត្រតុលេខ ${tableName}`,
       buttons: sales,

@@ -40,7 +40,7 @@ Template.restaurantActivePayment.helpers({
     })
   },
   goToActivePaymentInvoice() {
-    return `/restaurant/payment/${this._id}`
+    return `/restaurant/sale/${this.tableLocation}/table/${this.tableId}/saleInvoice/${this._id}`;
   },
   hasMore() {
     let limit = Session.get('activeSaleLimit');

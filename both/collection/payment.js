@@ -39,6 +39,11 @@ Restaurant.Schema.Payments = new SimpleSchema({
         label:"Pay Amount",
         decimal:true
     },
+    truelyPaid: {
+      type: Number,
+      optional: true,
+      decimal: true
+    },
     dueAmount:{
         type:Number,
         label:"Due Amount",
