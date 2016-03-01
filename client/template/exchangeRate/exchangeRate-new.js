@@ -76,7 +76,7 @@ Template.exchangeRateNew.events({
 AutoForm.hooks({
     exchangeRateNew: {
         onSuccess(formType, res){
-            Bert.alert('Added', 'success', 'growl-bottom-right');
+            Bert.alert('បង្កើតបានជោគជ័យ', 'success', 'growl-bottom-right');
             //IonModal.close();
         },
         onError(formType, err){

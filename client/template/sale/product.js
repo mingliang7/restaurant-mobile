@@ -27,7 +27,7 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.rendered = function() {
 Template.restaurantSaleCheckoutInvoiceCategoryProduct.helpers({
   currentPath() {
     let table = Restaurant.Collection.Tables.findOne(Router.current().params.tableId);
-    return `ទីតាំងៈ ${table._tableLocation.name}/តុលេខៈ ${table.name}/`
+    return `ទីតាំងតុៈ ${table._tableLocation.name} > តុលេខៈ ${table.name} >​`
   },
   categoryName() {
     try {
