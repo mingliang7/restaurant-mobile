@@ -73,7 +73,7 @@ Template.restaurantSalePayment.events({
 AutoForm.hooks({
   activePayment:{
     onSuccess(formType, result){
-      Bert.alert('គិតលុយរួចរាល់', 'success', 'growl-bottom-right', 'fa-check');
+     // Bert.alert('គិតលុយរួចរាល់', 'success', 'growl-bottom-right', 'fa-check');
       if(Session.get('savePrint')){
         //window.open(`/restaurant/invoice/${result}`, '_blank');
         Router.go(`/restaurant/invoice/${result}`);

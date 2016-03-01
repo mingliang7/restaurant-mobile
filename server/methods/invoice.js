@@ -26,15 +26,22 @@ Meteor.methods({
         let i = 1;
         saleDetails.forEach(function (saleDetail) {
             saleDetail.order = i;
+            saleDetail.amount = numeral(saleDetail.amount).format('0,0');
             i++;
             content.push(saleDetail)
         });
+        var totalConverts = [];
+        sale._exchangeRate.rates.forEach(function (ex) {
+            ex.total = numeral(sale.total / ex.rate).format('0,0');
+            totalConverts.push(ex);
+        });
         data.footer = {
-            subTotal: sale.subTotal,
-            discount: sale.discount,
-            total: sale.total,
-            paidAmount: payment.paidAmount,
-            balanceAmount: payment.balanceAmount
+            subTotal: numeral(sale.subTotal).format('0,0'),
+            discount: numeral(sale.discount).format('0,0'),
+            total: numeral(sale.total).format('0,0'),
+            paidAmount: numeral(payment.paidAmount).format('0,0'),
+            balanceAmount: numeral(payment.balanceAmount).format('0,0'),
+            totalConverts: totalConverts
         };
         data.content = content;
         data.sale = sale;
@@ -62,13 +69,20 @@ Meteor.methods({
         let i = 1;
         saleDetails.forEach(function (saleDetail) {
             saleDetail.order = i;
+            saleDetail.amount = numeral(saleDetail.amount).format('0,0');
             i++;
             content.push(saleDetail)
         });
+        var totalConverts = [];
+        sale._exchangeRate.rates.forEach(function (ex) {
+            ex.total = numeral(sale.total / ex.rate).format('0,0');
+            totalConverts.push(ex);
+        });
         data.footer = {
-            subTotal: sale.subTotal,
-            discount: sale.discount,
-            total: sale.total
+            subTotal: numeral(sale.subTotal).format('0,0'),
+            discount: numeral(sale.discount).format('0,0'),
+            total: numeral(sale.total).format('0,0'),
+            totalConverts: totalConverts
         };
         data.content = content;
         data.sale = sale;

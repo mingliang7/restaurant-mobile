@@ -217,6 +217,11 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: [Object],
     optional: true,
     blackbox: true
+  },
+  _exchangeRate:{
+    type:Object,
+    optional:true,
+    blackbox:true
   }
 });
 //search
