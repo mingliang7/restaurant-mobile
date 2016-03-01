@@ -2,7 +2,7 @@ Restaurant.Collection.Payments = new Mongo.Collection("restaurant_payments");
 Restaurant.Schema.Payments = new SimpleSchema({
     customerId: {
         type: String,
-        label: "Customer",
+        label: 'អតិថិជន',
         autoform:{
           type: 'select',
           options(){

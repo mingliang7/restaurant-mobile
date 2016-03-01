@@ -53,7 +53,6 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
   },
   note: {
     type: [String],
-    label: "Note",
     optional: true,
     autoform: {
       type: 'select-checkbox',
