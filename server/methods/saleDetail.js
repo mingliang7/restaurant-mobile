@@ -7,7 +7,7 @@ Meteor.methods({
     var sale = Restaurant.Collection.Sales.findOne(saleDetails[0].saleId);
     if (_.isUndefined(sale.total)) {
       Meteor.defer(() => {
-        Meteor._sleepForMs(500);
+        Meteor._sleepForMs(200);
         saleDetails.forEach((saleDetail) => {
           saleDetail._id = idGenerator.genWithPrefix(Restaurant.Collection.SaleDetails, saleDetail.saleId, 2);
           saleDetail.transferOrSplit = false;
@@ -51,8 +51,8 @@ Meteor.methods({
   removeSaleDetail(id) {
     Restaurant.Collection.SaleDetails.remove(id);
   },
-  detachSaleDetail(tableId, tableLocation, obj) {
-    Meteor._sleepForMs(500);
+  detachSaleDetail(tableId, tableLocation, obj) { //បំបែកវិក័យប័ត្រ
+    Meteor._sleepForMs(200);
     let count = 1;
     let saleId, oldSaleId;
     for (let k in obj) {
@@ -91,13 +91,13 @@ Meteor.methods({
         });
       }
     }
-    Meteor.defer(function(){
+    Meteor.defer(function() {
       Sale.sumSaleDetail(oldSaleId);
     })
     return saleId;
   },
-  mergeSaleInvoice(currentSaleId, selectedSaleId) {
-    Meteor._sleepForMs(500);
+  mergeSaleInvoice(currentSaleId, selectedSaleId) { //ផ្ទេរវិក័យប័ត្រ
+    Meteor._sleepForMs(200);
     let saleDetails = Restaurant.Collection.SaleDetails.find({
       saleId: currentSaleId
     });
@@ -114,6 +114,47 @@ Meteor.methods({
       });
     });
     Restaurant.Collection.Sales.remove(currentSaleId);
+  },
+  transferItem(transferSaleId, currentSaleId, obj) {
+    Meteor._sleepForMs(200);
+    let count = 1;
+    for (let k in obj) {
+      if (obj[k].qtyChanged) {
+        let saleDetail = Restaurant.Collection.SaleDetails.findOne(k);
+        let newSaleDetail = {
+          _id: idGenerator.genWithPrefix(Restaurant.Collection.SaleDetails, transferSaleId, 2),
+          price: saleDetail.price,
+          quantity: obj[k].qtyChanged,
+          amount: obj[k].qtyChanged * saleDetail.price,
+          productId: saleDetail.productId,
+          saleId: transferSaleId,
+          transferOrSplit: true
+        }
+        Restaurant.Collection.SaleDetails.insert(newSaleDetail);
+        Meteor.defer(() => {
+          let remainQty = obj[k].defaultQty - obj[k].qtyChanged;
+          Restaurant.Collection.SaleDetails.update(k, {
+            $set: {
+              quantity: remainQty,
+              amount: remainQty * saleDetail.price
+            }
+          })
+        });
+      } else {
+        Restaurant.Collection.SaleDetails.update(k, {
+          $set: {
+            saleId: transferSaleId,
+            transferOrSplit: true
+          }
+        });
+      }
+    }
+    Meteor.defer(function() {
+      console.log(currentSaleId);
+      Sale.sumSaleDetail(currentSaleId); //recalculate saleDetail
+      Sale.sumSaleDetail(transferSaleId);//recalculate saleDetail
+    })
+    return transferSaleId;
   }
 });
 

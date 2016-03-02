@@ -1,0 +1,20 @@
+<template name="transferItem">
+  {{#ionModal focusFirstInput=true title="Search"}}
+  <div class="list">
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+        {{> ionIcon icon="ios-search" class="placeholder-icon"}}
+        <input type="text" placeholder="Search" value="{{searchQuery}}">
+      </label>
+    </div>
+    <ul>
+      {{#each sales}}
+        {{#ionItem class="cursor-p saleDetailItem" data=_id}}
+          {{> searchSaleItem}}
+        {{/ionItem}}
+      {{/each}}
+    </ul>
+  </div>
+
+  {{/ionModal}}
+</template>
