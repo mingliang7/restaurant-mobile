@@ -10,7 +10,7 @@ Template.editUnit.helpers({
 AutoForm.hooks({
   editUnit: {
     onSuccess(formType, result) {
-      Bert.alert('Updated', 'success', 'growl-bottom-right');
+      Bert.alert('កែប្រែបានជោគជ័យ', 'success', 'growl-bottom-right');
       IonModal.close();
     },
     onError(formType, err) {

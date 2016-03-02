@@ -7,7 +7,7 @@ Restaurant.Schema.Notes = new SimpleSchema({
     },
     description: {
         type: String,
-        label: "Description",
+        label: "ពិពណ៌នា",
         optional: true
     }
 });

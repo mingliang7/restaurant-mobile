@@ -1,41 +1,41 @@
 <template name="restaurantData">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="home" text="Home"}}
+    {{>ionNavBackButton path="home" text="ទំព័រដើម"}}
   {{/contentFor}}
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Data</h1>
+    <h1 class="title">ទិន្នន័យ</h1>
   {{/contentFor}}
   {{#ionView}}
     {{#ionContent}}
       {{#ionList}}
         <a class="item item-icon-left item-icon-right" href="/restaurant/customers">
           {{> ionIcon icon="ios-people" class="assertive"}}
-          Customer
+          អតិថិជន
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
         <a class="item item-icon-left item-icon-right" href="/restaurant/notes">
           {{> ionIcon icon="compose" class="assertive"}}
-          Note
+          កំណត់សំគាល់
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
         <a class="item item-icon-left item-icon-right" href="/restaurant/staffs">
           {{> ionIcon icon="man" class="assertive"}}
-          Staff
+          បុគ្គលិក
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
         <a class="item item-icon-left item-icon-right" href="/restaurant/table-locations">
           {{> ionIcon icon="android-pin" class="assertive"}}
-          Table Location
+          ទីតាំងតុ
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
         <a class="item item-icon-left item-icon-right" href="/restaurant/tables">
           {{> ionIcon icon="flag" class="assertive"}}
-          Table
+         លេខតុ
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
           <a class="item item-icon-left item-icon-right" href="/restaurant/item-transfer">
               {{> ionIcon icon="shuffle" class="assertive"}}
-              Item Transfer
+              ផ្ទេរទំនិញ
               {{> ionIcon icon="ios-arrow-forward" class="positive"}}
           </a>
       {{/ionList}}

@@ -9,7 +9,7 @@ Template.editCustomer.helpers({
 AutoForm.hooks({
   editCustomer:{
     onSuccess(formType, result){
-      Bert.alert('Updated!', 'success', 'growl-top-right', 'fa-check');
+      Bert.alert('កែប្រែបានជោគជ័យ!', 'success', 'growl-top-right', 'fa-check');
       IonModal.close();
     },
     onError(formType, err){
