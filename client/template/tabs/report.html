@@ -1,0 +1,29 @@
+<template name="restaurantReport">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="home" text="ទំព័រដើម"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">របាយការណ៍</h1>
+  {{/contentFor}}
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        <a class="item item-icon-left item-icon-right" href="/restaurant/customers">
+          {{> ionIcon icon="ios-people" class="assertive"}}
+              របាយការណ៍ ព័ត៌មានទំនិញ
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+        </a>
+        <a class="item item-icon-left item-icon-right" href="/restaurant/notes">
+          {{> ionIcon icon="compose" class="assertive"}}
+            របាយការណ៍ លក់
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+        </a>
+        <a class="item item-icon-left item-icon-right" href="/restaurant/staffs">
+          {{> ionIcon icon="man" class="assertive"}}
+            របាយការណ៍ លក់អំលិត
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+        </a>
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>
