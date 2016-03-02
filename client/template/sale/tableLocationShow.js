@@ -29,7 +29,7 @@ Template.restaurantSaleTableLocationShow.helpers({
     let tableLocationId = Router.current().params.tableLocationId;
     return Restaurant.Collection.Tables.find({
       tableLocationId: tableLocationId
-    }, {sort: {name: 1}});
+    }, {sort: {_id: 1, name: 1}});
   },
   location() {
     try {
