@@ -8,8 +8,8 @@ Meteor.methods({
         };
 
         var params = {};
-        var fromDate = moment(arg.fromDate + " 00:00:00").toDate();
-        var toDate = moment(arg.toDate + " 23:59:59").toDate();
+        var fromDate = moment(arg.fromDate + " 00:00:00","DD/MM/YYYY HH:mm:ss").toDate();
+        var toDate = moment(arg.toDate + " 23:59:59","DD/MM/YYYY HH:mm:ss").toDate();
         var customerId = arg.customerId;
 
         data.title = Restaurant.Collection.Company.findOne();
@@ -36,7 +36,9 @@ Meteor.methods({
         if (content.length > 0) {
             data.content = content;
         }
-        return data
+        console.log(data);
+        return data;
+
     }
 });
 

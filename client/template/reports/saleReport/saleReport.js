@@ -9,30 +9,12 @@ Template.restaurantSaleReport.helpers({
 });
 
 Template.restaurantSaleReportGen.helpers({
-    getGrandTotalConvert:function(obj,key){
-      return obj[key];
-    },
-    multiply: function (val1, val2, id) {
-        var value = (val1 * val2);
-        if (id != null && id == "KHR") {
-            value = roundRielCurrency(value);
-            return numeral(value).format('0,0.00');
-        }
-        return numeral(value).format('0,0.00');
-    },
-    options: function () {
-        return {
-            //fontSize: 'bg',
-            paper: 'a4',
-            orientation: 'portrait'
-        };
-    },
     data: function () {
-        var q=Router.current().params.query;
-        var params = JSON.stringify(q);
-
+        debugger;
+        var query=Router.current().params.query;
+        var params = "saleReport";
         Fetcher.setDefault(params, false);
-        Fetcher.retrieve(params, 'getSaleReport', params);
+        Fetcher.retrieve(params, 'getSaleReport', query);
         return Fetcher.get(params);
     }
 });

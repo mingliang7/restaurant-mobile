@@ -16,8 +16,8 @@
                     <button type="submit" class="button button-stable">Reset</button>
                 </div>
                 <div class="content has-header overflow-scroll">
-                    {{> afQuickField name='fromDate' type='datetime-local'}}
-                    {{> afQuickField name='toDate' type='datetime-local'}}
+                    {{> afQuickField name='fromDate'}}
+                    {{> afQuickField name='toDate'}}
                     {{> afQuickField name='customerId' type="select" options=customers }}
                 </div>
             {{/autoForm}}
@@ -27,14 +27,14 @@
 
 <!--Generate-->
 <template name="restaurantSaleReportGen">
+    <div class="paper-a4-portrait">
     {{#if data}}
-        {{#reportTpl options}}
             {{#with data}}
                 {{#with title}}
                     <div class="title">
                         <div class="title-1x-kh-muol">{{khName}}</div>
                         <div class="title-1x">{{enName}}</div>
-                        <div style="text-decoration: underline;">Sale Summery Report</div>
+                        <div style="text-decoration: underline;">របាយការណ៍ លក់</div>
                         <div class="title-2x">{{enAddress}}</div>
                     </div>
                 {{/with}}
@@ -42,16 +42,12 @@
                     <div style="width: 100%">
                         <div style="width: 50%; float: left">
                             <ul class="list-unstyled">
-                                <li><strong>Branch:</strong> {{branch}}</li>
-                                <!--<li><strong>Location:</strong> {{location}}</li>-->
-                                <li><strong>Staff:</strong> {{staff}}</li>
-                                <li><strong>Status:</strong> {{status}}</li>
+                                <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
                             </ul>
                         </div>
                         <div style="width: 50%; float: right">
                             <ul class="list-unstyled">
-                                <li><strong>Date:</strong> {{date}}</li>
-                                <li><strong>Customer:</strong> {{customer}}</li>
+                                <li><strong>អតិថិជន:</strong> {{customer}}</li>
                             </ul>
                         </div>
                     </div>
@@ -61,16 +57,16 @@
                 <table class="report-content">
                     <thead class="content-header">
                     <tr>
-                        <th>No</th>
-                        <th>InvoiceId</th>
-                        <th>Date</th>
-                        <th>Staff</th>
-                        <th>Customer</th>
-                        <th>Status</th>
+                        <th>ល.រ</th>
+                        <th>លេខវិក័យប័ត្រ</th>
+                        <th>កាលបរិច្ឆេទ</th>
+                        <th>បុគ្គលិក</th>
+                        <th>អតិថិជន</th>
+                        <th>ស្ថានភាព</th>
                         <!--<th>Total Cost</th>-->
-                        <th align="right">Paid Amount</th>
-                        <th align="right">Owed Amount</th>
-                        <th align="right">Total</th>
+                        <!--<th align="right">Paid Amount</th>-->
+                        <!--<th align="right">Owed Amount</th>-->
+                        <th align="right">សរុប</th>
                         {{#each grandTotalConvert}}
                             <th align="right">{{toCurrencyId}}</th>
                         {{/each}}
@@ -87,8 +83,8 @@
                             <td>{{customer}}</td>
                             <td>{{status}}</td>
                             <!--<td align="right">{{totalCost}}</td>-->
-                            <td align="right">{{paidAmount}}</td>
-                            <td align="right">{{owedAmount}}</td>
+                            <!--<td align="right">{{paidAmount}}</td>-->
+                            <!--<td align="right">{{owedAmount}}</td>-->
                             <td align="right">{{total}}</td>
                             {{#each exchangeRates}}
                                 <td align="right">{{exTotalFormatted}}</td>
@@ -97,11 +93,11 @@
                     {{/each}}
                     </tbody>
                     <tbody>
-                    <tr class="content-body" style="background: #ffff00">
+                    <tr class="content-body">
                         <td colspan="6" style="text-align: right">Grand Total:</td>
                         <!--<td align="right">{{grandTotalCost}}</td>-->
-                        <td align="right">{{grandTotalPaidAmount}}</td>
-                        <td align="right">{{grandTotalOwedAmount}}</td>
+                        <!--<td align="right">{{grandTotalPaidAmount}}</td>-->
+                        <!--<td align="right">{{grandTotalOwedAmount}}</td>-->
                         <td align="right">{{grandTotal}}</td>
                         {{#each grandTotalConvert}}
                             <td align="right">{{totalConvert}}</td>
@@ -111,17 +107,11 @@
                 </table>
 
             {{/with}}
-
-            <!--Sign-->
-            {{> signFooter}}
-
-        {{/reportTpl}}
-
         <!--Auto print-->
         <!--{{autoprint close="true"}}-->
 
     {{else}}
-        {{> loading}}
+            <p> No Result</p>
     {{/if}}
-
+    </div>
 </template>
