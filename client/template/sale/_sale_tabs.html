@@ -1,11 +1,13 @@
 <template name="_sale_tabs">
   {{#if isAndroid}}
     {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
-      {{> ionTab title="ជ្រើសរើសផ្នែក" class="categories" icon="clipboard"}}
       {{#if saleDetailExist}}
-        {{> ionTab title="កម្ម៉ង់" class="order" icon="android-cart"}}
+        {{> ionTab title="កម្ម៉ង់" class="order positive" iconOff="android-cart" iconOn="android-cart"}}
       {{/if}}
-      {{> ionTab title="Sale" path="tabs.one" icon="coffee"}}
+      <a class="tab-item" data-ion-modal="categoryTags">
+        <i class="icon ion-ios-pricetags-outline positive"></i>
+        ជ្រើសរើសតាមប្រភេទ
+      </a>
     {{/ionTabs}}
     {{else}}
     {{#ionTabs style="ios"}}
