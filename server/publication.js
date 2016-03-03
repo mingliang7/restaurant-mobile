@@ -200,11 +200,17 @@ Meteor.publish('salesSearch', function(query) {
   return Restaurant.Collection.Sales.search(query);
 });
 
-Meteor.publish("searchSaleByTable", function(query){
+Meteor.publish("searchSaleByTable", function(query, filter){
   if (_.isEmpty(query)) {
     return this.ready();
   }
-  return Restaurant.Collection.Sales.searchByTable(query);
+  let locations = [];
+  if(!_.isEmpty(filter)){
+    for(let k in filter){
+      locations.push(filter[k]);
+    }
+  }
+  return Restaurant.Collection.Sales.searchByTable(query, locations);
 });
 
 Meteor.publish('searchSaleForMerge', function(query, saleId) {

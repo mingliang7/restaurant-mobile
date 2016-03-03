@@ -32,6 +32,14 @@
         <p>
           គិតជាៈ <b>{{_unit.name}}</b>
         </p>
+        <p>
+          Tags:
+          {{#if tags}}
+            <b>{{tags}}</b>
+          {{else}}
+            No tags
+          {{/if}}
+        </p>
         <button data-action="confirm" class=" button button-clear">
           {{> ionIcon icon="close-circled"}}</button>
 

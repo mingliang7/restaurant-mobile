@@ -2,16 +2,23 @@ Meteor.methods({
   removeProduct(id) {
     Restaurant.Collection.Products.remove(id);
   },
-  queryProductTags(categoryId, tags, limit) {
+  queryProductTags(categoryId, tags, units, limit) {
     let limitProduct = []
     let index = 1;
-    console.log(tags.join(' '))
-    let products = Restaurant.Collection.Products.find({
-      categoryId: categoryId,
-      $text: {
+    let selector = {};
+    selector.categoryId = categoryId;
+    if(tags.length > 0){
+      selector.$text = {
         $search: tags.join(' ')
       }
-    }, {
+    }
+    if (!_.isEmpty(units)) {
+      selector['_unit.name'] = {
+        $in: units
+      }
+    }
+    console.log(selector)
+    let products = Restaurant.Collection.Products.find(selector, {
       fields: {
         score: {
           $meta: 'textScore'

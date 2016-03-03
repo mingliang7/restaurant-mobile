@@ -11,6 +11,11 @@ Template.restaurantActivePayment.created = function() {
 }
 
 Template.restaurantActivePayment.rendered = function() {
+  let invoiceId = Session.get('invoiceId');
+  if (!_.isUndefined(invoiceId)) {
+    Meteor.call('removeSaleIfNoSaleDetailExist', invoiceId);
+    Session.set('invoiceId', undefined);
+  }
   try {
     this.autorun(() => {
       if (!this.subscription.ready()) {
