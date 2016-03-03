@@ -1,18 +1,32 @@
 <!--Form-->
 <template name="restaurantSaleReport">
-    {{#autoForm collection="Restaurant.Schema.SaleReport" id="restaurant_saleReport"  action="saleReportGen"}}
-        {{> afQuickField name='date'}}
-        {{> afQuickField name='branch'}}
-        {{> afQuickField name='status'}}
-        {{> afQuickField name='staffId'}}
-        {{> afQuickField name='customerId'}}
-        <button type="submit" class="btn btn-primary">Generate</button>
-        <button type="reset" class="btn btn-default">Reset</button>
-    {{/autoForm}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.report" text='របាយការណ៍'}}
+    {{/contentFor}}
+
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">របាយការណ៍ លក់</h1>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+            {{#autoForm schema="Restaurant.Schema.SaleReport"  id="restaurantSaleReport" action="/restaurant/sale-report-gen"  }}
+                <div class="bar bar-header">
+                    <button type="submit" class="button button-balanced">Generate</button>
+                    <button type="submit" class="button button-stable">Reset</button>
+                </div>
+                <div class="content has-header overflow-scroll">
+                    {{> afQuickField name='fromDate' type='datetime-local'}}
+                    {{> afQuickField name='toDate' type='datetime-local'}}
+                    {{> afQuickField name='customerId' type="select" options=customers }}
+                </div>
+            {{/autoForm}}
+        {{/ionContent}}
+    {{/ionView}}
 </template>
 
 <!--Generate-->
-<template name="restaurant_saleReportGen">
+<template name="restaurantSaleReportGen">
     {{#if data}}
         {{#reportTpl options}}
             {{#with data}}

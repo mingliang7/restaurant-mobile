@@ -5,33 +5,15 @@ Restaurant.Schema.SaleReport = new SimpleSchema({
     customerId: {
         type: String,
         label: "អតិថិជន",
-        /*autoform: {
-            type: "select2",
-            options: function () {
-                return Restaurant.List.customer();
-            }
-        },*/
         optional: true
-
     },
-    date: {
-        type: String,
-        label: "កាលបរិច្ឆេក"
+    fromDate: {
+        type: Date,
+        label: "កាលបរិច្ឆេទចាប់ផ្ដើម"
     },
+    toDate:{
+        type:Date,
+        label: "កាលបរិច្ឆេទបញ្ចប់"
 
-    status: {
-        type: String,
-        label: "Status",
-        autoform: {
-            type: "select2",
-            options: function () {
-                return [
-                    {value: '', label: 'All'},
-                    {value: 'Owed', label: 'Owed'},
-                    {value: 'Paid', label: 'Paid'}
-                ]
-            }
-        },
-        optional:true
     }
 });
