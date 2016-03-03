@@ -51,7 +51,7 @@ Restaurant.Collection.Sales.searchByTable = function(query, locations) {
       '_table.name': 1,
       '_table._tableLocation.name': 1
     },
-    limit: 5
+    limit: 7
   });
 }
 
