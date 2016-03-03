@@ -85,7 +85,7 @@
 @media (min-width: 680px) {
   .mymodal {
     width: 90%;
-    height: 90%;
+    height: 70%;
     z-index: 999;
     top: 5%;
     left: 5%;

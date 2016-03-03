@@ -7,8 +7,10 @@ Meteor.methods({
     let index = 1;
     let selector = {};
     selector.categoryId = categoryId;
-    selector.$text = {
-      $search: tags.join(' ')
+    if(tags.length > 0){
+      selector.$text = {
+        $search: tags.join(' ')
+      }
     }
     if (!_.isEmpty(units)) {
       selector['_unit.name'] = {

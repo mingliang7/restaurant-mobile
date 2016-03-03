@@ -25,28 +25,28 @@
                 {{/with}}
                 <hr style="border-top: 1px dashed #8c8b8b;
 	border-bottom: 1px dashed #fff;">
-                <table border="1">
+                <table border="1" width="100%">
 
                     <tr>
-                        <td style="width: 120px">#{{sale._id}}</td>
-                        <td align="right"><b>បុគ្គលិកៈ</b>{{sale._staff.profile.username}}</td>
+                        <td style="width: 120px"><b># </b>: {{sale._id}}</td>
+                        <td align="right" ><b>បុគ្គលិក : </b> {{sale._staff.profile.username}}</td>
 
                     </tr>
                     <tr>
-                        <td style="width: 120px"><b>តុៈ</b>{{sale._table.name}}</td>
-                        <td align="right"><b>អតិថិជនៈ</b>{{sale._customer.name}}</td>
+                        <td style="width: 120px"><b>តុ : </b> {{sale._table.name}}</td>
+                        <td align="right" ><b>អតិថិជន : </b> {{sale._customer.name}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"><b>កាលបរិច្ឆេទៈ</b>{{sale.saleDate}}</td>
+                        <td colspan="2"><b>កាលបរិច្ឆេទ: </b> {{sale.saleDate}}</td>
 
                     </tr>
 
                 </table>
 
-                <table border="1" width="253">
+                <table border="1" width="100%">
 
                     <tr align="center" style="text-decoration: underline;">
-                        <td align="left"><b>ទំនិញ</b></td>
+                        <td align="left"><b>បរិយាយ</b></td>
                         <td><b>តម្លៃ</b></td>
                         <td><b>ចំនួន</b></td>
                         <td align="right"><b>សរុប</b></td>

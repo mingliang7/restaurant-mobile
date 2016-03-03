@@ -1,36 +1,36 @@
 <template name="restaurantSetting">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="home" text="Home"}}
+    {{>ionNavBackButton path="home" text="ទំព័រដើម"}}
   {{/contentFor}}
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Setting</h1>
+    <h1 class="title">ការកំណត់</h1>
   {{/contentFor}}
   {{#ionView}}
     {{#ionContent}}
       {{#ionList}}
           <a class="item item-icon-left item-icon-right" href="/restaurant/company">
               {{> ionIcon icon="ios-home-outline" class="assertive"}}
-              Company
+            ក្រុមហ៊ុន
               {{> ionIcon icon="ios-arrow-forward" class="positive"}}
           </a>
         <a class="item item-icon-left item-icon-right" href="/restaurant/exchange-rate">
           {{> ionIcon icon="cash" class="assertive"}}
-          Exchange
+          អត្រាប្តូរប្រាក់
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
         <a class="item item-icon-left item-icon-right" href="/restaurant/unit">
           {{> ionIcon icon="cube" class="assertive"}}
-          Unit
+          ឯកតា
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
         <a class="item item-icon-left item-icon-right" href="/restaurant/category">
           {{> ionIcon icon="clipboard" class="assertive"}}
-          Category
+          ផ្នែក
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
         <a class="item item-icon-left item-icon-right" href="/restaurant/product">
           {{> ionIcon icon="beer" class="assertive"}}
-          Product
+          ទំនិញ
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
       {{/ionList}}

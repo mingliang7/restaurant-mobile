@@ -3,64 +3,65 @@ Restaurant.Schema.Payments = new SimpleSchema({
     customerId: {
         type: String,
         label: 'អតិថិជន',
-        autoform:{
-          type: 'select',
-          options(){
-            let sub = Meteor.subscribe("customers", 50);
-            if(!sub.ready()){
-              IonLoading.show();
-            }else{
-              IonLoading.hide();
-              let list = [];
-              Restaurant.Collection.Customers.find().forEach((customer)=>{
-                list.push({label: `${customer._id} | ${customer.name}`, value: customer._id});
-              });
-              return list;
+        autoform: {
+            type: 'select',
+            options(){
+                let sub = Meteor.subscribe("customers", 50);
+                if (!sub.ready()) {
+                    IonLoading.show();
+                } else {
+                    IonLoading.hide();
+                    let list = [];
+                    Restaurant.Collection.Customers.find().forEach((customer)=> {
+                        list.push({label: `${customer._id} | ${customer.name}`, value: customer._id});
+                    });
+                    return list;
+                }
             }
-          }
         }
     },
     saleId: {
         type: String,
-        label: "SaleId"
-       /* autoform: {
-            type: "select2",
-            options: function () {
-                return Restaurant.List.saleList()
-            }
-        }*/
+        label: "លេខវិក័យប័ត្រ"
+        /* autoform: {
+         type: "select2",
+         options: function () {
+         return Restaurant.List.saleList()
+         }
+         }*/
     },
     paymentDate: {
         type: Date,
-        label: "Payment Date"
+        label: "កាលបរិច្ឆេទបង់ប្រាក់"
     },
-    paidAmount:{
-        type:Number,
-        label:"Pay Amount",
-        decimal:true
+    paidAmount: {
+        type: Number,
+        label: "ប្រាក់បានបង់",
+        decimal: true
     },
     truelyPaid: {
-      type: Number,
-      optional: true,
-      decimal: true
+        type: Number,
+        optional: true,
+        decimal: true
     },
-    dueAmount:{
-        type:Number,
-        label:"Due Amount",
-        decimal:true
+    dueAmount: {
+        type: Number,
+        label: "ប្រាក់ត្រូវបង់",
+        decimal: true
     },
-    balanceAmount:{
-        type:Number,
-        label:"Balance Amount"
+    balanceAmount: {
+        type: Number,
+        label: "Balance Amount"
     },
-    status:{
-        type:String,
-        label:"Status",
+    status: {
+        type: String,
+        label: "ស្ថានភាព",
         optional: true
     },
     description: {
-      type: String,
-      optional: true
+        type: String,
+        label: "ពិពណ៌នា",
+        optional: true
     }
 });
 Restaurant.Collection.Payments.attachSchema(Restaurant.Schema.Payments);

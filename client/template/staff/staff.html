@@ -1,9 +1,9 @@
 <template name="restaurantStaff">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="restaurant.data" text="Data"}}
+    {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
   {{/contentFor}}
   {{#contentFor "headerTitle"}}
-    <h1 class="title">Staff</h1>
+    <h1 class="title">បុគ្គលិក</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
@@ -19,7 +19,7 @@
             {{name}}
           </span>
           <p>
-            Gender: {{gender}}, Phone: {{phone}}, Address: {{address}}
+            ភេទ: {{gender}}, ទូរស័ព្ទ: {{phone}}, អាសយដ្ឋាន: {{address}}
           </p>
           <button data-action="confirm" class=" button button-clear">
             {{> ionIcon icon="close-circled"}}</button>

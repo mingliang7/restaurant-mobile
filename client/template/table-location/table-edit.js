@@ -10,7 +10,7 @@ Template.editTableLocation.helpers({
 AutoForm.hooks({
   editTableLocation: {
     onSuccess(formType, result) {
-      Bert.alert('Updated', 'success', 'growl-bottom-right');
+      Bert.alert('កែប្រែជោគជ័យ', 'success', 'growl-bottom-right');
       IonModal.close();
     },
     onError(formType, err) {
