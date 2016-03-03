@@ -4,5 +4,11 @@ Restaurant.Schema.CategoryTags = new SimpleSchema({
     autoform: {
       type: 'select-checkbox'
     }
+  },
+  units:{
+    type: [String],
+    autoform: {
+      type: 'select-checkbox'
+    }
   }
 });

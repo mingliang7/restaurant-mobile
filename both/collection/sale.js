@@ -25,27 +25,31 @@ Restaurant.Collection.Sales.search = function(query, saleId) {
     limit: 5
   });
 }
-Restaurant.Collection.Sales.searchByTable = function(query) {
+Restaurant.Collection.Sales.searchByTable = function(query, locations) {
   if (!query) {
     return;
   }
   let regPattern = `${query}`
   let reg = new RegExp(regPattern, 'i') //match all case
-  return Restaurant.Collection.Sales.find({
-    status: 'active',
-    $or: [{
-      '_table._tableLocation.name': {
-        $regex: reg
-      }
-    }, {
-      '_table.name': {
-        $regex: reg
-      }
-
-    }]
+  let selector = {};
+  selector.status = 'active';
+  selector.$or = [{
+    '_table._tableLocation.name': {
+      $regex: reg
+    }
   }, {
+    '_table.name': {
+      $regex: reg
+    }
+
+  }]
+  if (!_.isEmpty(locations)) {
+    selector.tableLocation = {$in: locations}
+  }
+  return Restaurant.Collection.Sales.find(selector, {
     sort: {
-      _id: 1
+      '_table.name': 1,
+      '_table._tableLocation.name': 1
     },
     limit: 5
   });
@@ -218,10 +222,10 @@ Restaurant.Schema.Sales = new SimpleSchema({
     optional: true,
     blackbox: true
   },
-  _exchangeRate:{
-    type:Object,
-    optional:true,
-    blackbox:true
+  _exchangeRate: {
+    type: Object,
+    optional: true,
+    blackbox: true
   }
 });
 //search

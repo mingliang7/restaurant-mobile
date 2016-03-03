@@ -14,6 +14,10 @@ Restaurant.Schema.Categories = new SimpleSchema({
     tags: {
       type: [String],
       optional: true
+    },
+    units: {
+      type: [String],
+      optional: true
     }
   /*  parentId:{
         type:String,

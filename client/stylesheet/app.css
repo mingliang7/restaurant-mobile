@@ -42,13 +42,12 @@
 .brower-version {
   font-size: 1.5vw;
 }
-
 @-webkit-keyframes color_change {
   from {
     border: 1px solid #aa00ff;
   }
   to {
-      border: 1px solid #ff6f00;
+    border: 1px solid #ff6f00;
   }
 }
 @-moz-keyframes color_change {
@@ -56,7 +55,7 @@
     border: 1px solid #aa00ff;
   }
   to {
-      border: 1px solid #ff6f00;
+    border: 1px solid #ff6f00;
   }
 }
 @-ms-keyframes color_change {
@@ -64,7 +63,7 @@
     border: 1px solid #aa00ff;
   }
   to {
-      border: 1px solid #ff6f00;
+    border: 1px solid #ff6f00;
   }
 }
 @-o-keyframes color_change {
@@ -72,7 +71,7 @@
     border: 1px solid #aa00ff;
   }
   to {
-      border: 1px solid #ff6f00;
+    border: 1px solid #ff6f00;
   }
 }
 @keyframes color_change {
@@ -80,6 +79,17 @@
     border: 1px solid #aa00ff;
   }
   to {
-      border: 1px solid #ff6f00;
+    border: 1px solid #ff6f00;
+  }
+}
+@media (min-width: 680px) {
+  .mymodal {
+    width: 90%;
+    height: 90%;
+    z-index: 999;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
   }
 }

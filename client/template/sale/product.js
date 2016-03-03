@@ -48,7 +48,8 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.helpers({
     let categoryTags = Session.get('categoryTags');
     if (!_.isUndefined(categoryTags.search)) {
       let amountLimit = categoryTags.limit || 12;
-      let result = ReactiveMethod.call('queryProductTags', Router.current().params.categoryId, categoryTags.search, amountLimit);
+      _.isEmpty(categoryTags.units) ? categoryTags.units = [] : categoryTags.units
+      let result = ReactiveMethod.call('queryProductTags', Router.current().params.categoryId, categoryTags.search, categoryTags.units, amountLimit);
       if(!result){
         IonLoading.show();
       }else{

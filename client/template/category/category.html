@@ -26,6 +26,13 @@
               {{/if}}
             </p>
             <p>
+              {{#if units}}
+                Units: {{units}}
+              {{else}}
+                No Units
+              {{/if}}
+            </p>
+            <p>
               {{description}}
             </p>
             <button data-action="confirm" class=" button button-clear">
