@@ -1,0 +1,74 @@
+/* Report styles
+-------------------------------------------------- */
+.report-body {
+    font-family: Arial, Verdana, Geneva, sans-serif;
+    font-size: 10px;
+    color: #000000
+}
+
+/* A4 */
+.paper-a4-portrait {
+    margin: 0px auto;
+    width: 720px;
+    padding: 0px;
+}
+
+.title {
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    border-bottom: 1px solid #000000;
+    margin-bottom: 10px
+}
+
+.title-1x {
+    font-size: 14px;
+}
+
+.title-1x-kh-muol {
+    font-size: 15px;
+    font-family: 'Khmer OS Muol';
+    font-weight: normal;
+}
+
+.title-2x {
+    font-size: 10px;
+}
+
+.report-content {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #000000;
+    margin-top: 30px;
+}
+
+.report-content .content-header th {
+    background-color: #d0d2d0;
+    padding: 3px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #555555;
+}
+
+.report-content .content-body td {
+    padding: 3px;
+    border: 1px solid #555555;
+}
+
+.report-content .content-footer td {
+    font-weight: bold;
+    padding: 3px;
+    border: 1px solid #555555;
+}
+
+.report-page-header-footer {
+    border-collapse: collapse;
+    width: 100%;
+    padding: 5px;
+}
+
+.report-sign {
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+}

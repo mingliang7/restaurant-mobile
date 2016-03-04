@@ -1,6 +1,4 @@
-Router.configure({
-  layoutTemplate: 'layout'
-});
+
 
 Router.map(function() {
   this.route('home', {
@@ -311,6 +309,16 @@ Router.map(function() {
   this.route('restaurant.sale.print', {
     path: '/restaurant/sale-print/:saleId',
     layoutTemplate: 'invoiceLayout',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      this.next();
+    }
+  });
+  this.route('restaurant.report', {
+    path: '/restaurant/report',
     onBeforeAction: function(pause) {
       if (!Meteor.user()) {
         // render the login template but keep the url in the browser the same
