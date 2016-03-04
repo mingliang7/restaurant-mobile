@@ -7,7 +7,7 @@ Meteor.methods({
             footer: {}
         };
 
-        var params = {};
+        var params = {status:"closed"};
         var fromDate = moment(arg.fromDate + " 00:00:00","YYYY-MM-DD HH:mm:ss").toDate();
         var toDate = moment(arg.toDate + " 23:59:59","YYYY-MM-DD HH:mm:ss").toDate();
         var customerId = arg.customerId;
