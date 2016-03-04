@@ -1,99 +1,94 @@
 <!--Form-->
 <template name="restaurantSaleDetailReport">
-    {{#autoForm schema=Restaurant.Schema.SaleDetailReport id="restaurant_saleDetailReport" action="saleDetailReportGen" target="_blank"}}
-        <div class="row">
-            <div class="col-md-6">
-                {{> afQuickField name='date'}}
-                {{> afQuickField name='branch'}}
-                <!--{{> afQuickField name='locationId'}}-->
-                {{> afQuickField name='categoryId'}}
-            </div>
-            <div class="col-md-6">
-                {{> afQuickField name='staffId'}}
-                {{> afQuickField name='customerId'}}
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Generate</button>
-        <button type="reset" class="btn btn-default">Reset</button>
-    {{/autoForm}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.report" text='របាយការណ៍'}}
+    {{/contentFor}}
+
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">របាយការណ៍ លក់លម្អិត</h1>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+            {{#autoForm schema="Restaurant.Schema.SaleDetailReport"  id="restaurantSaleDetailReport" action="/restaurant/sale-detail-report-gen"  target="_blank"}}
+                <div class="bar bar-header">
+                    <button type="submit" class="button button-balanced">Generate</button>
+                    <button type="submit" class="button button-stable">Reset</button>
+                </div>
+                <div class="content has-header overflow-scroll">
+                    {{> afQuickField name='fromDate'}}
+                    {{> afQuickField name='toDate'}}
+                    {{> afQuickField name='customerId' type="select" options=customers }}
+                    {{> afQuickField name='categoryId' type="select" options=categories }}
+                </div>
+            {{/autoForm}}
+        {{/ionContent}}
+    {{/ionView}}
 </template>
 
 <template name="restaurantSaleDetailReportGen">
-    {{#if data}}
-        {{#reportTpl options}}
-            {{#with data}}
-                {{#with title}}
-                    <div class="title">
-                        <div class="title-1x-kh-muol">{{khName}}</div>
-                        <div class="title-1x">{{enName}}</div>
-                        <div style="text-decoration: underline;">Sale Items Detail Report</div>
-                        <div class="title-2x">{{enAddress}}</div>
-                    </div>
-                {{/with}}
-                {{#with header}}
-                    <div style="width: 100%">
-                        <div style="width: 50%; float: left">
-                            <ul class="list-unstyled">
-                                <li><strong>Branch:</strong> {{branch}}</li>
-                                <!--<li><strong>Location:</strong> {{location}}</li>-->
-                                <li><strong>Category:</strong> {{category}}</li>
-                            </ul>
+    <div class="paper-a4-portrait">
+        {{#if data}}
+                {{#with data}}
+                    {{#with title}}
+                        <div class="title">
+                            <div class="title-1x-kh-muol">{{khName}}</div>
+                            <div class="title-1x">{{enName}}</div>
+                            <div style="text-decoration: underline;">Sale Items Detail Report</div>
+                            <div class="title-2x">{{khAddress}}</div>
                         </div>
+                    {{/with}}
+                    {{#with header}}
+                        <div style="width: 100%">
+                            <div style="width: 50%; float: left">
+                                <ul class="list-unstyled">
+                                    <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
+                                    <li><strong>ផ្នែក:</strong> {{category}}</li>
+                                </ul>
+                            </div>
 
-                        <div style="width: 50%; float: right">
-                            <ul class="list-unstyled">
-                                <li><strong>Date:</strong> {{date}}</li>
-                                <li><strong>Staff:</strong> {{staff}}</li>
-                                <li><strong>Customer:</strong> {{customer}}</li>
-                            </ul>
+                            <div style="width: 50%; float: right">
+                                <ul class="list-unstyled">
+                                    <li><strong>អតិថិជន:</strong> {{customer}}</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                {{/with}}
+                    {{/with}}
 
-                <!--Content-->
-                <table class="report-content">
-                    <thead class="content-header">
-                    <tr>
-                        <th>No</th>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <!--<th>TotalCost</th>-->
-                        <th>Total</th>
-                    </tr>
-                    </thead>
-
-                    <tbody class="content-body">
-                    {{#each content}}
+                    <!--Content-->
+                    <table class="report-content">
+                        <thead class="content-header">
                         <tr>
-                            <td align="center">{{order}}</td>
-                            <td>{{productName}}</td>
-                            <td>{{quantity}}</td>
-                            <!--<td align="right">{{totalCost}}</td>-->
-                            <td align="right">{{total}}</td>
+                            <th>ល.រ</th>
+                            <th>បរិយាយ</th>
+                            <th>បរិមាណ</th>
+                            <th>សរុប</th>
                         </tr>
-                    {{/each}}
-                    </tbody>
-                    <tbody>
-                    <tr class="content-body" style="background: #ffff00">
-                        <td colspan="3" style="text-align: right">Grand Total:</td>
-                        <!--<td align="right">{{grandTotalCost}}</td>-->
-                        <td align="right">{{grandTotal}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                        </thead>
 
-            {{/with}}
+                        <tbody class="content-body">
+                        {{#each content}}
+                            <tr>
+                                <td align="center">{{order}}</td>
+                                <td>{{productName}}</td>
+                                <td>{{quantity}}</td>
+                                <td align="right">{{total}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                        <tbody>
+                        <tr class="content-body">
+                            <td colspan="3" style="text-align: right">សរុបរួម:</td>
+                            <td align="right">{{grandTotal}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-            <!--Sign-->
-            {{> signFooter}}
+                {{/with}}
 
-        {{/reportTpl}}
-
-        <!--Auto print-->
-        <!--{{autoprint close="true"}}-->
-
-    {{else}}
-        {{> loading}}
-    {{/if}}
+        {{else}}
+            <p> Wait ... </p>
+        {{/if}}
+    </div>
 
 </template>

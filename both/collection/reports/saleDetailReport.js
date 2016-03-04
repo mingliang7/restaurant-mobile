@@ -25,13 +25,16 @@ Restaurant.Schema.SaleDetailReport = new SimpleSchema({
         optional:true
 
     },
-    date: {
-        type: String,
-        label: "កាលបរិច្ឆេទ"
+    fromDate: {
+        type: Date,
+        label: "កាលបរិច្ឆេទចាប់ផ្ដើម"
     },
-
+    toDate:{
+        type:Date,
+        label:"កាលបរិច្ឆេទបញ្ចប់"
+    },
     staffId:{
-        type:String,
+        type:Date,
         label:"បុគ្កលិក",
         /*autoform: {
             type: "select2",

@@ -10,7 +10,7 @@
 
     {{#ionView}}
         {{#ionContent}}
-            {{#autoForm schema="Restaurant.Schema.SaleReport"  id="restaurantSaleReport" action="/restaurant/sale-report-gen"  }}
+            {{#autoForm schema="Restaurant.Schema.SaleReport"  id="restaurantSaleReport" action="/restaurant/sale-report-gen"  target="_blank"}}
                 <div class="bar bar-header">
                     <button type="submit" class="button button-balanced">Generate</button>
                     <button type="submit" class="button button-stable">Reset</button>
@@ -35,7 +35,7 @@
                         <div class="title-1x-kh-muol">{{khName}}</div>
                         <div class="title-1x">{{enName}}</div>
                         <div style="text-decoration: underline;">របាយការណ៍ លក់</div>
-                        <div class="title-2x">{{enAddress}}</div>
+                        <div class="title-2x">{{khAddress}}</div>
                     </div>
                 {{/with}}
                 {{#with header}}
@@ -79,8 +79,8 @@
                             <td align="center">{{order}}</td>
                             <td>{{_id}}</td>
                             <td>{{saleDate}}</td>
-                            <td>{{staff}}</td>
-                            <td>{{customer}}</td>
+                            <td>{{user}}</td>
+                            <td>{{_customer.name}}</td>
                             <td>{{status}}</td>
                             <!--<td align="right">{{totalCost}}</td>-->
                             <!--<td align="right">{{paidAmount}}</td>-->
@@ -111,7 +111,7 @@
         <!--{{autoprint close="true"}}-->
 
     {{else}}
-            <p> No Result</p>
+            <p> Wait ...</p>
     {{/if}}
     </div>
 </template>

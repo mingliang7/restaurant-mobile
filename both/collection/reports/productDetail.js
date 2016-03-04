@@ -1,4 +1,4 @@
-Restaurant.Schema.ProductDetails = new SimpleSchema({
+Restaurant.Schema.ProductDetailReport = new SimpleSchema({
     categoryId: {
         type: String,
         optional: true,

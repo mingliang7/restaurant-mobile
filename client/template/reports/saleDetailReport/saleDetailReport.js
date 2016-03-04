@@ -1,20 +1,10 @@
-Session.set('branchIds', null);
-Template.restaurantSaleDetailReport.onRendered(function () {
-    var name = $('[name="date"]');
-    DateTimePicker.dateRange(name);
-});
-Template.restaurantSaleDetailReport.events({
-    'change select[name="branch"]': function (e) {
-        var branchId = $(e.currentTarget).val();
-        if (branchId == "") {
-            var userId = Meteor.userId();
-            var branchIds = Meteor.users.findOne(userId).rolesBranch;
-            Session.set('branchIds', branchIds);
-        } else {
-            var branchIds = [];
-            branchIds.push(branchId);
-            Session.set('branchIds', branchIds);
-        }
+
+Template.restaurantSaleDetailReport.helpers({
+    customers(){
+        return ReactiveMethod.call('getCustomerList');
+    },
+    categories(){
+        return ReactiveMethod.call('getCategoryList')
     }
 });
 
@@ -32,15 +22,11 @@ Template.restaurantSaleDetailReportGen.helpers({
     data: function () {
         // Get query params
         //FlowRouter.watchPathChange();
-        var q = FlowRouter.current().queryParams;
-
-        var callId = JSON.stringify(q);
-        var call = Meteor.callAsync(callId, 'restaurantSaleDetailReport', q);
-
-        if (!call.ready()) {
-            return false;
-        }
-        return call.result();
+        var query=Router.current().params.query;
+        var params = "saleDetailReport";
+        Fetcher.setDefault(params, false);
+        Fetcher.retrieve(params, 'getSaleDetailReport', query);
+        return Fetcher.get(params);
     }
 
 });

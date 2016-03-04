@@ -8,18 +8,18 @@ Meteor.methods({
         };
 
         var params = {};
-        var fromDate = moment(arg.fromDate + " 00:00:00","DD/MM/YYYY HH:mm:ss").toDate();
-        var toDate = moment(arg.toDate + " 23:59:59","DD/MM/YYYY HH:mm:ss").toDate();
+        var fromDate = moment(arg.fromDate + " 00:00:00","MM/DD/YYYY HH:mm:ss").toDate();
+        var toDate = moment(arg.toDate + " 23:59:59","MM/DD/YYYY HH:mm:ss").toDate();
         var customerId = arg.customerId;
 
-        data.title = Restaurant.Collection.Company.findOne();
+        data.title = Restaurant.Collection.Company.findOne(params);
         var customer = "All";
         if (fromDate != null && toDate != null) params.saleDate = {$gte: fromDate, $lte: toDate};
         if (customerId != null && customerId != "") {
             params.customerId = customerId;
             customer = Restaurant.Collection.Customers.findOne(customerId).name;
         }
-        var sale = Restaurant.Collection.Sales.find(params);
+        var sale = Restaurant.Collection.Sales.find();
         var header = {};
         header.date = arg.fromDate + ' To '+ arg.toDate;
         header.customer = customer;
@@ -30,13 +30,12 @@ Meteor.methods({
         //data.grandTotalOwedAmount = content.grandTotalOwedAmount;
         data.grandTotal = content.grandTotal;
         //data.grandTotalCost = content.grandTotalCost;
-        //data.grandTotalConvert = content.grandTotalConvert;
+        data.grandTotalConvert = content.grandTotalConvert;
         //return reportHelper;
         /****** Content *****/
         if (content.length > 0) {
             data.content = content;
         }
-        console.log(data);
         return data;
 
     }
@@ -83,8 +82,8 @@ function calculateSaleHelper(sl) {
     /*$.each(grandTotalConvert,function(key,value){
      saleList.grandTotalConvert.push({toCurrencyId:key,totalConvert:value});
      });*/
-
     return saleList;
+
 }
 
 

@@ -1,5 +1,5 @@
 Meteor.methods({
-    restaurantProductDetail: function (arg) {
+    getProductDetailReport: function (arg) {
         var data = {
             title: {},
             header: {},
@@ -21,9 +21,8 @@ Meteor.methods({
             content.push(product);
             index++;
         });
-        data.title = Cpanel.Collection.Company.findOne();
+        data.title = Restaurant.Collection.Company.findOne();
         var header = {};
-        var branchNames = "";
         header.categoryId = categoryId == '' ? 'All' : Restaurant.Collection.Categories.findOne(categoryId).name;
 
         /****** Header *****/
