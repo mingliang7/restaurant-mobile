@@ -25,14 +25,14 @@ Restaurant.Collection.Sales.search = function(query, saleId) {
     limit: 5
   });
 }
-Restaurant.Collection.Sales.searchByTable = function(query, locations) {
+Restaurant.Collection.Sales.searchByTable = function(query, locations, status) {
   if (!query) {
     return;
   }
   let regPattern = `${query}`
   let reg = new RegExp(regPattern, 'i') //match all case
   let selector = {};
-  selector.status = 'active';
+  selector.status = status;
   selector.$or = [{
     '_table._tableLocation.name': {
       $regex: reg

@@ -62,6 +62,15 @@ Restaurant.Schema.Payments = new SimpleSchema({
         type: String,
         label: "ពិពណ៌នា",
         optional: true
+    },
+    staffId: {
+      type: String,
+      optional: true,
+      autoValue(){
+        if(this.isInsert || this.isUpdate){
+          return Meteor.userId();
+        }
+      }
     }
 });
 Restaurant.Collection.Payments.attachSchema(Restaurant.Schema.Payments);

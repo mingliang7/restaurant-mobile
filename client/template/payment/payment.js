@@ -44,6 +44,19 @@ Template.restaurantActivePayment.helpers({
       }
     })
   },
+  saleIsNotZero(){
+    let sale =  Restaurant.Collection.Sales.find({
+      status: 'active'
+    }, {
+      sort: {
+        _id: 1
+      }
+    });
+    if(sale.count() > 0){
+      return true;
+    }
+    return false;
+  },
   goToActivePaymentInvoice() {
     return `/restaurant/sale/${this.tableLocation}/table/${this.tableId}/saleInvoice/${this._id}`;
   },

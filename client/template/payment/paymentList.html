@@ -1,0 +1,48 @@
+<template name="restaurantPaymentList">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton href=backToSale text="ត្រលប់ក្រោយ"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">តារាងបង់ប្រាក់</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <!-- <button class="button button-clear" data-ion-modal="productNew">{{> ionIcon icon="ios-plus-empty"}}</button> -->
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#each payments}}
+          {{#ionItem buttonRight=true avatar=true }}
+            <!-- <img src="{{url}}"> -->
+            <span class="cursor-p">
+              វិក័យប័ត្រលេខៈ {{saleId}} | បង់នៅថ្ងៃទី {{moFormat paymentDate 'YYYY-MM-DD HH:mm:ss'}}
+            </span>
+            <p>
+              ទឹកប្រាក់ជាក់ស្តែងៈ <b>{{dueAmount}}</b>
+            </p>
+            <p>
+              ទឹកប្រាក់បានបង់ៈ <b>{{paidAmount}}</b>
+            </p>
+            <p>
+              ទឹកប្រាក់នៅសល់ <b>{{balanceAmount}}</b>
+            </p>
+            <!--
+            <p>
+              Tags:
+              {{#if tags}}
+                <b>{{join tags}}</b>
+              {{else}}
+                No tags
+              {{/if}}
+            </p> -->
+            <button data-action="confirm" class=" button button-clear">
+              {{> ionIcon icon="close-circled"}}</button>
+
+          {{/ionItem}}
+        {{/each}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>
