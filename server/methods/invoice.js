@@ -32,7 +32,8 @@ Meteor.methods({
         });
         var totalConverts = [];
         sale._exchangeRate.rates.forEach(function (ex) {
-            ex.total = numeral(sale.total / ex.rate).format('0,0');
+            var totalConvert=parseFloat(sale.total)/parseFloat(ex.rate);
+            ex.total = numeral(totalConvert).format('0,0.00');
             totalConverts.push(ex);
         });
         data.footer = {
@@ -75,7 +76,8 @@ Meteor.methods({
         });
         var totalConverts = [];
         sale._exchangeRate.rates.forEach(function (ex) {
-            ex.total = numeral(sale.total / ex.rate).format('0,0');
+            var totalConvert=parseFloat(sale.total)/parseFloat(ex.rate);
+            ex.total = numeral(totalConvert).format('0,0.00');
             totalConverts.push(ex);
         });
         data.footer = {
