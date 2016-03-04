@@ -12,7 +12,7 @@ Restaurant.Schema.OutstandingReport = new SimpleSchema({
 
     },
     date: {
-        type: String,
+        type: Date,
         label: "កាលបរិច្ឆេទ"
     }
 

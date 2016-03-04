@@ -8,8 +8,8 @@ Meteor.methods({
         };
 
         var params = {};
-        var fromDate = moment(arg.fromDate + " 00:00:00", "MM/DD/YYYY HH:mm:ss").toDate();
-        var toDate = moment(arg.toDate + " 23:59:59", "MM/DD/YYYY HH:mm:ss").toDate();
+        var fromDate = moment(arg.fromDate + " 00:00:00", "YYYY-MM-DD HH:mm:ss").toDate();
+        var toDate = moment(arg.toDate + " 23:59:59", "YYYY-MM-DD HH:mm:ss").toDate();
         var customerId = arg.customerId;
 
         var categoryId = arg.categoryId;
@@ -49,8 +49,7 @@ Meteor.methods({
 
 
 function getSaleProducts(params, categoryId) {
-    console.log(params);
-    var saleIds = Restaurant.Collection.Sales.find({}, {fields: {_id: 1}}).map(function (sale) {
+    var saleIds = Restaurant.Collection.Sales.find(params, {fields: {_id: 1}}).map(function (sale) {
         return sale._id;
     });
 

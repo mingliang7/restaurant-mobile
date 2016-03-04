@@ -24,14 +24,14 @@
 
 <template name="restaurantProductDetailReportGen">
     <div class="paper-a4-portrait">
-    {{#if data}}
+        {{#if data}}
             {{#with data}}
                 {{#with title}}
                     <div class="title">
                         <div class="title-1x-kh-muol">{{khName}}</div>
                         <div class="title-1x">{{enName}}</div>
                         <div style="text-decoration: underline;">របាយការណ៍ ទំនិញលម្អិត</div>
-                        <div class="title-2x">{{enAddress}}</div>
+                        <div class="title-2x">{{khAddress}}</div>
                     </div>
                 {{/with}}
                 {{#with header}}
@@ -42,18 +42,8 @@
                                 <li><strong>ផ្នែក:</strong> {{categoryId}}</li>
                             </ul>
                         </div>
-
-
-                        <!--<div style="width: 50%; float: right">-->
-                            <!--<ul class="list-unstyled">-->
-                                <!--<li><strong>Date:</strong> {{date}}</li>-->
-                                <!--<li><strong>Staff:</strong> {{staff}}</li>-->
-                                <!--<li><strong>Supplier:</strong> {{supplier}}</li>-->
-                            <!--</ul>-->
-                        <!--</div>-->
                     </div>
                 {{/with}}
-
                 <!--Content-->
                 <table class="report-content">
                     <thead class="content-header">
@@ -81,8 +71,8 @@
                     </tbody>
                 </table>
             {{/with}}
-    {{else}}
-        <p> Wait ... </p>
-    {{/if}}
-        </div>
+        {{else}}
+            <p> សូមមេត្តារងចាំ ...</p>
+        {{/if}}
+    </div>
 </template>

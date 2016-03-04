@@ -10,7 +10,6 @@ Template.restaurantSaleReport.helpers({
 
 Template.restaurantSaleReportGen.helpers({
     data: function () {
-        debugger;
         var query=Router.current().params.query;
         var params = "saleReport";
         Fetcher.setDefault(params, false);

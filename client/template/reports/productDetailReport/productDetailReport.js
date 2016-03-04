@@ -24,14 +24,6 @@ Template.restaurantProductDetailReportGen.helpers({
         Fetcher.retrieve(params, 'getProductDetailReport', query);
         return Fetcher.get(params);
 
-        /*
-         var q = FlowRouter.current().queryParams;
-         var callId = JSON.stringify(q);
-         var call = Meteor.callAsync(callId, 'restaurantProductDetail', q);
-         if (!call.ready()) {
-         return false;
-         }
-         return call.result();*/
     }
 });
 

@@ -8,8 +8,8 @@ Meteor.methods({
         };
 
         var params = {};
-        var fromDate = moment(arg.fromDate + " 00:00:00","MM/DD/YYYY HH:mm:ss").toDate();
-        var toDate = moment(arg.toDate + " 23:59:59","MM/DD/YYYY HH:mm:ss").toDate();
+        var fromDate = moment(arg.fromDate + " 00:00:00","YYYY-MM-DD HH:mm:ss").toDate();
+        var toDate = moment(arg.toDate + " 23:59:59","YYYY-MM-DD HH:mm:ss").toDate();
         var customerId = arg.customerId;
 
         data.title = Restaurant.Collection.Company.findOne(params);
@@ -19,7 +19,7 @@ Meteor.methods({
             params.customerId = customerId;
             customer = Restaurant.Collection.Customers.findOne(customerId).name;
         }
-        var sale = Restaurant.Collection.Sales.find();
+        var sale = Restaurant.Collection.Sales.find(params);
         var header = {};
         header.date = arg.fromDate + ' To '+ arg.toDate;
         header.customer = customer;
