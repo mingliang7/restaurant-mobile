@@ -18,5 +18,15 @@ Meteor.methods({
             });
         });
         return list;
+    },
+    getUserList(){
+        var list = [];
+        Meteor.users.find().forEach((obj)=> {
+            list.push({
+                label:obj.profile.username,
+                value:obj._id
+            })
+        });
+        return list;
     }
 });

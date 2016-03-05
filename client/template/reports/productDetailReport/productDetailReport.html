@@ -23,7 +23,6 @@
 </template>
 
 <template name="restaurantProductDetailReportGen">
-    <div class="paper-a4-portrait">
         {{#if data}}
             {{#with data}}
                 {{#with title}}
@@ -53,7 +52,7 @@
                         <th>ឯកតា</th>
                         <th>តម្លៃ</th>
                         <th>ផ្នែក</th>
-                        <th>Barcode</th>
+                        <!--<th>Barcode</th>-->
                     </tr>
                     </thead>
 
@@ -63,9 +62,9 @@
                             <td align="center">{{index}}</td>
                             <td>{{name}}</td>
                             <td>{{_unit.name}}</td>
-                            <td>{{price}}</td>
+                            <td align="right">{{price}}</td>
                             <td>{{_category.name}}</td>
-                            <td>{{barcode}}</td>
+                            <!--<td>{{barcode}}</td>-->
                         </tr>
                     {{/each}}
                     </tbody>
@@ -74,5 +73,4 @@
         {{else}}
             <p> សូមមេត្តារងចាំ ...</p>
         {{/if}}
-    </div>
 </template>

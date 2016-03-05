@@ -11,6 +11,6 @@ Router.map(function() {
     });
     this.route('restaurant.sale.detail.report.gen', {
         path: '/restaurant/sale-detail-report-gen',
-        layoutTemplate: 'invoiceLayout'
+        layoutTemplate: 'reportLayout'
     });
 });
