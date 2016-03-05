@@ -199,7 +199,7 @@
 
 
 <template name="_sale_invoice_tabs">
-    {{#if isAndroid}}
+    <!-- {{#if isAndroid}}
         {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
             {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
@@ -216,7 +216,7 @@
               {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
             {{/if}}
         {{/ionTabs}}
-    {{else}}
+    {{else}} -->
         {{#ionTabs style="ios"}}
             {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
             {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
@@ -233,7 +233,7 @@
               {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
             {{/if}}
         {{/ionTabs}}
-    {{/if}}
+    <!-- {{/if}} -->
 </template>
 
 <template name="tableHeader">
