@@ -23,8 +23,8 @@ Meteor.methods({
 
         var header = {};
 
-        header.date = arg.fromDate + ' To ' + arg.toDate;
-        var customer = "All", category = "All";
+        header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
+        var customer = "ទាំងអស់", category = "ទាំងអស់";
         if (customerId != null && customerId != "")
             customer = Restaurant.Collection.Customers.findOne(customerId).name;
 

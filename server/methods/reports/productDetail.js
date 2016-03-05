@@ -18,12 +18,13 @@ Meteor.methods({
         var products = Restaurant.Collection.Products.find(params);
         products.forEach(function (product) {
             product.index = index;
+            product.price=numeral(product.price).format('0,0.00');
             content.push(product);
             index++;
         });
         data.title = Restaurant.Collection.Company.findOne();
         var header = {};
-        header.categoryId = categoryId == '' ? 'All' : Restaurant.Collection.Categories.findOne(categoryId).name;
+        header.categoryId = categoryId == '' ? 'ទាំងអស់' : Restaurant.Collection.Categories.findOne(categoryId).name;
 
         /****** Header *****/
         data.header = header;

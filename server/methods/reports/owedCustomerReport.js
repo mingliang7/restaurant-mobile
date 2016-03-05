@@ -10,7 +10,7 @@ Meteor.methods({
         var date = moment(arg.date + " 23:59:59").toDate();
         var customerId = arg.customerId;
 
-        var customer = "All";
+        var customer = "ទាំងអស់";
         if (customerId != null && customerId != "") {
             params.customerId = customerId;
             customer = Restaurant.Collection.Customers.findOne(customerId).name;

@@ -11,6 +11,6 @@ Router.map(function() {
     });
     this.route('restaurant.outstanding.report.gen', {
         path: '/restaurant/outstanding-report-gen',
-        layoutTemplate: 'invoiceLayout'
+        layoutTemplate: 'reportLayout'
     });
 });

@@ -19,6 +19,8 @@
                     {{> afQuickField name='fromDate'}}
                     {{> afQuickField name='toDate'}}
                     {{> afQuickField name='customerId' type="select" options=customers }}
+                    {{> afQuickField name='status' type="select" options=status }}
+                    {{> afQuickField name='staffId' type="select" options=users }}
                 </div>
             {{/autoForm}}
         {{/ionContent}}
@@ -27,7 +29,6 @@
 
 <!--Generate-->
 <template name="restaurantSaleReportGen">
-    <div class="paper-a4-portrait">
     {{#if data}}
             {{#with data}}
                 {{#with title}}
@@ -43,11 +44,13 @@
                         <div style="width: 50%; float: left">
                             <ul class="list-unstyled">
                                 <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
+                                <li><strong>ប្រភេទវិក័យប័ត្រ:</strong> {{status}}</li>
                             </ul>
                         </div>
                         <div style="width: 50%; float: right">
                             <ul class="list-unstyled">
                                 <li><strong>អតិថិជន:</strong> {{customer}}</li>
+                                <li><strong>បុគ្គលិក:</strong> {{staff}}</li>
                             </ul>
                         </div>
                     </div>
@@ -62,7 +65,7 @@
                         <th>កាលបរិច្ឆេទ</th>
                         <th>បុគ្គលិក</th>
                         <th>អតិថិជន</th>
-                        <th>ស្ថានភាព</th>
+                        <th>ប្រភេទវិក័យប័ត្រ</th>
                         <!--<th>Total Cost</th>-->
                         <!--<th align="right">Paid Amount</th>-->
                         <!--<th align="right">Owed Amount</th>-->
@@ -111,5 +114,5 @@
     {{else}}
         <p> សូមមេត្តារងចាំ ...</p>
     {{/if}}
-    </div>
+
 </template>

@@ -5,7 +5,13 @@ Template.restaurantSaleReport.onRendered(function () {
 Template.restaurantSaleReport.helpers({
    customers(){
        return ReactiveMethod.call('getCustomerList');
-   }
+   },
+    status(){
+        return [{value:"active",label:"active"},{value:"closed",label:"closed"}]
+    },
+    users(){
+        return ReactiveMethod.call('getUserList');
+    }
 });
 
 Template.restaurantSaleReportGen.helpers({

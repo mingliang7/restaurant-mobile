@@ -7,22 +7,33 @@ Meteor.methods({
             footer: {}
         };
 
-        var params = {status:"closed"};
-        var fromDate = moment(arg.fromDate + " 00:00:00","YYYY-MM-DD HH:mm:ss").toDate();
-        var toDate = moment(arg.toDate + " 23:59:59","YYYY-MM-DD HH:mm:ss").toDate();
+        var params = {};
+        var fromDate = moment(arg.fromDate + " 00:00:00", "YYYY-MM-DD HH:mm:ss").toDate();
+        var toDate = moment(arg.toDate + " 23:59:59", "YYYY-MM-DD HH:mm:ss").toDate();
         var customerId = arg.customerId;
 
-        data.title = Restaurant.Collection.Company.findOne(params);
-        var customer = "All";
+        data.title = Restaurant.Collection.Company.findOne();
+        var customer = "ទាំងអស់", status = "ទាំងអស់", staff = "ទាំងអស់";
         if (fromDate != null && toDate != null) params.saleDate = {$gte: fromDate, $lte: toDate};
         if (customerId != null && customerId != "") {
             params.customerId = customerId;
             customer = Restaurant.Collection.Customers.findOne(customerId).name;
         }
+        if (arg.status != null && arg.status) {
+            status = arg.status;
+            params.status = arg.status;
+        }
+        if (arg.staffId != "" && arg.staffId != null) {
+            staff = Meteor.users.findOne(arg.staffId).profile.username;
+            params.staffId = arg.staffId;
+        }
+
         var sale = Restaurant.Collection.Sales.find(params);
         var header = {};
-        header.date = arg.fromDate + ' To '+ arg.toDate;
+        header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
         header.customer = customer;
+        header.status = status;
+        header.staff = staff;
 
         /****** Header *****/
         data.header = header;

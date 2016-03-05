@@ -11,7 +11,7 @@ Router.map(function() {
     });
     this.route('restaurant.sale.report.gen', {
         path: '/restaurant/sale-report-gen',
-        layoutTemplate: 'invoiceLayout',
+        layoutTemplate: 'reportLayout',
        /* onBeforeAction: function(pause) {
             if (!Meteor.user()) {
                 // render the login template but keep the url in the browser the same

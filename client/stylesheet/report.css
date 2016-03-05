@@ -11,9 +11,10 @@
     margin: 0px auto;
     width: 720px;
     padding: 0px;
+    margin-bottom: 25px;
 }
 
-.title {
+.paper-a4-portrait .title {
     text-align: center;
     font-size: 12px;
     font-weight: bold;
@@ -21,7 +22,7 @@
     margin-bottom: 10px
 }
 
-.title-1x {
+.paper-a4-portrait .title .title-1x {
     font-size: 14px;
 }
 
