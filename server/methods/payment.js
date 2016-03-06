@@ -7,7 +7,6 @@ Meteor.methods({
         createdAt: -1
       }
     });
-    console.log(lastPayment)
     let currentPayment = Restaurant.Collection.Payments.findOne(paymentId);
     if (lastPayment) {
       if (currentPayment.createdAt >= lastPayment.createdAt) {
@@ -16,5 +15,8 @@ Meteor.methods({
       return false;
     }
     return true;
+  },
+  removePayment(id){
+    return Restaurant.Collection.Payments.remove(id);
   }
 })

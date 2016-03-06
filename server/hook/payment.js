@@ -3,30 +3,53 @@ Restaurant.Collection.Payments.before.insert((userId, doc) => {
   let currentId = doc._id;
   doc._id = idGenerator.genWithPrefix(Restaurant.Collection.Payments, prefix, 2);
   Sale.State.set(currentId, doc._id);
-  if(doc.paidAmount >=  doc.dueAmount){
+  if (doc.paidAmount >= doc.dueAmount) {
     doc.status = 'closed';
     doc.truelyPaid = doc.dueAmount
-  }else{
-    doc.status = 'partial';
+  } else {
+    doc.status = 'active';
     doc.truelyPaid = doc.paidAmount;
   }
 });
 
-Restaurant.Collection.Payments.after.insert((userId, doc)=>{
-  Meteor.defer(()=>{
+Restaurant.Collection.Payments.after.insert((userId, doc) => {
+  Meteor.defer(() => {
     doc.paidAmount = doc.truelyPaid
     updateSale(doc);
   });
 })
+Restaurant.Collection.Payments.after.remove((userId, doc) => {
+  Meteor.defer(() => {
+    removePaymentFromSale(doc);
+  });
+})
+
+//remove
+var removePaymentFromSale = function(doc) {
+  var sale = Restaurant.Collection.Sales.findOne(doc.saleId);
+  var paidAmount = sale.paidAmount - doc.truelyPaid;
+  var balanceAmount = sale.balanceAmount + doc.truelyPaid;
+  Restaurant.Collection.Sales.direct.update({
+    _id: sale._id
+  }, {
+    $set: {
+      status: 'active',
+      statusDate: sale.saleDate,
+      paidAmount: paidAmount,
+      balanceAmount: balanceAmount
+    }
+  });
+  closedSaleDetail('unsaved', doc.saleId);
+};
 
 
 
 
-var updateSale = function (doc, update, oldDoc) {
+//update and insert
+var updateSale = function(doc, update, oldDoc) {
   var sale = Restaurant.Collection.Sales.findOne(doc.saleId);
   var paidAmount, balanceAmount, selector;
   if (update) {
-    console.log('update');
     if (oldDoc.paidAmount > doc.paidAmount) {
       balanceAmount = doc.dueAmount - doc.paidAmount;
       paidAmount = sale.paidAmount - (oldDoc.paidAmount - doc.paidAmount);
@@ -35,12 +58,12 @@ var updateSale = function (doc, update, oldDoc) {
       paidAmount = sale.paidAmount + (doc.paidAmount - oldDoc.paidAmount);
     }
   } else {
-    console.log('insert');
     paidAmount = sale.paidAmount + doc.paidAmount;
     balanceAmount = sale.balanceAmount - doc.paidAmount;
   }
 
   if (balanceAmount == 0) {
+    closedSaleDetail('saved', doc.saleId);
     selector = {
       $set: {
         status: 'closed',
@@ -63,3 +86,16 @@ var updateSale = function (doc, update, oldDoc) {
     _id: doc.saleId
   }, selector);
 };
+
+
+let closedSaleDetail = (status, saleId) => {
+  Restaurant.Collection.SaleDetails.direct.update({
+    saleId: saleId
+  }, {
+    $set: {
+      status: status
+    }
+  }, {
+    multi: true
+  })
+}

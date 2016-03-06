@@ -18,13 +18,13 @@ Template.restaurantActivePaymentShow.rendered = function(){
 
 Template.restaurantActivePaymentShow.helpers({
   saleDetails(){
-    return Restaurant.Collection.SaleDetails.find({saleId: Router.current().params.saleId});
+    return Restaurant.Collection.SaleDetails.find({saleId: Router.current().params.saleId, status: 'saved'});
   },
   invoiceNumber(){
     return `វិក័យប័ត្រលេខៈ ${Router.current().params.saleId}`
   },
   saleInvoice(){
-    return Restaurant.Collection.Sales.findOne(Router.current().params.saleId);
+    return Restaurant.Collection.Sales.findOne({_id: Router.current().params.saleId, status: 'closed'});
   }
 })
 
