@@ -18,8 +18,17 @@ Template.restaurantUserProfiles.rendered = function() {
 }
 Template.restaurantUserProfiles.helpers({
   users() {
-    return Meteor.users.find({
-      'profile.status': 'active'
+    let selector = {}
+    selector['profile.status'] = 'active';
+    if (!Roles.userIsInRole(Meteor.userId(), ['super'])) {
+      selector.roles = {
+        $nin: ['super']
+      }
+    }
+    return Meteor.users.find(selector, {
+      sort: {
+        createdAt: 1
+      }
     });
   },
   activeLabel() {
