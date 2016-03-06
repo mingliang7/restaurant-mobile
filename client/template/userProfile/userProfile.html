@@ -1,0 +1,69 @@
+<template name="restaurantUserProfiles">
+
+  {{#contentFor "headerButtonLeft"}}
+      {{>ionNavBackButton path="restaurant.home" text="ទំព័រដើម"}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">កំណត់សិទ្ធិអ្នកប្រើប្រាស់</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-modal="_contactsEdit" data-id="{{contact._id}}">Edit</button>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent class="padding user-detail"}}
+      {{#each users}}
+        <div class="list card">
+
+          <div class="item item-avatar">
+            <img src="{{avatarUrl}}">
+            <h2>{{profile.username}}</h2>
+            <!-- <p>{{emails[0].address}}</p> -->
+            <!-- <p>{{location.city}}, {{location.state}}</p> -->
+          </div>
+
+          <div class="item item-body">
+            <!-- {{{activeLabel}}} -->
+
+          {{#if profile.approved}}
+              <span class="cursor-p approved-toggle">
+                <i class="cursor-p ion-checkmark-circled positive "></i> មានសិទ្ធ
+              </span>
+          {{else}}
+            <span class="cursor-p approved-toggle">
+              <i class="cursor-p ion-minus-circled assertive"></i> គ្មានសិទ្ធ
+            </span>
+          {{/if}}
+
+            <h4 data-ion-modal="_selectRole" class="cursor-p" data-id="{{_id}}">តួនាទី</h4>
+            <p>
+              {{#if roles}}
+                {{roles}}
+              {{else}}
+                ​គ្មានតួនាទី
+              {{/if}}
+            </p>
+          </div>
+
+          <!-- <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="#" data-action="fake">
+              <i class="icon ion-email"></i>
+              Send Email
+            </a>
+            <a class="tab-item​ " href="#">
+              <i class="icon ion-ios-color-wand"></i>
+              ផ្តល់សិទ្ធ
+            </a>
+            <a class="tab-item" href="#" data-action="fake">
+              <i class="icon ion-share"></i>
+              Share
+            </a>
+          </div> -->
+
+        </div>
+        {{/each}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

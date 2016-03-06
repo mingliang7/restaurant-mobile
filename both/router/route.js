@@ -350,4 +350,14 @@ Router.map(function() {
       this.next();
     }
   });
+  this.route('restaurant.user.profiles',{
+    path: '/restaurant/user-profiles',
+    onBeforeAction(pause){
+      if(!Roles.userIsInRole(Meteor.userId(), ['setting'])){
+        Router.go('/');
+        Bert.alert('អ្នកពំុមានសិទ្ធចូលទំព័រនេះឡើយ', 'danger');
+      }
+      this.next();
+    }
+  })
 });

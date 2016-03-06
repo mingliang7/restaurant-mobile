@@ -1,5 +1,7 @@
 Template.layout.helpers({
-
+  approved(currentUser){
+    debugger
+  }
 });
 
 Template.layout.events({
