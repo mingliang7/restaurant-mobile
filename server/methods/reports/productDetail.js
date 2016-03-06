@@ -15,7 +15,7 @@ Meteor.methods({
             params.categoryId = categoryId
         }
         /****** Title *****/
-        var products = Restaurant.Collection.Products.find(params);
+        var products = Restaurant.Collection.Products.find(params,{sort:{name:1}});
         products.forEach(function (product) {
             product.index = index;
             product.price=numeral(product.price).format('0,0.00');
