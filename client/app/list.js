@@ -140,9 +140,9 @@ Restaurant.List = {
   },
   category: function() {
     var list = [];
-    Restaurant.Collection.Categories.find().forEach(function(obj) {
+    Restaurant.Collection.Categories.find({},{sort:{name:1}}).forEach(function(obj) {
       list.push({
-        label: obj._id + ' : ' + obj.name,
+        label: obj.name,
         value: obj._id
       });
     });
@@ -151,9 +151,9 @@ Restaurant.List = {
   },
   unit: function() {
     var list = [];
-    Restaurant.Collection.Units.find().forEach(function(obj) {
+    Restaurant.Collection.Units.find({},{sort:{name:1}}).forEach(function(obj) {
       list.push({
-        label: obj._id + ' : ' + obj.name,
+        label: obj.name,
         value: obj._id
       });
     });
