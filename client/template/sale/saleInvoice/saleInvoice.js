@@ -81,6 +81,14 @@ Template._sale_invoice_tabs.helpers({
   goToTable() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}`;
+  },
+  noPayment() {
+    let sale = Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
+    console.log(sale.paidAmount <= 0)
+    if (sale.paidAmount <= 0) {
+      return true;
+    }
+    return false;
   }
 });
 
@@ -104,21 +112,21 @@ Template.saleDetail.events({
       }
     });
   },
-  'click .detach' (e) {
-    let detachObj = Session.get('detachSaleDetailObj');
-    let currentProp = $(e.currentTarget).prop('checked');
-    let currentDate = $('.saleDate').text().trim();
-    if (currentProp) {
-      detachObj[this._id] = this._id
-      detachObj[this._id] = {
-        saleDate: currentDate,
-        oldSaleId: this.saleId,
-        defaultQty: this.quantity
+    'click .detach' (e) {
+      let detachObj = Session.get('detachSaleDetailObj');
+      let currentProp = $(e.currentTarget).prop('checked');
+      let currentDate = $('.saleDate').text().trim();
+      if (currentProp) {
+        detachObj[this._id] = this._id
+        detachObj[this._id] = {
+          saleDate: currentDate,
+          oldSaleId: this.saleId,
+          defaultQty: this.quantity
+        }
+      } else {
+        delete detachObj[this._id]
       }
-    } else {
-      delete detachObj[this._id]
-    }
-    Session.set('detachSaleDetailObj', detachObj);
+      Session.set('detachSaleDetailObj', detachObj);
   }
 });
 
@@ -199,10 +207,22 @@ Template.saleDetail.helpers({
     if (!_.isEmpty(saleDetailObj)) {
       if (_.has(saleDetailObj, id)) {
         let qty = saleDetailObj[id].qtyChanged == undefined ? '' : saleDetailObj[id].qtyChanged;
-        return {qty: qty, flag: true}
+        return {
+          qty: qty,
+          flag: true
+        }
       }
     }
-    return {flag: false};
+    return {
+      flag: false
+    };
+  },
+  noPayment() {
+    let sale = Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
+    if (sale.paidAmount <= 0) {
+      return true
+    }
+    return false;
   }
 })
 
@@ -222,31 +242,31 @@ Template._sale_invoice_tabs.events({
     let invoiceId = Router.current().params.invoiceId;
     Router.go('/restaurant/sale-print/' + invoiceId);
   },
-  'click .detachSaleDetail' () {
-    let params = Router.current().params;
-    let detachObj = Session.get('detachSaleDetailObj');
-    IonPopup.confirm({
-      title: 'បញ្ជាក់',
-      template: `តើអ្នកពិតជាចង់បំបែកវិក័យប័ត្រ?`,
-      onOk: () => {
-        IonLoading.show()
-        Meteor.call('detachSaleDetail', params.tableId, params.tableLocationId, detachObj, (err, result) => {
-          if (err) {
-            Bert.alert(`បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
-            IonLoading.hide()
-          } else {
-            let params = Router.current().params;
-            IonLoading.hide()
-            Bert.alert(`បំបែកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
-            Session.set('detachSaleDetailObj', {});
-            Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`)
-          }
-        });
-      },
-      onCancel: function() {
-        Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
-      }
-    });
+    'click .detachSaleDetail' () {
+      let params = Router.current().params;
+      let detachObj = Session.get('detachSaleDetailObj');
+      IonPopup.confirm({
+        title: 'បញ្ជាក់',
+        template: `តើអ្នកពិតជាចង់បំបែកវិក័យប័ត្រ?`,
+        onOk: () => {
+          IonLoading.show()
+          Meteor.call('detachSaleDetail', params.tableId, params.tableLocationId, detachObj, (err, result) => {
+            if (err) {
+              Bert.alert(`បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
+              IonLoading.hide()
+            } else {
+              let params = Router.current().params;
+              IonLoading.hide()
+              Bert.alert(`បំបែកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
+              Session.set('detachSaleDetailObj', {});
+              Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`)
+            }
+          });
+        },
+        onCancel: function() {
+          Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
+        }
+      });
   }
 });
 
