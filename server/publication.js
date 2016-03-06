@@ -211,13 +211,13 @@ Meteor.publish('salesSearch', function(query) {
   return Restaurant.Collection.Sales.search(query);
 });
 
-Meteor.publish("searchSaleByTable", function(query, filter, status){
+Meteor.publish("searchSaleByTable", function(query, filter, status) {
   if (_.isEmpty(query)) {
     return this.ready();
   }
   let locations = [];
-  if(!_.isEmpty(filter)){
-    for(let k in filter){
+  if (!_.isEmpty(filter)) {
+    for (let k in filter) {
       locations.push(filter[k]);
     }
   }
@@ -229,17 +229,28 @@ Meteor.publish('searchSaleForMerge', function(query, saleId) {
     return this.ready();
   }
   let sales = Restaurant.Collection.Sales.search(query, saleId);
-  if(sales){
+  if (sales) {
     return sales;
   }
   return this.ready();
 });
 
 
-Meteor.publish("paymentList", function(saleId){
-  let payments = Restaurant.Collection.Payments.find({saleId: saleId});
-  if(payments){
+Meteor.publish("paymentList", function(saleId) {
+  let payments = Restaurant.Collection.Payments.find({
+    saleId: saleId
+  });
+  if (payments) {
     return payments;
+  }
+  return this.ready();
+});
+
+//active users
+Meteor.publish("activeUsers", function() {
+  let users = Meteor.users.find({'profile.status': 'active'});
+  if (users) {
+    return users;
   }
   return this.ready();
 });

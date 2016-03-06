@@ -1,10 +1,7 @@
 <template name="layout">
     {{#ionBody}}
-
         {{#ionSideMenuContainer}}
-
             {{#ionSideMenus }}
-                {{#if currentUser}}
                     {{#ionSideMenu}}
                         <div class="bar bar-header bar-dark">
                             <h1 class="title">{{currentUser.profile.username}}</h1>
@@ -33,7 +30,6 @@
                             </div>
                         </div>
                     {{/ionSideMenu}}
-                {{/if}}
                 <!-- {{#ionSideMenu side="right"}}
                     <div class="bar bar-header bar-dark">
                         <h1 class="title">Right Menu</h1>
@@ -54,7 +50,19 @@
                 {{> ionNavBar class="bar-assertive"}}
 
                 <!-- {{#ionNavView}} -->
+                {{#if currentUser}}
+                  {{#if currentUser.profile.approved}}
                     {{> yield}}
+                  {{else}}
+                  {{#ionView}}
+                    {{#ionContent}}
+                    <div class="col" align="center"><h3>សំុសិទ្ធពី Admin របស់អ្នកដើម្បីចូលប្រើប្រាស់</h3></div>
+                    {{/ionContent}}
+                  {{/ionView}}
+                  {{/if}}
+                {{else}}
+                    {{> atForm}}
+                {{/if}}
                 <!-- {{/ionNavView}} -->
 
             {{/ionSideMenuContent}}

@@ -13,6 +13,16 @@ Meteor.startup(function() {
           Table.insert({text: `text ${i}`, content: `table ${i}`, avatarUrl: 'https://placehold.it/350x150'});
       }
   }*/
+  //create user
+  if (Meteor.users.find().count() <= 0) {
+    let superId = Accounts.createUser({
+      username: 'super',
+      email: 'super@taetaily.com',
+      password: 'super123',
+      approved: true
+    })
+    Roles.addUsersToRoles(superId, ['cashier', 'setting', 'seller'])
+  }
   if (Restaurant.Collection.Currency.find().count() == 0) {
     var doc = [{
       _id: 'KHR',
@@ -54,8 +64,12 @@ Meteor.startup(function() {
   Restaurant.Collection.Products._ensureIndex({
     name: 1
   });
-  Restaurant.Collection.Products._ensureIndex({tags: 'text'});
-  Restaurant.Collection.SaleDetails._ensureIndex({saleId: 1});
+  Restaurant.Collection.Products._ensureIndex({
+    tags: 'text'
+  });
+  Restaurant.Collection.SaleDetails._ensureIndex({
+    saleId: 1
+  });
   //end ensure index
 
   Meteor.defer(function() {
@@ -72,4 +86,5 @@ Meteor.startup(function() {
       });
     }
   })
+
 })
