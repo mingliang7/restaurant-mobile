@@ -9,7 +9,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-ion-modal="_contactsEdit" data-id="{{contact._id}}">Edit</button>
+    <button class="button button-clear" data-ion-modal="newUser">{{> ionIcon icon="ios-plus-empty"}}</button>
   {{/contentFor}}
 
   {{#ionView}}
@@ -19,7 +19,7 @@
 
           <div class="item item-avatar">
             <img src="{{avatarUrl}}">
-            <h2>{{profile.username}}</h2>
+            <h2 data-ion-modal="editUser" data-id="{{_id}}" class="cursor-p">{{profile.username}}</h2>
             <!-- <p>{{emails[0].address}}</p> -->
             <!-- <p>{{location.city}}, {{location.state}}</p> -->
           </div>
