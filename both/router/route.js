@@ -18,6 +18,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -29,6 +30,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -40,6 +42,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -51,6 +54,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -62,6 +66,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   })
@@ -73,6 +78,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -84,6 +90,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -94,6 +101,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -106,6 +114,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -128,6 +137,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -139,6 +149,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -184,6 +195,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -256,6 +268,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier'])
       this.next();
     }
   });
@@ -268,6 +281,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
@@ -347,16 +361,17 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
     }
   });
   this.route('restaurant.user.profiles',{
     path: '/restaurant/user-profiles',
     onBeforeAction(pause){
-      if(!Roles.userIsInRole(Meteor.userId(), ['setting'])){
-        Router.go('/');
-        Bert.alert('អ្នកពំុមានសិទ្ធចូលទំព័រនេះឡើយ', 'danger');
+      if(!Meteor.userId()){
+        Router.go('/')
       }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting']);
       this.next();
     }
   })

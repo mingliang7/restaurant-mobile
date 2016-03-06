@@ -2,9 +2,11 @@
     {{#contentFor "headerButtonLeft"}}
         {{>ionNavBackButton href=goToTable text='ត្រលប់ទៅកាន់តុ'}}
     {{/contentFor}}
-    {{#contentFor "headerButtonRight"}}
-        <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
-    {{/contentFor}}
+    {{#if isInRole 'setting, cashier'}}
+      {{#contentFor "headerButtonRight"}}
+          <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
+      {{/contentFor}}
+    {{/if}}
     {{#contentFor "headerTitle"}}
         <h1 class="title">{{{invoiceNumber}}}</h1>
     {{/contentFor}}

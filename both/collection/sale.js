@@ -33,18 +33,37 @@ Restaurant.Collection.Sales.searchByTable = function(query, locations, status) {
   let reg = new RegExp(regPattern, 'i') //match all case
   let selector = {};
   selector.status = status;
-  selector.$or = [{
-    '_table._tableLocation.name': {
-      $regex: reg
-    }
-  }, {
-    '_table.name': {
-      $regex: reg
-    }
+  if (status == 'closed') {
+    selector.$or = [{
+      _id: {
+        $regex: reg
+      }
+    }, {
+      '_table._tableLocation.name': {
+        $regex: reg
+      }
+    }, {
+      '_table.name': {
+        $regex: reg
+      }
 
-  }]
+    }]
+  } else {
+    selector.$or = [{
+      '_table._tableLocation.name': {
+        $regex: reg
+      }
+    }, {
+      '_table.name': {
+        $regex: reg
+      }
+
+    }]
+  }
   if (!_.isEmpty(locations)) {
-    selector.tableLocation = {$in: locations}
+    selector.tableLocation = {
+      $in: locations
+    }
   }
   return Restaurant.Collection.Sales.find(selector, {
     sort: {

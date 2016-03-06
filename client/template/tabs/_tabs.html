@@ -12,10 +12,12 @@
     {{#ionTabs style="ios"}}
       {{> ionTab title="ទំព័រដើម" path="home" iconOff="ios-home-outline" iconOn="ios-home"}}
       {{> ionTab title="លក់ថ្មី" path="restaurant.sale" iconOff="coffee" iconOn="coffee"}}
-      {{> ionTab title="តារាងវិក័យប័ត្រ" path="restaurant.active.payment" iconOff="cash" iconOn="cash"}}
-      {{> ionTab title="ទិន្នន័យ" path="restaurant.data" iconOff="filing" iconOn="filing"}}
-      {{> ionTab title="ការកំណត់" path="restaurant.setting" iconOff="ios-gear-outline" iconOn="ios-gear"}}
-      {{> ionTab title="របាយការណ៍" path="restaurant.report" iconOff="ios-paper-outline" iconOn="ios-paper"}}
+      {{#if isInRole 'cashier, setting'}}
+        {{> ionTab title="តារាងវិក័យប័ត្រ" path="restaurant.active.payment" iconOff="cash" iconOn="cash"}}
+        {{> ionTab title="ទិន្នន័យ" path="restaurant.data" iconOff="filing" iconOn="filing"}}
+        {{> ionTab title="ការកំណត់" path="restaurant.setting" iconOff="ios-gear-outline" iconOn="ios-gear"}}
+        {{> ionTab title="របាយការណ៍" path="restaurant.report" iconOff="ios-paper-outline" iconOn="ios-paper"}}
+      {{/if}}
     {{/ionTabs}}
   <!-- {{/if}} -->
 </template>

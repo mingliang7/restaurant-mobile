@@ -14,15 +14,20 @@
                                 <div class="sale cursor-p favorite item item-icon-left" data-ion-menu-close>
                                     {{>ionIcon icon="coffee"}} លក់ថ្មី
                                 </div>
-                                <div class="cursor-p activeSaleList item item-icon-left" data-ion-menu-close>
-                                  {{>ionIcon icon="cash"}} តារាងវិក័យប័ត្រ
-                                </div>
-                                <div class="data cursor-p favorite item item-icon-left" data-ion-menu-close>
-                                    {{>ionIcon icon="filing"}} ទិន្នន័យ
-                                </div>
-                                <div class="cursor-p setting item item-icon-left" data-ion-menu-close>
-                                    {{>ionIcon icon="gear-b"}} ការកំណត់
-                                </div>
+                                {{#if isInRole 'cashier, setting'}}
+                                  <div class="cursor-p activeSaleList item item-icon-left" data-ion-menu-close>
+                                    {{>ionIcon icon="cash"}} តារាងវិក័យប័ត្រ
+                                  </div>
+                                  <div class="data cursor-p favorite item item-icon-left" data-ion-menu-close>
+                                      {{>ionIcon icon="filing"}} ទិន្នន័យ
+                                  </div>
+                                  <div class="cursor-p setting item item-icon-left" data-ion-menu-close>
+                                      {{>ionIcon icon="gear-b"}} ការកំណត់
+                                  </div>
+                                  <div class="cursor-p report item item-icon-left" data-ion-menu-close>
+                                      {{>ionIcon icon="ios-paper-outline"}} របាយការណ៍
+                                  </div>
+                                {{/if}}
                                 <div class="cursor-p sign-out item item-icon-left" data-ion-menu-close>
                                     {{> ionIcon icon="log-out"}} ចាកចេញ
                                 </div>

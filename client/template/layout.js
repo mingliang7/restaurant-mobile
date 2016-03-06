@@ -7,7 +7,7 @@ Template.layout.helpers({
 Template.layout.events({
   'click .sign-out' () {
     Meteor.logout();
-    Bert.alert('Successfully logout', 'success', 'fixed-top')
+    Bert.alert('ចាកចេញបានជោគជ័យ!', 'success', 'fixed-top')
   },
   'click .home' () {
     Router.go('home');
@@ -23,5 +23,8 @@ Template.layout.events({
   },
   'click .activeSaleList'(){
     Router.go('/restaurant/payment');
+  },
+  'click .report'(){
+    Router.go('restaurant.report');
   }
 });
