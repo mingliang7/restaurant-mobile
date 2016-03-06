@@ -11,5 +11,12 @@ Meteor.methods({
                 'profile.interestPick': false
             }
         })
+    },
+    approvedUser(userId, approved){
+      return Meteor.users.update({_id: userId}, {$set: {'profile.approved': !approved}})
+    },
+    updateUserRole(userId, roles){
+      console.log(userId, roles)
+      Meteor.users.update(userId, {$set: {roles: roles}});
     }
 });

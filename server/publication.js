@@ -248,9 +248,17 @@ Meteor.publish("paymentList", function(saleId) {
 
 //active users
 Meteor.publish("activeUsers", function() {
-  let users = Meteor.users.find({'profile.status': 'active'});
+  let users = Meteor.users.find({
+    'profile.status': 'active'
+  });
   if (users) {
     return users;
   }
   return this.ready();
+});
+
+
+//publish roles
+Meteor.publish("null", function() {
+  return Meteor.roles.find({});
 });

@@ -81,10 +81,9 @@ Restaurant.ListForReport = {
 
 
 Restaurant.List = {
-  currency:function(){
+  currency: function() {
     var list = [];
-    Restaurant.Collection.Currency.find({
-    }).forEach(function(obj) {
+    Restaurant.Collection.Currency.find({}).forEach(function(obj) {
       list.push({
         label: obj._id,
         value: obj._id
@@ -130,7 +129,7 @@ Restaurant.List = {
     }];
   },
   status: function() {
-    return [ {
+    return [{
       label: "Enable",
       value: "enable"
     }, {
@@ -140,7 +139,11 @@ Restaurant.List = {
   },
   category: function() {
     var list = [];
-    Restaurant.Collection.Categories.find({},{sort:{name:1}}).forEach(function(obj) {
+    Restaurant.Collection.Categories.find({}, {
+      sort: {
+        name: 1
+      }
+    }).forEach(function(obj) {
       list.push({
         label: obj.name,
         value: obj._id
@@ -151,7 +154,11 @@ Restaurant.List = {
   },
   unit: function() {
     var list = [];
-    Restaurant.Collection.Units.find({},{sort:{name:1}}).forEach(function(obj) {
+    Restaurant.Collection.Units.find({}, {
+      sort: {
+        name: 1
+      }
+    }).forEach(function(obj) {
       list.push({
         label: obj.name,
         value: obj._id
@@ -324,11 +331,26 @@ Restaurant.List = {
       value: "NonStock"
     }];
   },
-  chairAmount(){
+  chairAmount() {
     let list = [];
-    for(let i = 0 ; i <=15 ; i++){
-      list.push({label: `${i}`, value: i});
+    for (let i = 0; i <= 15; i++) {
+      list.push({
+        label: `${i}`,
+        value: i
+      });
     }
     return list;
+  },
+  roles() {
+    return [{
+      label: 'អ្នកគិតលុយ',
+      value: 'cashier'
+    }, {
+      label: 'អ្នកកំណត់សិទ្ធ',
+      value: 'setting'
+    },{
+      label: 'អ្នកលក់',
+      value: 'seller'
+    }]
   }
 }

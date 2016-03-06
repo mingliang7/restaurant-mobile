@@ -28,12 +28,16 @@
             <!-- {{{activeLabel}}} -->
 
           {{#if profile.approved}}
-              <i class="cursor-p ion-checkmark-circled positive"></i> មានសិទ្ធ
+              <span class="cursor-p approved-toggle">
+                <i class="cursor-p ion-checkmark-circled positive "></i> មានសិទ្ធ
+              </span>
           {{else}}
+            <span class="cursor-p approved-toggle">
               <i class="cursor-p ion-minus-circled assertive"></i> គ្មានសិទ្ធ
+            </span>
           {{/if}}
 
-            <h4>តួនាទី</h4>
+            <h4 data-ion-modal="_selectRole" class="cursor-p" data-id="{{_id}}">តួនាទី</h4>
             <p>
               {{#if roles}}
                 {{roles}}
@@ -43,7 +47,7 @@
             </p>
           </div>
 
-          <div class="item tabs tabs-secondary tabs-icon-left">
+          <!-- <div class="item tabs tabs-secondary tabs-icon-left">
             <a class="tab-item" href="#" data-action="fake">
               <i class="icon ion-email"></i>
               Send Email
@@ -56,7 +60,7 @@
               <i class="icon ion-share"></i>
               Share
             </a>
-          </div>
+          </div> -->
 
         </div>
         {{/each}}

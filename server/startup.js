@@ -21,7 +21,7 @@ Meteor.startup(function() {
       password: 'super123',
       approved: true
     })
-    Roles.addUsersToRoles(superId, ['cashier', 'setting', 'seller'])
+    Roles.addUsersToRoles(superId, ['cashier', 'setting', 'seller', 'super'])
   }
   if (Restaurant.Collection.Currency.find().count() == 0) {
     var doc = [{
