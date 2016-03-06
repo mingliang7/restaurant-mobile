@@ -36,8 +36,8 @@ Template.restaurantSalePayment.helpers({
         customerId: sale.customerId,
         saleId: sale._id,
         paymentDate: new Date(),
-        paidAmount: sale.total,
-        dueAmount: sale.total,
+        paidAmount: sale.balanceAmount,
+        dueAmount: sale.balanceAmount,
         balanceAmount: 0
       }
       return selector;

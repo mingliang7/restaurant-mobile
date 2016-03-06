@@ -54,7 +54,7 @@ Template.restaurantSaleTableLocationShow.events({
     Session.set('saleDetailObj', {}); //set saleDetailObj for order product
     let tableName = $(event.currentTarget).parents('.item').find('.table-name').text();
     let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();
-    var sales = Restaurant.Collection.Sales.find({status: 'active', tableId: tableId}).fetch();
+    var sales = Restaurant.Collection.Sales.find({status: 'active', tableId: tableId, paidAmount: 0}).fetch();
     IonActionSheet.show({
       titleText: `ជម្រើសសម្រាប់វិក័យប័ត្រតុលេខ ${tableName}`,
       buttons: sales,

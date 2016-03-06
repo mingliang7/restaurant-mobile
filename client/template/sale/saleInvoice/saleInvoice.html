@@ -96,6 +96,7 @@
                     {{details.notes}}
                 </p>
             </div>
+            {{#if noPayment}}
             <div class="col col-5">
                 <a class="tab-item positive" href="{{goToSaleDetailEdit}}" data-action="fake">
                     <i class="icon ion-ios-compose-outline"></i>
@@ -127,6 +128,7 @@
               </a>
               {{/if}}
             </div>
+            {{/if}}
         </div>
     </div>
     <!-- <div class="item tabs tabs-secondary tabs-icon-left" style="background: #ddd;">
@@ -180,10 +182,7 @@
                         </div>
 
                     </div>
-
-                {{/with}}
-
-                {{#each exchangeRate.rates}}
+                     {{#each exchangeRate.rates}}
                     <div class="row">
                         <div class="col col-10"></div>
                         <div class="col col-20"></div>
@@ -192,6 +191,28 @@
                         </div>
                     </div>
                 {{/each}}
+                    <div class="row">
+                        <div class="col col-10"></div>
+                        <div class="col col-20">
+                            បានបង់ៈ
+                        </div>
+                        <span class="hidden total">{{paidAmount}}</span>
+                        <div class="col col-20">
+                            <b>{{paidAmount}} {{exchangeRate.symbol}}</b>
+                        </div>
+                        <div class="col col-20">
+                            នៅសល់ៈ
+                        </div>
+                        <span class="hidden total">{{balanceAmount}}</span>
+                        <div class="col col-20">
+                            <b>{{balanceAmount}} {{exchangeRate.symbol}}</b>
+                        </div>
+
+                    </div>
+
+                {{/with}}
+
+
             </div>
         </div>
     </div>
@@ -219,12 +240,16 @@
     {{else}} -->
         {{#ionTabs style="ios"}}
             {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
-            {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
+            {{#if noPayment}}
+                {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
+            {{/if}}
             {{> ionTab title="លក់ថ្មី" href=goToTable class="positive" iconOff="coffee" iconOn="coffee"}}
-            <a class="tab-item" data-ion-modal="searchSaleForMerge">
-              <i class="icon ion-ios-download assertive"></i>
-              ផ្ទេរវិក័យប័ត្រ
-            </a>
+            {{#if noPayment}}
+                <a class="tab-item" data-ion-modal="searchSaleForMerge">
+                  <i class="icon ion-ios-download assertive"></i>
+                  ផ្ទេរវិក័យប័ត្រ
+                </a>
+            {{/if}}
             {{#if hasDetachSaleDetail}}
               <a class="tab-item" data-ion-modal="transferItem">
                 <i class="icon ion-log-in balanced"></i>
