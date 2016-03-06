@@ -118,7 +118,8 @@ Images.allow({
 //search product
 
 
-Restaurant.Collection.Products.search = function(query) {
+Restaurant.Collection.Products.search = function(query, limit) {
+  let limitAmount = limit || 10
   if (!query) {
     return;
   }
@@ -139,6 +140,6 @@ Restaurant.Collection.Products.search = function(query) {
     sort: {
       name: 1
     },
-    limit: 10
+    limit: limitAmount
   });
 };

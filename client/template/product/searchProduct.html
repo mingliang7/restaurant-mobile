@@ -11,7 +11,12 @@
         {{#each products}}
           {{> _productItem}}
         {{/each}}
-        </ul>
+      </ul>
+        {{#if searchQuery}}
+          <div class="col col-offset-50" >
+          <button class="button button-positive loadMore">Load More</button>
+          </div>
+        {{/if}}
       </div>
 
     {{/ionModal}}
