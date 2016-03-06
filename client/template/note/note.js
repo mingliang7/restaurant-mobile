@@ -17,7 +17,7 @@ Template.restaurantNote.rendered = function() {
 
 Template.restaurantNote.helpers({
   customers(){
-    return Restaurant.Collection.Notes.find();
+    return Restaurant.Collection.Notes.find({}, {sort: {name: 1}});
   }
 });
 

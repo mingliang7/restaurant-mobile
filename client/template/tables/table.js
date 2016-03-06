@@ -15,7 +15,7 @@ Template.tables.rendered = function () {
 
 Template.tables.helpers({
     tables(){
-        return Restaurant.Collection.Tables.find()
+        return Restaurant.Collection.Tables.find({}, {sort: {name: 1}})
     },
     avatarUrl(){
         return 'https://placehold.it/350x150'

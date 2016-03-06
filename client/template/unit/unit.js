@@ -15,7 +15,7 @@ Template.unit.rendered = function() {
 
 Template.unit.helpers({
   units() {
-    return Restaurant.Collection.Units.find()
+    return Restaurant.Collection.Units.find({}, {sort: {name: 1}})
   }
 });
 

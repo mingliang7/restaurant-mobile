@@ -3,7 +3,9 @@ Accounts.onCreateUser((options, user)=> {
     user.profile = {
         tags: [],
         interest: {category: []},
-        interestPick: true
+        interestPick: true,
+        approved:false,
+        roles:[]
     };
     if (user.services.facebook) {
         let fb = user.services.facebook;
