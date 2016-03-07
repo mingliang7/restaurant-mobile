@@ -1,0 +1,19 @@
+<template name="newUser">
+    {{#ionModal customTemplate=true}}
+        {{#autoForm schema="InterestSchema" id="newUser"}}
+            <div class="bar bar-header bar-stable">
+                <button data-dismiss="modal" type="button" class="button button-clear">បោះបង់</button>
+                <h2 class="title">បង្កើត អ្នកប្រើប្រាស់</h2>
+                <button class="button button-positive button-clear">រក្សាទុក</button>
+            </div>
+            <div class="content has-header overflow-scroll">
+                <!--{{> afQuickField name='username'}}-->
+                {{> afQuickField name='email'}}
+                {{> afQuickField name='password' type='password'}}
+                {{> afQuickField name='confirmPassword' type='password'}}
+                <!--{{> afQuickField name='approved'}}-->
+                {{> afQuickField name='roles' }}
+            </div>
+        {{/autoForm}}
+    {{/ionModal}}
+</template>
