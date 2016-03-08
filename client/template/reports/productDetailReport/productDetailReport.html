@@ -12,7 +12,7 @@
             {{#autoForm schema="Restaurant.Schema.ProductDetailReport"  id="restaurantProductDetailReport" action="/restaurant/product-detail-report-gen"  target="_blank"}}
                 <div class="bar bar-header">
                     <button type="submit" class="button button-balanced">Generate</button>
-                    <button type="submit" class="button button-stable">Reset</button>
+                    <button type="reset" class="button button-stable">Reset</button>
                 </div>
                 <div class="content has-header overflow-scroll">
                     {{> afQuickField name='categoryId' type="select" options=categories }}

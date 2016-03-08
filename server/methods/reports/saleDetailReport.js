@@ -8,8 +8,8 @@ Meteor.methods({
         };
 
         var params = {status:"closed"};
-        var fromDate = moment(arg.fromDate + " 00:00:00", "YYYY-MM-DD HH:mm:ss").toDate();
-        var toDate = moment(arg.toDate + " 23:59:59", "YYYY-MM-DD HH:mm:ss").toDate();
+        var fromDate = moment(arg.fromDate, "YYYY/MM/DD HH:mm").toDate();
+        var toDate = moment(arg.toDate, "YYYY/MM/DD HH:mm").toDate();
         var customerId = arg.customerId;
 
         var categoryId = arg.categoryId;
