@@ -1,5 +1,3 @@
-
-
 Router.map(function() {
   this.route('home', {
     path: '/',
@@ -227,7 +225,7 @@ Router.map(function() {
       }
       this.next();
     },
-    onAfterAction: function(){
+    onAfterAction: function() {
       Session.set('paramsInvoiceId', this.router.current().params.invoiceId);
     }
   });
@@ -334,14 +332,7 @@ Router.map(function() {
   });
   this.route('restaurant.invoice', {
     path: '/restaurant/invoice/:paymentId',
-    layoutTemplate: 'invoiceLayout',
-    onBeforeAction: function(pause) {
-      if (!Meteor.user()) {
-        // render the login template but keep the url in the browser the same
-        Router.go('/')
-      }
-      this.next();
-    }
+    layoutTemplate: 'invoiceLayout'
   });
   this.route('restaurant.sale.print', {
     path: '/restaurant/sale-print/:saleId',
@@ -365,10 +356,10 @@ Router.map(function() {
       this.next();
     }
   });
-  this.route('restaurant.user.profiles',{
+  this.route('restaurant.user.profiles', {
     path: '/restaurant/user-profiles',
-    onBeforeAction(pause){
-      if(!Meteor.userId()){
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
         Router.go('/')
       }
       Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);

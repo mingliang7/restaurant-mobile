@@ -34,3 +34,31 @@ Template._sale_options.helpers({
     return `/restaurant/payment/${Router.current().params.saleId}/list`
   }
 });
+
+Template._sale_options.events({
+  'click .print'(){
+    let arr = [];
+    let sale = Restaurant.Collection.Sales.findOne(Router.current().params.saleId);
+    sale._payment.forEach(function(payment) {
+      arr.push({text: payment._id});
+    });
+    debugger
+    IonActionSheet.show({
+      titleText: `ជម្រើសលេខវិក័យប័ត្របង់ប្រាក់ដើម្បីព្រីន`,
+      buttons: arr,
+      // destructiveText: 'ផ្ទេរវិក័យប័ត្រ',
+      cancelText: 'Cancel',
+      cancel: function() {
+        console.log('Cancelled!');
+      },
+      buttonClicked: function(index) {
+        window.open(`/restaurant/invoice/${arr[index].text}`, '_blank');
+        return true;
+      },
+      destructiveButtonClicked: function() {
+        console.log('Destructive Action!');
+        return true;
+      }
+    });
+  }
+})
