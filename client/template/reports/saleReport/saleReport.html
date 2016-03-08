@@ -13,11 +13,11 @@
             {{#autoForm schema="Restaurant.Schema.SaleReport"  id="restaurantSaleReport" action="/restaurant/sale-report-gen"  target="_blank"}}
                 <div class="bar bar-header">
                     <button type="submit" class="button button-balanced">Generate</button>
-                    <button type="submit" class="button button-stable">Reset</button>
+                    <button type="reset" class="button button-stable">Reset</button>
                 </div>
                 <div class="content has-header overflow-scroll">
-                    {{> afQuickField name='fromDate'}}
-                    {{> afQuickField name='toDate'}}
+                    {{> afQuickField name='fromDate' type='datetime'}}
+                    {{> afQuickField name='toDate' type="datetime"}}
                     {{> afQuickField name='customerId' type="select" options=customers }}
                     {{> afQuickField name='status' type="select" options=status }}
                     {{> afQuickField name='staffId' type="select" options=users }}

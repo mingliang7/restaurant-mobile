@@ -8,8 +8,8 @@ Meteor.methods({
         };
 
         var params = {};
-        var fromDate = moment(arg.fromDate + " 00:00:00", "YYYY-MM-DD HH:mm:ss").toDate();
-        var toDate = moment(arg.toDate + " 23:59:59", "YYYY-MM-DD HH:mm:ss").toDate();
+        var fromDate = moment(arg.fromDate, "YYYY/MM/DD HH:mm").toDate();
+        var toDate = moment(arg.toDate, "YYYY/MM/DD HH:mm").toDate();
         var customerId = arg.customerId;
 
         data.title = Restaurant.Collection.Company.findOne();
@@ -72,7 +72,7 @@ function calculateSaleHelper(sl) {
             s.exchangeRates.push(ex);
 
         });
-        s.saleDate = moment(s.saleDate).format("DD-MM-YY, HH:mm");
+        s.saleDate = moment(s.saleDate).format("DD-MM-YY, HH:mm:ss");
         s.total = numeral(s.total).format('0,0.00');
         s.customer = s._customer.name;
         s.user = s._staff.profile.username;

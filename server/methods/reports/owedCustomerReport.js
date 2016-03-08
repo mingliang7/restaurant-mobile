@@ -7,7 +7,7 @@ Meteor.methods({
             footer: {}
         };
         var params = {};
-        var date = moment(arg.date + " 23:59:59").toDate();
+        var date = moment(arg.date,'YYYY/MM/DD HH:mm').toDate();
         var customerId = arg.customerId;
 
         var customer = "ទាំងអស់";

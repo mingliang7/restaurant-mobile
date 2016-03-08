@@ -1,4 +1,5 @@
 Template.restaurantOutstandingReport.onRendered(function () {
+    $('[name="date"]').datetimepicker();
 });
 
 Template.restaurantOutstandingReport.helpers({

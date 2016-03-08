@@ -1,3 +1,7 @@
+Template.restaurantSaleDetailReport.onRendered(function () {
+    $('[name="fromDate"]').datetimepicker();
+    $('[name="toDate"]').datetimepicker();
+});
 
 Template.restaurantSaleDetailReport.helpers({
     customers(){
@@ -22,7 +26,7 @@ Template.restaurantSaleDetailReportGen.helpers({
     data: function () {
         // Get query params
         //FlowRouter.watchPathChange();
-        var query=Router.current().params.query;
+        var query = Router.current().params.query;
         var params = "saleDetailReport";
         Fetcher.setDefault(params, false);
         Fetcher.retrieve(params, 'getSaleDetailReport', query);
@@ -30,4 +34,3 @@ Template.restaurantSaleDetailReportGen.helpers({
     }
 
 });
-
