@@ -1,6 +1,7 @@
 
 Template.restaurantSaleReport.onRendered(function () {
-
+  $('[name="fromDate"]').datetimepicker()
+  $('[name="toDate"]').datetimepicker()
 });
 Template.restaurantSaleReport.helpers({
    customers(){
@@ -24,4 +25,10 @@ Template.restaurantSaleReportGen.helpers({
     }
 });
 
-
+AutoForm.hooks({
+  restaurantSaleReport:{
+    onSubmit(doc){
+      debugger
+    }
+  }
+})

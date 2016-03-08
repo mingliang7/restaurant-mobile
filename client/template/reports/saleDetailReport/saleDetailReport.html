@@ -16,8 +16,8 @@
                     <button type="submit" class="button button-stable">Reset</button>
                 </div>
                 <div class="content has-header overflow-scroll">
-                    {{> afQuickField name='fromDate'}}
-                    {{> afQuickField name='toDate'}}
+                    {{> afQuickField name='fromDate' type="datetime"}}
+                    {{> afQuickField name='toDate' type="datetime"}}
                     {{> afQuickField name='customerId' type="select" options=customers }}
                     {{> afQuickField name='categoryId' type="select" options=categories }}
                 </div>

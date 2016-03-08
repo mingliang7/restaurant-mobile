@@ -8,11 +8,11 @@ Restaurant.Schema.SaleReport = new SimpleSchema({
         optional: true
     },
     fromDate: {
-        type: Date,
+        type: String,
         label: "កាលបរិច្ឆេទចាប់ផ្ដើម"
     },
     toDate: {
-        type: Date,
+        type: String,
         label: "កាលបរិច្ឆេទបញ្ចប់"
 
     },

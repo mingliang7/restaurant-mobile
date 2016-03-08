@@ -1,3 +1,7 @@
+Template.restaurantSaleDetailReport.created=function(){
+  $('[name="fromDate"]').datetimepicker()
+  $('[name="toDate"]').datetimepicker()
+}
 
 Template.restaurantSaleDetailReport.helpers({
     customers(){
@@ -30,4 +34,3 @@ Template.restaurantSaleDetailReportGen.helpers({
     }
 
 });
-
