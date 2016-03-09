@@ -157,6 +157,10 @@ Restaurant.Schema.Sales = new SimpleSchema({
       }
     }
   },
+  numberOfCustomer:{
+    type: Number,
+    optional: true
+  },
   tableLocation: {
     type: String,
     optional: true,

@@ -106,6 +106,7 @@ numeral:numeral@1.5.3_1
 observe-sequence@1.0.7
 ongoworks:security@1.3.0
 ordered-dict@1.0.4
+ovcharik:alertifyjs@1.6.1
 pfafman:font-awesome-4@4.4.0_3
 promise@0.5.1
 raix:eventemitter@0.1.3

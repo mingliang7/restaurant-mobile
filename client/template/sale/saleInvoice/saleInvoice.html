@@ -33,13 +33,13 @@
                         <div class="col col-15">
                             <b>សរុប</b>
                         </div>
-                        <div class="col col-5">
+                        <!-- <div class="col col-5">
 
-                        </div>
+                        </div> -->
+                        <!-- <div class="col col-5" align="center">
+                        </div> -->
                         <div class="col col-5" align="center">
-                            <b>ជម្រើស</b>
-                        </div>
-                        <div class="col col-5" align="center">
+                          <b>ជម្រើស</b>
                         </div>
                         <div class="col col-5">
 
@@ -99,7 +99,7 @@
                 </p>
             </div>
             {{#if noPayment}}
-            <div class="col col-5">
+            <!-- <div class="col col-5">
                 <a class="tab-item positive" href="{{goToSaleDetailEdit}}" data-action="fake">
                     <i class="icon ion-ios-compose-outline"></i>
                 </a>
@@ -108,7 +108,7 @@
                 <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
                     <i class="icon ion-trash-a"></i>
                 </a>
-            </div>
+            </div> -->
             <div class="col col-5" align="center">
                 <label class="toggle">
                     <input type="checkbox" class="detach">
@@ -289,10 +289,16 @@
                 <div class="col col-10">
                     {{_customer.name}}
                 </div>
+                <div class="col col-5">
+                    <b>ចំនួនភ្ញៀវ:</b>
+                </div>
+                <div class="col col-5">
+                    {{numberOfCustomer}}
+                </div>
                 <div class="col col-10">
                     <b>បុគ្គលិក:</b>
                 </div>
-                <div class="col col-15">
+                <div class="col col-10">
                     {{_staff.profile.username}}
                 </div>
             </div>
