@@ -1,0 +1,52 @@
+<template name="restaurantSelectTable">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.home" text="ទីតាំងដើម"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">ជ្រើសរើសតុ</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-modal="productNew">{{> ionIcon icon="ios-plus-empty"}}</button>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+    <div class="row">
+      {{#each locations}}
+
+        <div class="col col-10">
+        <label class="item-input-wrapper">
+          <label class="toggle">
+            <input type="checkbox" class="location" checked="true">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+          {{name}}
+        </label>
+        </div>
+      {{/each}}
+    </div>
+      {{#each tables}}
+      <div class="col col-20" style="display: inline-block; ">
+        {{#if saleHasSaleDetails _id}}
+          <div class="card animated fadeIn" >
+            <div class="item item-text-wrap" style="background: #bf360c; color:#fff;">
+              <span class="new-order cursor-p">&nbsp;<i class="icon ion-plus"></i>តុៈ {{_tableLocation.name}}/{{name}}</span>
+              <span style="float: right; color: #fff;" class="action-sheet"><a href="#" style="color: #fff; font-size: 16px;"><i class="icon ion-navicon"></i>ជម្រើស</a></span>
+            </div>
+          </div>
+        {{else}}
+          <div class="card animated fadeIn" >
+            <div class="item item-text-wrap" style="background: #00897b; color:#fff;">
+              <span class="new-order cursor-p">&nbsp;<i class="icon ion-plus"></i>តុៈ {{_tableLocation.name}}/{{name}}</span>
+            </div>
+          </div>
+      {{/if}}
+    </div>
+      {{/each}}
+    {{/ionContent}}
+  {{/ionView}}
+
+</template>

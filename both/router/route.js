@@ -366,4 +366,25 @@ Router.map(function() {
       this.next();
     }
   })
+
+  this.route('restaurant.sale.list', {
+    path: '/restaurant/saleList/location/:tableLocationId/table/:tableId/checkout/:invoiceId',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/')
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      this.next();
+    }
+  })
+  this.route('restaurant.select.table', {
+    path: '/restaurant/selectTable',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/')
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      this.next();
+    }
+  })
 });

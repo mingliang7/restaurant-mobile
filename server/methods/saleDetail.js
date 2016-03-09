@@ -2,7 +2,13 @@ Meteor.methods({
   insertSaleDetail(selector) {
     var saleDetails = [];
     for (let k in selector) {
-      saleDetails.push(selector[k]);
+      saleDetails.push({
+        saleId: selector[k].saleId,
+        productId: selector[k]._id,
+        amount: selector[k].amount,
+        quantity: selector[k].quantity,
+        price: selector[k].price
+      });
     }
     var sale = Restaurant.Collection.Sales.findOne(saleDetails[0].saleId);
     if (_.isUndefined(sale.total)) {
@@ -152,7 +158,7 @@ Meteor.methods({
     Meteor.defer(function() {
       console.log(currentSaleId);
       Sale.sumSaleDetail(currentSaleId); //recalculate saleDetail
-      Sale.sumSaleDetail(transferSaleId);//recalculate saleDetail
+      Sale.sumSaleDetail(transferSaleId); //recalculate saleDetail
     })
     return transferSaleId;
   }
