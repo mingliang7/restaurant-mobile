@@ -5,3 +5,4 @@ Meteor.subscribe('images');
 Meteor.subscribe('currencies');
 Meteor.subscribe('company');
 Meteor.subscribe('exchangeRates');
+Meteor.subscribe("tables");

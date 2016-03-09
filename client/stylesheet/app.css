@@ -14,7 +14,7 @@
   -moz-box-flex: 1;
   -moz-flex: 1;
   -ms-flex: 1;
-  display: inline;
+  display: inline-block;
   width: 100%;
 }
 .col-20-edit {
@@ -38,6 +38,11 @@
 }
 .bg-teal {
   background: #004d40;
+  color: #fff;
+}
+.bg-assertive{
+  background: #bf360c;
+  color: #fff;
 }
 .brower-version {
   font-size: 1.5vw;

@@ -262,3 +262,11 @@ Meteor.publish("activeUsers", function() {
 Meteor.publish("null", function() {
   return Meteor.roles.find({});
 });
+
+Meteor.publish("tableByMultiLocation", function(argument){
+  console.log(argument);
+  if(!_.isNull(argument)){
+    return Restaurant.Collection.Tables.find({tableLocationId: {$in: argument}});
+  }
+  return this.ready();
+});

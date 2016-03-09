@@ -1,0 +1,109 @@
+<template name="restaurantSaleList">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.home" text="ទីតាំងដើម"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">កម្ម៉ង់</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <!-- <button class="button button-clear" data-ion-modal="newStaff">{{> ionIcon icon="ios-plus-empty"}}</button> -->
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      <div class="row">
+        <div class="col col-33">
+          <div class="list card">
+
+          <label class="item-input-wrapper">
+            {{> ionIcon icon="ios-search" class="placeholder-icon"}}
+            <input type="text" placeholder="ស្វែងរក" value="{{searchListQuery}}" style="width: 100%; border: 1px solid #ddd" class="search">
+          </label>
+        </div>
+          <br>
+          <ul>
+            {{#each products}}
+              {{> _saleListItem}}
+            {{/each}}
+            {{#if searchListQuery}}
+              <div class="col col-offset-50" >
+              <button class="button button-positive loadMore">Load More</button>
+              </div>
+            {{/if}}
+          </ul>
+        </div>
+        <div class="col col-10"></div>
+        <div class="col col-50">
+          <div class="list card">
+              <div class="item item-body">
+                  <div class="row">
+                      <div class="col col-20">
+                          <b>បរិយាយ</b>
+                      </div>
+                      <div class="col col-20">
+                          <b>តម្លៃ</b>
+                      </div>
+                      <div class="col col-20">
+                          <b>ចំនួន</b>
+                      </div>
+                      <div class="col col-20">
+                          <b>សរុប</b>
+                      </div>
+
+                  </div>
+              </div>
+              {{#each orderList}}
+                {{> orderListItem}}
+              {{/each}}
+          </div>
+        </div>
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+  {{#if saleDetailExist}}
+    {{#ionTabs style="ios"}}
+      {{> ionTab title="កម្ម៉ង់" class="confirm-order positive" iconOff="android-cart" iconOn="android-cart"}}
+    {{/ionTabs}}
+  {{/if}}
+</template>
+
+
+<template name="_saleListItem">
+      <a href="#" class="item cursor-p order">
+        <p>
+          <b>{{name}}({{enName}})</b>
+        </p>
+        <p>
+          តម្លៃៈ <b>{{price}}</b>
+        </p>
+        <p>
+          គិតជាៈ <b>{{_unit.name}}</b>
+        </p>
+      </a>
+</template>
+
+
+<template name="orderListItem">
+    <div class="item item-body animated bounceInDown ">
+        <div class="row">
+            <div class="col col-20">
+                <h4>{{name}}</h4>
+            </div>
+            <div class="col col-20">
+                <input type="text" value="{{price}}" class="price">
+            </div>
+            <div class="col col-20">
+                <input type="text" value="{{quantity}}" class="quantity">
+            </div>
+            <div class="col col-20">
+                <input type="text" value="{{amount}}" class="quantity">
+            </div>
+            <div class="col col-20">
+                <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
+                    <i class="icon ion-trash-a"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>

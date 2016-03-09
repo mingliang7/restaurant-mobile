@@ -53,8 +53,7 @@ Template.restaurantSaleTableSaleInvoice.helpers({
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
   },
   goToTable() {
-    let params = Router.current().params;
-    return `/restaurant/sale/${params.tableLocationId}`;
+    return `restaurant.select.table`;
   },
   hasMore() {
     let currentLimited = Session.get('saleDetailLimited');
@@ -76,7 +75,8 @@ Template._sale_invoice_tabs.helpers({
   goToCheckout() {
     Session.set('saleDetailObj', {});
     let params = Router.current().params;
-    return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`;
+    // return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`;
+    return `/restaurant/saleList/location/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`
   },
   goToTable() {
     let params = Router.current().params;

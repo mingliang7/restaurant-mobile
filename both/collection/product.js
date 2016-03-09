@@ -33,6 +33,10 @@ Restaurant.Schema.Products = new SimpleSchema({
     label: "ឈ្មោះ",
     max: 200
   },
+  enName: {
+    type: String,
+    label: "ឈ្មោះអង់គ្លេស"
+  },
   barcode: {
     type: String,
     label: "Barcode",
@@ -127,6 +131,10 @@ Restaurant.Collection.Products.search = function(query, limit) {
   let reg = new RegExp(regPattern, 'i') //match all case
   return Restaurant.Collection.Products.find({
     $or: [{
+      enName: {
+        $regex: reg
+      }
+    }, {
       name: {
         $regex: reg
       }
