@@ -1,4 +1,3 @@
-
 Template.restaurantSelectTable.created = function() {
   Session.set('saleDetailObj', {}); //set saleDetailObj for order product
   this.autorun(() => {
@@ -61,16 +60,16 @@ Template.restaurantSelectTable.helpers({
 Template.restaurantSelectTable.events({
   "click .location" (event) {
     let currentLocation = Session.get("tableLocationFilter");
-    if (! $(event.currentTarget).prop('checked')) {
+    if (!$(event.currentTarget).prop('checked')) {
       currentLocation[this._id] = this._id
     } else {
       delete currentLocation[this._id]
     }
     Session.set('tableLocationFilter', currentLocation);
   },
-  'click .new-order'(){
+  'click .new-order' () {
     Session.set('saleDetailObj', {}); //set saleDetailObj for order product
-    IonLoading.show();
+    // IonLoading.show();
     let tableLocationId = this.tableLocationId;;
     let tableId = this._id;
     let selector = {};
@@ -78,18 +77,29 @@ Template.restaurantSelectTable.events({
     selector.status = "active";
     selector.tableId = tableId;
     selector.tableLocation = tableLocationId;
-    Meteor.call('insertSale', selector, (err, result) => {
-      if (err) {
-        Bert.alert(err.message,'danger', 'growl-bottom-right');
-        IonLoading.hide();
-      } else {
-        IonLoading.hide();
-        Session.set('invoiceId', result);
-        Router.go(`/restaurant/saleList/location/${tableLocationId}/table/${tableId}/checkout/${result}`);
+    alertify.defaults.glossary.title = 'សូមវាយបញ្ចូលចំនួនភ្ញៀវ'
+    alertify.prompt('', '',
+      function(evt, value) {
+      var numericReg = /^\d*[0-9](|.\d*[0-9]|,\d*[0-9])?$/;
+       if (!numericReg.test(value) || value == '0') {
+           alertify.warning('សូមវាយបញ្ចូលចំនួនជាលេខ');
+       }else{
+         selector.numberOfCustomer = parseInt(value);
+         Meteor.call('insertSale', selector, (err, result) => {
+           if (err) {
+             Bert.alert(err.message,'danger', 'growl-bottom-right');
+             IonLoading.hide();
+           } else {
+             IonLoading.hide();
+             Session.set('invoiceId', result);
+             Router.go(`/restaurant/saleList/location/${tableLocationId}/table/${tableId}/checkout/${result}`);
+           }
+         })
+       }
       }
-    })
+    );
   },
-  'click .current-order'(){
+  'click .current-order' () {
     let sale = Restaurant.Collection.Sales.findOne({
       status: 'active',
       tableId: this._id
@@ -101,7 +111,11 @@ Template.restaurantSelectTable.events({
     let data = this;
     let tableName = this.name;
     let tableId = this._id;
-    var sales = Restaurant.Collection.Sales.find({status: 'active', tableId: tableId, paidAmount: 0}).fetch();
+    var sales = Restaurant.Collection.Sales.find({
+      status: 'active',
+      tableId: tableId,
+      paidAmount: 0
+    }).fetch();
     IonActionSheet.show({
       titleText: `ជម្រើសសម្រាប់វិក័យប័ត្រតុលេខ ${tableName}`,
       buttons: sales,
