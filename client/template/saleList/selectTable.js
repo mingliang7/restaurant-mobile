@@ -38,9 +38,9 @@ Template.restaurantSelectTable.helpers({
         tableLocationId: {
           $nin: arr
         }
-      });
+      }, {sort: {tableLocationId: 1, name: 1}});
     }
-    return Restaurant.Collection.Tables.find();
+    return Restaurant.Collection.Tables.find({}, {sort: {tableLocationId: 1, name: 1}});
   },
   locations() {
     return Restaurant.Collection.TableLocations.find();

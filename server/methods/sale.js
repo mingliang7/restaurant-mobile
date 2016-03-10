@@ -66,5 +66,23 @@ Meteor.methods({
                 Restaurant.Collection.Sales.remove(fromSaleId);
             }
         });
+    },
+    cancelInvoice(saleId){
+      return Restaurant.Collection.Sales.direct.update(saleId, {$set: {status: 'canceled'}});
+    },
+    cancelAndCopy(selector, currentSaleId){
+      Meteor._sleepForMs(200);
+      let newSaleId = Meteor.call('insertSale', selector);
+      let currentSaleDetails = Restaurant.Collection.SaleDetails.find({saleId: currentSaleId});
+      currentSaleDetails.forEach(function(saleDetail) {
+        saleDetail.saleId = newSaleId;
+        saleDetail._id = idGenerator.genWithPrefix(Restaurant.Collection.SaleDetails, newSaleId, 2);
+        saleDetail.isPrinting = true;
+        Restaurant.Collection.SaleDetails.insert(saleDetail);
+      });
+      Meteor.defer(()=>{
+        Meteor.call('cancelInvoice', currentSaleId);
+      })
+      return newSaleId;
     }
 });

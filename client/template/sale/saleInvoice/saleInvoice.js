@@ -112,21 +112,21 @@ Template.saleDetail.events({
       }
     });
   },
-    'click .detach' (e) {
-      let detachObj = Session.get('detachSaleDetailObj');
-      let currentProp = $(e.currentTarget).prop('checked');
-      let currentDate = $('.saleDate').text().trim();
-      if (currentProp) {
-        detachObj[this._id] = this._id
-        detachObj[this._id] = {
-          saleDate: currentDate,
-          oldSaleId: this.saleId,
-          defaultQty: this.quantity
-        }
-      } else {
-        delete detachObj[this._id]
+  'click .detach' (e) {
+    let detachObj = Session.get('detachSaleDetailObj');
+    let currentProp = $(e.currentTarget).prop('checked');
+    let currentDate = $('.saleDate').text().trim();
+    if (currentProp) {
+      detachObj[this._id] = this._id
+      detachObj[this._id] = {
+        saleDate: currentDate,
+        oldSaleId: this.saleId,
+        defaultQty: this.quantity
       }
-      Session.set('detachSaleDetailObj', detachObj);
+    } else {
+      delete detachObj[this._id]
+    }
+    Session.set('detachSaleDetailObj', detachObj);
   }
 });
 
@@ -238,35 +238,92 @@ Template._sale_invoice_tabs.helpers({
 
 
 Template._sale_invoice_tabs.events({
+  'click .cancel-and-copy' () {
+    let params = Router.current().params;
+    let invoiceId = params.invoiceId;
+    let tableLocationId = params.tableLocationId;;
+    let tableId = params.tableId;
+    let selector = {};
+    selector.saleDate = new Date();
+    selector.status = "active";
+    selector.tableId = tableId;
+    selector.tableLocation = tableLocationId;
+    IonPopup.confirm({
+      title: 'បញ្ជាក់',
+      template: `តើអ្នកពិតជាចង់ច្រានចោលនិងកូពីវិក័យប័ត្រមួយនេះឬ?`,
+      onOk: () => {
+        IonLoading.show()
+        Meteor.call('cancelAndCopy', selector, invoiceId, (err, result) => {
+          if (err) {
+            Bert.alert(`ច្រានចោលវិក័យប័ត្រនិងកូពីមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
+            IonLoading.hide()
+          } else {
+            let params = Router.current().params;
+            IonLoading.hide()
+            Bert.alert(`ច្រានចោលវិក័យប័ត្រនិងកូពីបានជោគជ័យ!!`, 'success', 'growl-bottom-right', 'fa-check')
+            Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`);
+          }
+        });
+      },
+      onCancel: function() {
+        // Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
+      }
+    });
+  },
+  'click .cancel-invoice' () {
+    let invoiceId = Router.current().params.invoiceId;
+    IonPopup.confirm({
+      title: 'បញ្ជាក់',
+      template: `តើអ្នកពិតជាចង់ច្រានចោលវិក័យប័ត្រមួយនេះឬ?`,
+      onOk: () => {
+        IonLoading.show()
+        Meteor.call('cancelInvoice', invoiceId, (err, result) => {
+          if (err) {
+            Bert.alert(`ច្រានចោលវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
+            IonLoading.hide()
+          } else {
+            let params = Router.current().params;
+            IonLoading.hide()
+            Bert.alert(`ច្រានចោលវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
+            Router.go('/restaurant/selectTable');
+          }
+        });
+      },
+      onCancel: function() {
+        // Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
+      }
+    });
+  },
   'click .sale-print' () {
     let invoiceId = Router.current().params.invoiceId;
+    Meteor.call('setPrintToFalse', invoiceId);
     Router.go('/restaurant/sale-print/' + invoiceId);
   },
-    'click .detachSaleDetail' () {
-      let params = Router.current().params;
-      let detachObj = Session.get('detachSaleDetailObj');
-      IonPopup.confirm({
-        title: 'បញ្ជាក់',
-        template: `តើអ្នកពិតជាចង់បំបែកវិក័យប័ត្រ?`,
-        onOk: () => {
-          IonLoading.show()
-          Meteor.call('detachSaleDetail', params.tableId, params.tableLocationId, detachObj, (err, result) => {
-            if (err) {
-              Bert.alert(`បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
-              IonLoading.hide()
-            } else {
-              let params = Router.current().params;
-              IonLoading.hide()
-              Bert.alert(`បំបែកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
-              Session.set('detachSaleDetailObj', {});
-              Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`)
-            }
-          });
-        },
-        onCancel: function() {
-          Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
-        }
-      });
+  'click .detachSaleDetail' () {
+    let params = Router.current().params;
+    let detachObj = Session.get('detachSaleDetailObj');
+    IonPopup.confirm({
+      title: 'បញ្ជាក់',
+      template: `តើអ្នកពិតជាចង់បំបែកវិក័យប័ត្រ?`,
+      onOk: () => {
+        IonLoading.show()
+        Meteor.call('detachSaleDetail', params.tableId, params.tableLocationId, detachObj, (err, result) => {
+          if (err) {
+            Bert.alert(`បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
+            IonLoading.hide()
+          } else {
+            let params = Router.current().params;
+            IonLoading.hide()
+            Bert.alert(`បំបែកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
+            Session.set('detachSaleDetailObj', {});
+            Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`)
+          }
+        });
+      },
+      onCancel: function() {
+        Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
+      }
+    });
   }
 });
 

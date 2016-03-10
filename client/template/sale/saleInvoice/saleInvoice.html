@@ -33,13 +33,13 @@
                         <div class="col col-15">
                             <b>សរុប</b>
                         </div>
-                        <!-- <div class="col col-5">
+                        <div class="col col-5">
 
-                        </div> -->
-                        <!-- <div class="col col-5" align="center">
-                        </div> -->
+                        </div>
                         <div class="col col-5" align="center">
                           <b>ជម្រើស</b>
+                        </div>
+                        <div class="col col-5" align="center">
                         </div>
                         <div class="col col-5">
 
@@ -99,16 +99,20 @@
                 </p>
             </div>
             {{#if noPayment}}
-            <!-- <div class="col col-5">
-                <a class="tab-item positive" href="{{goToSaleDetailEdit}}" data-action="fake">
-                    <i class="icon ion-ios-compose-outline"></i>
-                </a>
-            </div>
-            <div class="col col-5">
-                <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
-                    <i class="icon ion-trash-a"></i>
-                </a>
-            </div> -->
+              <div class="col col-5">
+                {{#if isPrinting}}
+                  <a class="tab-item positive" href="{{goToSaleDetailEdit}}" data-action="fake">
+                      <i class="icon ion-ios-compose-outline"></i>
+                  </a>
+                  {{/if}}
+              </div>
+              <div class="col col-5">
+                {{#if isPrinting}}
+                  <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
+                      <i class="icon ion-trash-a"></i>
+                  </a>
+                {{/if}}
+              </div>
             <div class="col col-5" align="center">
                 <label class="toggle">
                     <input type="checkbox" class="detach">
@@ -259,6 +263,9 @@
               </a>
               {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
             {{/if}}
+            {{> ionTab title="ច្រានចោលហើយកូពី" class="cancel-and-copy icon-teal" icon="ios-copy"}}
+            {{> ionTab title="ច្រានចោល" class="cancel-invoice  assertive" icon="close-circled"}}
+
         {{/ionTabs}}
     <!-- {{/if}} -->
 </template>
