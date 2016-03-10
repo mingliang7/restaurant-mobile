@@ -63,6 +63,11 @@ Restaurant.Schema.Payments = new SimpleSchema({
         label: "ពិពណ៌នា",
         optional: true
     },
+    discount: {
+      type: Number,
+      decimal: true,
+      optional: true
+    },
     staffId: {
       type: String,
       optional: true,
