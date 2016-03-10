@@ -32,14 +32,14 @@ Meteor.methods({
         });
         var totalConverts = [];
         sale._exchangeRate.rates.forEach(function (ex) {
-            var totalConvert=parseFloat(sale.total)/parseFloat(ex.rate);
+            var totalConvert=parseFloat(payment.dueAmount)/parseFloat(ex.rate);
             ex.total = numeral(totalConvert).format('0,0.00');
             totalConverts.push(ex);
         });
         data.footer = {
             subTotal: numeral(sale.subTotal).format('0,0'),
-            discount: numeral(sale.discount).format('0,0'),
-            total: numeral(sale.total).format('0,0'),
+            discount: numeral(payment.discount).format('0,0'),
+            total: numeral(payment.dueAmount).format('0,0'),
             paidAmount: numeral(payment.paidAmount).format('0,0'),
             balanceAmount: numeral(payment.balanceAmount).format('0,0'),
             totalConverts: totalConverts

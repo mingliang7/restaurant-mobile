@@ -66,10 +66,36 @@ Template.restaurantSalePayment.events({
   },
   'click .savePrint'(event){
     Session.set('savePrint', true)
+  },
+  'keyup [name="discount"]'(event){
+    let currentDiscount = $('[name="discount"]').val();
+    if(currentDiscount != '' ){
+      if(parseFloat(currentDiscount) > 100 || parseFloat(currentDiscount) < 0){
+        $('[name="discount"]').val('0')
+        getDefaultDueAmount();
+      }else{
+        checkDiscount();
+      }
+    }else if(currentDiscount == '' || currentDiscount == '0'){
+      getDefaultDueAmount();
+    }
   }
 });
 
-
+var checkDiscount = () => {
+  let currentDiscount = $('[name="discount"]').val();
+  let dueAmount = $('[name="tmpDueAmount"]').val();
+  // let currentQty = $('[name="quantity"]').val();
+  totalAmount = (parseFloat(dueAmount) * (1 - parseFloat(currentDiscount) / 100));
+  $("[name='dueAmount']").val(totalAmount);
+  $("[name='paidAmount']").val(totalAmount);
+}
+let getDefaultDueAmount = ()=>{
+  let defaultDueAmount = parseFloat($('[name="tmpDueAmount"]').val());
+  $("[name='dueAmount']").val(defaultDueAmount);
+  $("[name='paidAmount']").val(defaultDueAmount);
+  $("[name='balanceAmount']").val(0);
+}
 AutoForm.hooks({
   activePayment:{
     onSuccess(formType, result){
