@@ -250,17 +250,17 @@ Template._sale_invoice_tabs.events({
     selector.tableLocation = tableLocationId;
     IonPopup.confirm({
       title: 'បញ្ជាក់',
-      template: `តើអ្នកពិតជាចង់ច្រានចោលនិងកូពីវិក័យប័ត្រមួយនេះឬ?`,
+      template: `តើអ្នកពិតជាចង់ផ្អាកនិងកូពីវិក័យប័ត្រមួយនេះឬ?`,
       onOk: () => {
         IonLoading.show()
         Meteor.call('cancelAndCopy', selector, invoiceId, (err, result) => {
           if (err) {
-            Bert.alert(`ច្រានចោលវិក័យប័ត្រនិងកូពីមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
+            Bert.alert(`ផ្អាកវិក័យប័ត្រនិងកូពីមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
             IonLoading.hide()
           } else {
             let params = Router.current().params;
             IonLoading.hide()
-            Bert.alert(`ច្រានចោលវិក័យប័ត្រនិងកូពីបានជោគជ័យ!!`, 'success', 'growl-bottom-right', 'fa-check')
+            Bert.alert(`ផ្អាកវិក័យប័ត្រនិងកូពីបានជោគជ័យ!!`, 'success', 'growl-bottom-right', 'fa-check')
             Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`);
           }
         });
@@ -274,17 +274,17 @@ Template._sale_invoice_tabs.events({
     let invoiceId = Router.current().params.invoiceId;
     IonPopup.confirm({
       title: 'បញ្ជាក់',
-      template: `តើអ្នកពិតជាចង់ច្រានចោលវិក័យប័ត្រមួយនេះឬ?`,
+      template: `តើអ្នកពិតជាចង់ផ្អាកវិក័យប័ត្រមួយនេះឬ?`,
       onOk: () => {
         IonLoading.show()
         Meteor.call('cancelInvoice', invoiceId, (err, result) => {
           if (err) {
-            Bert.alert(`ច្រានចោលវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
+            Bert.alert(`ផ្អាកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
             IonLoading.hide()
           } else {
             let params = Router.current().params;
             IonLoading.hide()
-            Bert.alert(`ច្រានចោលវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
+            Bert.alert(`ផ្អាកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
             Router.go('/restaurant/selectTable');
           }
         });
