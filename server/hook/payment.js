@@ -1,5 +1,7 @@
 Restaurant.Collection.Payments.before.insert((userId, doc) => {
   let prefix = `${doc.saleId}`;
+  console.log(doc.dueAmount)
+  console.log(doc.paidAmount)
   let currentId = doc._id;
   doc._id = idGenerator.genWithPrefix(Restaurant.Collection.Payments, prefix, 2);
   Sale.State.set(currentId, doc._id);
@@ -14,7 +16,12 @@ Restaurant.Collection.Payments.before.insert((userId, doc) => {
 
 Restaurant.Collection.Payments.after.insert((userId, doc) => {
   Meteor.defer(() => {
-    doc.paidAmount = doc.truelyPaid
+    if(doc.discount){
+      let exactPaid = doc.truelyPaid / (1 - (doc.discount/100));
+      doc.paidAmount = exactPaid;
+    }else{
+      doc.paidAmount = doc.truelyPaid
+    }
     updateSale(doc);
   });
 })
