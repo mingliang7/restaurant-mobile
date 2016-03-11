@@ -25,14 +25,26 @@ Restaurant.Collection.Sales.search = function(query, saleId) {
     limit: 5
   });
 }
-Restaurant.Collection.Sales.searchByTable = function(query, locations, status) {
-  if (!query) {
-    return;
-  }
+Restaurant.Collection.Sales.searchByTable = function(query, locations, status, date, limit) {
+  // if (!query) {
+  //   return;
+  // }
   let regPattern = `${query}`
   let reg = new RegExp(regPattern, 'i') //match all case
   let selector = {};
+  let queryDate;
   selector.status = status;
+  if (date != undefined) {
+    queryDate = moment(date, 'YYYY-MM-DD HH:mm:ss').toDate();
+    selector.saleDate = {
+      $gte: queryDate
+    }
+  }else{
+    queryDate = moment(new Date, 'YYYY-MM-DD 00:00:00').toDate();
+    selector.saleDate = {
+      $gte: queryDate
+    }
+  }
   if (status == 'closed') {
     selector.$or = [{
       _id: {
@@ -70,7 +82,7 @@ Restaurant.Collection.Sales.searchByTable = function(query, locations, status) {
       '_table.name': 1,
       '_table._tableLocation.name': 1
     },
-    limit: 7
+    limit: limit
   });
 }
 
