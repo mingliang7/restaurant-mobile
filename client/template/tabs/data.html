@@ -8,6 +8,13 @@
   {{#ionView}}
     {{#ionContent}}
       {{#ionList}}
+      {{#if isInRole 'setting, super'}}
+      <a class="item item-icon-left item-icon-right" href="/restaurant/vipcards">
+          {{> ionIcon icon="card" class="assertive"}}
+        Vipcards
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+      </a>
+      {{/if}}
         <a class="item item-icon-left item-icon-right" href="/restaurant/customers">
           {{> ionIcon icon="ios-people" class="assertive"}}
           អតិថិជន

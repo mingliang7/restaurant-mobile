@@ -373,12 +373,32 @@ Router.map(function() {
       if (!Meteor.userId()) {
         Router.go('/')
       }
-      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['seller', 'cashier', 'setting', 'super']);
       this.next();
     }
   })
   this.route('restaurant.select.table', {
     path: '/restaurant/selectTable',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/')
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['seller', 'cashier', 'setting', 'super']);
+      this.next();
+    }
+  })
+  this.route('restaurant.vipcard', {
+    path: '/restaurant/vipcards',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/')
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      this.next();
+    }
+  })
+  this.route('restaurant.new.vipcard', {
+    path: '/restaurant/vipcards/new',
     onBeforeAction(pause) {
       if (!Meteor.userId()) {
         Router.go('/')
