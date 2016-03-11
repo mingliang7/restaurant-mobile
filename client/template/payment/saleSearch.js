@@ -1,16 +1,20 @@
 Deps.autorun(function() {
   if (Session.get('searchSaleQuery')) {
-    Meteor.subscribe('searchSaleByTable', Session.get('searchSaleQuery'), Session.get('filterByLocation'), Session.get('saleStatus'));
+    Meteor.subscribe('searchSaleByTable', Session.get('searchSaleQuery'), Session.get('filterByLocation'), Session.get('saleStatus'), Session.get('queryDate'), Session.get('searchLimit'));
   }
 });
-Template.saleSearch.created = function() {
+Template.restaurantActivePaymentSearch.created = function() {
   Session.set('filterByLocation', {});
+  Session.set('searchLimit', 5);
   Session.set('saleStatus', 'active');
+  Session.set('queryDate', undefined)
   this.autorun(() => {
     this.subscribe = Meteor.subscribe("tableLocations");
+    Meteor.subscribe("activeSales", Session.get('activeSaleLimit'));
   })
 }
-Template.saleSearch.rendered = function() {
+Template.restaurantActivePaymentSearch.rendered = function() {
+  $('[name="date"]').datetimepicker();
   this.autorun(() => {
     if (!this.subscription.ready()) {
       IonLoading.show();
@@ -19,7 +23,7 @@ Template.saleSearch.rendered = function() {
     }
   })
 }
-Template.saleSearch.events({
+Template.restaurantActivePaymentSearch.events({
   'keyup input': function(event, template) {
     Session.set('searchSaleQuery', event.target.value);
   },
@@ -34,6 +38,7 @@ Template.saleSearch.events({
     } else {
       delete locations[this._id]
     }
+    Session.set('searchSaleQuery', ''); //reactive search query
     Session.set('filterByLocation', locations);
   },
   'change .status' (e) {
@@ -45,10 +50,22 @@ Template.saleSearch.events({
       $('.status-text').text('Inactive');
       Session.set('saleStatus', 'closed');
     }
+  },
+  'change [name="date"]' (e) {
+      Session.set('queryDate', $(e.currentTarget).val());
+  },
+  'click .loadMore'(){
+    let limit = Session.get('searchLimit') + 5;
+    Session.set('searchLimit', limit);
   }
 });
 
-Template.saleSearch.helpers({
+Template.restaurantActivePaymentSearch.helpers({
+  hasMore(){
+    let limit = Session.get('searchLimit');
+    let count = Counts.get('activeSalesCount');
+    return limit < count;
+  },
   products: function() {
     let filter = []
     let locations = Session.get('filterByLocation');
@@ -57,7 +74,7 @@ Template.saleSearch.helpers({
         filter.push(locations[k]);
       }
     }
-    return Restaurant.Collection.Sales.searchByTable(Session.get('searchSaleQuery'), filter, Session.get('saleStatus'));
+    return Restaurant.Collection.Sales.searchByTable(Session.get('searchSaleQuery'), filter, Session.get('saleStatus'), Session.get('queryDate'), Session.get('searchLimit'));
   },
   saleIsNotZero(){
     let filter = []
