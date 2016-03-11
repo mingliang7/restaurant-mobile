@@ -81,6 +81,14 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
       }
     }
   },
+  isPrinting: {
+    type: Boolean,
+    autoValue(){
+      if(this.isInsert){
+        return true;
+      }
+    }
+  },
   monitor: {
     type: Boolean,
     autoValue: function() {

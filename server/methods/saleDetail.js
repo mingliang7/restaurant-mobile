@@ -155,6 +155,19 @@ Meteor.methods({
       Sale.sumSaleDetail(transferSaleId);//recalculate saleDetail
     })
     return transferSaleId;
+  },
+  setPrintToFalse(saleId) {
+    Meteor.defer(()=>{
+      Restaurant.Collection.SaleDetails.direct.update({
+        saleId: saleId
+      }, {
+        $set: {
+          isPrinting: false
+        }
+      }, {
+        multi: true
+      });
+    })
   }
 });
 
