@@ -4,71 +4,99 @@ Deps.autorun(function() {
   }
 });
 
-Template.restaurantSaleList.rendered = function(){
+Template.restaurantSaleList.rendered = function() {
   Session.set('limit', 10)
 }
 Template.restaurantSaleList.events({
   'keyup input.search': function(event, template) {
     Session.set('searchListQuery', event.target.value);
   },
-  'click .order'(event){
+  'click .order' (event) {
     let saleDetailObj = Session.get('saleDetailObj');
-    if(!_.has(saleDetailObj, this._id)){
+    if (!_.has(saleDetailObj, this._id)) {
       this.quantity = 1
+      this.discount = 0
       this.saleId = Router.current().params.invoiceId;
       this.amount = this.price * this.quantity;
-      saleDetailObj[this._id] = this ;
-    }else{
+      saleDetailObj[this._id] = this;
+    } else {
       saleDetailObj[this._id].quantity = saleDetailObj[this._id].quantity + 1;
       saleDetailObj[this._id].amount = saleDetailObj[this._id].quantity * saleDetailObj[this._id].price;
     }
     Session.set('saleDetailObj', saleDetailObj)
   },
-  'click .remove-sale-detail'(){
+  'click .remove-sale-detail' () {
     let saleDetailObj = Session.get('saleDetailObj');
     delete saleDetailObj[this._id]
     Session.set('saleDetailObj', saleDetailObj)
   },
-  'keyup .quantity'(e){
+  'keyup .discount' (e) {
     let saleDetailObj = Session.get('saleDetailObj');
     let currentValue = $(e.currentTarget).val();
-    if( currentValue != '0'){
-      saleDetailObj[this._id].quantity = parseInt(currentValue);
-      saleDetailObj[this._id].amount = saleDetailObj[this._id].price * parseInt(currentValue);
+    if (currentValue != '0') {
+      saleDetailObj[this._id].discount = parseFloat(currentValue);
+      saleDetailObj[this._id].amount = checkDiscount(e);
     }
-    if(currentValue == '' || currentValue == '0'){
-      saleDetailObj[this._id].quantity = 1;
+    if (currentValue == '' || currentValue == '0') {
+      $(e.currentTarget).val('0')
+      saleDetailObj[this._id].discount = 0;
+      saleDetailObj[this._id].amount = checkDiscount(e);
     }
     Session.set('saleDetailObj', saleDetailObj)
   },
-  'click .quantity'(e){
+  'click .discount' (e) {
+    $(e.currentTarget).select()
+  },
+  "keypress .discount" (evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+  },
+  'keyup .quantity' (e) {
+    let saleDetailObj = Session.get('saleDetailObj');
+    let currentQty = [this._id].quantity;
+    let currentValue = $(e.currentTarget).val();
+    if (currentValue != '0') {
+      saleDetailObj[this._id].quantity = parseFloat(currentValue);
+      saleDetailObj[this._id].amount = checkDiscount(e);
+    }
+    if (currentValue == '' || currentValue == '0') {
+      $(e.currentTarget).val(currentQty)
+      saleDetailObj[this._id].quantity = 1;
+      saleDetailObj[this._id].amount = checkDiscount(e);
+    }
+    Session.set('saleDetailObj', saleDetailObj)
+  },
+  'click .quantity' (e) {
     $(e.currentTarget).select()
   },
   "keypress .quantity" (evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
   },
-  'keyup .price'(e){
+  'keyup .price' (e) {
     let saleDetailObj = Session.get('saleDetailObj');
     let currentPrice = saleDetailObj[this._id].price;
     let currentValue = $(e.currentTarget).val();
-    if( currentValue != '0'){
-      saleDetailObj[this._id].price = parseInt(currentValue);
-      saleDetailObj[this._id].amount = parseInt(currentValue) * saleDetailObj[this._id].quantity;
+    if (currentValue != '0') {
+      saleDetailObj[this._id].price = parseFloat(currentValue);
+      saleDetailObj[this._id].amount = checkDiscount(e);
     }
-    if(currentValue == '' || currentValue == '0'){
+    if (currentValue == '' || currentValue == '0') {
+      $(e.currentTarget).val(currentPrice);
       saleDetailObj[this._id].price = currentPrice;
+      saleDetailObj[this._id].amount = checkDiscount(e);
+
     }
     Session.set('saleDetailObj', saleDetailObj)
   },
-  'click .price'(e){
+  'click .price' (e) {
     $(e.currentTarget).select()
   },
   "keypress .price" (evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
   },
-  'click .confirm-order'(){
+  'click .confirm-order' () {
     var selector = Session.get('saleDetailObj');
     IonPopup.confirm({
       title: 'បញ្ជាក់',
@@ -100,20 +128,31 @@ Template.restaurantSaleList.helpers({
   searchListQuery: function() {
     return Session.get('searchListQuery');
   },
-  orderList(){
+  orderList() {
     let arr = [];
     let saleDetails = Session.get("saleDetailObj");
-    for(let k in saleDetails){
+    for (let k in saleDetails) {
       arr.push(saleDetails[k])
     }
     return arr;
   },
-  saleDetailExist(){
+  saleDetailExist() {
     let saleDetails = Session.get('saleDetailObj');
-    if(!_.isEmpty(saleDetails)){
+    if (!_.isEmpty(saleDetails)) {
       return true;
     }
     return false;
   }
 
 });
+
+
+var checkDiscount = (e) => {
+  let parents = $(e.currentTarget).parents('.row'); //find parents element of current obj
+  let currentPrice = parents.find($('.price')).val()
+  let currentDiscount = parents.find('.discount').val();
+  let currentQty = parents.find($('.quantity')).val();
+  let totalAmount = (parseFloat(currentPrice) * parseFloat(currentQty)) * (1 - parseFloat(currentDiscount) / 100);
+  console.log(typeof(totalAmount));
+  return totalAmount;
+}

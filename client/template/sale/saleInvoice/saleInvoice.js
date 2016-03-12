@@ -113,6 +113,7 @@ Template.saleDetail.events({
     });
   },
   'click .detach' (e) {
+    let numberOfCustomer = $('.numberOfCustomer').text().trim()
     let detachObj = Session.get('detachSaleDetailObj');
     let currentProp = $(e.currentTarget).prop('checked');
     let currentDate = $('.saleDate').text().trim();
@@ -121,7 +122,9 @@ Template.saleDetail.events({
       detachObj[this._id] = {
         saleDate: currentDate,
         oldSaleId: this.saleId,
-        defaultQty: this.quantity
+        defaultQty: this.quantity,
+        numberOfCustomer: numberOfCustomer
+
       }
     } else {
       delete detachObj[this._id]

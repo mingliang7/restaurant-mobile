@@ -41,14 +41,20 @@
                       <div class="col col-20">
                           <b>បរិយាយ</b>
                       </div>
-                      <div class="col col-20">
+                      <div class="col col-15" style="text-align:center;">
                           <b>តម្លៃ</b>
                       </div>
-                      <div class="col col-20">
+                      <div class="col col-15" style="text-align:right;">
+                          <b>បញ្ចុះតម្លៃ</b>
+                      </div>
+                      <div class="col col-15" style="text-align:right;">
                           <b>ចំនួន</b>
                       </div>
-                      <div class="col col-20">
+                      <div class="col col-20" style="text-align:right;">
                           <b>សរុប</b>
+                      </div>
+                      <div class="col col-5">
+
                       </div>
 
                   </div>
@@ -90,16 +96,19 @@
             <div class="col col-20">
                 <h4>{{name}}</h4>
             </div>
-            <div class="col col-20">
-                <input type="text" value="{{price}}" class="price">
+            <div class="col col-15">
+                <input type="text" value="{{price}}" class="price" style="border: 1px solid #ddd; text-align: center;">
             </div>
-            <div class="col col-20">
-                <input type="text" value="{{quantity}}" class="quantity">
+            <div class="col col-15">
+                <input type="text" value="{{discount}}" class="discount" style="border: 1px solid #ddd; text-align: center;">
             </div>
-            <div class="col col-20">
-                <input type="text" value="{{amount}}" class="quantity">
+            <div class="col col-15">
+                <input type="text" value="{{quantity}}" class="quantity" style="border: 1px solid #ddd; text-align: center;">
             </div>
-            <div class="col col-20">
+            <div class="col col-20" align="center">
+                <input type="text" value="{{amount}}" class="amount" readonly="true" style="text-align: center;">
+            </div>
+            <div class="col col-5">
                 <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
                     <i class="icon ion-trash-a"></i>
                 </a>
