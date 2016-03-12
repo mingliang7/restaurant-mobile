@@ -9,7 +9,7 @@
 /* A4 */
 .paper-a4-portrait {
     margin: 0px auto;
-    width: 720px;
+    width: 670px;
     padding: 0px;
     margin-bottom: 25px;
 }
@@ -46,6 +46,7 @@
 .report-content .content-header th {
     background-color: #d0d2d0;
     padding: 3px;
+    font-size: 11px;
     text-align: center;
     font-weight: bold;
     border: 1px solid #555555;
@@ -53,6 +54,7 @@
 
 .report-content .content-body td {
     padding: 3px;
+    font-size: 11px;
     border: 1px solid #555555;
 }
 

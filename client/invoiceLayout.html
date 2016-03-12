@@ -1,12 +1,10 @@
 <template name="invoiceLayout">
-    {{> yield}}
+  {{> yield}}
 </template>
-<template name="reportLayout">
-    {{#ionView}}
-        {{#ionContent}}
-            <div class="paper-a4-portrait">
-                {{> yield}}
-            </div>
-        {{/ionContent}}
-    {{/ionView}}
+<template name="reportLayout ">
+  <body  class="print-layout">
+    <div class="paper-a4-portrait">
+      {{> yield}}
+    </div>
+  </body>
 </template>
