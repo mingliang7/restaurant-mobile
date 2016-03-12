@@ -275,8 +275,9 @@ Meteor.publish("tableByMultiLocation", function(argument) {
   return this.ready();
 });
 //publish vipcard
-Meteor.publish("vipcards", function() {
-  let vipcards = Restaurant.Collection.Vipcards.find();
+Meteor.publish("vipcards", function(obj) {
+  let selector = obj || {};
+  let vipcards = Restaurant.Collection.Vipcards.find(selector);
   if (vipcards) {
     return vipcards;
   }

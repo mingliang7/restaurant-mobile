@@ -51,5 +51,8 @@ Template.restaurantVipcard.events({
         Bert.alert('មិនយល់ព្រមក្នុងការលុប !','info','growl-bottom-right','fa-info')
       }
     });
+  },
+  'click .vipcard-name'(e){
+    Router.go(`/restaurant/vipcards/${this._id}/edit`)
   }
 });

@@ -407,4 +407,14 @@ Router.map(function() {
       this.next();
     }
   })
+  this.route('restaurant.edit.vipcard', {
+    path: '/restaurant/vipcards/:id/edit',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/')
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      this.next();
+    }
+  })
 });

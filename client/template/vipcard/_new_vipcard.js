@@ -6,6 +6,9 @@ Template.restaurantNewVipcard.events({
   "change [name='tmpExpiredDate']": function(e){
     $('[name="expiredDate"]').val(moment($(e.currentTarget).val()).format('YYYY-MM-DD'));
   },
+  "click [name='tmpExpiredDate']": function(e){
+    $('[name="expiredDate"]').val(moment($(e.currentTarget).val()).format('YYYY-MM-DD'));
+  },
   "keyup [name='name']"(event){
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if(keycode == '13'){
