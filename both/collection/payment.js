@@ -76,6 +76,10 @@ Restaurant.Schema.Payments = new SimpleSchema({
           return Meteor.userId();
         }
       }
+    },
+    vipcardId:{
+      type:String,
+      optional: true
     }
 });
 Restaurant.Collection.Payments.attachSchema(Restaurant.Schema.Payments);

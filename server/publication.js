@@ -263,10 +263,23 @@ Meteor.publish("null", function() {
   return Meteor.roles.find({});
 });
 
-Meteor.publish("tableByMultiLocation", function(argument){
+Meteor.publish("tableByMultiLocation", function(argument) {
   console.log(argument);
-  if(!_.isNull(argument)){
-    return Restaurant.Collection.Tables.find({tableLocationId: {$in: argument}});
+  if (!_.isNull(argument)) {
+    return Restaurant.Collection.Tables.find({
+      tableLocationId: {
+        $in: argument
+      }
+    });
+  }
+  return this.ready();
+});
+//publish vipcard
+Meteor.publish("vipcards", function(obj) {
+  let selector = obj || {};
+  let vipcards = Restaurant.Collection.Vipcards.find(selector);
+  if (vipcards) {
+    return vipcards;
   }
   return this.ready();
 });

@@ -1,0 +1,29 @@
+<template name="restaurantEditVipcard">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.vipcards" text="ទិន្នន័យ"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">កែប្រែ Vipcard</h1>
+  {{/contentFor}}
+  {{#ionContent}}
+    {{#ionView}}
+    {{#autoForm collection="Restaurant.Collection.Vipcards" id="editVipcard" doc=vipcard type="update"}}
+    <div class="bar bar-header bar-stable">
+      <button data-dismiss="modal" type="button" class="button">បោះបង់</button>
+      <h2 class="title"></h2>
+      <button type="submit" class="button button-positive">រក្សាទុក</button>
+    </div>
+    <div class="content has-header overflow-scroll">
+      {{> afQuickField name='name'}}
+      {{> afQuickField name="value"}}
+      <label class="item item-input">
+        <span class="input-label">ថ្ងៃផុតកំណត់</span>
+        <input type="text" name="tmpExpiredDate" value="{{getDate vipcard.expiredDate}}">
+      </label>
+      {{> afQuickField name='expiredDate' type='hidden'}}
+      {{> afQuickField name='description'}}
+    </div>
+    {{/autoForm}}
+    {{/ionView}}
+  {{/ionContent}}
+</template>
