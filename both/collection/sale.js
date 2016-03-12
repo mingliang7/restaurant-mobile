@@ -46,6 +46,7 @@ Restaurant.Collection.Sales.searchByTable = function(query, locations, status, d
     }
   }
   if (status == 'closed') {
+    selector.status = {$in: ['closed', 'canceled']}
     selector.$or = [{
       _id: {
         $regex: reg
