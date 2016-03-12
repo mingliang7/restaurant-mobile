@@ -101,3 +101,15 @@
     bottom: 5%;
   }
 }
+.print-layout{
+  margin: 0 auto;
+  position:absolute;
+  bottom:0px;
+  top:0px;
+  overflow:auto
+}
+@media print {
+  .print-layout {
+    position: relative;
+  }
+}
