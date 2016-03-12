@@ -4,6 +4,9 @@ Template.restaurantSalePayment.created = function() {
   });
 };
 Template.restaurantSalePayment.rendered = function() {
+  $(document).on("keydown", "input", function(e) {
+    if (e.which == 13) e.preventDefault();
+  });
   try {
     this.autorun(() => {
       if (!this.subscription.ready()) {
@@ -13,8 +16,7 @@ Template.restaurantSalePayment.rendered = function() {
         IonLoading.hide();
       }
     });
-  } catch (e) {
-  }
+  } catch (e) {}
 };
 Template.restaurantSalePayment.helpers({
   paymentInvoiceNumber() {
@@ -44,7 +46,6 @@ Template.restaurantSalePayment.helpers({
     } catch (e) {
 
     }
-
   }
 });
 
@@ -64,21 +65,42 @@ Template.restaurantSalePayment.events({
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
   },
-  'click .savePrint'(event){
+  'click .savePrint' (event) {
     Session.set('savePrint', true)
   },
-  'keyup [name="discount"]'(event){
+  'keyup [name="discount"]' (event) {
     let currentDiscount = $('[name="discount"]').val();
-    if(currentDiscount != '' ){
-      if(parseFloat(currentDiscount) > 100 || parseFloat(currentDiscount) < 0){
+    if (currentDiscount != '') {
+      if (parseFloat(currentDiscount) > 100 || parseFloat(currentDiscount) < 0) {
         $('[name="discount"]').val('0')
         getDefaultDueAmount();
-      }else{
+      } else {
         checkDiscount();
       }
-    }else if(currentDiscount == '' || currentDiscount == '0'){
+    } else if (currentDiscount == '' || currentDiscount == '0') {
       getDefaultDueAmount();
     }
+  },
+  'change [name="vipcard"]' (e) {
+    Meteor.call('getVipCard', $(e.currentTarget).val(), (err, result)=>{
+      if(err){
+        console.log(err.message);
+        $('[name="discount"]').val(0).keyup()
+        $('[name="vipcardId"]').val('').keyup()
+      }else{
+        if(result.message){
+          alertify.error(result.message.error);
+          $('[name="discount"]').val(0).keyup()
+            $('[name="vipcardId"]').val('').keyup()
+        }else{
+          $('[name="discount"]').val(result.value).keyup()
+          $('[name="vipcardId"]').val(result._id).keyup()
+        }
+      }
+    })
+  },
+  'click [name="vipcard"]'(e){
+    $(e.currentTarget).select();
   }
 });
 
@@ -90,26 +112,26 @@ var checkDiscount = () => {
   $("[name='dueAmount']").val(totalAmount);
   $("[name='paidAmount']").val(totalAmount);
 }
-let getDefaultDueAmount = ()=>{
+let getDefaultDueAmount = () => {
   let defaultDueAmount = parseFloat($('[name="tmpDueAmount"]').val());
   $("[name='dueAmount']").val(defaultDueAmount);
   $("[name='paidAmount']").val(defaultDueAmount);
   $("[name='balanceAmount']").val(0);
 }
 AutoForm.hooks({
-  activePayment:{
-    onSuccess(formType, result){
-     // Bert.alert('គិតលុយរួចរាល់', 'success', 'growl-bottom-right', 'fa-check');
-      if(Session.get('savePrint')){
+  activePayment: {
+    onSuccess(formType, result) {
+      // Bert.alert('គិតលុយរួចរាល់', 'success', 'growl-bottom-right', 'fa-check');
+      if (Session.get('savePrint')) {
         //window.open(`/restaurant/invoice/${result}`, '_blank');
         Router.go(`/restaurant/invoice/${result}`);
-      }else{
+      } else {
         Router.go(`/restaurant/payment`);
       }
       Session.set('savePrint', false);
 
     },
-    onError(formType, err){
+    onError(formType, err) {
       Bert.alert(err.message, 'danger', 'growl-bottom-right');
 
     }
