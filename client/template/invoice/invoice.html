@@ -96,8 +96,13 @@
                     </tr>
                     <tr>
                         <td colspan="2"></td>
-                        <td>លុយអាប់ៈ</td>
-                        <td align="right"><b>{{footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b></td>
+                        {{#if negativeNumber footer.balanceAmount}}
+                          <td>លុយអាប់ៈ</td>
+                          <td align="right"><b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b></td>
+                        {{else}}
+                          <td>លុយជំពាក់ៈ</td>
+                          <td align="right"><b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b></td>
+                        {{/if}}
                     </tr>
 
                 </table>

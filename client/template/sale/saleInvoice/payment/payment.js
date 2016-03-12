@@ -1,6 +1,7 @@
 Template.restaurantSalePayment.created = function() {
   this.autorun(() => {
     this.subscribe = Meteor.subscribe('sale', Router.current().params.invoiceId);
+    this.subscribe = Meteor.subscribe('latestExchange');
   });
 };
 Template.restaurantSalePayment.rendered = function() {
@@ -50,18 +51,26 @@ Template.restaurantSalePayment.helpers({
 });
 
 Template.restaurantSalePayment.events({
-  'keyup [name="paidAmount"]': function() {
-    var dueAmount, paidAmount;
+  'keyup [name="tmpPaidAmount"],[name="dollar"]': function() {
+    var dueAmount, tmpPaidAmount, dollar;
     dueAmount = parseFloat($('[name="dueAmount"]').val());
-    paidAmount = $('[name="paidAmount"]').val();
-    if (paidAmount === '') {
-      $('[name="balanceAmount"]').val(dueAmount);
-    } else {
-      $('[name="balanceAmount"]').val(dueAmount - parseFloat(
-        paidAmount));
-    }
+    tmpPaidAmount = $('[name="tmpPaidAmount"]').val();
+    dollar = $('[name="dollar"]').val();
+    tmpPaidAmount = tmpPaidAmount == '' ? 0 : parseFloat(tmpPaidAmount);
+    dollar = dollar == '' ? 0 : parseFloat(dollar);
+    var exchangeRate = Restaurant.Collection.ExchangeRates.findOne();
+    var dollarConverted = dollar * exchangeRate.rates[0].rate;
+    var totalPaid = dollarConverted + tmpPaidAmount;
+    $('[name="balanceAmount"]').val(dueAmount - totalPaid);
+    $('[name="paidAmount"]').val(totalPaid);
+      // if (paidAmount === '') {
+      //   $('[name="balanceAmount"]').val(dueAmount);
+      // } else {
+      //   $('[name="balanceAmount"]').val(dueAmount - parseFloat(
+      //     paidAmount));
+      // }
   },
-  "keypress [name='paidAmount']" (evt) {
+  "keypress [name='tmpPaidAmount']" (evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
   },
@@ -82,24 +91,24 @@ Template.restaurantSalePayment.events({
     }
   },
   'change [name="vipcard"]' (e) {
-    Meteor.call('getVipCard', $(e.currentTarget).val(), (err, result)=>{
-      if(err){
+    Meteor.call('getVipCard', $(e.currentTarget).val(), (err, result) => {
+      if (err) {
         console.log(err.message);
         $('[name="discount"]').val(0).keyup()
         $('[name="vipcardId"]').val('').keyup()
-      }else{
-        if(result.message){
+      } else {
+        if (result.message) {
           alertify.error(result.message.error);
           $('[name="discount"]').val(0).keyup()
-            $('[name="vipcardId"]').val('').keyup()
-        }else{
+          $('[name="vipcardId"]').val('').keyup()
+        } else {
           $('[name="discount"]').val(result.value).keyup()
           $('[name="vipcardId"]').val(result._id).keyup()
         }
       }
     })
   },
-  'click [name="vipcard"]'(e){
+  'click [name="vipcard"]' (e) {
     $(e.currentTarget).select();
   }
 });
