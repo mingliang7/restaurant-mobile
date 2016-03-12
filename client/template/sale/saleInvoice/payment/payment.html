@@ -26,7 +26,15 @@
            {{> afQuickField name='discount' label="បញ្ចុះតម្លៃ(%)" readonly=true}}
            {{> afQuickField name='dueAmount' readonly=true label="លុយត្រូវបង់"}}
            <input type="hidden" name="tmpDueAmount" value="{{sale.dueAmount}}">
-           {{> afQuickField name='paidAmount' label="ចំនួនទឹកប្រាក់បានបង់"}}
+           {{> afQuickField name='paidAmount' label="ចំនួនទឹកប្រាក់បានបង់ (៛)"}}
+           <label class="item item-input">
+             <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ (៛):</span>
+             <input type="text" name="tmpPaidAmount">
+           </label>
+           <label class="item item-input">
+             <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ ($):</span>
+             <input type="text" name="dollar">
+           </label>
            {{> afQuickField name='balanceAmount' label="លុយអាប់" readonly=true}}
            {{> afQuickField name='description' label="បរិយាយ" type="textarea"}}
          </div>

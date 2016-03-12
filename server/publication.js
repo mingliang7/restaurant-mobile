@@ -283,3 +283,7 @@ Meteor.publish("vipcards", function(obj) {
   }
   return this.ready();
 });
+//publish latest exchangeRates
+Meteor.publish("latestExchange", function(){
+  return Restaurant.Collection.ExchangeRates.find({}, {sort: {_id: -1}, limit: 1})
+});
