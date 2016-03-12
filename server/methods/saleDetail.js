@@ -5,11 +5,13 @@ Meteor.methods({
       saleDetails.push({
         saleId: selector[k].saleId,
         productId: selector[k]._id,
+        discount: selector[k].discount,
         amount: selector[k].amount,
         quantity: selector[k].quantity,
         price: selector[k].price
       });
     }
+    console.log(saleDetails)
     var sale = Restaurant.Collection.Sales.findOne(saleDetails[0].saleId);
     if (_.isUndefined(sale.total)) {
       Meteor.defer(() => {
@@ -63,7 +65,7 @@ Meteor.methods({
     let saleId, oldSaleId;
     for (let k in obj) {
       if (count <= 1) {
-        saleId = insertSale(tableId, tableLocation, obj[k].saleDate);
+        saleId = insertSale(tableId, tableLocation, obj[k].saleDate, obj[k].numberOfCustomer);
         oldSaleId = obj[k].oldSaleId;
       }
       count++;
@@ -189,7 +191,7 @@ var updateExistSaleDetail = (currentSaleDetail, existSaleDetail) => {
 }
 
 
-let insertSale = (tableId, location, saleDate) => {
+let insertSale = (tableId, location, saleDate, numberOfCustomer) => {
   Meteor._sleepForMs(500);
   let selector = {}
   var date = moment(saleDate).format('YYMMDD');
@@ -200,6 +202,7 @@ let insertSale = (tableId, location, saleDate) => {
   selector.saleDate = moment(saleDate).toDate();
   selector.status = 'active';
   selector.staff = Meteor.userId();
+  selector.numberOfCustomer = numberOfCustomer;
   var customerId = Restaurant.Collection.Customers.findOne({}, {
     sort: {
       _id: 1
