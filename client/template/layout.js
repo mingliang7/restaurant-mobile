@@ -19,7 +19,7 @@ Template.layout.events({
     Router.go('restaurant.setting')
   },
   'click .sale'(){
-    Router.go('/restaurant/sale');
+    Router.go('/restaurant/selectTable');
   },
   'click .activeSaleList'(){
     Router.go('/restaurant/payment');

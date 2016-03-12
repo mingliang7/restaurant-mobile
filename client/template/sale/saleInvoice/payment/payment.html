@@ -22,7 +22,7 @@
              <span class="input-label">Vipcard:</span>
              <input type="password" name="vipcard" autofocus="true">
            </label>
-           {{> afQuickField name='vipcardId' readonly=true}}
+           {{> afQuickField name='vipcardId' readonly=true type="hidden"}}
            {{> afQuickField name='discount' label="បញ្ចុះតម្លៃ(%)" readonly=true}}
            {{> afQuickField name='dueAmount' readonly=true label="លុយត្រូវបង់"}}
            <input type="hidden" name="tmpDueAmount" value="{{sale.dueAmount}}">
