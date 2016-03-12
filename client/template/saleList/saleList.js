@@ -10,6 +10,7 @@ Template.restaurantSaleList.rendered = function() {
 Template.restaurantSaleList.events({
   'keyup input.search': function(event, template) {
     Session.set('searchListQuery', event.target.value);
+    Session.set('limit', 10);
   },
   'click .order' (event) {
     let saleDetailObj = Session.get('saleDetailObj');
