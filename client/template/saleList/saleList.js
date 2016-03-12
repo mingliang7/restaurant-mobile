@@ -131,6 +131,10 @@ Template.restaurantSaleList.events({
         Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
       }
     });
+  },
+  'click .loadMoreProduct'(){
+    let limit = Session.get('limit') + 5;
+    Session.set('limit', limit);
   }
 });
 

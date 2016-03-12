@@ -1,5 +1,5 @@
 <template name="restaurantSaleList">
-      <div class="col col-33">
+      <div class="col col-33" >
         <div class="list card">
 
         <label class="item-input-wrapper">
@@ -8,30 +8,24 @@
         </label>
       </div>
         <br>
-        <ul>
+
+        <ul >
           {{#each products}}
             {{> _saleListItem}}
           {{/each}}
-          {{#if searchListQuery}}
-            <div class="col col-offset-50" >
-            <button class="button button-positive loadMore">Load More</button>
-            </div>
-          {{/if}}
+
+              <div class="col col-offset-50" >
+                <button class="button button-positive loadMoreProduct">បង្ហាញបន្ថែម</button>
+              </div>
         </ul>
-      </div>    
+      </div>
 </template>
 
 
 <template name="_saleListItem">
       <a href="#" class="item cursor-p order">
         <p>
-          <b>{{name}}({{enName}})</b>
-        </p>
-        <p>
-          តម្លៃៈ <b>{{price}}</b>
-        </p>
-        <p>
-          គិតជាៈ <b>{{_unit.name}}</b>
+          <b>{{name}}({{enName}})</b> | តម្លៃៈ <b>{{price}}</b> | គិតជាៈ <b>{{_unit.name}}</b>
         </p>
       </a>
 </template>

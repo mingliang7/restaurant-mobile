@@ -17,6 +17,7 @@ Template.restaurantSaleTableSaleInvoice.created = function() {
   this.autorun(() => {
     this.subscribe = Meteor.subscribe("sale", saleId);
     this.subscribe = Meteor.subscribe("saleDetailCount", saleId);
+    this.subscribe = Meteor.subscribe('productCount');
     this.subscribe = Meteor.subscribe("saleDetails", Router.current().params.invoiceId, Session.get('saleDetailLimited'));
   });
 };
@@ -351,3 +352,16 @@ let goToNewInvoice = (location, tableId, saleId) => {
     }
   });
 }
+
+
+Template.restaurantSaleList.helpers({
+  hasMoreProducts() {
+    let limit = Session.get('limit');
+    let productCount = Counts.get('productCounts');
+    if (limit < productCounts) {
+      return true
+    }
+
+    return false;
+  }
+})
