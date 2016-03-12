@@ -2,9 +2,16 @@ Tracker.autorun(function() {
   if (Session.get('paramsInvoiceId')) {
     Meteor.subscribe("sale", Session.get('paramsInvoiceId'));
   }
+  if (Session.get('searchListQuery')) {
+    Meteor.subscribe('productsSearch', Session.get('searchListQuery'), Session.get('limit'));
+  }
 });
+
+
 Template.restaurantSaleTableSaleInvoice.created = function() {
   let saleId = Router.current().params.invoiceId;
+  Session.set('limit', 10)
+  Session.set('saleDetailObj', {});
   Session.set('saleDetailLimited', 5) // using for limit
   Session.set('detachSaleDetailObj', {}) //using for detach sale detail
   this.autorun(() => {

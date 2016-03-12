@@ -1,6 +1,6 @@
 <template name="restaurantSaleTableSaleInvoice">
     {{#contentFor "headerButtonLeft"}}
-        {{>ionNavBackButton href=goToTable text='ត្រលប់ទៅកាន់តុ'}}
+        {{>ionNavBackButton href="/restaurant/selectTable" text='ត្រលប់ទៅកាន់តុ'}}
     {{/contentFor}}
     {{#if isInRole 'setting, cashier'}}
       {{#contentFor "headerButtonRight"}}
@@ -12,6 +12,9 @@
     {{/contentFor}}
     {{#ionView}}
         {{#ionContent class="padding contact-detail"}}
+        <div class="row">
+          {{> restaurantSaleList}}
+        <div class="col col-67">
             {{#with saleInvoice}}
                 {{> tableHeader}}
             {{/with}}
@@ -58,13 +61,15 @@
             {{#with saleInvoice}}
                 {{> saleInvoiceTotal}}
             {{/with}}
+          </div>
+        </div>
         {{/ionContent}}
     {{/ionView}}
     {{> _sale_invoice_tabs}}
 </template>
 
 <template name="saleDetail">
-    <div class="item item-body animated bounceInRight {{#if transferOrSplit}}bg-blue{{/if}}">
+    <div class="item item-body animated bounceInDown {{#if transferOrSplit}}bg-blue{{/if}}">
         <div class="row">
             <div class="col col-20">
                 <h4>{{_product.name}}</h4>
@@ -246,9 +251,9 @@
     {{else}} -->
         {{#ionTabs style="ios"}}
             {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
-            {{#if noPayment}}
+            <!-- {{#if noPayment}}
                 {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
-            {{/if}}
+            {{/if}} -->
             {{> ionTab title="លក់ថ្មី" path="restaurant.select.table" class="positive" iconOff="coffee" iconOn="coffee"}}
             {{#if noPayment}}
                 <a class="tab-item" data-ion-modal="searchSaleForMerge">

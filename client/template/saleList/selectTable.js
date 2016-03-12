@@ -92,7 +92,8 @@ Template.restaurantSelectTable.events({
            } else {
              IonLoading.hide();
              Session.set('invoiceId', result);
-             Router.go(`/restaurant/saleList/location/${tableLocationId}/table/${tableId}/checkout/${result}`);
+             Router.go(`/restaurant/sale/${tableLocationId}/table/${tableId}/saleInvoice/${result}`);
+            //  Router.go(`/restaurant/saleList/location/${tableLocationId}/table/${tableId}/checkout/${result}`);
            }
          })
        }
