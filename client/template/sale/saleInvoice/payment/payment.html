@@ -26,10 +26,10 @@
            {{> afQuickField name='discount' label="បញ្ចុះតម្លៃ(%)" readonly=true}}
            {{> afQuickField name='dueAmount' readonly=true label="លុយត្រូវបង់"}}
            <input type="hidden" name="tmpDueAmount" value="{{sale.dueAmount}}">
-           {{> afQuickField name='paidAmount' label="ចំនួនទឹកប្រាក់បានបង់ (៛)"}}
+           {{> afQuickField name='paidAmount' label="ចំនួនទឹកប្រាក់បានបង់ (៛)" type="hidden"}}
            <label class="item item-input">
              <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ (៛):</span>
-             <input type="text" name="tmpPaidAmount">
+             <input type="text" name="tmpPaidAmount" value="{{sale.dueAmount}}">
            </label>
            <label class="item item-input">
              <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ ($):</span>

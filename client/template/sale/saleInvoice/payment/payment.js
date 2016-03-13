@@ -63,12 +63,6 @@ Template.restaurantSalePayment.events({
     var totalPaid = dollarConverted + tmpPaidAmount;
     $('[name="balanceAmount"]').val(dueAmount - totalPaid);
     $('[name="paidAmount"]').val(totalPaid);
-      // if (paidAmount === '') {
-      //   $('[name="balanceAmount"]').val(dueAmount);
-      // } else {
-      //   $('[name="balanceAmount"]').val(dueAmount - parseFloat(
-      //     paidAmount));
-      // }
   },
   "keypress [name='tmpPaidAmount']" (evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -119,6 +113,7 @@ var checkDiscount = () => {
   // let currentQty = $('[name="quantity"]').val();
   totalAmount = (parseFloat(dueAmount) * (1 - parseFloat(currentDiscount) / 100));
   $("[name='dueAmount']").val(totalAmount);
+  $("[name='tmpPaidAmount']").val(totalAmount);
   $("[name='paidAmount']").val(totalAmount);
 }
 let getDefaultDueAmount = () => {
