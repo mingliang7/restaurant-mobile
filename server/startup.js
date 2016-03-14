@@ -17,7 +17,7 @@ Meteor.startup(function() {
   if (Meteor.users.find().count() <= 0) {
     let superId = Accounts.createUser({
       username: 'super',
-      email: 'super@taetaily.com',
+      email: 'super@rabbit.com',
       password: 'super123',
       approved: true
     })

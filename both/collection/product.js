@@ -47,16 +47,6 @@ Restaurant.Schema.Products = new SimpleSchema({
     label: "តម្លៃ",
     decimal: true
   },
-  productType: {
-    type: String,
-    label: "ប្រភេទ",
-    autoform: {
-      type: "select",
-      options: function() {
-        return Restaurant.List.productType();
-      }
-    }
-  },
   categoryId: {
     type: String,
     label: "ផ្នែក",
@@ -80,6 +70,7 @@ Restaurant.Schema.Products = new SimpleSchema({
   status: {
     type: String,
     label: "Status",
+    optional: true,
     autoform: {
       type: "select",
       options: function() {
