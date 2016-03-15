@@ -1,9 +1,9 @@
 Restaurant.Collection.Sales = new Mongo.Collection("restaurant_sales");
 Restaurant.Collection.Sales.search = function(query, saleId) {
   saleId = saleId || '';
-  if (!query) {
-    return;
-  }
+  // if (!query) {
+  //   return;
+  // }
   let regPattern = `${query}`
   let reg = new RegExp(regPattern, 'i') //match all case
   return Restaurant.Collection.Sales.find({
@@ -26,9 +26,9 @@ Restaurant.Collection.Sales.search = function(query, saleId) {
   });
 }
 Restaurant.Collection.Sales.searchByTable = function(query, locations, status, date, limit) {
-  // if (!query) {
-  //   return;
-  // }
+  if (!query) {
+    return;
+  }
   let regPattern = `${query}`
   let reg = new RegExp(regPattern, 'i') //match all case
   let selector = {};
@@ -40,7 +40,7 @@ Restaurant.Collection.Sales.searchByTable = function(query, locations, status, d
       $gte: queryDate
     }
   }else{
-    queryDate = moment(new Date, 'YYYY-MM-DD 00:00:00').toDate();
+    queryDate = moment('','YYYY-MM-DD 00:00:00').toDate();
     selector.saleDate = {
       $gte: queryDate
     }
@@ -77,13 +77,14 @@ Restaurant.Collection.Sales.searchByTable = function(query, locations, status, d
       $in: locations
     }
   }
-  return Restaurant.Collection.Sales.find(selector, {
+  let restaurants = Restaurant.Collection.Sales.find(selector, {
     sort: {
       '_table.name': 1,
       '_table._tableLocation.name': 1
     },
     limit: limit
   });
+  return restaurants;
 }
 
 Restaurant.Schema.Sales = new SimpleSchema({
