@@ -63,6 +63,15 @@ Template.restaurantSalePayment.events({
     var totalPaid = dollarConverted + tmpPaidAmount;
     $('[name="balanceAmount"]').val(dueAmount - totalPaid);
     $('[name="paidAmount"]').val(totalPaid);
+    if((dueAmount - totalPaid) < 0) {
+      let changeInDollar = (totalPaid - dueAmount) / exchangeRate.rates[0].rate;
+      $('[name="changeInDollar"]').val('-' + changeInDollar)
+    }else if((dueAmount - totalPaid) == 0){
+      $('[name="changeInDollar"]').val(0)
+    }else{
+      let changeInDollar = (dueAmount - totalPaid) / exchangeRate.rates[0].rate;
+      $('[name="changeInDollar"]').val(changeInDollar)
+    }
   },
   "keypress [name='tmpPaidAmount']" (evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;

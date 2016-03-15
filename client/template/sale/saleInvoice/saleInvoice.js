@@ -105,7 +105,7 @@ Template.saleDetail.events({
     let data = this;
     IonPopup.confirm({
       title: 'តើអ្នកត្រូវការលុបឬ?',
-      template: `លុបទំនិញ ${data._product._category.name}${data._product.name}?`,
+      template: `លុបទំនិញ ${data._product.name}?`,
       onOk: () => {
         Meteor.call('removeSaleDetail', data._id, (err, result) => {
           if (err) {
@@ -116,7 +116,7 @@ Template.saleDetail.events({
         });
       },
       onCancel: function() {
-        Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
+
       }
     });
   },
@@ -152,6 +152,10 @@ Template.tableHeader.helpers({
 //go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editDiscount
 
 Template.saleInvoiceTotal.helpers({
+  goToPayment() {
+    let params = Router.current().params;
+    return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
+  },
   multiply: function(val1, val2, id) {
     debugger;
     if (val1 != null && val2 != null) {

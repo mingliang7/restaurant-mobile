@@ -119,12 +119,14 @@
                 {{/if}}
               </div>
             <div class="col col-5" align="center">
+                {{#if isPrinting}}
                 <label class="toggle">
                     <input type="checkbox" class="detach">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
                 </label>
+                {{/if}}
             </div>
             <div class="col col-5">
               {{#if hasDetachSaleDetail.flag}}
@@ -222,11 +224,11 @@
                     </div>
 
                 {{/with}}
-
-
             </div>
         </div>
+        <a href="{{goToPayment}}" class="button  button-balanced payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
     </div>
+
 </template>
 
 
