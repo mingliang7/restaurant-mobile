@@ -1,18 +1,18 @@
-<template name="productSearch">
+<template name="materialProduct">
   {{#ionModal focusFirstInput=true title="Search"}}
       <div class="list">
         <div class="item item-input-inset">
           <label class="item-input-wrapper">
             {{> ionIcon icon="ios-search" class="placeholder-icon"}}
-            <input type="text" placeholder="Search" value="{{searchQuery}}">
+            <input type="text" name="materialSearch" placeholder="Search" value="{{materialQuery}}">
           </label>
         </div>
       <ul>
         {{#each products}}
-          {{> _productItem}}
+          {{> _materialItem}}
         {{/each}}
       </ul>
-        {{#if searchQuery}}
+        {{#if materialQuery}}
           <div class="col col-offset-50" >
           <button class="button button-positive loadMore">Load More</button>
           </div>
@@ -22,14 +22,20 @@
     {{/ionModal}}
 </template>
 
-<template name="_productItem">
+<template name="_materialItem">
       {{#ionItem buttonRight=true avatar=true }}
         <img src="{{url}}">
         <span class="cursor-p" data-ion-modal="editProduct" data-id="{{_id}}">
-          <b>{{name}}({{enName}})</b> | ផ្នែកៈ {{_category.name}}
+          {{_category.name}}
         </span>
         <p>
-          តម្លៃៈ <b>{{price}}</b>​ | គិតជាៈ <b>{{_unit.name}}</b>
+          <b>{{name}}({{enName}})</b>
+        </p>
+        <p>
+          តម្លៃៈ <b>{{price}}</b>
+        </p>
+        <p>
+          គិតជាៈ <b>{{_unit.name}}</b>
         </p>
         <p>
           Tags:

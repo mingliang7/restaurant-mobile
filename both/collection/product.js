@@ -37,10 +37,51 @@ Restaurant.Schema.Products = new SimpleSchema({
     type: String,
     label: "ឈ្មោះអង់គ្លេស"
   },
-  barcode: {
+  productType: {
     type: String,
-    label: "Barcode",
-    optional: true
+    label: "ប្រភេទទំនិញ",
+    autoform: {
+      type: 'select',
+      options() {
+        return Restaurant.List.productType()
+      }
+    }
+  },
+  stockType: {
+    type: String,
+    label: "ប្រភេទស្តុក",
+    autoform: {
+      type: 'select',
+      options() {
+        let productType = AutoForm.getFieldValue('productType');
+        if (productType && productType == 'material') {
+          return [{
+            label: 'Stock',
+            value: 'Stock'
+          }]
+        }
+        return Restaurant.List.stockType()
+      }
+    }
+  },
+  ingradient: {
+    type: [Object],
+    label: 'គ្រឿងផ្សំ',
+    optional: true,
+    custom() {
+      if (this.field('stockType').value == 'NonStock' && !this.isSet && (!this.operator || (this.value === null || this.value === ""))) {
+        return "required";
+      }
+    }
+  },
+  'ingradient.$.productId': {
+    type: String,
+    label: 'ឈ្មោះ'
+  },
+  'ingradient.$.amount': {
+    type: Number,
+    decimal: true,
+    label: 'ចំនួន'
   },
   price: {
     type: Number,
@@ -113,7 +154,7 @@ Images.allow({
 //search product
 
 
-Restaurant.Collection.Products.search = function(query, limit) {
+Restaurant.Collection.Products.search = function(query, limit, productType) {
   let limitAmount = limit || 10
   if (!query) {
     return;
@@ -134,7 +175,8 @@ Restaurant.Collection.Products.search = function(query, limit) {
         $regex: reg
       }
 
-    }]
+    }],
+    productType: {$in: productType}
   }, {
     sort: {
       name: 1

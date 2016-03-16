@@ -1,15 +1,15 @@
 Deps.autorun(function() {
-  if (Session.get('searchQuery')) {
-    Meteor.subscribe('productsSearch', Session.get('searchQuery'), Session.get('limit'));
+  if (Session.get('materialQuery')) {
+    Meteor.subscribe('productsSearch', Session.get('materialQuery'), Session.get('limit'), ['material']);
   }
 });
 
-Template.productSearch.rendered = function(){
+Template.materialProduct.rendered = function(){
   Session.set('limit', 10)
 }
-Template.productSearch.events({
-  'keyup input': function(event, template) {
-    Session.set('searchQuery', event.target.value);
+Template.materialProduct.events({
+  'keyup [name="materialSearch"]': function(event, template) {
+    Session.set('materialQuery', event.target.value);
   },
   'click .loadMore' () {
     let amount = Session.get('limit');
@@ -39,12 +39,12 @@ Template.productSearch.events({
   }
 });
 
-Template.productSearch.helpers({
+Template.materialProduct.helpers({
   products: function() {
-    return Restaurant.Collection.Products.search(Session.get('searchQuery'), Session.get('limit'), ['sale', 'material']);
+    return Restaurant.Collection.Products.search(Session.get('materialQuery'), Session.get('limit'), ['material']);
   },
-  searchQuery: function() {
-    return Session.get('searchQuery');
+  materialQuery: function() {
+    return Session.get('materialQuery');
   }
 
 });

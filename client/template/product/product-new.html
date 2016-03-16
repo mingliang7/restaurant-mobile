@@ -1,14 +1,49 @@
 <template name="productNew">
     {{#ionModal customTemplate=true}}
-        {{#autoForm collection="Restaurant.Collection.Products" id="productNew" type="insert"}}
+        {{#autoForm collection="Restaurant.Collection.Products" id="productNew" type="insert" label-type="stacked"}}
             <div class="bar bar-header bar-stable">
                 <button data-dismiss="modal" type="button" class="button button-clear">បោះបង់</button>
                 <h2 class="title">បង្កើតទំនិញ</h2>
                 <button type="submit" class="button button-positive button-clear">រក្សាទុក</button>
             </div>
             <div class="content has-header overflow-scroll">
-                {{> afQuickField name='name'}}
+                {{> afQuickField name='name' }}
                 {{> afQuickField name='enName'}}
+                {{> afQuickField name='productType'}}
+                {{> afQuickField name='stockType'}}
+                {{#if isNotStockValue}}
+                <div class="item item-divider">
+                  គ្រឿងផ្សំ
+                </div>
+                <div class="card autoform-array-item">
+                  <div class="row">
+                    <div class="col col-50">
+                      <label class="item item-input">
+                        <span class="input-label">ឈ្មោះ</span>
+                        <input type="text" class="ingradientName">
+                      </label>
+                    </div>
+                  <div class="col col-33">
+                    <label class="item item-input">
+                      <span class="input-label">ចំនួន</span>
+                      <input type="text" class="amount">
+                    </label>
+                  </div>
+                  <div class="col col-10">
+                    <div class="item item-divider">
+                      <button type="button" class="button button-clear button-small pull-right add-item">
+                        Add <span class="icon ion-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {{#each tmpItems}}
+                  {{> _tmpItem}}
+                {{/each}}
+                <div class="item item-divider">
+                </div>
+                </div>
+                {{/if}}
                 {{> afQuickField name='unitId'}}
                 {{> afQuickField name='price'}}
                 {{> afQuickField name='categoryId'}}
@@ -18,4 +53,28 @@
             </div>
         {{/autoForm}}
     {{/ionModal}}
+</template>
+
+
+
+<template name="_tmpItem">
+  <div class="row">
+    <div class="col col-50">
+      <label class="item item-input">
+        <input type="text" class="ingradientName" readonly="true" value="{{name}}">
+      </label>
+    </div>
+  <div class="col col-33">
+    <label class="item item-input">
+      <input type="text" class="amount" value="{{amount}}">
+    </label>
+  </div>
+  <div class="col col-10">
+    <div class="item item-divider">
+      <button type="button" class="button button-clear button-small pull-right add-item">
+        Remove <span class="icon ion-minus"></span>
+      </button>
+    </div>
+  </div>
+</div>
 </template>

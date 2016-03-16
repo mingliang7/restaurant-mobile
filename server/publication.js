@@ -189,12 +189,13 @@ Meteor.publish('activeSalesCount', function() {
 
 
 //product search
-Meteor.publish('productsSearch', function(query, limit) {
+Meteor.publish('productsSearch', function(query, limit, productType) {
   if (_.isEmpty(query)) {
     return this.ready();
   }
+  let typeOfProduct = productType != undefined ? productType : ['sale', 'material']
   let limitAmount = limit || 10
-  let restaurant = Restaurant.Collection.Products.search(query, limitAmount);
+  let restaurant = Restaurant.Collection.Products.search(query, limitAmount, typeOfProduct);
   return restaurant;
 });
 
