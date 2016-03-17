@@ -121,6 +121,7 @@ Template.saleDetail.events({
       detachObj[this._id] = {
         saleDate: currentDate,
         oldSaleId: this.saleId,
+        discount: this.discount == undefined ? 0 : this.discount,
         defaultQty: this.quantity
       }
     } else {

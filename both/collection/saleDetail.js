@@ -18,10 +18,8 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
     type: Number,
     label: "Discount",
     decimal: true,
-    autoValue(){
-      if(this.isInsert){
+    defaultValue(){
         return 0;
-      }
     }
   },
   quantity: {

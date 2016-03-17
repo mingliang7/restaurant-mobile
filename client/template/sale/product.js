@@ -94,6 +94,7 @@ Template.restaurantSaleCheckoutInvoiceCategoryProduct.events({
       saleId: params.invoiceId,
       productId: this._id,
       price: this.price,
+      discount: 0,
       amount: this.price,
       quantity: 1
     }
