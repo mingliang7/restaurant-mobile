@@ -1,82 +1,24 @@
 <template name="layout">
     {{#ionBody}}
-        {{#ionSideMenuContainer}}
-            {{#ionSideMenus }}
-                    {{#ionSideMenu}}
-                        <div class="bar bar-header bar-dark">
-                            <h1 class="title">{{currentUser.profile.username}}</h1>
-                        </div>
-                        <div class="content has-header">
-                            <div class="list">
-                                <div class="home cursor-p favorite item item-icon-left" data-ion-menu-close>
-                                    {{>ionIcon icon="ios-home"}} ទីតាំងដើម
-                                </div>
-                                <div class="sale cursor-p favorite item item-icon-left" data-ion-menu-close>
-                                    {{>ionIcon icon="coffee"}} លក់ថ្មី
-                                </div>
-                                {{#if isInRole 'cashier, setting'}}
-                                  <div class="cursor-p activeSaleList item item-icon-left" data-ion-menu-close>
-                                    {{>ionIcon icon="cash"}} តារាងវិក័យប័ត្រ
-                                  </div>
-                                  <div class="data cursor-p favorite item item-icon-left" data-ion-menu-close>
-                                      {{>ionIcon icon="filing"}} ទិន្នន័យ
-                                  </div>
-                                  <div class="cursor-p setting item item-icon-left" data-ion-menu-close>
-                                      {{>ionIcon icon="gear-b"}} ការកំណត់
-                                  </div>
-                                  <div class="cursor-p report item item-icon-left" data-ion-menu-close>
-                                      {{>ionIcon icon="ios-paper-outline"}} របាយការណ៍
-                                  </div>
-                                {{/if}}
-                                <div class="cursor-p sign-out item item-icon-left" data-ion-menu-close>
-                                    {{> ionIcon icon="log-out"}} ចាកចេញ
-                                </div>
-
-                            </div>
-                        </div>
-                    {{/ionSideMenu}}
-                <!-- {{#ionSideMenu side="right"}}
-                    <div class="bar bar-header bar-dark">
-                        <h1 class="title">Right Menu</h1>
-                    </div>
-                    <div class="content has-header">
-                        <div class="list">
-                            <div class="item item-icon-left" data-ion-menu-close>
-                                {{> ionIcon icon="ios-arrow-left"}} Close Me
-                            </div>
-                        </div>
-                    </div>
-                {{/ionSideMenu}} -->
-
-            {{/ionSideMenus}}
-
-            {{#ionSideMenuContent}}
-
-                {{> ionNavBar class="bar-assertive"}}
-
-                <!-- {{#ionNavView}} -->
-                {{#if currentUser}}
-                  {{#if currentUser.profile.approved}}
-                    {{> yield}}
-                  {{else}}
-                  {{#ionView}}
-                    {{#ionContent}}
-                    <div class="col" align="center"><h3>សំុសិទ្ធពី Admin របស់អ្នកដើម្បីចូលប្រើប្រាស់</h3></div>
-                    {{/ionContent}}
-                  {{/ionView}}
-                  {{/if}}
+              {{> ionNavBar class="bar-assertive"}}
+              <!-- {{#ionNavView}} -->
+              {{#if currentUser}}
+                {{#if currentUser.profile.approved}}
+                  {{> yield}}
                 {{else}}
-                  {{#contentFor "headerTitle"}}
-                  <h1 class="title">ប្រព័ន្ធគ្រប់គ្រងភោជនីយដ្ឋាន</h1>
-                  {{/contentFor}}
-                    {{> atForm}}
+                {{#ionView}}
+                  {{#ionContent}}
+                  <div class="col" align="center"><h3>សំុសិទ្ធពី Admin របស់អ្នកដើម្បីចូលប្រើប្រាស់</h3></div>
+                  {{/ionContent}}
+                {{/ionView}}
                 {{/if}}
-                <!-- {{/ionNavView}} -->
-
-            {{/ionSideMenuContent}}
-
-        {{/ionSideMenuContainer}}
-
+              {{else}}
+                {{#contentFor "headerTitle"}}
+                <h1 class="title">ប្រព័ន្ធគ្រប់គ្រងភោជនីយដ្ឋាន</h1>
+                {{/contentFor}}
+                  {{> atForm}}
+              {{/if}}
+              <!-- {{/ionNavView}} -->
     {{/ionBody}}
 </template>
 
