@@ -5,7 +5,10 @@ Restaurant.Schema.SaleReport = new SimpleSchema({
     customerId: {
         type: String,
         label: "អតិថិជន",
-        optional: true
+        optional: true,
+        autoform:{
+          firstOption: 'All'
+        }
     },
     fromDate: {
         type: String,
@@ -21,11 +24,17 @@ Restaurant.Schema.SaleReport = new SimpleSchema({
     status: {
         type: String,
         label: "ប្រភេទវិក័យប័ត្រ",
-        optional: true
+        optional: true,
+        autoform:{
+          firstOption: 'All'
+        }
     },
     staffId:{
         type:String,
         label:"បុគ្គលិក",
-        optional: true
+        optional: true,
+        autoform:{
+          firstOption: 'All'
+        }
     }
 });
