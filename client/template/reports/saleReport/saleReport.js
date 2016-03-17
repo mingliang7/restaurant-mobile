@@ -9,13 +9,16 @@ Template.restaurantSaleReport.helpers({
   status() {
     return [{
       value: "active",
-      label: "active"
+      label: "កំពុងលក់"
     }, {
       value: "closed",
-      label: "closed"
+      label: "ទូរទាត់ហើយ"
+    }, {
+      value: "partial",
+      label: "ជំពាក់"
     }, {
       value: "canceled",
-      label: "canceled"
+      label: "បោះបង់"
     }]
   },
   users() {

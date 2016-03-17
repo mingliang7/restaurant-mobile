@@ -17,6 +17,7 @@ Meteor.methods({
         }
 
         params.saleDate = {$lte: date};
+        params.status = 'partial'
         data.title = Restaurant.Collection.Company.findOne();
         var header = {};
         header.date = arg.date;
