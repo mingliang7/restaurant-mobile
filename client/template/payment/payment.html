@@ -13,6 +13,19 @@
   {{#ionView}}
     {{#ionContent}}
       {{#ionList}}
+      <div class="row">
+        <div class="col col-10">
+          <label class="item-input-wrapper">
+            <label class="toggle">
+              <input type="checkbox" class="sale-status" checked="true">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
+            <span class="sale-status-label">កំពុងលក់</span>
+          </label>
+        </div>
+      </div>
         {{#if saleIsNotZero}}
           {{#each activeSales}}
             {{#ionItem  href=goToActivePaymentInvoice buttonRight=true avatar=true class="item-icon-right"}}

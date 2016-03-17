@@ -1,7 +1,5 @@
 Restaurant.Collection.Payments.before.insert((userId, doc) => {
   let prefix = `${doc.saleId}`;
-  console.log(doc.dueAmount)
-  console.log(doc.paidAmount)
   let currentId = doc._id;
   doc._id = idGenerator.genWithPrefix(Restaurant.Collection.Payments, prefix, 2);
   Sale.State.set(currentId, doc._id);
@@ -9,7 +7,7 @@ Restaurant.Collection.Payments.before.insert((userId, doc) => {
     doc.status = 'closed';
     doc.truelyPaid = doc.dueAmount
   } else {
-    doc.status = 'active';
+    doc.status = 'partial';
     doc.truelyPaid = doc.paidAmount;
   }
 });
@@ -24,6 +22,9 @@ Restaurant.Collection.Payments.after.insert((userId, doc) => {
     }
     updateSale(doc);
   });
+  Meteor.defer(()=>{
+    Meteor.call('setPrintToFalse', doc.saleId);
+  })
 })
 Restaurant.Collection.Payments.after.remove((userId, doc) => {
   Meteor.defer(() => {
@@ -36,6 +37,7 @@ var removePaymentFromSale = function(doc) {
   var sale = Restaurant.Collection.Sales.findOne(doc.saleId);
   var paidAmount = sale.paidAmount - doc.truelyPaid;
   var balanceAmount = sale.balanceAmount + doc.truelyPaid;
+  var status = '';
   Restaurant.Collection.Sales.direct.update({
     _id: sale._id
   }, {
@@ -82,7 +84,7 @@ var updateSale = function(doc, update, oldDoc) {
   } else {
     selector = {
       $set: {
-        status: 'active',
+        status: 'partial',
         statusDate: sale.saleDate,
         paidAmount: paidAmount,
         balanceAmount: balanceAmount
