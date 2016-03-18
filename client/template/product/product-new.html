@@ -6,20 +6,21 @@
     <h1 class="title">បង្កើតទំនិញ</h1>
   {{/contentFor}}
   {{#ionContent}}
-  {{#ionView}}
         {{#autoForm collection="Restaurant.Collection.Products" id="productNew" type="insert" label-type="stacked"}}
             <div>
                 {{> afQuickField name='name' }}
                 {{> afQuickField name='enName'}}
                 <div class="row">
                   <div class="col col-25">
-                  {{> afQuickField name='productType' label-type="floating"}}
+                    {{> afQuickField name='unitId'}}
                   </div>
                   <div class="col col-25">
-                    {{> afQuickField name='stockType'}}
+                    {{> afQuickField name='price'}}
+                  </div>
+                  <div class="col col-25">
+                    {{> afQuickField name='categoryId'}}
                   </div>
                 </div>
-                {{#if isNotStockValue}}
                 <div class="item item-divider">
                   គ្រឿងផ្សំ
                 </div>
@@ -52,18 +53,7 @@
                 <div class="item item-divider">
                 </div>
                 </div>
-                {{/if}}
-                <div class="row">
-                  <div class="col col-25">
-                    {{> afQuickField name='unitId'}}
-                  </div>
-                  <div class="col col-25">
-                    {{> afQuickField name='price'}}
-                  </div>
-                  <div class="col col-25">
-                    {{> afQuickField name='categoryId'}}
-                  </div>
-                </div>
+
                 {{> afQuickField name='status' type="hidden" value="enable"}}
                 {{> afQuickField name='description'}}
                 {{> afQuickField name="picture"}}
@@ -71,7 +61,6 @@
             <button type="submit" class="button button-positive save">រក្សាទុក</button>
 
         {{/autoForm}}
-        {{/ionView}}
         {{/ionContent}}
 </template>
 

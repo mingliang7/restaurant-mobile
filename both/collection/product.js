@@ -37,33 +37,6 @@ Restaurant.Schema.Products = new SimpleSchema({
     type: String,
     label: "ឈ្មោះអង់គ្លេស"
   },
-  productType: {
-    type: String,
-    label: "ប្រភេទទំនិញ",
-    autoform: {
-      type: 'select',
-      options() {
-        return Restaurant.List.productType()
-      }
-    }
-  },
-  stockType: {
-    type: String,
-    label: "ប្រភេទស្តុក",
-    autoform: {
-      type: 'select',
-      options() {
-        let productType = AutoForm.getFieldValue('productType');
-        if (productType && productType == 'material') {
-          return [{
-            label: 'Stock',
-            value: 'Stock'
-          }]
-        }
-        return Restaurant.List.stockType()
-      }
-    }
-  },
   ingradient: {
     type: [Object],
     label: 'គ្រឿងផ្សំ',
