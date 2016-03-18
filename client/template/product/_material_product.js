@@ -4,7 +4,7 @@ Deps.autorun(function() {
   }
 });
 
-Template.materialProduct.rendered = function(){
+Template.materialProduct.rendered = function() {
   Session.set('limit', 10)
 }
 Template.materialProduct.events({
@@ -18,24 +18,9 @@ Template.materialProduct.events({
   'click a': function(event, template) {
     IonModal.close();
   },
-  'click [data-action="confirm"]' (event, template) {
-    let name = this.name;
-    IonPopup.confirm({
-      title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
-      template: `លុប ${name} ?`,
-      onOk: () => {
-        Meteor.call('removeProduct', this._id, function(err, result) {
-          if (err) {
-            Bert.alert(`Can't Removed ${name}`, 'danger', 'growl-bottom-right', 'fa-remove')
-          } else {
-            Bert.alert(`លុប ${name}​ បានជោគជ័យ !`, 'success', 'growl-bottom-right', 'fa-check')
-          }
-        });
-      },
-      onCancel: function() {
-        Bert.alert('មិនយល់ព្រមក្នុងការលុប !', 'info', 'growl-bottom-right', 'fa-info')
-      }
-    });
+  'click .add-item' (event, template) {
+    $('.ingradientName').val(`${this.name}(${this._unit.name})`);
+    $('.ingradientId').val(this._id);
   }
 });
 

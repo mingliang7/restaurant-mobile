@@ -23,30 +23,14 @@
 </template>
 
 <template name="_materialItem">
-      {{#ionItem buttonRight=true avatar=true }}
+      <a href="#" class="cursor-p item add-item">
+
         <img src="{{url}}">
-        <span class="cursor-p" data-ion-modal="editProduct" data-id="{{_id}}">
-          {{_category.name}}
+        <span>
+        <b>{{name}}({{enName}})</b> |  តម្លៃៈ <b>{{price}}</b>
         </span>
-        <p>
-          <b>{{name}}({{enName}})</b>
-        </p>
-        <p>
-          តម្លៃៈ <b>{{price}}</b>
-        </p>
         <p>
           គិតជាៈ <b>{{_unit.name}}</b>
         </p>
-        <p>
-          Tags:
-          {{#if tags}}
-            <b>{{tags}}</b>
-          {{else}}
-            No tags
-          {{/if}}
-        </p>
-        <button data-action="confirm" class=" button button-clear">
-          {{> ionIcon icon="close-circled"}}</button>
-
-      {{/ionItem}}
+      </a>
 </template>

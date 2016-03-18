@@ -75,13 +75,11 @@ Restaurant.Schema.Products = new SimpleSchema({
     }
   },
   'ingradient.$.productId': {
-    type: String,
-    label: 'ឈ្មោះ'
+    type: String
   },
-  'ingradient.$.amount': {
+  'ingradient.$.qty': {
     type: Number,
-    decimal: true,
-    label: 'ចំនួន'
+    decimal: true
   },
   price: {
     type: Number,

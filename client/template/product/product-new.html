@@ -1,37 +1,46 @@
 <template name="productNew">
-    {{#ionModal customTemplate=true}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.product" text="ទំនិញ"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">បង្កើតទំនិញ</h1>
+  {{/contentFor}}
+  {{#ionContent}}
+  {{#ionView}}
         {{#autoForm collection="Restaurant.Collection.Products" id="productNew" type="insert" label-type="stacked"}}
-            <div class="bar bar-header bar-stable">
-                <button data-dismiss="modal" type="button" class="button button-clear">បោះបង់</button>
-                <h2 class="title">បង្កើតទំនិញ</h2>
-                <button type="submit" class="button button-positive button-clear">រក្សាទុក</button>
-            </div>
-            <div class="content has-header overflow-scroll">
+            <div>
                 {{> afQuickField name='name' }}
                 {{> afQuickField name='enName'}}
-                {{> afQuickField name='productType'}}
-                {{> afQuickField name='stockType'}}
+                <div class="row">
+                  <div class="col col-25">
+                  {{> afQuickField name='productType' label-type="floating"}}
+                  </div>
+                  <div class="col col-25">
+                    {{> afQuickField name='stockType'}}
+                  </div>
+                </div>
                 {{#if isNotStockValue}}
                 <div class="item item-divider">
                   គ្រឿងផ្សំ
                 </div>
                 <div class="card autoform-array-item">
                   <div class="row">
-                    <div class="col col-50">
+                    <div class="col col-25">
                       <label class="item item-input">
                         <span class="input-label">ឈ្មោះ</span>
-                        <input type="text" class="ingradientName">
+                        <input type="text" class="ingradientName" style="border: 1px solid #ddd;">
+                        <input type="hidden" class="ingradientId">
                       </label>
                     </div>
-                  <div class="col col-33">
+                  <div class="col col-25">
                     <label class="item item-input">
                       <span class="input-label">ចំនួន</span>
-                      <input type="text" class="amount">
+                      <input type="text" class="qty" style="border: 1px solid #ddd;">
                     </label>
                   </div>
                   <div class="col col-10">
-                    <div class="item item-divider">
-                      <button type="button" class="button button-clear button-small pull-right add-item">
+                    <div class="item">
+                      <button type="button" class="button button-balanced button-small pull-right add-ingradient">
                         Add <span class="icon ion-plus"></span>
                       </button>
                     </div>
@@ -44,34 +53,46 @@
                 </div>
                 </div>
                 {{/if}}
-                {{> afQuickField name='unitId'}}
-                {{> afQuickField name='price'}}
-                {{> afQuickField name='categoryId'}}
+                <div class="row">
+                  <div class="col col-25">
+                    {{> afQuickField name='unitId'}}
+                  </div>
+                  <div class="col col-25">
+                    {{> afQuickField name='price'}}
+                  </div>
+                  <div class="col col-25">
+                    {{> afQuickField name='categoryId'}}
+                  </div>
+                </div>
                 {{> afQuickField name='status' type="hidden" value="enable"}}
                 {{> afQuickField name='description'}}
                 {{> afQuickField name="picture"}}
             </div>
+            <button type="submit" class="button button-positive save">រក្សាទុក</button>
+
         {{/autoForm}}
-    {{/ionModal}}
+        {{/ionView}}
+        {{/ionContent}}
 </template>
 
 
 
 <template name="_tmpItem">
   <div class="row">
-    <div class="col col-50">
+    <div class="col col-25">
       <label class="item item-input">
-        <input type="text" class="ingradientName" readonly="true" value="{{name}}">
+        <input type="text" class="tmpName" readonly="true" value="{{name}}">
       </label>
     </div>
-  <div class="col col-33">
-    <label class="item item-input">
-      <input type="text" class="amount" value="{{amount}}">
-    </label>
-  </div>
+    <div class="col col-25">
+      <label class="item item-input">
+        <input type="text" class="tmpQty"  value="{{qty}}" style="border: 1px solid #ddd;">
+      </label>
+    </div>
+
   <div class="col col-10">
-    <div class="item item-divider">
-      <button type="button" class="button button-clear button-small pull-right add-item">
+    <div class="item">
+      <button type="button" class="button button-assertive button-small pull-right remove-ingradient-item">
         Remove <span class="icon ion-minus"></span>
       </button>
     </div>
