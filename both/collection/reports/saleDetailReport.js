@@ -5,23 +5,17 @@ Restaurant.Schema.SaleDetailReport = new SimpleSchema({
     categoryId: {
         type: String,
         label: "ផ្នែក",
-      /*  autoform: {
-            type: "select2",
-            options: function () {
-                return Restaurant.List.category("All");
-            }
-        },*/
+        autoform: {
+          firstOption: 'All'
+        },
         optional:true
     },
     customerId:{
         type:String,
         label:"អតិថិជន",
-     /*   autoform: {
-            type: "select2",
-            options:function(){
-                return Restaurant.List.customer();
-            }
-        },*/
+        autoform: {
+          firstOption: 'All'
+        },
         optional:true
 
     },
@@ -36,14 +30,11 @@ Restaurant.Schema.SaleDetailReport = new SimpleSchema({
         optional:true
     },
     staffId:{
-        type:Date,
-        label:"បុគ្កលិក",
-        /*autoform: {
-            type: "select2",
-            options:function(){
-                return Restaurant.List.staff();
-            }
-        },*/
-        optional:true
+      type:Date,
+      label:"បុគ្កលិក",
+      autoform: {
+        firstOption: 'All'
+      },
+      optional:true
     }
 });

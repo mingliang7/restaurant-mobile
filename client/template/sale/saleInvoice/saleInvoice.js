@@ -131,6 +131,7 @@ Template.saleDetail.events({
         saleDate: currentDate,
         oldSaleId: this.saleId,
         defaultQty: this.quantity,
+        discount: this.discount == undefined ? 0 : this.discount,
         numberOfCustomer: numberOfCustomer
 
       }

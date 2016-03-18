@@ -167,10 +167,11 @@ Meteor.publish("existSales", function() {
 });
 
 //find active sale
-Meteor.publish("activeSales", (limit) => {
+Meteor.publish("activeSales", (saleStatus, limit) => {
   let amount = limit || 10;
+  let status = saleStatus || 'active';
   let sales = Restaurant.Collection.Sales.find({
-    status: 'active'
+    status: status
   }, {
     limit: amount
   });

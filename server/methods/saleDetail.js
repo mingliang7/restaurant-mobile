@@ -75,7 +75,8 @@ Meteor.methods({
           _id: idGenerator.genWithPrefix(Restaurant.Collection.SaleDetails, saleId, 2),
           price: saleDetail.price,
           quantity: obj[k].qtyChanged,
-          amount: obj[k].qtyChanged * saleDetail.price,
+          discount: obj[k].discount,
+          amount: (obj[k].qtyChanged * saleDetail.price) * (1 - obj[k].discount/100),
           productId: saleDetail.productId,
           saleId: saleId,
           transferOrSplit: true
@@ -86,7 +87,8 @@ Meteor.methods({
           Restaurant.Collection.SaleDetails.update(k, {
             $set: {
               quantity: remainQty,
-              amount: remainQty * saleDetail.price
+              discount: saleDetail.discount,
+              amount: (remainQty * saleDetail.price) * (1 - saleDetail.discount/100)
             }
           })
         });
@@ -129,12 +131,14 @@ Meteor.methods({
     for (let k in obj) {
       if (obj[k].qtyChanged) {
         let saleDetail = Restaurant.Collection.SaleDetails.findOne(k);
+        let amount = obj[k].qtyChanged * saleDetail.price;
         let newSaleDetail = {
           _id: idGenerator.genWithPrefix(Restaurant.Collection.SaleDetails, transferSaleId, 2),
           price: saleDetail.price,
           quantity: obj[k].qtyChanged,
-          amount: obj[k].qtyChanged * saleDetail.price,
+          amount: (amount) * (1 - (obj[k].discount/100)),
           productId: saleDetail.productId,
+          discount: obj[k].discount,
           saleId: transferSaleId,
           transferOrSplit: true
         }
@@ -144,7 +148,7 @@ Meteor.methods({
           Restaurant.Collection.SaleDetails.update(k, {
             $set: {
               quantity: remainQty,
-              amount: remainQty * saleDetail.price
+              amount: (remainQty * saleDetail.price) * (1 - saleDetail.discount/100)
             }
           })
         });

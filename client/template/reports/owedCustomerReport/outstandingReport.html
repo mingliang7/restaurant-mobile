@@ -57,31 +57,55 @@
 
                     <!--Content-->
                     <table class="report-content">
-                        <thead class="content-header">
-                        <tr>
-                            <th>ល.រ</th>
-                            <th>លេខវិក័យប័ត្រ</th>
-                            <th>កាលបរិច្ឆេទ</th>
-                            <th>អតិថិជន</th>
-                            <th>ប្រាក់សរុប</th>
-                            <th>ប្រាក់បានបង់</th>
-                            <th>ប្រាក់ជំពាក់</th>
-                        </tr>
-                        </thead>
+                      <thead class="content-header">
+                 <tr>
+                     <th>លេខ</th>
+                     <th>វិក័យប័ត្រលេខ</th>
+                     <th>អតិថិជន</th>
+                     <th>លេខទូរស័ព្ទ</th>
+                     <th>លក់ថ្ងៃទី</th>
+                     <th>ប្រាក់ត្រូវបង់</th>
+                     <th>ប្រាក់បានបង់</th>
+                     <th>ប្រាក់នៅសល់</th>
+                 </tr>
+                 </thead>
 
-                        <tbody class="content-body">
-                        {{#each content}}
-                            <tr>
-                                <td align="center">{{order}}</td>
-                                <td>{{_id}}</td>
-                                <td>{{saleDate}}</td>
-                                <td>{{_customer.name}}</td>
-                                <td align="right">{{total}}</td>
-                                <td align="right">{{paidAmount}}</td>
-                                <td align="right">{{balanceAmount}}</td>
-                            </tr>
-                        {{/each}}
-                        </tbody>
+                 <tbody class="content-body">
+                 {{#each content}}
+                     <tr>
+                         <td>{{index}}</td>
+                         <td>{{_id}}</td>
+                         <td>{{_customer.name}}</td>
+                         <td>{{_customer.telephone}}</td>
+                         <td>{{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}</td>
+                         <td align='right'>{{numFormat _payment.dueAmount '0,0'}}</td>
+                         <td align='right'>{{numFormat _payment.paidAmount '0,0'}}</td>
+                         <td align='right'>{{numFormat _payment.balanceAmount '0,0'}}</td>
+                     </tr>
+                 {{/each}}
+                 {{#with footer}}
+                     <tr align='right'>
+                       <td colspan="5">
+                       សរុប (៛):
+                       </td>
+                       <td align='right'>
+                            {{numFormat dueAmount '0,0'}}
+                       </td>
+                       <td align='right'>{{numFormat paidAmount '0,0'}}</td>
+                       <td align='right'>{{numFormat balanceAmount '0,0'}}</td>
+                     </tr>
+                     <tr align='right'>
+                       <td colspan="5">
+                       សរុប ($):
+                       </td>
+                       <td align='right'>
+                            {{numFormat dueAmountInUSD '0,0.00'}}
+                       </td>
+                       <td align='right'>{{numFormat paidAmountInUSD '0,0.00'}}</td>
+                       <td align='right'>{{numFormat balanceAmountInUSD '0,0.00'}}</td>
+                     </tr>
+                 {{/with}}
+                 </tbody>
                     </table>
                 {{/with}}
         {{else}}
@@ -89,6 +113,3 @@
         {{/if}}
 
 </template>
-
-
-

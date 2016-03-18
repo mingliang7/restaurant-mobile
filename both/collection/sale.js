@@ -93,6 +93,10 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: Date,
     label: "Sale Date"
   },
+  statusDate: {
+    type: Date,
+    optional: true
+  },
   discount: {
     type: Number,
     label: "Discount",

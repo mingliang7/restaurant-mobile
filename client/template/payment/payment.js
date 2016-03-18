@@ -1,11 +1,15 @@
 Tracker.autorun(function() {
   if (Session.get('activeSaleLimit')) {
-    Meteor.subscribe("activeSales", Session.get('activeSaleLimit'));
+    Meteor.subscribe("activeSales", Session.get('saleStatus'), Session.get('activeSaleLimit'));
+  }
+  if(Session.get('saleStatus') == 'partial'){
+    Meteor.subscribe("activeSales", Session.get('saleStatus'), 100);
   }
 });
 
 Template.restaurantActivePayment.created = function() {
   Session.set('activeSaleLimit', 5);
+  Session.set('saleStatus', 'active')
   Meteor.subscribe("activeSalesCount");
   this.autorun(() => {})
 }
@@ -32,12 +36,21 @@ Template.restaurantActivePayment.events({
   'click .loadMore' () {
     let limit = Session.get('activeSaleLimit') + 5;
     Session.set('activeSaleLimit', limit);
+  },
+  'click .sale-status'(e){
+    if($(e.currentTarget).prop('checked')){
+      $('.sale-status-label').text('កំពុងលក់')
+      Session.set('saleStatus', 'active');
+    }else{
+      $('.sale-status-label').text('ជំពាក់')
+      Session.set('saleStatus', 'partial');
+    }
   }
 });
 Template.restaurantActivePayment.helpers({
   activeSales() {
     return Restaurant.Collection.Sales.find({
-      status: 'active'
+      status: Session.get('saleStatus')
     }, {
       sort: {
         _id: 1
@@ -46,7 +59,7 @@ Template.restaurantActivePayment.helpers({
   },
   saleIsNotZero(){
     let sale =  Restaurant.Collection.Sales.find({
-      status: 'active'
+      status: Session.get('saleStatus')
     }, {
       sort: {
         _id: 1
