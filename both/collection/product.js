@@ -125,7 +125,7 @@ Images.allow({
 //search product
 
 
-Restaurant.Collection.Products.search = function(query, limit, productType) {
+Restaurant.Collection.Products.search = function(query, limit) {
   let limitAmount = limit || 10
   if (!query) {
     return;
@@ -146,8 +146,7 @@ Restaurant.Collection.Products.search = function(query, limit, productType) {
         $regex: reg
       }
 
-    }],
-    productType: {$in: productType}
+    }]
   }, {
     sort: {
       name: 1

@@ -12,11 +12,16 @@ Template.productNew.events({
       if (name == '') {
         alertify.error('សូមបញ្ចូលឈ្មោះវត្ថុធាតុដើម');
       } else {
-        TmpItem.insert({
-          _id: $('.ingradientId').val(),
-          name: name,
-          qty: parseFloat(qty == '' ? 0 : qty)
-        });
+        let tmpItem = TmpItem.findOne($('.ingradientId').val());
+        if(!tmpItem){
+          TmpItem.insert({
+            _id: $('.ingradientId').val(),
+            name: name,
+            qty: parseFloat(qty == '' ? 0 : qty)
+          });
+        }else{
+          alertify.error('វត្ថុធាតុដើមមានរួចហើយ')
+        }
         $('.ingradientName').val('');
         $('.ingradientId').val('');
         $('.qty').val('');
