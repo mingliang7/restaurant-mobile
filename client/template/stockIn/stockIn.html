@@ -1,0 +1,28 @@
+<template name="restaurantStockIn">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">ស្តុកទំនិញ</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-modal="newStockIn">{{> ionIcon icon="ios-plus-empty"}}</button>
+  {{/contentFor}}
+  {{#ionContent}}
+    <div class="card row">
+      <div class="col col-20">ឈ្មោះវត្ថុធាតុដើម</div>
+      <div class="col col-10">តម្លៃ</div>
+      <div class="col col-20">ចំនួន</div>
+      <div class="col col-20">ប្រភេទ</div>
+      <div class="col col-20">បរិយាយ</div>
+      <div class="col col-10">ជម្រើស</div>
+    </div>
+  {{/ionContent}}
+  {{> _data}}
+</template>
+
+
+<template name="_materialsWithSkip">
+
+</template>

@@ -441,15 +441,25 @@ Router.map(function() {
       Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
       this.next();
     }
-  })
+  });
   this.route('restaurant.materials', {
     path: '/restaurant/materials',
     onBeforeAction(pause) {
       if (!Meteor.userId()) {
-        Router.go('/')
+        Router.go('/');
       }
       Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
       this.next();
     }
-  })
+  });
+  this.route('restaurant.stockIn', {
+    path: '/restaurant/stockIn',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/');
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      this.next();
+    }
+  });
 });

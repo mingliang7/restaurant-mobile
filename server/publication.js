@@ -311,3 +311,14 @@ Meteor.publish("materials", function(limit) {
     limit: limitAmount
   })
 });
+
+
+//publish stockIn with status active
+
+Meteor.publish("stockIn", function(selector){
+  let stockIns = Restaurant.Collection.StockIn.find(selector);
+  if(stockIns){
+    return stockIns;
+  }
+  return this.ready();
+});
