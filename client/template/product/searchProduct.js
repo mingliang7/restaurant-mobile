@@ -41,7 +41,7 @@ Template.productSearch.events({
 
 Template.productSearch.helpers({
   products: function() {
-    return Restaurant.Collection.Products.search(Session.get('searchQuery'), Session.get('limit'));
+    return Restaurant.Collection.Products.search(Session.get('searchQuery'), Session.get('limit'), ['sale', 'material']);
   },
   searchQuery: function() {
     return Session.get('searchQuery');

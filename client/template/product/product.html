@@ -8,7 +8,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-ion-modal="productNew">{{> ionIcon icon="ios-plus-empty"}}</button>
+  <a href="/restaurant/product/new" class="button button-clear">{{> ionIcon icon="ios-plus-empty"}}</a>
   {{/contentFor}}
 
   {{#ionView}}
@@ -18,16 +18,10 @@
           {{#ionItem buttonRight=true avatar=true }}
             <img src="{{url}}">
             <span class="cursor-p" data-ion-modal="editProduct" data-id="{{_id}}">
-              {{_category.name}}
+              <b>{{name}}</b> | ផ្នែកៈ {{_category.name}}
             </span>
             <p>
-              <b>{{name}}</b>
-            </p>
-            <p>
-              តម្លៃៈ <b>{{price}}</b>
-            </p>
-            <p>
-              គិតជាៈ <b>{{_unit.name}}</b>
+              តម្លៃៈ <b>{{price}}</b> | ប្រភេទទំនិញ: {{productType}} |   គិតជាៈ <b>{{_unit.name}}</b>
             </p>
             <p>
               Tags:

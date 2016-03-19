@@ -39,11 +39,14 @@ Template.product.events({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
       template: `លុប ${name} ?`,
       onOk: () => {
-        Meteor.call('removeProduct', this._id, function(err, result) {
-          if (err) {
-            Bert.alert(`Can't Removed ${name}`,'danger','growl-bottom-right','fa-remove')
-          } else {
-            Bert.alert(`លុប ${name}​ បានជោគជ័យ !`,'success','growl-bottom-right','fa-check')
+        Meteor.call('productIsEmpty', this._id, (err, result)=>{
+          if(err){
+            console.log(err);
+          }
+          if(result){
+            removeProduct(name, this._id);
+          }else{
+            alertify.warning(`មិនអាចលុបបានទេ ${name} ត្រូវបានកំពុងយកទៅប្រើប្រាស់`);
           }
         });
       },
@@ -53,3 +56,13 @@ Template.product.events({
     });
   }
 });
+
+let removeProduct = (name, id)=>{
+  Meteor.call('removeProduct', id, function(err, result) {
+    if (err) {
+      Bert.alert(`Can't Removed ${name}`,'danger','growl-bottom-right','fa-remove');
+    } else {
+      Bert.alert(`លុប ${name}​ បានជោគជ័យ !`,'success','growl-bottom-right','fa-check');
+    }
+  });
+};

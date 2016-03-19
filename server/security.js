@@ -12,5 +12,6 @@ Security.permit(['insert', 'update', 'remove']).collections([
     Images,
     Restaurant.Collection.Company,
     Restaurant.Collection.Payments,
-    Restaurant.Collection.Vipcards
+    Restaurant.Collection.Vipcards,
+    Restaurant.Collection.Materials
 ]).apply();

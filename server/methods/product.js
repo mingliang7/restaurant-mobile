@@ -35,5 +35,12 @@ Meteor.methods({
       count: products.count(),
       products: products.fetch()
     };
+  },
+  productIsEmpty(id){
+    let saleDetail= Restaurant.Collection.SaleDetails.findOne({productId: id});
+    if(!saleDetail){
+      return true;
+    }
+      return false;
   }
 });

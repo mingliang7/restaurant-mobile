@@ -37,10 +37,22 @@ Restaurant.Schema.Products = new SimpleSchema({
     type: String,
     label: "ឈ្មោះអង់គ្លេស"
   },
-  barcode: {
-    type: String,
-    label: "Barcode",
-    optional: true
+  ingradient: {
+    type: [Object],
+    label: 'គ្រឿងផ្សំ',
+    optional: true,
+    custom() {
+      if (this.field('stockType').value == 'NonStock' && !this.isSet && (!this.operator || (this.value === null || this.value === ""))) {
+        return "required";
+      }
+    }
+  },
+  'ingradient.$.productId': {
+    type: String
+  },
+  'ingradient.$.qty': {
+    type: Number,
+    decimal: true
   },
   price: {
     type: Number,

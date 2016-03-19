@@ -322,13 +322,22 @@ Restaurant.List = {
     }
     return list;
   },
-  productType: function() {
+  stockType: function() {
     return [{
       label: "Stock",
       value: "Stock"
     }, {
       label: "Non Stock",
       value: "NonStock"
+    }];
+  },
+  productType: function() {
+    return [{
+      label: "លក់",
+      value: "sale"
+    }, {
+      label: "វត្ថុធាតុដើម",
+      value: "material"
     }];
   },
   chairAmount() {
@@ -352,5 +361,6 @@ Restaurant.List = {
       label: 'អ្នកលក់',
       value: 'seller'
     }]
-  }
+  },
+
 }

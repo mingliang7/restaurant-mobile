@@ -139,6 +139,17 @@ Router.map(function() {
       this.next();
     }
   });
+  this.route('product.new', {
+    path: '/restaurant/product/new',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/')
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
+      this.next();
+    }
+  });
 
   this.route('restaurant.staff', {
     path: '/restaurant/staffs',
@@ -423,6 +434,16 @@ Router.map(function() {
   })
   this.route('restaurant.edit.vipcard', {
     path: '/restaurant/vipcards/:id/edit',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/')
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      this.next();
+    }
+  })
+  this.route('restaurant.materials', {
+    path: '/restaurant/materials',
     onBeforeAction(pause) {
       if (!Meteor.userId()) {
         Router.go('/')
