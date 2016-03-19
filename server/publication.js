@@ -285,6 +285,29 @@ Meteor.publish("vipcards", function(obj) {
   return this.ready();
 });
 //publish latest exchangeRates
-Meteor.publish("latestExchange", function(){
-  return Restaurant.Collection.ExchangeRates.find({}, {sort: {_id: -1}, limit: 1})
+Meteor.publish("latestExchange", function() {
+  return Restaurant.Collection.ExchangeRates.find({}, {
+    sort: {
+      _id: -1
+    },
+    limit: 1
+  })
+});
+
+
+//material search
+Meteor.publish("materialSearch", function(query, limit) {
+  return Restaurant.Collection.Materials.search(query, limit);
+});
+
+//publish material with 100 records
+
+Meteor.publish("materials", function(limit) {
+  let limitAmount = limit || 100;
+  return Restaurant.Collection.Materials.find({}, {
+    sort: {
+      name: 1
+    },
+    limit: limitAmount
+  })
 });

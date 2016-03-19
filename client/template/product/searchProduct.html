@@ -26,16 +26,10 @@
       {{#ionItem buttonRight=true avatar=true }}
         <img src="{{url}}">
         <span class="cursor-p" data-ion-modal="editProduct" data-id="{{_id}}">
-          {{_category.name}}
+          <b>{{name}}({{enName}})</b> | ផ្នែកៈ {{_category.name}}
         </span>
         <p>
-          <b>{{name}}({{enName}})</b>
-        </p>
-        <p>
-          តម្លៃៈ <b>{{price}}</b>
-        </p>
-        <p>
-          គិតជាៈ <b>{{_unit.name}}</b>
+          តម្លៃៈ <b>{{price}}</b>​ | គិតជាៈ <b>{{_unit.name}}</b>
         </p>
         <p>
           Tags:
