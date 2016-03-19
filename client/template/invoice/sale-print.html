@@ -64,33 +64,36 @@
                         </tr>
                     {{/each}}
                     <tr>
-                        <td colspan="4">
+                        <td colspan="5">
                             <hr style="border-top: 1px dashed #8c8b8b;
 	border-bottom: 1px dashed #fff;">
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2"></td>
+                        <td colspan="2" ></td>
                         <td>សរុបៈ</td>
-                        <td align="right">{{footer.subTotal}}{{sale._exchangeRate.symbol}}</td>
+                        <td colspan="2" align="right">{{footer.subTotal}}{{sale._exchangeRate.symbol}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"></td>
+                        <td colspan="2" ></td>
                         <td>បញ្ចុះតម្លៃៈ</td>
-                        <td align="right">{{footer.discount}}</td>
+                        <td align="right" colspan="2">{{footer.discount}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"></td>
+                        <td colspan="2" ></td>
                         <td>សរុបរួមៈ</td>
-                        <td align="right"><b>{{footer.total}}{{sale._exchangeRate.symbol}}</b></td>
+                        <td align="right" colspan="2"><b>{{footer.total}}{{sale._exchangeRate.symbol}}</b>
+                        = <b>{{#each footer.totalConverts}}
+                          {{total}}{{symbol}}
+                          {{/each}}</b></td>
                     </tr>
-                    {{#each footer.totalConverts}}
+                    <!-- {{#each footer.totalConverts}}
                         <tr>
                             <td colspan="2"></td>
                             <td></td>
                             <td align="right"><b>{{total}}{{symbol}}</b></td>
                         </tr>
-                    {{/each}}
+                    {{/each}} -->
                 </table>
                 <div>សូមអរគុណ!</div>
                 <div style="width: 253px;margin:0 auto;">

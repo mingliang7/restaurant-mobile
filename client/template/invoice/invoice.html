@@ -37,7 +37,8 @@
                         <td align="right" style="text-align: right;"><b>អតិថិជន :</b> {{sale._customer.name}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"><b>កាលបរិច្ឆេទ:</b> {{sale.saleDate}}</td>
+                        <td style="width: 120px"><b>កាលបរិច្ឆេទ:</b> {{sale.saleDate}}</td>
+                        <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់:</b></td>
 
                     </tr>
 
@@ -70,27 +71,30 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2"></td>
+                        <td colspan="2" ></td>
                         <td>សរុបៈ</td>
-                        <td align="right">{{footer.subTotal}} {{sale._exchangeRate.symbol}}</td>
+                        <td align="right" colspan="2">{{footer.subTotal}} {{sale._exchangeRate.symbol}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"></td>
+                        <td colspan="2" ></td>
                         <td>បញ្ចុះតម្លៃៈ</td>
-                        <td align="right">{{footer.discount}}%</td>
+                        <td align="right" colspan="2">{{footer.discount}}%</td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
                         <td>សរុបរួមៈ</td>
-                        <td align="right"><b>{{footer.total}}{{sale._exchangeRate.symbol}}</b></td>
+                        <td align="right" colspan="2"><b>{{footer.total}}{{sale._exchangeRate.symbol}}</b>
+                        = <b>{{#each footer.totalConverts}}
+                          {{total}}{{symbol}}
+                          {{/each}}</b></td>
                     </tr>
-                    {{#each footer.totalConverts}}
+                    /*{{#each footer.totalConverts}}
                         <tr>
                             <td colspan="2"></td>
                             <td></td>
                             <td align="right"><b>{{total}}{{symbol}}</b></td>
                         </tr>
-                    {{/each}}
+                    {{/each}}*/
                     <tr>
                         <td colspan="2"></td>
                         <td>បានបង់ៈ</td>
