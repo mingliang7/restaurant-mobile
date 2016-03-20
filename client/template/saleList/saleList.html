@@ -1,8 +1,7 @@
 <template name="restaurantSaleList">
       <div class="col col-33" >
-        <div class="row">
           {{#each categories}}
-            <div class="col col-20">
+            <div class="col col-20" style="display: inline-block;">
             <label class="item-input-wrapper">
               <label class="toggle">
                 <input type="checkbox" class="cursor-p category">
@@ -14,7 +13,6 @@
             </label>
             </div>
           {{/each}}
-        </div>
         <div class="list card">
         <label class="item-input-wrapper">
           <a href="#" data-ion-modal="productNew">
