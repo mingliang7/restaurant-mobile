@@ -38,7 +38,7 @@
                     </tr>
                     <tr>
                         <td colspan="2"><b>កាលបរិច្ឆេទ: </b> {{sale.saleDate}}</td>
-                        <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់:</b>{{sale.exchangeRate}}</td>
+                        <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់:</b>{{numFormat sale.exchangeRate '0,0'}}</td>
                     </tr>
 
                 </table>
@@ -57,7 +57,7 @@
                     {{#each content}}
                         <tr>
                             <td>{{order}}. {{_product.name}}</td>
-                            <td align="center">{{price}}</td>
+                            <td align="center">{{numFormat price '0,0'}}</td>
                             <td align="center">{{quantity}}</td>
                             <td align="center">{{discount}}</td>
                             <td align="right">{{amount}}</td>

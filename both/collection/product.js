@@ -113,29 +113,37 @@ Images.allow({
 //search product
 
 
-Restaurant.Collection.Products.search = function(query, limit) {
+Restaurant.Collection.Products.search = function(query, limit, filter) {
   let limitAmount = limit || 10
   if (!query) {
     return;
   }
   let regPattern = `${query}`
   let reg = new RegExp(regPattern, 'i') //match all case
-  return Restaurant.Collection.Products.find({
-    $or: [{
-      enName: {
-        $regex: reg
-      }
-    }, {
-      name: {
-        $regex: reg
-      }
-    }, {
-      barcode: {
-        $regex: reg
-      }
+  let selector = {}
+  selector.$or =[{
+        enName: {
+          $regex: reg
+        }
+      }, {
+        name: {
+          $regex: reg
+        }
+      }, {
+        barcode: {
+          $regex: reg
+        }
 
-    }]
-  }, {
+      }];
+      debugger
+  if(!_.isEmpty(filter)){
+    let category = [];
+    for (var k in filter){
+      category.push(filter[k]);
+    }
+    selector.categoryId = {$in: category};
+  }
+  return Restaurant.Collection.Products.find(selector, {
     sort: {
       name: 1
     },
