@@ -57,7 +57,7 @@
                     {{#each content}}
                         <tr>
                             <td>{{order}}. {{_product.name}}</td>
-                            <td align="center">{{price}}</td>
+                            <td align="center">{{numFormat price '0,0'}}</td>
                             <td align="center">{{quantity}}</td>
                             <td align="center">{{discount}}</td>
                             <td align="right">{{amount}}</td>

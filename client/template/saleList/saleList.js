@@ -1,12 +1,28 @@
 Deps.autorun(function() {
   if (Session.get('searchListQuery')) {
-    Meteor.subscribe('productsSearch', Session.get('searchListQuery'), Session.get('limit'));
+    Meteor.subscribe('productsSearch', Session.get('searchListQuery'), Session.get('limit'), Session.get('filter'));
   }
 });
-
+Template.restaurantSaleList.created = function() {
+  this.autorun(() => {
+    this.subscribe = Meteor.subscribe("categories");
+  });
+};
 Template.restaurantSaleList.rendered = function() {
-  Session.set('limit', 10)
-}
+  Session.set('limit', 10);
+  Session.set('filter', {});
+  try {
+    this.autorun(()=>{
+      if(!this.subscription.ready()){
+        IonLoading.show();
+      }else{
+        IonLoading.hide();
+      }
+    });
+  } catch (e) {
+
+  }
+};
 Template.restaurantSaleList.events({
   'keyup input.search': function(event, template) {
     Session.set('searchListQuery', event.target.value);
@@ -15,8 +31,8 @@ Template.restaurantSaleList.events({
   'click .order' (event) {
     let saleDetailObj = Session.get('saleDetailObj');
     if (!_.has(saleDetailObj, this._id)) {
-      this.quantity = 1
-      this.discount = 0
+      this.quantity = 1;
+      this.discount = 0;
       this.saleId = Router.current().params.invoiceId;
       this.amount = this.price * this.quantity;
       saleDetailObj[this._id] = this;
@@ -74,14 +90,14 @@ Template.restaurantSaleList.events({
       saleDetailObj[this._id].amount = checkDiscount(e);
     }
     if (currentValue == '' || currentValue == '0') {
-      $(e.currentTarget).val(currentQty)
+      $(e.currentTarget).val(currentQty);
       saleDetailObj[this._id].quantity = 1;
       saleDetailObj[this._id].amount = checkDiscount(e);
     }
-    Session.set('saleDetailObj', saleDetailObj)
+    Session.set('saleDetailObj', saleDetailObj);
   },
   'click .quantity' (e) {
-    $(e.currentTarget).select()
+    $(e.currentTarget).select();
   },
   "keypress .quantity" (evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -102,6 +118,15 @@ Template.restaurantSaleList.events({
 
     }
     Session.set('saleDetailObj', saleDetailObj)
+  },
+  'click .category'(e){
+    let categoryObj = Session.get('filter');
+    if($(e.currentTarget).prop('checked')){
+      categoryObj[this._id] = this._id;
+    }else{
+      delete categoryObj[this._id];
+    }
+    Session.set('filter', categoryObj);
   },
   'click .price' (e) {
     $(e.currentTarget).select()
@@ -133,7 +158,7 @@ Template.restaurantSaleList.events({
       }
     });
   },
-  'click .loadMoreProduct'(){
+  'click .loadMoreProduct' () {
     let limit = Session.get('limit') + 5;
     Session.set('limit', limit);
   }
@@ -141,7 +166,7 @@ Template.restaurantSaleList.events({
 
 Template.restaurantSaleList.helpers({
   products: function() {
-    return Restaurant.Collection.Products.search(Session.get('searchListQuery'), Session.get('limit'));
+    return Restaurant.Collection.Products.search(Session.get('searchListQuery'), Session.get('limit'), Session.get('filter'));
   },
   searchListQuery: function() {
     return Session.get('searchListQuery');
@@ -160,6 +185,9 @@ Template.restaurantSaleList.helpers({
       return true;
     }
     return false;
+  },
+  categories(){
+    return Restaurant.Collection.Categories.find({}, {sort:{name: 1}});
   }
 
 });
