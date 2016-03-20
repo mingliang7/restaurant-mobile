@@ -14,7 +14,16 @@
            {{> afQuickField name='tableLocation'}}
            {{> afQuickField name='tableId'}}
            {{> afQuickField name='saleDate' type="datetime-local"}}
-           {{> afQuickField name='customerId'}}
+           <div class="row">
+             <div class="col">
+               {{> afQuickField name='customerId'}}
+             </div>
+             <div class="col cursor-p"><a href="#" data-ion-modal="newCustomer">
+               <label>
+                 បន្ថែមអតិថិជនថ្មី{{> ionIcon icon="ios-plus-empty"}}
+               </label>
+             </a></div>
+           </div>
            {{> afQuickField name='numberOfCustomer' label="ចំនួនភ្ញៀវ"}}
            {{> afQuickField name='description'}}
          </div>
