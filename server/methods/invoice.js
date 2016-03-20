@@ -19,7 +19,6 @@ Meteor.methods({
         }
         let payment = Restaurant.Collection.Payments.findOne(paymentId);
         let sale = Restaurant.Collection.Sales.findOne(payment.saleId);
-        sale.exchangeRate=sale._exchangeRate.rates[0].rate;
         sale.saleDate = moment(sale.saleDate).format('DD-MM-YY HH:mm');
         let saleDetails = Restaurant.Collection.SaleDetails.find({
             saleId: sale._id
@@ -37,18 +36,13 @@ Meteor.methods({
             ex.total = numeral(totalConvert).format('0,0.00');
             totalConverts.push(ex);
         });
-        var paidAmountUs=parseFloat(payment.paidAmount)/parseFloat(sale.exchangeRate);
-        var balanceAmountUs=parseFloat(payment.balanceAmount)/parseFloat(sale.exchangeRate);
-
         data.footer = {
             subTotal: numeral(sale.subTotal).format('0,0'),
             discount: numeral(payment.discount).format('0,0'),
             total: numeral(payment.dueAmount).format('0,0'),
             paidAmount: numeral(payment.paidAmount).format('0,0'),
             balanceAmount: numeral(payment.balanceAmount).format('0,0'),
-            totalConverts: totalConverts,
-            paidAmountUs:numeral(paidAmountUs).format('0,0.00'),
-            balanceAmountUs:numeral(balanceAmountUs).format('0,0.00')
+            totalConverts: totalConverts
         };
         data.content = content;
         data.sale = sale;
@@ -69,7 +63,6 @@ Meteor.methods({
             address: company.khAddress
         };
         let sale = Restaurant.Collection.Sales.findOne(saleId);
-        sale.exchangeRate=sale._exchangeRate.rates[0].rate;
         sale.saleDate = moment(sale.saleDate).format('DD-MM-YY HH:mm');
         let saleDetails = Restaurant.Collection.SaleDetails.find({
             saleId: sale._id
