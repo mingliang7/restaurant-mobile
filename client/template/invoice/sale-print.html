@@ -28,17 +28,17 @@
                 <table border="1" width="100%">
 
                     <tr>
-                        <td style="width: 120px"><b># </b>: {{sale._id}}</td>
-                        <td align="right" ><b>បុគ្គលិក : </b> {{sale._staff.profile.username}}</td>
+                        <td style="width: 120px" colspan="2"><b># </b>: {{sale._id}}</td>
+                        <td align="right" style="text-align: right;"><b>បុគ្គលិក : </b> {{sale._staff.profile.username}}</td>
 
                     </tr>
                     <tr>
-                        <td style="width: 120px"><b>តុ : </b> {{sale._table.name}}</td>
-                        <td align="right" ><b>អតិថិជន : </b> {{sale._customer.name}}</td>
+                        <td style="width: 120px" colspan="2"><b>តុ : </b> {{sale._table.name}}</td>
+                        <td align="right" style="text-align: right;"><b>អតិថិជន : </b> {{sale._customer.name}}</td>
                     </tr>
                     <tr>
                         <td colspan="2"><b>កាលបរិច្ឆេទ: </b> {{sale.saleDate}}</td>
-
+                        <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់:</b>{{sale.exchangeRate}}</td>
                     </tr>
 
                 </table>
