@@ -38,7 +38,7 @@
                     </tr>
                     <tr>
                         <td style="width: 120px"><b>កាលបរិច្ឆេទ:</b> {{sale.saleDate}}</td>
-                        <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់:</b></td>
+                        <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់:</b>{{sale.exchangeRate}}</td>
 
                     </tr>
 
@@ -88,26 +88,35 @@
                           {{total}}{{symbol}}
                           {{/each}}</b></td>
                     </tr>
-                    /*{{#each footer.totalConverts}}
+                    <!--{{#each footer.totalConverts}}
                         <tr>
                             <td colspan="2"></td>
                             <td></td>
                             <td align="right"><b>{{total}}{{symbol}}</b></td>
                         </tr>
-                    {{/each}}*/
+                    {{/each}}
+                  -->
                     <tr>
                         <td colspan="2"></td>
                         <td>បានបង់ៈ</td>
-                        <td align="right"><b>{{footer.paidAmount}}{{sale._exchangeRate.symbol}}</b></td>
+                        <td align="right" colspan="2">
+                          <b>{{footer.paidAmount}}{{sale._exchangeRate.symbol}}</b>
+                          =<b>{{footer.paidAmountUs}}$</b>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
                         {{#if negativeNumber footer.balanceAmount}}
                           <td>លុយអាប់ៈ</td>
-                          <td align="right"><b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b></td>
+                          <td align="right" colspan="2">
+                            <b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b>
+                          =<b>{{footer.balanceAmountUs}}</b>
+                        </td>
                         {{else}}
                           <td>លុយជំពាក់ៈ</td>
-                          <td align="right"><b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b></td>
+                          <td align="right" colspan="2"><b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b>
+                          =<b>{{footer.balanceAmountUs}}$</b>
+                        </td>
                         {{/if}}
                     </tr>
 
