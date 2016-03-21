@@ -61,6 +61,7 @@
                             <th>ល.រ</th>
                             <th>បរិយាយ</th>
                             <th>បរិមាណ</th>
+                            <th>លម្អិត</th>
                             <th>សរុប</th>
                         </tr>
                         </thead>
@@ -71,13 +72,14 @@
                                 <td align="center">{{order}}</td>
                                 <td>{{productName}}</td>
                                 <td>{{quantity}}</td>
+                                <td>{{#each transaction}} {{quantity}} | {{discount}} <br>{{/each}}</td>
                                 <td align="right">{{total}}</td>
                             </tr>
                         {{/each}}
                         </tbody>
                         <tbody>
                         <tr class="content-body">
-                            <td colspan="3" style="text-align: right">សរុបរួម:</td>
+                            <td colspan="4" style="text-align: right">សរុបរួម:</td>
                             <td align="right">{{grandTotal}}</td>
                         </tr>
                         </tbody>
