@@ -1,6 +1,6 @@
 Template.newStockIn.events({
-  "click [name='productId']": function(event, template){
-    
+  "click [name='materialName']": function(event, template){
+    IonModal.open('_fetch_material');
   }
 });
 AutoForm.hooks({

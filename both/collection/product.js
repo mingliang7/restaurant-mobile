@@ -35,7 +35,8 @@ Restaurant.Schema.Products = new SimpleSchema({
   },
   enName: {
     type: String,
-    label: "ឈ្មោះអង់គ្លេស"
+    label: "ឈ្មោះអង់គ្លេស",
+    optional: true
   },
   ingradient: {
     type: [Object],

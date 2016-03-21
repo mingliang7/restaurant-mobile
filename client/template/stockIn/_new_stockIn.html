@@ -7,7 +7,11 @@
                 <button class="button button-positive button-clear">រក្សាទុក</button>
             </div>
             <div class="content has-header overflow-scroll">
-              {{> afQuickField name='productId'}}
+              <label class="item item-input">
+                <span class="input-label">ឈ្មោះវត្ថុធាតុដើម</span>
+                <input type="text" name="materialName">
+              </label>
+              {{> afQuickField name='materialId' readonly=true}}
               {{> afQuickField name='price'}}
               {{> afQuickField name='qty'}}
               {{> afQuickField name='type'}}

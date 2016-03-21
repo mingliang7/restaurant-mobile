@@ -324,11 +324,11 @@ Restaurant.List = {
   },
   stockType: function() {
     return [{
-      label: "Stock",
-      value: "Stock"
+      label: "Order",
+      value: "order"
     }, {
-      label: "Non Stock",
-      value: "NonStock"
+      label: "Adjustment",
+      value: "adjustment"
     }];
   },
   productType: function() {

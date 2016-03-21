@@ -1,6 +1,6 @@
 Restaurant.Collection.StockIn = new Mongo.Collection('restaurant_stockIn');
 Restaurant.Schema.StockIn = new SimpleSchema({
-  productId: {
+  materialId: {
     label: 'ឈ្មោះវត្ថុធាតុដើម',
     type: String
   },
@@ -16,7 +16,13 @@ Restaurant.Schema.StockIn = new SimpleSchema({
   },
   type: {
     label: 'ប្រភេទ',
-    type: String
+    type: String,
+    autoform:{
+      type: 'select',
+      options(){
+        return Restaurant.List.stockType();
+      }
+    }
   },
   description: {
     label: 'បរិយាយ',
@@ -30,6 +36,11 @@ Restaurant.Schema.StockIn = new SimpleSchema({
         return 'active';
       }
     }
+  },
+  _material: {
+    type: Object,
+    optional: true,
+    blackbox: true
   }
 });
 Restaurant.Collection.StockIn.attachSchema(Restaurant.Schema.StockIn);
