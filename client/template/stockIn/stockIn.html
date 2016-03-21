@@ -31,7 +31,12 @@
         <div class="col col-20" style="border: 1px solid #ddd;">{{numFormat qty '0,0'}} {{_material._unit.name}}</div>
         <div class="col col-20" style="border: 1px solid #ddd;"><span class="balanced">{{status}}</span></div>
         <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
-        <div class="col col-10" style="border: 1px solid #ddd;">ជម្រើស</div>
+        <div class="col col-5" style="border: 1px solid #ddd;">
+          <a href="#" class="edit-stock positive">{{>ionIcon icon="edit"}}កែប្រែ</a>
+        </div>
+        <div class="col col-5" style="border: 1px solid #ddd;">
+          <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+        </div>
       </div>
     {{/each}}
     {{/if}}
