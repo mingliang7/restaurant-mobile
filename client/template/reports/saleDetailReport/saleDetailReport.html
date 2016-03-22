@@ -27,66 +27,84 @@
 </template>
 
 <template name="restaurantSaleDetailReportGen">
-        {{#if data}}
-                {{#with data}}
-                    {{#with title}}
-                        <div class="title">
-                            <div class="title-1x-kh-muol">{{khName}}</div>
-                            <div class="title-1x">{{enName}}</div>
-                            <div style="text-decoration: underline;">របាយការណ៍ លក់លម្អិតតាមមុខទំនិញ</div>
-                            <div class="title-2x">{{khAddress}}</div>
-                        </div>
-                    {{/with}}
-                    {{#with header}}
-                        <div style="width: 100%">
-                            <div style="width: 50%; float: left">
-                                <ul class="list-unstyled">
-                                    <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
-                                    <li><strong>ផ្នែក:</strong> {{category}}</li>
-                                </ul>
-                            </div>
+    {{#if data}}
+        {{#with data}}
+            {{#with title}}
+                <div class="title">
+                    <div class="title-1x-kh-muol">{{khName}}</div>
+                    <div class="title-1x">{{enName}}</div>
+                    <div style="text-decoration: underline;">របាយការណ៍ លក់លម្អិតតាមមុខទំនិញ</div>
+                    <div class="title-2x">{{khAddress}}</div>
+                </div>
+            {{/with}}
+            {{#with header}}
+                <div style="width: 100%">
+                    <div style="width: 50%; float: left">
+                        <ul class="list-unstyled">
+                            <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
+                            <li><strong>ផ្នែក:</strong> {{category}}</li>
+                        </ul>
+                    </div>
 
-                            <div style="width: 50%; float: right">
-                                <ul class="list-unstyled">
-                                    <li><strong>អតិថិជន:</strong> {{customer}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    {{/with}}
+                    <div style="width: 50%; float: right">
+                        <ul class="list-unstyled">
+                            <li><strong>អតិថិជន:</strong> {{customer}}</li>
+                        </ul>
+                    </div>
+                </div>
+            {{/with}}
 
-                    <!--Content-->
-                    <table class="report-content">
-                        <thead class="content-header">
-                        <tr>
-                            <th>ល.រ</th>
-                            <th>បរិយាយ</th>
-                            <th>បរិមាណ</th>
-                            <th>សរុប</th>
-                        </tr>
-                        </thead>
+            <!--Content-->
+            <table class="report-content">
+                <thead class="content-header">
+                <tr>
+                    <th rowspan="2">ល.រ</th>
+                    <th rowspan="2">បរិយាយ</th>
+                    <th rowspan="2">បរិមាណ</th>
+                    <th colspan="3">លម្អិត</th>
+                    <th rowspan="2">សរុប</th>
+                </tr>
+                <tr>
+                    <th>ចំនួន</th>
+                    <th>បញ្ចុះតម្លៃ</th>
+                    <th>ស្ថានភាព</th>
+                </tr>
+                </thead>
 
-                        <tbody class="content-body">
-                        {{#each content}}
-                            <tr>
-                                <td align="center">{{order}}</td>
-                                <td>{{productName}}</td>
-                                <td>{{quantity}}</td>
-                                <td align="right">{{total}}</td>
-                            </tr>
-                        {{/each}}
-                        </tbody>
-                        <tbody>
-                        <tr class="content-body">
-                            <td colspan="3" style="text-align: right">សរុបរួម:</td>
-                            <td align="right">{{grandTotal}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <tbody class="content-body">
 
-                {{/with}}
+                {{#each content}}
+                    <tr>
+                        <td align="center">{{order}}</td>
+                        <td>{{productName}}</td>
+                        <td>{{quantity}}</td>
+                        <td colspan="3">
+                            <table width="100%" style="border-style: hidden;">
+                                {{#each transaction}}
+                                    <tr>
+                                        <td width="21%">{{quantity}} </td>
+                                        <td width="41%">{{discount}} </td>
+                                        <td width="38%">{{status}} </td>
+                                    </tr>
+                                {{/each}}
+                            </table>
+                        </td>
+                        <td align="right">{{total}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+                <tbody>
+                <tr class="content-body">
+                    <td colspan="6" style="text-align: right">សរុបរួម:</td>
+                    <td align="right">{{grandTotal}}</td>
+                </tr>
+                </tbody>
+            </table>
 
-        {{else}}
-            <p> សូមមេត្តារងចាំ ...</p>
-        {{/if}}
+        {{/with}}
+
+    {{else}}
+        <p> សូមមេត្តារងចាំ ...</p>
+    {{/if}}
 
 </template>
