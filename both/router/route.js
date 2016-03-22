@@ -462,4 +462,24 @@ Router.map(function() {
       this.next();
     }
   });
+  this.route('restaurant.eop', {
+    path: '/restaurant/eop',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/');
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['cashier','setting', 'super']);
+      this.next();
+    }
+  });
+  this.route('restaurant.new.eop', {
+    path: '/restaurant/eop/new',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/');
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['cashier','setting', 'super']);
+      this.next();
+    }
+  });
 });

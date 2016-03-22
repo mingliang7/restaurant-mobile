@@ -270,7 +270,7 @@ Restaurant.Schema.Sales = new SimpleSchema({
   },
   eop: {
     type: Boolean,
-    autovlaue(){
+    autoValue(){
       if(this.isInsert){
         return false;
       }
