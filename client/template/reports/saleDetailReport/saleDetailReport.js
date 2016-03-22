@@ -4,15 +4,22 @@ Template.restaurantSaleDetailReport.onRendered(function () {
 });
 
 Template.restaurantSaleDetailReport.helpers({
-    customers(){
-        return ReactiveMethod.call('getCustomerList');
-    },
-    categories(){
-        return ReactiveMethod.call('getCategoryList')
-    }
-});
+    customers()
+{
+    return ReactiveMethod.call('getCustomerList');
+}
+,
+categories()
+{
+    return ReactiveMethod.call('getCategoryList')
+}
+})
+;
 
 Template.restaurantSaleDetailReportGen.helpers({
+    getNumberOfRow: function (transaction) {
+        return transaction.length;
+    },
     options: function () {
         // font size = null (default), bg
         // paper = a4, a5, mini

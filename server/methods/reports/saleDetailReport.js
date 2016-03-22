@@ -7,7 +7,7 @@ Meteor.methods({
             footer: {}
         };
 
-        var params = {status:"closed"};
+        var params = {};
         var fromDate = moment(arg.fromDate, "YYYY/MM/DD HH:mm").toDate();
         var toDate = moment(arg.toDate, "YYYY/MM/DD HH:mm").toDate();
         var customerId = arg.customerId;
@@ -68,27 +68,79 @@ function getSaleProducts(params, categoryId) {
     var result = [];
     var saleDetails = Restaurant.Collection.SaleDetails.find(
         selectorObj,
-        {fields: {productId: 1, quantity: 1, price: 1, amount: 1, totalCost: 1, _product: 1}});
+        {fields: {productId: 1, status: 1, discount: 1, quantity: 1, price: 1, amount: 1, totalCost: 1, _product: 1}});
+
+
+    /* (saleDetails.fetch()).reduce(function (res, value) {
+     if (!res[value.productId + value.discount]) {
+
+     res[value.productId + value.discount] = {
+     //  totalCost: value.totalCost,
+     discount: value.discount,
+     amount: value.amount,
+     quantity: 0,
+     productId: value.productId,
+     productName: value._product.name + "(" + value._product._unit.name + ")"
+     };
+     result.push(res[value.productId + value.discount])
+     } else {
+     res[value.productId + value.discount].amount += value.amount;
+     // res[value.productId].totalCost += value.totalCost;
+     }
+     res[value.productId + value.discount].quantity += value.quantity;
+     return res;
+     }, {});*/
+
     (saleDetails.fetch()).reduce(function (res, value) {
         if (!res[value.productId]) {
+
             res[value.productId] = {
                 //  totalCost: value.totalCost,
+                discount: value.discount,
                 amount: value.amount,
                 quantity: 0,
                 productId: value.productId,
-                productName: value._product.name + "(" + value._product._unit.name + ")"
+                productName: value._product.name + "(" + value._product._unit.name + ")",
+                transaction: [{quantity: 0, discount: value.discount, status: value.status}]
             };
             result.push(res[value.productId])
         } else {
             res[value.productId].amount += value.amount;
             // res[value.productId].totalCost += value.totalCost;
         }
+
+        var indexOfStatus = res[value.productId].transaction.map(function (o) {
+            return o.status;
+        }).indexOf(value.status);
+        if(indexOfStatus!=-1){
+            //find the same discount
+            var index = res[value.productId].transaction.map(function (o) {
+                return o.discount;
+            }).indexOf(value.discount);
+            if (index != -1) {
+                res[value.productId].transaction[index].quantity += value.quantity;
+            } else {
+                res[value.productId].transaction.push({quantity: value.quantity, discount: value.discount,status:value.status})
+            }
+        }else{
+            //find the same discount
+            var index = res[value.productId].transaction.map(function (o) {
+                return o.discount;
+            }).indexOf(value.discount);
+            if (index != -1) {
+                res[value.productId].transaction[index].quantity += value.quantity;
+            } else {
+                res[value.productId].transaction.push({quantity: value.quantity, discount: value.discount,status:value.status})
+            }
+        }
+
         res[value.productId].quantity += value.quantity;
         return res;
     }, {});
+
     var i = 1;
     var arr = [];
-    var granTotalCost = 0;
+    //var granTotalCost = 0;
     var grandTotal = 0;
     result.forEach(function (r) {
         grandTotal += r.amount;
@@ -96,9 +148,12 @@ function getSaleProducts(params, categoryId) {
             order: i,
             productId: r.productId,
             productName: r.productName,
+            //discount: r.discount,
             // price: numeral(r.price).format('0,0.00'),
             quantity: r.quantity,
-            total: numeral(r.amount).format('0,0.00')
+            total: r.amount,
+            transaction: r.transaction
+            //total: numeral(r.amount).format('0,0.00')
             // totalCost: numeral(r.totalCost).format('0,0.00')
         });
         i++;
