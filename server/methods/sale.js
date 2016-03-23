@@ -28,7 +28,6 @@ Meteor.methods({
         return restaurantId;
     },
     removeSaleIfNoSaleDetailExist(saleId){
-        console.log(saleId);
         Meteor.defer(()=> {
             Meteor._sleepForMs(500);
             let saleDetails = Restaurant.Collection.SaleDetails.find({saleId: saleId});

@@ -70,6 +70,7 @@ Meteor.startup(function() {
   Restaurant.Collection.SaleDetails._ensureIndex({
     saleId: 1
   });
+  Restaurant.Collection.Sales._ensureIndex({eop: 1});
   //end ensure index
 
   Meteor.defer(function() {
