@@ -10,6 +10,7 @@
 
     {{#ionView}}
         {{#ionContent}}
+            <!-- {{#autoForm schema="Restaurant.Schema.SaleDetailReport"  id="restaurantSaleDetailReport" }} -->
             {{#autoForm schema="Restaurant.Schema.SaleDetailReport"  id="restaurantSaleDetailReport" action="/restaurant/sale-detail-report-gen"  target="_blank"}}
                 <div class="bar bar-header">
                     <button type="submit" class="button button-balanced">Generate</button>
@@ -18,8 +19,12 @@
                 <div class="content has-header overflow-scroll">
                     {{> afQuickField name='fromDate' type="datetime"}}
                     {{> afQuickField name='toDate' type="datetime"}}
-                    {{> afQuickField name='customerId' type="select" options=customers }}
-                    {{> afQuickField name='categoryId' type="select" options=categories }}
+                    <div class="row">
+                      <div class="col col-33">{{> afQuickField name='status'}}</div>
+                      <div class="col col-33">{{> afQuickField name='customerId' type="select" options=customers }}</div>
+                      <div class="col col-33">{{> afQuickField name='categoryId' type="select" options=categories }}
+                      </div>
+                    </div>
                 </div>
             {{/autoForm}}
         {{/ionContent}}
