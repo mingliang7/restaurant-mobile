@@ -13,7 +13,6 @@ Restaurant.Schema.SaleDetailReport = new SimpleSchema({
   status: {
     type: [String],
     label: 'ប្រភេទវិក័យប័ត្រ',
-    optional: true,
     autoform: {
       type: 'select',
       options() {

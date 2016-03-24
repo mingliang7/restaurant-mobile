@@ -18,7 +18,7 @@ Meteor.methods({
     var fromDate = moment(arg.fromDate, "YYYY/MM/DD HH:mm").toDate();
     var toDate = moment(arg.toDate, "YYYY/MM/DD HH:mm").toDate();
     var customerId = arg.customerId;
-
+    var exchange = Restaurant.Collection.ExchangeRates.findOne({}, {sort:{_id: -1}});
     var categoryId = arg.categoryId;
 
     /****** Title *****/
@@ -34,6 +34,14 @@ Meteor.methods({
     var header = {};
 
     header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
+    if(arg.status == 'active'){
+      header.status = 'កំពុងលក់';
+    }else if(arg.status == 'closed'){
+      header.status = 'ទូរទាត់រួច';
+    }else{
+      header.status = 'បោះបង់';
+    }
+
     var customer = "ទាំងអស់",
       category = "ទាំងអស់";
     if (customerId != null && customerId != "")
@@ -46,7 +54,6 @@ Meteor.methods({
 
     /****** Header *****/
     data.header = header;
-    console.log(params);
     var saleDetailObj = {};
     var total = 0;
     var sales = Restaurant.Collection.Sales.find(params);
@@ -54,26 +61,25 @@ Meteor.methods({
       groupSaleDetail(sale, saleDetailObj);
       total += sale.total;
     });
-    console.log(saleDetailObj);
     for(let k in saleDetailObj){
       for(let j in saleDetailObj[k].status){
         for(let d in saleDetailObj[k].status[j]){
           saleDetailObj[k].totalAmount += saleDetailObj[k].status[j][d].amount;
           saleDetailObj[k].totalQty += saleDetailObj[k].status[j][d].qty;
         }
-        console.log(saleDetailObj[k].status[j]);
       }
     }
-    console.log(`total: ${total}`);
-    // var content = getSaleProducts(params, categoryId);
+    var content = [saleDetailObj];
     // data.grandTotal = content.grandTotal;
     // data.grandTotalCost = content.grandTotalCost;
     //return reportHelper;
     /****** Content *****/
-    // if (content.length > 0) {
-    //     data.content = content;
-    // }
-    // return data;
+    if (content.length > 0) {
+        data.content = content;
+        data.footer.total= numeral(total).format('0,0');
+        data.footer.totalInDollar= numeral(total/exchange.rates[0].rate).format('0,0.00');
+    }
+    return data;
   }
 });
 
@@ -86,11 +92,11 @@ let groupSaleDetail = (sale, saleDetailObj) => {
       saleDetailObj[saleDetail.productId] = {};
       saleDetailObj[saleDetail.productId].totalAmount = 0;
       saleDetailObj[saleDetail.productId].totalQty = 0;
+      saleDetailObj[saleDetail.productId].productName = saleDetail._product.name;
       saleDetailObj[saleDetail.productId].actualPrice = saleDetail.price;
       saleDetailObj[saleDetail.productId].status = {};
       saleDetailObj[saleDetail.productId].status[sale.status] = {};
       saleDetailObj[saleDetail.productId].status[sale.status][saleDetail.discount] = {
-        productName: saleDetail._product.name,
         qty: saleDetail.quantity,
         price: saleDetail.price,
         discount: saleDetail.discount,
