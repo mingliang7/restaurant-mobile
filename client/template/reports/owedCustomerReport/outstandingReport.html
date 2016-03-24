@@ -16,8 +16,10 @@
                     <button type="reset" class="button button-stable">Reset</button>
                 </div>
                 <div class="content has-header overflow-scroll">
-                    {{> afQuickField name='date' }}
-                    {{> afQuickField name='customerId' type="select" options=customers}}
+                    <div class="row">
+                      <div class="col">{{> afQuickField name='date' }}</div>
+                      <div class="col">{{> afQuickField name='customerId' type="select" options=customers}}</div>
+                    </div>
                 </div>
             {{/autoForm}}
         {{/ionContent}}
