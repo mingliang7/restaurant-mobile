@@ -17,9 +17,11 @@
               <div class="content has-header overflow-scroll">
                   {{> afQuickField name='fromDate' type='datetime'}}
                   {{> afQuickField name='toDate' type="datetime"}}
-                  {{> afQuickField name='customerId' type="select" options=customers }}
-                  {{> afQuickField name='status' type="select" options=status }}
-                  {{> afQuickField name='staffId' type="select" options=users }}
+                  <div class="row">
+                    <div class="col col-33">{{> afQuickField name='status' type="select" options=status }}</div>
+                    <div class="col col-33">{{> afQuickField name='customerId' type="select" options=customers }}</div>
+                    <div class="col col-33">{{> afQuickField name='staffId' type="select" options=users }}</div>
+                  </div>
               </div>
           {{/autoForm}}
       {{/ionContent}}
@@ -117,7 +119,7 @@
                             {{_product.name}}
                           </td>
                           <td align="center">
-                            {{price}}
+                            {{numFormat price '0,0'}}
                           </td>
                           <td align="center">
                             {{quantity}}
@@ -126,7 +128,7 @@
                             {{discount}}
                           </td>
                           <td align="right">
-                            {{amount}}
+                            {{numFormat amount '0,0'}}
                           </td>
                           <td align="right">
                             {{convertToDollar amount}}

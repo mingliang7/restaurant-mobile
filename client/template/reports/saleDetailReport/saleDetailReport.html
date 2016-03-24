@@ -10,6 +10,7 @@
 
     {{#ionView}}
         {{#ionContent}}
+            <!-- {{#autoForm schema="Restaurant.Schema.SaleDetailReport"  id="restaurantSaleDetailReport" }} -->
             {{#autoForm schema="Restaurant.Schema.SaleDetailReport"  id="restaurantSaleDetailReport" action="/restaurant/sale-detail-report-gen"  target="_blank"}}
                 <div class="bar bar-header">
                     <button type="submit" class="button button-balanced">Generate</button>
@@ -18,8 +19,12 @@
                 <div class="content has-header overflow-scroll">
                     {{> afQuickField name='fromDate' type="datetime"}}
                     {{> afQuickField name='toDate' type="datetime"}}
-                    {{> afQuickField name='customerId' type="select" options=customers }}
-                    {{> afQuickField name='categoryId' type="select" options=categories }}
+                    <div class="row">
+                      <div class="col col-33">{{> afQuickField name='status'}}</div>
+                      <div class="col col-33">{{> afQuickField name='customerId' type="select" options=customers }}</div>
+                      <div class="col col-33">{{> afQuickField name='categoryId' type="select" options=categories }}
+                      </div>
+                    </div>
                 </div>
             {{/autoForm}}
         {{/ionContent}}
@@ -42,13 +47,14 @@
                     <div style="width: 50%; float: left">
                         <ul class="list-unstyled">
                             <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
-                            <li><strong>ផ្នែក:</strong> {{category}}</li>
+                            <li><strong>ប្រភេទវិក័យប័ត្រ:</strong> {{status}}</li>
                         </ul>
                     </div>
 
                     <div style="width: 50%; float: right">
                         <ul class="list-unstyled">
                             <li><strong>អតិថិជន:</strong> {{customer}}</li>
+                            <li><strong>ផ្នែក:</strong> {{category}}</li>
                         </ul>
                     </div>
                 </div>
@@ -58,46 +64,30 @@
             <table class="report-content">
                 <thead class="content-header">
                 <tr>
-                    <th rowspan="2">ល.រ</th>
-                    <th rowspan="2">បរិយាយ</th>
-                    <th rowspan="2">បរិមាណ</th>
-                    <th colspan="3">លម្អិត</th>
-                    <th rowspan="2">សរុប</th>
-                </tr>
-                <tr>
+                    <th>បរិយាយ</th>
                     <th>ចំនួន</th>
-                    <th>បញ្ចុះតម្លៃ</th>
-                    <th>ស្ថានភាព</th>
+                    <th>តម្លៃ</th>
+                    <th>សរុប</th>
                 </tr>
+
                 </thead>
 
                 <tbody class="content-body">
 
                 {{#each content}}
-                    <tr>
-                        <td align="center">{{order}}</td>
-                        <td>{{productName}}</td>
-                        <td>{{quantity}}</td>
-                        <td colspan="3">
-                            <table width="100%" style="border-style: hidden;">
-                                {{#each transaction}}
-                                    <tr>
-                                        <td width="21%">{{quantity}} </td>
-                                        <td width="41%">{{discount}} </td>
-                                        <td width="38%">{{status}} </td>
-                                    </tr>
-                                {{/each}}
-                            </table>
-                        </td>
-                        <td align="right">{{total}}</td>
-                    </tr>
+                    {{{extractContent}}}
                 {{/each}}
                 </tbody>
                 <tbody>
+                  {{#with footer}}
                 <tr class="content-body">
-                    <td colspan="6" style="text-align: right">សរុបរួម:</td>
-                    <td align="right">{{grandTotal}}</td>
+                    <td colspan="3" style="text-align: right" rowspan="2">សរុបរួម:</td>
+                    <td align="right"><b>៛{{total}}</b></td>
                 </tr>
+                <tr class="content-body">
+                  <td align="right" colspan="4"><b>${{totalInDollar}}</b></td>
+                </tr>
+                {{/with}}
                 </tbody>
             </table>
 
