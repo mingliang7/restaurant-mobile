@@ -36,11 +36,11 @@ Template.restaurantSelectTable.helpers({
     if (arr.length > 0) {
       return Restaurant.Collection.Tables.find({
         tableLocationId: {
-          $nin: arr
+          $in: arr
         }
-      }, {sort: {tableLocationId: 1, name: 1}});
+      }, {sort: {name: 1}});
     }
-    return Restaurant.Collection.Tables.find({}, {sort: {tableLocationId: 1, name: 1}});
+    return Restaurant.Collection.Tables.find({}, {sort: {name: 1}});
   },
   locations() {
     return Restaurant.Collection.TableLocations.find();
@@ -60,7 +60,7 @@ Template.restaurantSelectTable.helpers({
 Template.restaurantSelectTable.events({
   "click .location" (event) {
     let currentLocation = Session.get("tableLocationFilter");
-    if (!$(event.currentTarget).prop('checked')) {
+    if ($(event.currentTarget).prop('checked')) {
       currentLocation[this._id] = this._id
     } else {
       delete currentLocation[this._id]
@@ -77,7 +77,7 @@ Template.restaurantSelectTable.events({
     selector.status = "active";
     selector.tableId = tableId;
     selector.tableLocation = tableLocationId;
-    alertify.defaults.glossary.title = 'សូមវាយបញ្ចូលចំនួនភ្ញៀវ'
+    alertify.defaults.glossary.title = `សូមវាយបញ្ចូលចំនួនភ្ញៀវ`;
     alertify.prompt('', '',
       function(evt, value) {
       var numericReg = /^\d*[0-9](|.\d*[0-9]|,\d*[0-9])?$/;
