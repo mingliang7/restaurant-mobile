@@ -67,7 +67,8 @@ Meteor.methods({
         });
     },
     cancelInvoice(saleId){
-      return Restaurant.Collection.Sales.direct.update(saleId, {$set: {status: 'canceled'}});
+    Restaurant.Collection.SaleDetails.direct.update({saleId:saleId},{$set: {status: 'canceled'}},{multi:true})
+    return Restaurant.Collection.Sales.direct.update(saleId, {$set: {status: 'canceled'}});
     },
     cancelAndCopy(selector, currentSaleId){
       Meteor._sleepForMs(200);

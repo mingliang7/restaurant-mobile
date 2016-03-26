@@ -19,7 +19,6 @@
                 {{> tableHeader}}
             {{/with}}
             <div class="list card">
-                <div class="item item-body">
                     <div class="row">
                         <div class="col col-20">
                             <b>បរិយាយ</b>
@@ -45,9 +44,7 @@
                         <div class="col col-5" align="center">
                         </div>
                         <div class="col col-5">
-
                         </div>
-                    </div>
                 </div>
                 {{#each saleDetails}}
                     {{> saleDetail}}
@@ -278,8 +275,7 @@
 </template>
 
 <template name="tableHeader">
-    <div class="list card">
-        <div class="item item-body">
+    <div class="list card" style="white-space: nowrap;">
             <div class="row">
                 <div class="col col-10">
                     <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editSale" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
@@ -316,6 +312,5 @@
                     {{_staff.profile.username}}
                 </div>
             </div>
-        </div>
     </div>
 </template>

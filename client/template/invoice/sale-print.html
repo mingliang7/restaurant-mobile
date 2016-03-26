@@ -28,69 +28,72 @@
                 <table border="1" width="100%">
 
                     <tr>
-                        <td style="width: 120px"><b># </b>: {{sale._id}}</td>
-                        <td align="right" ><b>បុគ្គលិក : </b> {{sale._staff.profile.username}}</td>
+                        <td style="width: 120px" colspan="2"><b># </b>: {{sale._id}}</td>
+                        <td align="right" style="text-align: right;"><b>បុគ្គលិក : </b> {{sale._staff.profile.username}}</td>
 
                     </tr>
                     <tr>
-                        <td style="width: 120px"><b>តុ : </b> {{sale._table.name}}</td>
-                        <td align="right" ><b>អតិថិជន : </b> {{sale._customer.name}}</td>
+                        <td style="width: 120px" colspan="2"><b>តុ : </b> {{sale._table.name}}</td>
+                        <td align="right" style="text-align: right;"><b>អតិថិជន : </b> {{sale._customer.name}}</td>
                     </tr>
                     <tr>
                         <td colspan="2"><b>កាលបរិច្ឆេទ: </b> {{sale.saleDate}}</td>
-
+                        <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់ : </b>{{numFormat sale.exchangeRate '0,0'}}៛</td>
                     </tr>
 
                 </table>
 
-                <table border="1" width="100%">
+                <table border="1" width="100%" style="border-collapse: collapse;">
 
-                    <tr align="center" style="text-decoration: underline;">
-                        <td align="left"><b>បរិយាយ</b></td>
-                        <td><b>តម្លៃ</b></td>
-                        <td><b>ចំនួន</b></td>
-                        <td><b>Dis</b></td>
-                        <td align="right"><b>សរុប</b></td>
+                    <tr align="center" style="border: 1px #000; background-color: #c0c0c0; !important;
+    -webkit-print-color-adjust: exact;">
+                        <td align="left" style="border:1px solid #000;"><b>បរិយាយ</b></td>
+                        <td style="border:1px solid #000;"><b>តម្លៃ</b></td>
+                        <td style="border:1px solid #000;"><b>ចំនួន</b></td>
+                        <td style="border:1px solid #000;"><b>Dis%</b></td>
+                        <td align="right" style="border:1px solid #000;"><b>សរុប</b></td>
                     </tr>
 
 
                     {{#each content}}
                         <tr>
-                            <td>{{order}}. {{_product.name}}</td>
-                            <td align="center">{{price}}</td>
+                            <td>{{_product.name}}</td>
+                            <td align="center">{{numFormat price '0,0'}}</td>
                             <td align="center">{{quantity}}</td>
                             <td align="center">{{discount}}</td>
                             <td align="right">{{amount}}</td>
                         </tr>
+                        <tr>
+                            <td colspan="5">
+                              <hr size="1"/>
+                            </td>
+                        </tr>
                     {{/each}}
                     <tr>
-                        <td colspan="4">
-                            <hr style="border-top: 1px dashed #8c8b8b;
-	border-bottom: 1px dashed #fff;">
-                        </td>
+                        <td></td>
+                        <td>សរុប:</td>
+                        <td colspan="3" align="right">{{footer.subTotal}}{{sale._exchangeRate.symbol}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"></td>
-                        <td>សរុបៈ</td>
-                        <td align="right">{{footer.subTotal}}{{sale._exchangeRate.symbol}}</td>
+                        <td></td>
+                        <td>បញ្ចុះតម្លៃ:</td>
+                        <td align="right" colspan="3">{{footer.discount}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2"></td>
-                        <td>បញ្ចុះតម្លៃៈ</td>
-                        <td align="right">{{footer.discount}}</td>
+                        <td></td>
+                        <td>សរុបរួម:</td>
+                        <td align="right" colspan="3"><b>{{footer.total}}{{sale._exchangeRate.symbol}}</b>
+                        = <b>{{#each footer.totalConverts}}
+                          {{total}}{{symbol}}
+                          {{/each}}</b></td>
                     </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td>សរុបរួមៈ</td>
-                        <td align="right"><b>{{footer.total}}{{sale._exchangeRate.symbol}}</b></td>
-                    </tr>
-                    {{#each footer.totalConverts}}
+                    <!-- {{#each footer.totalConverts}}
                         <tr>
                             <td colspan="2"></td>
                             <td></td>
                             <td align="right"><b>{{total}}{{symbol}}</b></td>
                         </tr>
-                    {{/each}}
+                    {{/each}} -->
                 </table>
                 <div>សូមអរគុណ!</div>
                 <div style="width: 253px;margin:0 auto;">
