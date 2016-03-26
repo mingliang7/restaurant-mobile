@@ -31,16 +31,37 @@
         <div class="col col-20" style="border: 1px solid #ddd;">{{_material.name}}</div>
         <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat price '0,0'}}</div>
         <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat qty '0,0'}} {{_material._unit.name}}</div>
-        <div class="col col-10" style="border: 1px solid #ddd;"><span class="balanced">{{status}}</span></div>
+        <div class="col col-10" style="border: 1px solid #ddd;">{{{colorStatus status}}}</div>
         <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
         <div class="col col-5" style="border: 1px solid #ddd;">
-          <a href="#" class="edit-stock positive">{{>ionIcon icon="edit"}}កែប្រែ</a>
+          {{#if isActived status}}
+          <a href="#" class="edit-stock positive" data-ion-modal="editStockIn" data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+          {{/if}}
         </div>
         <div class="col col-5" style="border: 1px solid #ddd;">
+          {{#if isActived status}}
           <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+          {{/if}}
         </div>
       </div>
     {{/each}}
+    {{#if isSkipNotEqToZero}}
+    <div class="row">
+      <div class="col col-33"></div>
+      <div class="col col-10" align='center'>
+        {{#if isSkipped}}
+        <a href="#" class="previous"><i class="icon ion-ios-arrow-back"></i></a>
+        {{/if}}
+      </div>
+      <div class="col col-10" align='center'>បានមើលរំលង​ {{skipAmount}}</div>
+      <div class="col col-10" align='center'>
+        {{#if smallerThanAmount}}
+          <a href="#" class="next"><i class="icon ion-ios-arrow-forward"></i></a>
+        {{/if}}
+      </div>
+      <div class="col col-33"></div>
+    </div>
+    {{/if}}
     {{/if}}
   </div>
   {{/ionContent}}

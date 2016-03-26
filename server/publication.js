@@ -316,7 +316,8 @@ Meteor.publish("materials", function(limit) {
 //publish stockIn with status active
 
 Meteor.publish("stockIn", function(selector){
-  let stockIns = Restaurant.Collection.StockIn.find(selector);
+  let stockIns = Restaurant.Collection.StockIn.find({},selector);
+  // console.log(stockIns.fetch());
   if(stockIns){
     return stockIns;
   }
@@ -331,4 +332,10 @@ Meteor.publish("endOfProcess", function(selector){
     return eops;
   }
   return this.ready();
+});
+
+//count stockIn
+Meteor.publish("countStockIn", function() {
+  Counts.publish(this, 'countStockIn', Restaurant.Collection.StockIn.find());
+  this.ready();
 });
