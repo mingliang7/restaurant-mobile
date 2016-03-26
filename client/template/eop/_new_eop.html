@@ -8,19 +8,21 @@
     {{#ionContent}}
       {{#ionView}}
       {{#autoForm collection="Restaurant.Collection.EndOfProcess" id="newEop" type="insert" buttonContent="រក្សាទុក"}}
-          <div class="content has-header overflow-scroll">
-            <label class="item item-input">
-              <span class="input-label">ចាប់ផ្តើមបិទថ្ងៃទី</span>
-              <input type="text" name="tmpStartEopDate">
-            </label>
-            <label class="item item-input">
-              <span class="input-label">បញ្ជប់ការបិទថ្ងៃទី</span>
-              <input type="text" name="tmpEndEopDate">
-            </label>
-            {{> afQuickField name='startEopDate'}}
-            {{> afQuickField name='endEopDate'}}
+          <div>
+            <div class="row">
+              <div class="col"><label class="item item-input">
+                <span class="input-label">ចាប់ផ្តើមបិទថ្ងៃទី</span>
+                <input type="text" name="tmpStartEopDate" value="{{tmpStartEopDate}}" readonly="true">
+              </label></div>
+              <div class="col"><label class="item item-input">
+                <span class="input-label">បញ្ជប់ការបិទថ្ងៃទី</span>
+                <input type="text" name="tmpEndEopDate">
+              </label></div>
+            </div>
+            {{> afQuickField name='startEopDate' type="hidden" value=tmpStartEopDate}}
+            {{> afQuickField name='endEopDate' type="hidden"}}
           </div>
-          <div class="bar bar-header">
+          <div>
             <button type="submit" class="button button-positive">រក្សាទុក</button>
           </div>
       {{/autoForm}}

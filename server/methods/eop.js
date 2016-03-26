@@ -2,11 +2,14 @@ Meteor.methods({
   removeEop(id){
      return Restaurant.Collection.EndOfProcess.remove(id);
   },
-  findLastRecord(id){
+  findLastDate(){
     let eop = Restaurant.Collection.EndOfProcess.findOne({}, {sort: {_id: -1}});
-    if(id == eop._id){
-      return true;
+    let date = '';
+    if(eop){
+      date = moment(eop.endEopDate).add('1', 'days').format('YYYY-MM-DD');
+    }else{
+      date = moment().format('YYYY-MM-DD');
     }
-    return false;
+    return date;
   }
 });

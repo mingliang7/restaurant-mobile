@@ -324,9 +324,16 @@ Router.map(function() {
     onBeforeAction: function(pause) {
       if (!Meteor.user()) {
         // render the login template but keep the url in the browser the same
-        Router.go('/')
+        Router.go('/');
       }
-      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      let saleId = Router.current().params.saleId;
+      Meteor.call('saleEop',saleId, (err,result)=>{
+        if(result.status){
+          Router.go(`/`);
+          alertify.warning('វិក័យប័ត្រត្រូវបានបិទបញ្ជីរួចរាល់!មិនអាចចូលទៅវិក័យប័ត្របង់ប្រាក់បាន :(');
+        }
+      });
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['cashier','setting', 'super']);
       this.next();
     }
   });
