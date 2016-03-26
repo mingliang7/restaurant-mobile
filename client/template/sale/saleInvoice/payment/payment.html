@@ -15,26 +15,43 @@
            <button type="submit" class="button button-balanced savePrint">រក្សាទុក&Print</button>
          </div>
          <div class="content has-header overflow-scroll">
-           {{> afQuickField name='customerId' label="អតិថិជន"}}
-           {{> afQuickField name='saleId' readonly=true label="លេខវិក័យប័ត្រ"}}
-           {{> afQuickField name='paymentDate' type='datetime-local' label="ថ្ងៃបង់ប្រាក់"}}
-           <label class="item item-input">
-             <span class="input-label">Vipcard:</span>
-             <input type="password" name="vipcard" autofocus="true">
-           </label>
-           {{> afQuickField name='vipcardId' readonly=true type="hidden"}}
-           {{> afQuickField name='discount' label="បញ្ចុះតម្លៃ(%)"}}
+           <div class="row">
+             <div class="col col-33">{{> afQuickField name='customerId' label="អតិថិជន"}}</div>
+             <div class="col col-33">{{> afQuickField name='saleId' readonly=true label="លេខវិក័យប័ត្រ"}}</div>
+             <div class="col col-33">{{> afQuickField name='paymentDate' type='datetime-local' label="ថ្ងៃបង់ប្រាក់"}}</div>
+           </div>
+           <div class="row">
+             <div class="col col-50">
+               <label class="item item-input">
+                 <span class="input-label">Vipcard:</span>
+                 <input type="password" name="vipcard" autofocus="true">
+               </label>
+               {{> afQuickField name='vipcardId' readonly=true type="hidden"}}
+             </div>
+             <div class="col col-50">
+               {{> afQuickField name='discount' label="បញ្ចុះតម្លៃ(%)"}}
+              </div>
+           </div>
+
            {{> afQuickField name='dueAmount' readonly=true label="លុយត្រូវបង់"}}
            <input type="hidden" name="tmpDueAmount" value="{{sale.dueAmount}}">
            {{> afQuickField name='paidAmount' label="ចំនួនទឹកប្រាក់បានបង់ (៛)" type="hidden"}}
+           <div class="item item-divider positive">
+
+          </div>
            <label class="item item-input">
              <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ (៛):</span>
-             <input type="text" name="tmpPaidAmount" value="{{sale.dueAmount}}">
+             <input type="text" name="tmpPaidAmount" value="{{sale.dueAmount}}" style="background: #aa00ff;
+             color: #fff; padding-left: 5px; font-weight: bold;">
            </label>
            <label class="item item-input">
              <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ ($):</span>
-             <input type="text" name="dollar">
+             <input type="text" name="dollar" style="background: #aa00ff;
+             color: #fff; padding-left: 5px; font-weight: bold;">
            </label>
+           <div class="item item-divider assertive">
+
+           </div>
            {{> afQuickField name='balanceAmount' label="លុយអាប់" readonly=true}}
            <label class="item item-input">
              <span class="input-label">លុយអាប់ ($):</span>
