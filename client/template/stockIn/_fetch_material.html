@@ -1,0 +1,20 @@
+<template name="_fetch_material">
+  {{#ionModal customTemplate=true}}
+      {{#autoForm schema="Restaurant.Schema.FetchMaterials" id="fetchMaterial"}}
+          <div class="bar bar-header bar-stable">
+              <button data-dismiss="modal" type="button" class="button button-clear">បោះបង់</button>
+              <h2 class="title">ជ្រើសរើសវត្ថុធាតុដើម</h2>
+              <button data-dismiss="modal" class="button button-positive">យល់ព្រម</button>
+          </div>
+          <div class="content has-header overflow-scroll">
+            <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                {{> ionIcon icon="ios-search" class="placeholder-icon"}}
+                <input type="text" name="materialSearch" placeholder="Search" value="{{materialQuery}}" autofocus>
+              </label>
+            </div>
+            {{> afFormGroup name='materials' type="select-radio" noSelect=true options=fetchMaterials}}
+          </div>
+      {{/autoForm}}
+  {{/ionModal}}
+</template>

@@ -267,6 +267,21 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: Object,
     optional: true,
     blackbox: true
+  },
+  eop: {
+    type: Object
+  },
+  'eop.status':{
+    type: Boolean,
+    autoValue(){
+      if(this.isInsert){
+        return false;
+      }
+    }
+  },
+  'eop._id':{
+    type: String,
+    optional:true
   }
 });
 //search

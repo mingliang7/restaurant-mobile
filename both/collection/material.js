@@ -32,15 +32,36 @@ Restaurant.Schema.Materials = new SimpleSchema({
     type: Object,
     optional: true,
     blackbox: true
-  }
-})
+  },
+  _outstandingAmount:{
+    type: [Object],
+    optional: true,
+  },
+  '_outstandingAmount.$.reduceStockId':{
+    type: String,
+    optional: true,
+  },
+  '_outstandingAmount.$.eopId':{
+    type: String,
+    optional: true,
+  },
+  '_outstandingAmount.$.reduceStockDate':{
+    type: String,
+    optional: true
+  },
+  '_outstandingAmount.$.qty':{
+    type: Number,
+    optional: true,
+    decimal: true
+  },
+});
 Restaurant.Collection.Materials.search = function(query, limit) {
   let limitAmount = limit || 30
   if (!query) {
     return;
   }
-  let regPattern = `${query}`
-  let reg = new RegExp(regPattern, 'i') //match all case
+  let regPattern = `${query}`;
+  let reg = new RegExp(regPattern, 'i'); //match all case
   return Restaurant.Collection.Materials.find({
     $or: [{
         enName: {

@@ -1,0 +1,51 @@
+<template name="restaurantStockIn">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">ស្តុកទំនិញ</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-modal="newStockIn">{{> ionIcon icon="ios-plus-empty"}}</button>
+  {{/contentFor}}
+  {{#ionContent}}
+    <div class="card row">
+      <div class="col col-20"><span class="positive">ថ្ងៃដាក់ទំនិញចូល</span></div>
+      <div class="col col-20"><span class="positive">ឈ្មោះវត្ថុធាតុដើម</span></div>
+      <div class="col col-10"><span class="positive">តម្លៃ</span></div>
+      <div class="col col-10"><span class="positive">ចំនួន</span></div>
+      <div class="col col-10"><span class="positive">ប្រភេទ</span></div>
+      <div class="col col-20"><span class="positive">បរិយាយ</span></div>
+      <div class="col col-10"><span class="positive">ជម្រើស</span></div>
+    </div>
+    <div class="card">
+    {{#if noStockIns}}
+    <div class="col" align="center">
+      អត់មានទិន្នន័យ
+    </div>
+    {{else}}
+    {{#each stockIns}}
+      <div class="row">
+        <div class="col col-20" style="border: 1px solid #ddd;">{{moFormat stockInDate 'YYYY-MM-DD HH:mm:ss'}}</div>
+        <div class="col col-20" style="border: 1px solid #ddd;">{{_material.name}}</div>
+        <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat price '0,0'}}</div>
+        <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat qty '0,0'}} {{_material._unit.name}}</div>
+        <div class="col col-10" style="border: 1px solid #ddd;"><span class="balanced">{{status}}</span></div>
+        <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
+        <div class="col col-5" style="border: 1px solid #ddd;">
+          <a href="#" class="edit-stock positive">{{>ionIcon icon="edit"}}កែប្រែ</a>
+        </div>
+        <div class="col col-5" style="border: 1px solid #ddd;">
+          <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+        </div>
+      </div>
+    {{/each}}
+    {{/if}}
+  </div>
+  {{/ionContent}}
+  {{> _data}}
+</template>
+<template name="_materialsWithSkip">
+
+</template>
