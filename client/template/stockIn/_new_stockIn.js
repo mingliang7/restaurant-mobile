@@ -5,6 +5,12 @@ Template.newStockIn.events({
 });
 AutoForm.hooks({
   newStockIn: {
+    before: {
+      insert(doc){
+        doc.stockInDate = new Date();
+        return doc;
+      }
+    },
     onSuccess(formType, result) {
       Bert.alert('បង្កើតបានជោគជ័យ', 'success', 'growl-top-right', 'fa-check');
     },

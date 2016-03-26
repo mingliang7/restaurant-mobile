@@ -13,8 +13,9 @@
     {{/contentFor}}
     {{#ionContent}}
       <div class="card row">
-        <div class="col"><span class="positive">ថ្ងៃបិទបញ្ជី</span></div>
-        <div class="col"><span class="positive">ជម្រើស</span></div>
+        <div class="col col-10"><span class="positive">លេខកូដ</span></div>
+        <div class="col col-67"><span class="positive">ថ្ងៃបិទបញ្ជី</span></div>
+        <div class="col col-20"><span class="positive">ជម្រើស</span></div>
       </div>
       <div class="card">
       {{#if noEops}}
@@ -22,21 +23,17 @@
         អត់មានទិន្នន័យ
       </div>
       {{else}}
-      <!-- {{#each stockIns}}
+      {{#each eops}}
         <div class="row">
-          <div class="col col-20" style="border: 1px solid #ddd;">{{_material.name}}</div>
-          <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat price '0,0'}}</div>
-          <div class="col col-20" style="border: 1px solid #ddd;">{{numFormat qty '0,0'}} {{_material._unit.name}}</div>
-          <div class="col col-20" style="border: 1px solid #ddd;"><span class="balanced">{{status}}</span></div>
-          <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
-          <div class="col col-5" style="border: 1px solid #ddd;">
-            <a href="#" class="edit-stock positive">{{>ionIcon icon="edit"}}កែប្រែ</a>
-          </div>
-          <div class="col col-5" style="border: 1px solid #ddd;">
-            <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+          <div class="col col-10" style="border: 1px solid #ddd;">{{_id}}</div>
+          <div class="col col-67" style="border: 1px solid #ddd;">{{moFormat startEopDate 'YYYY-MM-DD'}} ដល់ {{moFormat endEopDate 'YYYY-MM-DD'}}</div>
+          <div class="col col-20" style="border: 1px solid #ddd;">
+            {{#if findLastRecord _id}}
+              <a href="#" class="remove-eop assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+            {{/if}}
           </div>
         </div>
-      {{/each}} -->
+      {{/each}}
       {{/if}}
     </div>
     {{/ionContent}}

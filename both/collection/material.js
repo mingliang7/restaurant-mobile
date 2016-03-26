@@ -41,6 +41,10 @@ Restaurant.Schema.Materials = new SimpleSchema({
     type: String,
     optional: true,
   },
+  '_outstandingAmount.$.eopId':{
+    type: String,
+    optional: true,
+  },
   '_outstandingAmount.$.reduceStockDate':{
     type: String,
     optional: true

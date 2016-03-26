@@ -322,3 +322,13 @@ Meteor.publish("stockIn", function(selector){
   }
   return this.ready();
 });
+
+
+//publish end of process
+Meteor.publish("endOfProcess", function(selector){
+  let eops = Restaurant.Collection.EndOfProcess.find({},selector);
+  if(eops){
+    return eops;
+  }
+  return this.ready();
+});

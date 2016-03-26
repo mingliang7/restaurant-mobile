@@ -1,5 +1,12 @@
 Restaurant.Collection.StockIn = new Mongo.Collection('restaurant_stockIn');
 Restaurant.Schema.StockIn = new SimpleSchema({
+  stockInDate:{
+    type: Date,
+    optional:true,
+    defaultValue(){
+      return moment().format('YYYY-MM-DD HH:mm:ss');
+    }
+  },
   materialId: {
     label: 'ឈ្មោះវត្ថុធាតុដើម',
     type: String
@@ -26,6 +33,10 @@ Restaurant.Schema.StockIn = new SimpleSchema({
   },
   description: {
     label: 'បរិយាយ',
+    type: String,
+    optional: true
+  },
+  eopId: {
     type: String,
     optional: true
   },
