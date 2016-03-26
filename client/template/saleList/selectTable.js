@@ -54,16 +54,25 @@ Template.restaurantSelectTable.helpers({
       return true;
     }
     return false;
+  },
+  checkBoxValue(_id){
+    let location = Session.get('tableLocationFilter');
+    if(_.has(location, _id)){
+      return true;
+    }
+    console.log(_.has(location, _id))
+    return false;
   }
-})
+});
 
 Template.restaurantSelectTable.events({
   "click .location" (event) {
+    Session.set('tableLocationFilter', {});
     let currentLocation = Session.get("tableLocationFilter");
     if ($(event.currentTarget).prop('checked')) {
-      currentLocation[this._id] = this._id
+      currentLocation[this._id] = this._id;
     } else {
-      delete currentLocation[this._id]
+      delete currentLocation[this._id];
     }
     Session.set('tableLocationFilter', currentLocation);
   },
