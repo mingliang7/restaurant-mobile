@@ -165,7 +165,8 @@ let reduceActiveStock = (eopId, startDate, endDate) => {
       console.log(selector);
       Restaurant.Collection.StockIn.update(stockIn._id, {
         $set: {
-          status: 'closed'
+          status: 'closed',
+          eopId: eopId
         }
       });
       updateMaterial(stockIn.materialId, selector);

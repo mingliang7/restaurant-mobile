@@ -1,7 +1,4 @@
 Template.restaurantNewEop.rendered = function() {
-  $('[name="tmpStartEopDate"]').datetimepicker({
-    'showTimepicker': false
-  });
   $('[name="tmpEndEopDate"]').datetimepicker();
 };
 
@@ -11,7 +8,24 @@ Template.restaurantNewEop.events({
     $('[name="startEopDate"]').val(moment(e.currentTarget.value).format('YYYY-MM-DD'));
   },
   'change [name="tmpEndEopDate"]' (e) {
-    $('[name="endEopDate"]').val(moment(e.currentTarget.value).format('YYYY-MM-DD'));
+    Meteor.call('findLastDate',(err,result)=>{
+      if(err){
+        console.log(err);
+      }else{
+        let currentEndDate = moment(e.currentTarget.value).format('YYYY-MM-DD');
+        if(currentEndDate >= result){
+          $('[name="endEopDate"]').val(currentEndDate);
+        }else{
+          alertify.error(`ថ្ងៃបញ្ចប់នៃការបិទបញ្ចីត្រូវធំជាងឬស្មើ ${result}`);
+          $('[name="tmpEndEopDate"]').val('');
+        }
+      }
+    });
+  }
+});
+Template.restaurantNewEop.helpers({
+  tmpStartEopDate(){
+    return  ReactiveMethod.call('findLastDate');
   }
 });
 
