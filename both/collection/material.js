@@ -46,7 +46,7 @@ Restaurant.Schema.Materials = new SimpleSchema({
     optional: true,
   },
   '_outstandingAmount.$.reduceStockDate':{
-    type: String,
+    type: Date,
     optional: true
   },
   '_outstandingAmount.$.qty':{
