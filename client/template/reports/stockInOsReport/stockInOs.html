@@ -1,0 +1,75 @@
+<!--Form-->
+<template name="restaurantStockInOsReport">
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.report" text='របាយការណ៍'}}
+    {{/contentFor}}
+
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">របាយការណ៍ សមតុល្យចុងគ្រា</h1>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+            {{#autoForm schema="Restaurant.Schema.StockInOsReport"  id="restaurantStockInReport" action="/restaurant/stock-in-os-report-gen"  target="_blank"}}
+                <div class="bar bar-header">
+                    <button type="submit" class="button button-balanced">Generate</button>
+                    <button type="reset" class="button button-stable">Reset</button>
+                </div>
+                <div class="content has-header overflow-scroll">
+                    {{> afQuickField name='date' type='datetime'}}
+                </div>
+            {{/autoForm}}
+        {{/ionContent}}
+    {{/ionView}}
+</template>
+
+<!--Generate-->
+<template name="restaurantStockInOsReportGen">
+    {{#if data}}
+            {{#with data}}
+                {{#with title}}
+                    <div class="title">
+                        <div class="title-1x-kh-muol">{{khName}}</div>
+                        <div class="title-1x">{{enName}}</div>
+                        <div style="text-decoration: underline;">របាយការណ៍ សមតុល្យចុងគ្រា</div>
+                        <div class="title-2x">{{khAddress}}</div>
+                    </div>
+                {{/with}}
+                {{#with header}}
+                    <div style="width: 100%">
+                        <div style="width: 50%; float: left">
+                            <ul class="list-unstyled">
+                                <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {{/with}}
+
+                <!--Content-->
+                <table class="report-content">
+                    <thead class="content-header">
+                    <tr>
+                        <th>ល.រ</th>
+                        <th>ឈ្មោះទំនិញ</th>
+                        <th>ចំនួននៅសល់</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="content-body">
+                    {{#each content}}
+                        <tr>
+                            <td>{{order}}</td>
+                            <td>{{name}}</td>
+                            <td>{{qty}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+
+            {{/with}}
+
+    {{else}}
+        <p> សូមមេត្តារងចាំ ...</p>
+    {{/if}}
+
+</template>
