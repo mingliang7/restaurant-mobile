@@ -26,6 +26,15 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
     type: Number,
     label: "Quantity"
   },
+  quantityOut:{
+    type: Number,
+    label: 'ចំនួនដកចេញ',
+    autoValue(){
+      if(this.isInsert){  
+        return 0;
+      }
+    }
+  },
   amount: {
     type: Number,
     label: "Amount",
