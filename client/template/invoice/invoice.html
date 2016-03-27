@@ -49,9 +49,9 @@
                     <tr align="center" style="border: 1px #000; background-color: #c0c0c0; !important;
     -webkit-print-color-adjust: exact;">
                         <td align="left" style="border:1px solid #000;"><b>បរិយាយ</b></td>
-                        <td style="border:1px solid #000;"><b>តម្លៃ</b></td>
                         <td style="border:1px solid #000;"><b>ចំនួន</b></td>
-                        <td style="border:1px solid #000;"><b>Dis%</b></td>
+                        <td style="border:1px solid #000;"><b>តម្លៃ</b></td>
+                        <td style="border:1px solid #000;"><b>បញ្ចុះ%</b></td>
                         <td align="right" style="border:1px solid #000;"><b>សរុប</b></td>
                     </tr>
 
@@ -59,8 +59,8 @@
                     {{#each content}}
                         <tr>
                             <td>{{_product.name}}</td>
-                            <td align="center">{{numFormat price '0,0'}}</td>
                             <td align="center">{{quantity}}</td>
+                            <td align="center">{{numFormat price '0,0'}}</td>
                             <td align="center">{{discount}}</td>
                             <td align="right">{{numFormat amount '0,0'}}</td>
                         </tr>
@@ -96,6 +96,10 @@
                         </tr>
                     {{/each}}
                   -->
+                    <tr>
+                      <td></td>
+                    <td colspan="4"><hr></td>
+                    </tr>
                     <tr>
                         <td></td>
                         <td>បានបង់:</td>
