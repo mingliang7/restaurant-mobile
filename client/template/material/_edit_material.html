@@ -9,8 +9,11 @@
             <div class="content has-header overflow-scroll">
               {{> afQuickField name='name'}}
               {{> afQuickField name='enName'}}
-              {{> afQuickField name='unitId'}}
-              {{> afQuickField name='price'}}
+              <div class="row">
+                <div class="col col-33">{{> afQuickField name='materialCategoryId'}}</div>
+                <div class="col col-33">{{> afQuickField name='price'}}</div>
+                <div class="col col-33">{{> afQuickField name='unitId'}}</div>
+              </div>
               {{> afQuickField name='description'}}
             </div>
         {{/autoForm}}

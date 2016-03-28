@@ -21,6 +21,9 @@ Template.restaurantNewEop.events({
         }
       }
     });
+  },
+  'click .save'(){
+    IonLoading.show();
   }
 });
 Template.restaurantNewEop.helpers({
@@ -31,8 +34,12 @@ Template.restaurantNewEop.helpers({
 
 AutoForm.hooks({
   newEop: {
-    onSuccess(formType, result) {},
+    onSuccess(formType, result) {
+      IonLoading.hide();
+      alertify.success('បិទបញ្ជីបានជោគជ័យ!');
+    },
     onError(formType, err) {
+      IonLoading.hide();
       alertify.error(err.message);
     }
   }

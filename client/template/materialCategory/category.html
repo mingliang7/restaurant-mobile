@@ -1,0 +1,40 @@
+<template name="materialCategory">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">ផ្នែកវត្ថុធាតុដើម</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-modal="materialCategoryNew">{{> ionIcon icon="ios-plus-empty"}}</button>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#each categories}}
+          {{#ionItem buttonRight=true avatar=true }}
+            <span class="cursor-p" data-ion-modal="editMaterialCategory" data-id="{{_id}}">
+              {{name}}
+            </span>
+            <p>
+              {{#if units}}
+                Units: {{units}}
+              {{else}}
+                No Units
+              {{/if}}
+            </p>
+            <p>
+              {{description}}
+            </p>
+            <button data-action="confirm" class=" button button-clear">
+              {{> ionIcon icon="close-circled"}}</button>
+
+          {{/ionItem}}
+        {{/each}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+  {{> _settings}}
+</template>

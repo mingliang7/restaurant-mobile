@@ -32,15 +32,13 @@ let findClosedSale = (id, startDate, endDate) => {
         saleObj[date] = extractNewProduct(sale._id, saleObj[date]);
       }
     });
-    Meteor.defer(() => { //update active stock by sale
-      reduceStock(id, saleObj, startDate, endDate);
-      reduceActiveStock(id, startDate, endDate);
-    });
+    reduceStock(id, saleObj, startDate, endDate);
+    reduceActiveStock(id, startDate, endDate);
+
   } else {
     reduceActiveStock(id, startDate, endDate);
     // Restaurant.Collection.EndOfProcess.remove(id);
   }
-
 };
 
 
@@ -216,7 +214,9 @@ let updateMaterialOsAmount = (eopId) => {
         eopId: eopId
       }
     }
-  }, {multi: true});
+  }, {
+    multi: true
+  });
 };
 
 let updateSaleEopStatus = (eopId) => {
@@ -229,5 +229,7 @@ let updateSaleEopStatus = (eopId) => {
     $unset: {
       'eop._id': ''
     }
-  },{multi: true});
+  }, {
+    multi: true
+  });
 };

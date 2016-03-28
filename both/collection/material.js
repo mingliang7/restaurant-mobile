@@ -7,7 +7,26 @@ Restaurant.Schema.Materials = new SimpleSchema({
   },
   enName: {
     type: String,
-    label: 'ឈ្មោះអង់គ្លេស'
+    label: 'ឈ្មោះអង់គ្លេស',
+    optional: true
+  },
+  materialCategoryId: {
+    type: String,
+    label: 'ផ្នែក',
+    autoform: {
+      type: 'select',
+      options(){
+        let list = [];
+        let materialCategories = Restaurant.Collection.MaterialCategories.find();
+        if(materialCategories.count() > 0){
+          materialCategories.forEach((materialCategory)=>{
+            list.push({label: `${materialCategory.name}`,value: materialCategory._id});
+          });
+        }
+        return list;
+
+      }
+    }
   },
   unitId: {
     type: String,

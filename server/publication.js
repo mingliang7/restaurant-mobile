@@ -27,10 +27,17 @@ Meteor.publish('category', (categoryId) => {
   if (categories) {
     return categories;
   }
-  return this.ready()
+  return this.ready();
+});
+Meteor.publish('materialCategories', () => {
+  let categories = Restaurant.Collection.MaterialCategories.find();
+  if (categories) {
+    return categories;
+  }
+  return this.ready();
 });
 Meteor.publish('products', (limit) => {
-  let amount = limit || 10
+  let amount = limit || 10;
   let products = Restaurant.Collection.Products.find({}, {
     limit: amount
   });

@@ -1,5 +1,6 @@
 Security.permit(['insert', 'update', 'remove']).collections([
     Restaurant.Collection.Categories,
+    Restaurant.Collection.MaterialCategories,
     Restaurant.Collection.SaleDetails,
     Restaurant.Collection.Sales,
     Restaurant.Collection.Units,

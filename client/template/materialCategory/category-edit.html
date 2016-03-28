@@ -1,0 +1,15 @@
+<template name="editMaterialCategory">
+  {{#ionModal customTemplate=true}}
+      {{#autoForm collection="Restaurant.Collection.MaterialCategories" doc=materialCategory id="materialCategoryEdit" type="update"}}
+          <div class="bar bar-header bar-stable">
+              <button data-dismiss="modal" type="button" class="button button-clear">បោះបង់</button>
+              <h2 class="title">កែប្រែផ្នែក</h2>
+              <button type="submit" class="button button-positive button-clear">កែប្រែ</button>
+          </div>
+          <div class="content has-header overflow-scroll">
+            {{> afQuickField name='name'}}
+            {{> afQuickField name='description'}}
+          </div>
+      {{/autoForm}}
+  {{/ionModal}}
+</template>
