@@ -262,6 +262,10 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: Object,
     optional: true,
     blackbox: true
+  },
+  refId: {
+    type: String,
+    optional: true
   }
 });
 //search

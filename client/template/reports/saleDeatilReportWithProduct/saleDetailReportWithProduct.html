@@ -60,6 +60,9 @@
                   <tr>
                       <th>ល.រ</th>
                       <th>លេខវិក័យប័ត្រ</th>
+                      {{#if statusCanceled data.header.status}}
+                      <th>វិក័យប័ត្រយោង</th>
+                      {{/if}}
                       <th>កាលបរិច្ឆេទ</th>
                       <th>បុគ្គលិក</th>
                       <th>អតិថិជន</th>
@@ -79,6 +82,9 @@
                       <tr>
                           <td align="center">{{order}}</td>
                           <td>{{_id}}</td>
+                          {{#if statusCanceled data.header.status}}
+                          <td>{{refId}}</td>
+                          {{/if}}
                           <td>{{saleDate}}</td>
                           <td>{{user}}</td>
                           <td>{{_customer.name}}</td>
@@ -89,7 +95,7 @@
                           {{/each}}
                       </tr>
                       <tr style="background: #ddd;">
-                        <th colspan="2">
+                        <th colspan="{{#if statusCanceled data.header.status}}3{{else}}2{{/if}}">
                         </th>
                         <th style="border-left: 1px solid #000;">
                           ឈ្មោះ
@@ -137,7 +143,11 @@
                   </tbody>
                   <tbody>
                   <tr class="content-body">
-                      <td colspan="6" style="text-align: right">Grand Total:</td>
+                    {{#if statusCanceled data.header.status}}
+                      <td colspan="8" style="text-align: right">Grand Total:</td>
+                      {{elsel}}
+                      <td colspan="7" style="text-align: right">Grand Total:</td>
+                      {{/if}}
                       <!--<td align="right">{{grandTotalCost}}</td>-->
                       <!--<td align="right">{{grandTotalPaidAmount}}</td>-->
                       <!--<td align="right">{{grandTotalOwedAmount}}</td>-->

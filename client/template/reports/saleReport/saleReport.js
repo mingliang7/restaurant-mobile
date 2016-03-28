@@ -33,6 +33,11 @@ Template.restaurantSaleReportGen.helpers({
     Fetcher.setDefault(params, false);
     Fetcher.retrieve(params, 'getSaleReport', query);
     return Fetcher.get(params);
+  },
+  statusCanceled(status){
+    if(status == 'canceled'){
+      return true;
+    }
   }
 });
 
