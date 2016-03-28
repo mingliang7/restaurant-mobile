@@ -315,7 +315,7 @@ Router.map(function() {
         // render the login template but keep the url in the browser the same
         Router.go('/')
       }
-      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['cashier','setting', 'super']);
       this.next();
     }
   });
