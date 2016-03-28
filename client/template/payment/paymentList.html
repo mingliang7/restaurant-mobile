@@ -40,9 +40,10 @@
                 No tags
               {{/if}}
             </p> -->
-            <button data-action="confirm" class=" button button-clear">
-              {{> ionIcon icon="close-circled"}}</button>
-
+             {{#if isInRole 'setting,super'}}
+                <button data-action="confirm" class=" button button-clear">
+                {{> ionIcon icon="close-circled"}}</button>
+            {{/if}}
           {{/ionItem}}
         {{/each}}
       {{/ionList}}

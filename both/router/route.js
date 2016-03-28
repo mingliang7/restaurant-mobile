@@ -374,7 +374,7 @@ Router.map(function() {
       if (!Meteor.userId()) {
         Router.go('/')
       }
-      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'super']);
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['cashier','setting', 'super']);
       this.next();
     }
   })
