@@ -37,6 +37,11 @@ Template.restaurantSaleDetailProductReportGen.helpers({
   convertToDollar(amount){
     let exchange = Restaurant.Collection.ExchangeRates.findOne({}, {sort: {created: -1}});
     return numeral(amount / exchange.rates[0].rate).format('0,0.00');
+  },
+  statusCanceled(status){
+    if(status == 'canceled'){
+      return true;
+    }
   }
 });
 

@@ -71,6 +71,7 @@ Template.restaurantSaleTableSaleInvoiceEditDiscount.events({
         $('[name="discount"]').val('0');
       } else {
         $("[name='total']").val(parseFloat(currentSubTotal) * (1 - parseFloat(discount) / 100));
+        $("[name='balanceAmount']").val(parseFloat(currentSubTotal) * (1 - parseFloat(discount) / 100));
       }
     }
   }

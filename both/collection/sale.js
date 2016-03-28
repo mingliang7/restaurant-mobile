@@ -229,6 +229,10 @@ Restaurant.Schema.Sales = new SimpleSchema({
       }
     }
   },
+  refId:{
+    type: String,
+    optional: true
+  }
   exchangeRateId: {
     type: String,
     label: "Exchange Rate",
