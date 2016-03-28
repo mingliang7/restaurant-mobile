@@ -22,7 +22,7 @@ let findClosedSale = (id, startDate, endDate) => {
     }, {
       status: 'partial'
     }]
-  });
+  }, {sort: {_id: 1}});
   if (sales.count() > 0) {
     sales.forEach((sale) => {
       let date = moment(sale.saleDate).format('YYYY-MM-DD');
@@ -103,7 +103,7 @@ let reduceStock = (eopId, saleObj, startDate, endDate) => {
           _outstandingAmount: {
             reduceStockId: '',
             eopId: eopId,
-            reduceStockDate: startDate,
+            reduceStockDate: k,
             qty: tmpQty
           }
         };
@@ -112,7 +112,7 @@ let reduceStock = (eopId, saleObj, startDate, endDate) => {
           _outstandingAmount: {
             reduceStockId: stockIn._id,
             eopId: eopId,
-            reduceStockDate: startDate,
+            reduceStockDate: k,
             qty: tmpQty
           }
         };
