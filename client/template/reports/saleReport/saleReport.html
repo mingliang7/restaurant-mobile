@@ -65,6 +65,9 @@
                         <th>ល.រ</th>
                         <th>លេខតុ</th>
                         <th>លេខវិក័យប័ត្រ</th>
+                        {{#if statusCanceled data.header.status}}
+                          <th>វិក័យប័ត្រយោង</th>
+                        {{/if}}
                         <th>កាលបរិច្ឆេទ</th>
                         <th>បុគ្គលិក</th>
                         <th>អតិថិជន</th>
@@ -72,6 +75,7 @@
                         <!--<th>Total Cost</th>-->
                         <!--<th align="right">Paid Amount</th>-->
                         <!--<th align="right">Owed Amount</th>-->
+                        <th>បញ្ចុះ(%)</th>
                         <th align="right">សរុប</th>
                         {{#each grandTotalConvert}}
                             <th align="right">{{toCurrencyId}}</th>
@@ -85,6 +89,9 @@
                             <td align="center">{{order}}</td>
                             <td>{{_table.name}}({{_table._tableLocation.name}})</td>
                             <td>{{_id}}</td>
+                            {{#if statusCanceled data.header.status}}
+                              <td>{{refId}}</td>
+                            {{/if}}
                             <td>{{saleDate}}</td>
                             <td>{{user}}</td>
                             <td>{{_customer.name}}</td>
@@ -92,6 +99,9 @@
                             <!--<td align="right">{{totalCost}}</td>-->
                             <!--<td align="right">{{paidAmount}}</td>-->
                             <!--<td align="right">{{owedAmount}}</td>-->
+                            <td align="center">
+                              {{discount}}
+                            </td>
                             <td align="right">{{total}}</td>
                             {{#each exchangeRates}}
                                 <td align="right">{{exTotalFormatted}}</td>
@@ -101,7 +111,11 @@
                     </tbody>
                     <tbody>
                     <tr class="content-body">
-                        <td colspan="7" style="text-align: right">Grand Total:</td>
+                        {{#if statusCanceled data.header.status}}
+                          <td colspan="9" style="text-align: right">Grand Total:</td>
+                        {{else}}
+                          <td colspan="8" style="text-align: right">Grand Total:</td>
+                        {{/if}}
                         <!--<td align="right">{{grandTotalCost}}</td>-->
                         <!--<td align="right">{{grandTotalPaidAmount}}</td>-->
                         <!--<td align="right">{{grandTotalOwedAmount}}</td>-->

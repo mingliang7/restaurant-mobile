@@ -282,6 +282,10 @@ Restaurant.Schema.Sales = new SimpleSchema({
   'eop._id':{
     type: String,
     optional:true
+  },
+  refId:{
+    type: String,
+    optional: true
   }
 });
 //search

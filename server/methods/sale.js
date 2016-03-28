@@ -91,7 +91,7 @@ Meteor.methods({
       }
     });
   },
-  cancelInvoice(saleId) {
+  cancelInvoice(saleId, newSaleId) {
     Restaurant.Collection.SaleDetails.direct.update({
       saleId: saleId
     }, {
@@ -100,12 +100,14 @@ Meteor.methods({
       }
     }, {
       multi: true
-    })
-    return Restaurant.Collection.Sales.direct.update(saleId, {
-      $set: {
-        status: 'canceled'
-      }
     });
+    let selector = {};
+    selector.$set = {};
+    selector.$set.status = 'canceled';
+    if(newSaleId){
+      selector.$set.refId = newSaleId;
+    }
+    return Restaurant.Collection.Sales.direct.update(saleId, selector);
   },
   cancelAndCopy(selector, currentSaleId) {
     Meteor._sleepForMs(200);
@@ -120,8 +122,8 @@ Meteor.methods({
       Restaurant.Collection.SaleDetails.insert(saleDetail);
     });
     Meteor.defer(() => {
-      Meteor.call('cancelInvoice', currentSaleId);
-    })
+      Meteor.call('cancelInvoice', currentSaleId, newSaleId);
+    });
     return newSaleId;
   }
 });
