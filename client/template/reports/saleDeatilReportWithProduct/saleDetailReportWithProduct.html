@@ -17,9 +17,11 @@
               <div class="content has-header overflow-scroll">
                   {{> afQuickField name='fromDate' type='datetime'}}
                   {{> afQuickField name='toDate' type="datetime"}}
-                  {{> afQuickField name='customerId' type="select" options=customers }}
-                  {{> afQuickField name='status' type="select" options=status }}
-                  {{> afQuickField name='staffId' type="select" options=users }}
+                  <div class="row">
+                    <div class="col col-33">{{> afQuickField name='status' type="select" options=status }}</div>
+                    <div class="col col-33">{{> afQuickField name='customerId' type="select" options=customers }}</div>
+                    <div class="col col-33">{{> afQuickField name='staffId' type="select" options=users }}</div>
+                  </div>
               </div>
           {{/autoForm}}
       {{/ionContent}}
@@ -59,6 +61,7 @@
                   <thead class="content-header">
                   <tr>
                       <th>ល.រ</th>
+                      <th>លេខតុ</th>
                       <th>លេខវិក័យប័ត្រ</th>
                       {{#if statusCanceled data.header.status}}
                       <th>វិក័យប័ត្រយោង</th>
@@ -81,6 +84,7 @@
                   {{#each content}}
                       <tr>
                           <td align="center">{{order}}</td>
+                          <td>{{_table.name}}({{_table._tableLocation.name}})</td>
                           <td>{{_id}}</td>
                           {{#if statusCanceled data.header.status}}
                           <td>{{refId}}</td>
@@ -97,6 +101,7 @@
                       <tr style="background: #ddd;">
                         <th colspan="{{#if statusCanceled data.header.status}}3{{else}}2{{/if}}">
                         </th>
+                        <th></th>
                         <th style="border-left: 1px solid #000;">
                           ឈ្មោះ
                         </th>
@@ -118,12 +123,14 @@
                       </tr>
                         {{#each saleDetailObj}}
                         <tr>
-                          <td colspan="2" style="border: none;"></td>
+                          <td colspan="{{#if statusCanceled data.header.status
+                            
+                          }}4{{else}}3{{/if}}" style="border: none;"></td>
                           <td align="center">
                             {{_product.name}}
                           </td>
                           <td align="center">
-                            {{price}}
+                            {{numFormat price '0,0'}}
                           </td>
                           <td align="center">
                             {{quantity}}
@@ -132,7 +139,7 @@
                             {{discount}}
                           </td>
                           <td align="right">
-                            {{amount}}
+                            {{numFormat amount '0,0'}}
                           </td>
                           <td align="right">
                             {{convertToDollar amount}}
@@ -145,9 +152,9 @@
                   <tr class="content-body">
                     {{#if statusCanceled data.header.status}}
                       <td colspan="8" style="text-align: right">Grand Total:</td>
-                      {{elsel}}
+                    {{else}}
                       <td colspan="7" style="text-align: right">Grand Total:</td>
-                      {{/if}}
+                    {{/if}}
                       <!--<td align="right">{{grandTotalCost}}</td>-->
                       <!--<td align="right">{{grandTotalPaidAmount}}</td>-->
                       <!--<td align="right">{{grandTotalOwedAmount}}</td>-->
