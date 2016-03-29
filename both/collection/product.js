@@ -126,14 +126,14 @@ Images.allow({
 //search product
 
 
-Restaurant.Collection.Products.search = function(query, limit, filter) {
-  let limitAmount = limit || 10
+Restaurant.Collection.Products.search = function(query, limit) {
+  let limitAmount = limit || 10;
   if (!query) {
     return;
   }
-  let regPattern = `${query}`
-  let reg = new RegExp(regPattern, 'i') //match all case
-  let selector = {}
+  let regPattern = `${query}`;
+  let reg = new RegExp(regPattern, 'i') ;//match all case
+  let selector = {};
   selector.$or =[{
         enName: {
           $regex: reg
@@ -148,14 +148,7 @@ Restaurant.Collection.Products.search = function(query, limit, filter) {
         }
 
       }];
-      debugger
-  if(!_.isEmpty(filter)){
-    let category = [];
-    for (var k in filter){
-      category.push(filter[k]);
-    }
-    selector.categoryId = {$in: category};
-  }
+
   return Restaurant.Collection.Products.find(selector, {
     sort: {
       name: 1

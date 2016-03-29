@@ -197,7 +197,7 @@ Meteor.publish('activeSalesCount', function() {
 
 
 //product search
-Meteor.publish('productsSearch', function(query, limit, filter) {
+Meteor.publish('productsSearch', function(query, limit) {
   if (_.isEmpty(query)) {
     return this.ready();
   }
@@ -209,7 +209,7 @@ Meteor.publish('productsSearch', function(query, limit, filter) {
 Meteor.publish('productCount', function() {
   Counts.publish(this, 'productCounts', Restaurant.Collection.Products.find());
   this.ready();
-})
+});
 
 //sale search
 Meteor.publish('salesSearch', function(query) {

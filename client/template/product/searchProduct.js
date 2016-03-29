@@ -5,8 +5,8 @@ Deps.autorun(function() {
 });
 
 Template.productSearch.rendered = function(){
-  Session.set('limit', 10)
-}
+  Session.set('limit', 10);
+};
 Template.productSearch.events({
   'keyup input': function(event, template) {
     Session.set('searchQuery', event.target.value);
