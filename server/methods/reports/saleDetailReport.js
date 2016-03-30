@@ -10,6 +10,13 @@ Meteor.methods({
     };
 
     var params = {};
+    params.$or = [{
+      '_customer.type': 'normal'
+    }, {
+      '_customer.type': {
+        $exists: false
+      }
+    }];
     if (arg.status != '') {
       params.status = {
         $in: arg.status.trim().split(',')

@@ -1,10 +1,14 @@
 Meteor.methods({
   saleEop(id) {
     let sale = Restaurant.Collection.Sales.findOne(id);
-    if(sale.eop.status){
-      return {status: true};
+    if (sale.eop.status) {
+      return {
+        status: true
+      };
     }
-    return {status: false};
+    return {
+      status: false
+    };
   },
   insertSale(selector) {
     var date = moment(selector.saleDate).format('YYMMDD');
@@ -104,7 +108,7 @@ Meteor.methods({
     let selector = {};
     selector.$set = {};
     selector.$set.status = 'canceled';
-    if(newSaleId){
+    if (newSaleId) {
       selector.$set.refId = newSaleId;
     }
     return Restaurant.Collection.Sales.direct.update(saleId, selector);
@@ -125,5 +129,32 @@ Meteor.methods({
       Meteor.call('cancelInvoice', currentSaleId, newSaleId);
     });
     return newSaleId;
+  },
+  officerCheque(saleId, customerId) {
+    Meteor.defer(function() {
+      let customer = Restaurant.Collection.Customers.findOne(customerId);
+      let sale = Restaurant.Collection.Sales.findOne(saleId);
+      let discount = 0;
+      let total = 0;
+      if (customer.type && customer.type == 'officer') {
+        discount = customer.discount;
+      }
+      total = (sale.subTotal) * (1 - (discount / 100));
+      Restaurant.Collection.Sales.update(saleId, {
+        $set: {
+          discount: discount,
+          total: total,
+          balanceAmount: total,
+          customerId: customerId
+        }
+      });
+    });
+  },
+  saveOfficerCheque(invoiceId) {
+    Restaurant.Collection.Sales.direct.update(invoiceId, {
+      $set: {
+        status: 'closed'
+      }
+    });
   }
 });

@@ -159,14 +159,15 @@ Restaurant.Schema.Sales = new SimpleSchema({
       options() {
         var sub = Meteor.subscribe("customers");
         if (!sub.ready()) {
-          IonLoading.show()
+          IonLoading.show();
         } else {
           IonLoading.hide();
           let customers = Restaurant.Collection.Customers.find();
-          let list = []
+          let list = [];
           customers.forEach(function(customer) {
+            let type = customer.type == 'officer' ? 'បុគ្គលិក' : 'ធម្មតា';
             list.push({
-              label: `${customer.name}`,
+              label: `${customer.name}(${type})`,
               value: customer._id
             });
           });

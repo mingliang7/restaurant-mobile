@@ -1,5 +1,5 @@
 Meteor.methods({
-    getSaleReportWithProduct: function (arg) {
+    officerChequeDetailReport: function (arg) {
         var data = {
             title: {},
             header: {},
@@ -8,13 +8,7 @@ Meteor.methods({
         };
 
         var params = {};
-        params.$or = [{
-          '_customer.type': 'normal'
-        }, {
-          '_customer.type': {
-            $exists: false
-          }
-        }];
+        params['_customer.type'] = 'officer';
         var fromDate = moment(arg.fromDate, "YYYY/MM/DD HH:mm").toDate();
         var toDate = moment(arg.toDate, "YYYY/MM/DD HH:mm").toDate();
         var customerId = arg.customerId;
@@ -25,10 +19,6 @@ Meteor.methods({
         if (customerId != null && customerId != "") {
             params.customerId = customerId;
             customer = Restaurant.Collection.Customers.findOne(customerId).name;
-        }
-        if (arg.status != null && arg.status) {
-            status = arg.status;
-            params.status = arg.status;
         }
         if (arg.staffId != "" && arg.staffId != null) {
             staff = Meteor.users.findOne(arg.staffId).profile.username;

@@ -13,7 +13,7 @@ Template.restaurantCustomer.rendered = function() {
       IonLoading.hide();
     }
   }.bind(this));
-}
+};
 
 Template.restaurantCustomer.helpers({
   customers(){

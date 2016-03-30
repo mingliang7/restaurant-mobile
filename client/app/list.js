@@ -81,6 +81,15 @@ Restaurant.ListForReport = {
 
 
 Restaurant.List = {
+  customerType() {
+    return [{
+      label: 'ធម្មតា',
+      value: 'normal'
+    }, {
+      label: 'បុគ្គលិក',
+      value: 'officer'
+    }];
+  },
   currency: function() {
     var list = [];
     Restaurant.Collection.Currency.find({}).forEach(function(obj) {
@@ -357,7 +366,7 @@ Restaurant.List = {
     }, {
       label: 'អ្នកកំណត់សិទ្ធ',
       value: 'setting'
-    },{
+    }, {
       label: 'អ្នកលក់',
       value: 'seller'
     }]
