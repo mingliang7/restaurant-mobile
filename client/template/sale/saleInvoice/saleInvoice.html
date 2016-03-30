@@ -81,8 +81,7 @@
 
             </div>
             <div class="col col-15">
-                <h4>{{price}}</h4>
-
+                <h4>{{numFormat price '0,0'}}</h4>
             </div>
             <div class="col col-15">
                 <h4>{{discount}}</h4>
@@ -91,7 +90,7 @@
                 </p>
             </div>
             <div class="col col-15">
-                <h4>{{amount}}</h4>
+                <h4>{{numFormat amount '0,0'}}</h4>
                 <p>
                     {{details.notes}}
                 </p>
@@ -162,7 +161,7 @@
                             Sub Total
                         </div>
                         <div class="col col-50">
-                            <b>{{subTotal}} {{exchangeRate.symbol}}</b>
+                            <b>{{numFormat subTotal '0,0'}} {{exchangeRate.symbol}}</b>
                         </div>
                     </div>
                     <div class="row">
@@ -184,7 +183,7 @@
                         </div>
                         <span class="hidden total">{{total}}</span>
                         <div class="col col-50">
-                            <b>{{total}} {{exchangeRate.symbol}}</b>
+                            <b>{{numFormat total '0,0'}} {{exchangeRate.symbol}}</b>
                         </div>
 
                     </div>
@@ -204,14 +203,14 @@
                         </div>
                         <span class="hidden total">{{paidAmount}}</span>
                         <div class="col col-20">
-                            <b>{{paidAmount}} {{exchangeRate.symbol}}</b>
+                            <b>{{numFormat paidAmount '0,0'}} {{exchangeRate.symbol}}</b>
                         </div>
                         <div class="col col-20">
                             នៅសល់ៈ
                         </div>
                         <span class="hidden total">{{balanceAmount}}</span>
                         <div class="col col-20">
-                            <b>{{balanceAmount}} {{exchangeRate.symbol}}</b>
+                            <b>{{numFormat balanceAmount '0,0'}} {{exchangeRate.symbol}}</b>
                         </div>
 
                     </div>

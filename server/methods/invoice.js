@@ -42,7 +42,7 @@ Meteor.methods({
 
         data.footer = {
             subTotal: numeral(sale.subTotal).format('0,0'),
-            discount: numeral(payment.discount).format('0,0'),
+            discount: numeral(sale.discount).format('0,0'),
             total: numeral(payment.dueAmount).format('0,0'),
             paidAmount: numeral(payment.paidAmount).format('0,0'),
             balanceAmount: numeral(payment.balanceAmount).format('0,0'),
