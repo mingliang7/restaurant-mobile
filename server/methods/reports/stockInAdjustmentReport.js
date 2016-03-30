@@ -1,5 +1,5 @@
 Meteor.methods({
-  getStockInReport: function(arg) {
+  getStockInAdjustmentReport: function(arg) {
     var data = {
       title: {},
       header: {},
@@ -24,7 +24,7 @@ Meteor.methods({
     //     params.customerId = customerId;
     //     customer = Restaurant.Collection.Customers.findOne(customerId).name;
     // }
-    params.type = 'order';
+    params.type = 'adjustment';
     var sale = Restaurant.Collection.StockIn.find(params);
     var header = {};
     header.date = arg.fromDate + ' ដល់ ' + arg.toDate;

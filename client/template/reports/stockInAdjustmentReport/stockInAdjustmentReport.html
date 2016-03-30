@@ -1,0 +1,88 @@
+<!--Form-->
+<template name="restaurantStockInAdjustmentReport">
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.report" text='របាយការណ៍'}}
+    {{/contentFor}}
+
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">របាយការណ៍ ក្រែប្រែទំនិញក្នុងឃ្លាំង</h1>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+            {{#autoForm schema="Restaurant.Schema.StockInAdjustmentReport"  id="restaurantStockInAdjustmentReport" action="/restaurant/stock-in-adjustment-report-gen"  target="_blank"}}
+                <div class="bar bar-header">
+                    <button type="submit" class="button button-balanced">Generate</button>
+                    <button type="reset" class="button button-stable">Reset</button>
+                </div>
+                <div class="content has-header overflow-scroll">
+                    {{> afQuickField name='fromDate' type='datetime'}}
+                    {{> afQuickField name='toDate' type="datetime"}}
+                </div>
+            {{/autoForm}}
+        {{/ionContent}}
+    {{/ionView}}
+</template>
+
+<!--Generate-->
+<template name="restaurantStockInAdjustmentReportGen">
+    {{#if data}}
+            {{#with data}}
+                {{#with title}}
+                    <div class="title">
+                        <div class="title-1x-kh-muol">{{khName}}</div>
+                        <div class="title-1x">{{enName}}</div>
+                        <div style="text-decoration: underline;">របាយការណ៍ ក្រែប្រែទំនិញក្នុងឃ្លាំង</div>
+                        <div class="title-2x">{{khAddress}}</div>
+                    </div>
+                {{/with}}
+                {{#with header}}
+                    <div style="width: 100%">
+                        <div style="width: 50%; float: left">
+                            <ul class="list-unstyled">
+                                <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {{/with}}
+
+                <!--Content-->
+                <table class="report-content">
+                    <thead class="content-header">
+                    <tr>
+                        <th>ល.រ</th>
+                        <th>លេខវត្ថុធាតុដើម</th>
+                        <th>កាលបរិច្ឆេទនាំចួល</th>
+                        <th>ឈ្មោះ</th>
+                        <th>តម្លៃរាយ</th>
+                        <th>បរិមាណ</th>
+                        <th>ខ្នាត</th>
+                        <th>ប្រភេទ</th>
+                        <th>បរិយាយ</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="content-body">
+                    {{#each content}}
+                        <tr>
+                            <td align="center">{{order}}</td>
+                            <td>{{_id}}</td>
+                            <td>{{stockInDate}}</td>
+                            <td>{{_material.name}}</td>
+                            <td>{{price}}</td>
+                            <td>{{qty}}</td>
+                            <td>{{_material._unit.name}}</td>
+                            <td>{{type}}</td>
+                            <td>{{description}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+
+            {{/with}}
+
+    {{else}}
+        <p> សូមមេត្តារងចាំ ...</p>
+    {{/if}}
+
+</template>
