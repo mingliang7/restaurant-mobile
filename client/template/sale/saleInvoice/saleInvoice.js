@@ -148,11 +148,30 @@ Template.tableHeader.helpers({
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editSale`;
   }
-})
+});
 
 //go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editDiscount
-
+Template.saleInvoiceTotal.events({
+  "click .save-officer-cheque"(){
+    debugger
+    let invoiceId = Router.current().params.invoiceId;
+     Meteor.call('saveOfficerCheque', invoiceId, (err,result)=>{
+       if(err){
+         alertify.error(err.message);
+       }else{
+         alertify.success('រក្សាទុុកបានជោគជ័យ');
+         Router.go('/restaurant/selectTable');
+       }
+     });
+  }
+});
 Template.saleInvoiceTotal.helpers({
+  isOfficerCheque(type){
+    if(type == 'officer'){
+      return true;
+    }
+    return false;
+  },
   goToPayment() {
     let params = Router.current().params;
     return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;

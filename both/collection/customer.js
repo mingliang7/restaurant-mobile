@@ -6,6 +6,22 @@ Restaurant.Schema.Customers = new SimpleSchema({
         unique: true,
         max: 200
     },
+    type:{
+      type: String,
+      label: 'ប្រភេទ',
+      autoform:{
+        type: 'select',
+        options(){
+          return Restaurant.List.customerType();
+        }
+      }
+    },
+    discount: {
+      type: Number,
+      label: 'បញ្ចុះតម្លៃ%',
+      decimal: true,
+      optional: true
+    },
     gender: {
         type: String,
         label: "ភេទ",
