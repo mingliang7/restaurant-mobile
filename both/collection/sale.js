@@ -271,6 +271,10 @@ Restaurant.Schema.Sales = new SimpleSchema({
     type: Object,
     optional: true,
     blackbox: true
+  },
+  vipcardId:{
+    type:String,
+    optional: true
   }
 });
 //search

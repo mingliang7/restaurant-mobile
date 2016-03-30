@@ -92,27 +92,6 @@ Template.restaurantSalePayment.events({
     } else if (currentDiscount == '' || currentDiscount == '0') {
       getDefaultDueAmount();
     }
-  },
-  'change [name="vipcard"]' (e) {
-    Meteor.call('getVipCard', $(e.currentTarget).val(), (err, result) => {
-      if (err) {
-        console.log(err.message);
-        $('[name="discount"]').val(0).keyup()
-        $('[name="vipcardId"]').val('').keyup()
-      } else {
-        if (result.message) {
-          alertify.error(result.message.error);
-          $('[name="discount"]').val(0).keyup()
-          $('[name="vipcardId"]').val('').keyup()
-        } else {
-          $('[name="discount"]').val(result.value).keyup()
-          $('[name="vipcardId"]').val(result._id).keyup()
-        }
-      }
-    })
-  },
-  'click [name="vipcard"]' (e) {
-    $(e.currentTarget).select();
   }
 });
 
