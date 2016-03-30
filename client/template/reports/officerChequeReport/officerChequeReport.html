@@ -1,5 +1,5 @@
 <!--Form-->
-<template name="restaurantSaleReport">
+<template name="officerChequeReport">
     {{#contentFor "headerButtonLeft"}}
         {{>ionNavBackButton path="restaurant.report" text='របាយការណ៍'}}
     {{/contentFor}}
@@ -10,7 +10,7 @@
 
     {{#ionView}}
         {{#ionContent}}
-            {{#autoForm schema="Restaurant.Schema.SaleReport"  id="restaurantSaleReport" action="/restaurant/sale-report-gen"  target="_blank"}}
+            {{#autoForm schema="Restaurant.Schema.SaleReport"  id="officerChequeReport" action="/restaurant/officer-cheque-report-gen"  target="_blank"}}
                 <div class="bar bar-header">
                     <button type="submit" class="button button-balanced">Generate</button>
                     <button type="reset" class="button button-stable">Reset</button>
@@ -19,7 +19,6 @@
                     {{> afQuickField name='fromDate' type='datetime'}}
                     {{> afQuickField name='toDate' type="datetime"}}
                     <div class="row">
-                      <div class="col col-33">{{> afQuickField name='status' type="select" options=status }}</div>
                       <div class="col col-33">{{> afQuickField name='customerId' type="select" options=customers }}</div>
                       <div class="col col-33">{{> afQuickField name='staffId' type="select" options=users }}</div>
                     </div>
@@ -30,14 +29,14 @@
 </template>
 
 <!--Generate-->
-<template name="restaurantSaleReportGen">
+<template name="officerChequeReportGen">
     {{#if data}}
             {{#with data}}
                 {{#with title}}
                     <div class="title">
                         <div class="title-1x-kh-muol">{{khName}}</div>
                         <div class="title-1x">{{enName}}</div>
-                        <div style="text-decoration: underline;">របាយការណ៍ លក់</div>
+                        <div style="text-decoration: underline;">របាយការណ៍ លក់សម្រាប់បុគ្គលិក(Officer Cheque)</div>
                         <div class="title-2x">{{khAddress}}</div>
                     </div>
                 {{/with}}
@@ -100,7 +99,9 @@
                             <!--<td align="right">{{totalCost}}</td>-->
                             <!--<td align="right">{{paidAmount}}</td>-->
                             <!--<td align="right">{{owedAmount}}</td>-->
-                            <td align="right">{{numFormat subTotal '0,0'}}</td>
+                            <td align="center">
+                              {{numFormat subTotal '0,0'}}
+                            </td>
                             <td align="center">
                               {{discount}}
                             </td>

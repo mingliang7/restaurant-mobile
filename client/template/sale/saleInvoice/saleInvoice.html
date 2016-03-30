@@ -4,7 +4,7 @@
     {{/contentFor}}
     {{#if isInRole 'setting, cashier'}}
       {{#contentFor "headerButtonRight"}}
-          <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
+          <!-- <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a> -->
       {{/contentFor}}
     {{/if}}
     {{#contentFor "headerTitle"}}
@@ -152,9 +152,9 @@
 
 <template name="saleInvoiceTotal">
     <div class="col col-50 col-offset-50">
+      {{#with saleInvoice}}
         <div class="list card">
             <div class="item item-body">
-                {{#with saleInvoice}}
                     <div class="row">
                         <div class="col col-10"></div>
                         <div class="col col-20">
@@ -215,10 +215,14 @@
 
                     </div>
 
-                {{/with}}
             </div>
         </div>
-        <a href="{{goToPayment}}" class="button  button-balanced payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
+        {{#if isOfficerCheque _customer.type}}
+          <a href="#" class="button  button-positive save-officer-cheque">{{> ionIcon icon="ios-download-outline"}}&nbsp;រក្សាទុក</a>
+        {{else}}
+          <a href="{{goToPayment}}" class="button  button-balanced payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
+        {{/if}}
+        {{/with}}
     </div>
 
 </template>

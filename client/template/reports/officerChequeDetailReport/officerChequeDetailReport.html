@@ -1,15 +1,15 @@
-<template name="restaurantSaleDetailProductReport">
+<template name="officerChequeDetailReport">
   {{#contentFor "headerButtonLeft"}}
       {{>ionNavBackButton path="restaurant.report" text='របាយការណ៍'}}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-      <h1 class="title">របាយការណ៍ លក់លម្អិត</h1>
+      <h1 class="title">របាយការណ៍ លក់លម្អិតសម្រាប់បុគ្គលិក(Officer Cheque with Detail)</h1>
   {{/contentFor}}
 
   {{#ionView}}
       {{#ionContent}}
-          {{#autoForm schema="Restaurant.Schema.SaleReport"  id="restaurantSaleReportWithProduct" action="/restaurant/sale-detail-product-report-gen"  target="_blank"}}
+          {{#autoForm schema="Restaurant.Schema.OfficerChequeDetailReport"  id="OfficerChequeDetailReport" action="/restaurant/officer-cheque-detail-report-gen"  target="_blank"}}
               <div class="bar bar-header">
                   <button type="submit" class="button button-balanced">Generate</button>
                   <button type="reset" class="button button-stable">Reset</button>
@@ -18,7 +18,6 @@
                   {{> afQuickField name='fromDate' type='datetime'}}
                   {{> afQuickField name='toDate' type="datetime"}}
                   <div class="row">
-                    <div class="col col-33">{{> afQuickField name='status' type="select" options=status }}</div>
                     <div class="col col-33">{{> afQuickField name='customerId' type="select" options=customers }}</div>
                     <div class="col col-33">{{> afQuickField name='staffId' type="select" options=users }}</div>
                   </div>
@@ -28,7 +27,7 @@
   {{/ionView}}
 </template>
 
-<template name="restaurantSaleDetailProductReportGen">
+<template name="officerChequeDetailReportGen">
   {{#if data}}
           {{#with data}}
               {{#with title}}
@@ -75,7 +74,7 @@
                       <!--<th align="right">Owed Amount</th>-->
                       <th>សរុបរង</th>
                       <th>បញ្ចុះ%</th>
-                      <th align="right">សរុប</th>
+                      <th>សរុប</th>
                       {{#each grandTotalConvert}}
                           <th align="right">{{toCurrencyId}}</th>
                       {{/each}}
@@ -102,7 +101,7 @@
                               <td align="right">{{exTotalFormatted}}</td>
                           {{/each}}
                       </tr>
-                      <tr style="background: #ddd;">
+                      <tr style="background: #ddd; font-size: 11px;">
                         <th colspan="{{#if statusCanceled data.header.status}}3{{else}}2{{/if}}">
                         </th>
                         <th></th>

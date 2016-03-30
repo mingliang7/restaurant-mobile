@@ -28,12 +28,20 @@ Template.restaurantSaleTableSaleInvoiceEditSale.helpers({
     return params.invoiceId;
   }
 });
-
+Template.restaurantSaleTableSaleInvoiceEditSale.events({
+  'change [name="customerId"]'(event){
+    let invoiceId = Router.current().params.invoiceId;
+    let customerId = event.currentTarget.value;
+    if(customerId != ''){
+      Meteor.call('officerCheque', invoiceId, customerId);
+    }
+  },
+});
 Template.restaurantSaleTableSaleInvoiceEditDiscount.created = function() {
   this.autorun(() => {
     this.subscribe = Meteor.subscribe("sale", Router.current().params.invoiceId);
   });
-}
+};
 
 Template.restaurantSaleTableSaleInvoiceEditDiscount.rendered = function() {
   try {
@@ -105,7 +113,6 @@ AutoForm.hooks({
           let currentDate = moment(doc.$set.saleDate).format('YYYY/MM/DD');
           doc.$set.saleDate = moment(`${currentDate} ${currentTime}`).toDate();
         }
-        debugger
         return doc;
       }
     },
