@@ -10,6 +10,13 @@ Meteor.methods({
     };
 
     var params = {};
+    let tmpCategoryName = [];
+    if(arg.categoryId != ''){
+      let arr = arg.categoryId.split(',');
+      for(let i =0; i< arr.length;i++){
+        tmpCategoryName.push(Restaurant.Collection.Categories.findOne(arr[i]).name);
+      }
+    }
     params.$or = [{
       '_customer.type': 'normal'
     }, {
@@ -39,6 +46,11 @@ Meteor.methods({
 
 
     var header = {};
+    header.staffId = "ទាំងអស់";
+    if(arg.staffId != ''){
+      params.staffId = arg.staffId;
+      header.staffId = Meteor.users.findOne(arg.staffId).profile.username;
+    }
 
     header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
     if(arg.status == 'active'){
@@ -54,8 +66,8 @@ Meteor.methods({
     if (customerId != null && customerId != "")
       customer = Restaurant.Collection.Customers.findOne(customerId).name;
 
-    if (categoryId != null && categoryId != "")
-      category = Restaurant.Collection.Categories.findOne(categoryId).name;
+    if (tmpCategoryName.length > 0)
+      category = tmpCategoryName.join(', ');
     header.customer = customer;
     header.category = category;
 
@@ -65,7 +77,7 @@ Meteor.methods({
     var total = 0;
     var sales = Restaurant.Collection.Sales.find(params);
     sales.forEach((sale) => {
-      groupSaleDetail(sale, saleDetailObj);
+      groupSaleDetail(sale, saleDetailObj, tmpCategoryName);
       total += sale.total;
     });
     for(let k in saleDetailObj){
@@ -90,10 +102,15 @@ Meteor.methods({
   }
 });
 
-let groupSaleDetail = (sale, saleDetailObj) => {
-  let saleDetails = Restaurant.Collection.SaleDetails.find({
-    saleId: sale._id
-  });
+let groupSaleDetail = (sale, saleDetailObj, tmpCategoryName) => {
+  let selector = {};
+  selector.saleId = sale._id;
+  if(tmpCategoryName.length > 0){
+    selector['_product._category.name'] = {
+      $in: tmpCategoryName
+    };
+  }
+  let saleDetails = Restaurant.Collection.SaleDetails.find(selector);
   saleDetails.forEach((saleDetail) => {
     if (_.isUndefined(saleDetailObj[saleDetail.productId])) {
       saleDetailObj[saleDetail.productId] = {};
