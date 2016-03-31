@@ -21,9 +21,10 @@
                     {{> afQuickField name='toDate' type="datetime"}}
                     <div class="row">
                       <div class="col col-33">{{> afQuickField name='status'}}</div>
+                      <div class="col col-33">{{> afQuickField name='staffId' type="select" options=users }}</div>
                       <div class="col col-33">{{> afQuickField name='customerId' type="select" options=customers }}</div>
-                      <div class="col col-33">{{> afQuickField name='categoryId' type="select" options=categories }}
-                      </div>
+                    </div>
+                      <div class="col col-50">{{> afQuickField name='categoryId' type="select-checkbox" options=categories }}
                     </div>
                 </div>
             {{/autoForm}}
@@ -44,14 +45,15 @@
             {{/with}}
             {{#with header}}
                 <div style="width: 100%">
-                    <div style="width: 50%; float: left">
+                    <div style="width: 70%; float: left">
                         <ul class="list-unstyled">
                             <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
                             <li><strong>ប្រភេទវិក័យប័ត្រ:</strong> {{status}}</li>
+                            <li><strong>បុគ្គលិក: {{staffId}}</strong></li>
                         </ul>
                     </div>
 
-                    <div style="width: 50%; float: right">
+                    <div style="width: 30%; float: right">
                         <ul class="list-unstyled">
                             <li><strong>អតិថិជន:</strong> {{customer}}</li>
                             <li><strong>ផ្នែក:</strong> {{category}}</li>

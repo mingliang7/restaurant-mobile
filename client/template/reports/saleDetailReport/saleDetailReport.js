@@ -9,6 +9,9 @@ Template.restaurantSaleDetailReport.helpers({
   },
   categories() {
     return ReactiveMethod.call('getCategoryList')
+  },
+  users() {
+    return ReactiveMethod.call('getUserList');
   }
 });
 
@@ -77,11 +80,12 @@ AutoForm.hooks({
         doc.status = doc.status.join(',');
         status = doc.status;
       }
+      let staffId = doc.staffId === undefined ? '' : doc.staffId;
       let fromDate = moment($('[name="fromDate"]').val()).format('YYYY-MM-DD HH:mm:ss');
       let toDate =  moment($('[name="toDate"]').val()).format('YYYY-MM-DD HH:mm:ss');
       let customerId = doc.customerId === undefined ? '' : doc.customerId;
       let categoryId = doc.categoryId === undefined ? '' : doc.categoryId ;
-      let url = `/restaurant/sale-detail-report-gen?fromDate=${fromDate}&toDate=${toDate}&customerId=${customerId}&categoryId=${categoryId}&status=${status}`;
+      let url = `/restaurant/sale-detail-report-gen?fromDate=${fromDate}&toDate=${toDate}&customerId=${customerId}&categoryId=${categoryId}&status=${status}&staffId=${staffId}`;
       this.done(); //reset form
       window.open(url, '_blank');
 
