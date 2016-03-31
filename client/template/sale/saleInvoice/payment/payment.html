@@ -20,19 +20,6 @@
              <div class="col col-33">{{> afQuickField name='saleId' readonly=true label="លេខវិក័យប័ត្រ"}}</div>
              <div class="col col-33">{{> afQuickField name='paymentDate' type='datetime-local' label="ថ្ងៃបង់ប្រាក់"}}</div>
            </div>
-           <div class="row">
-             <div class="col col-50">
-               <label class="item item-input">
-                 <span class="input-label">Vipcard:</span>
-                 <input type="password" name="vipcard" autofocus="true">
-               </label>
-               {{> afQuickField name='vipcardId' readonly=true type="hidden"}}
-             </div>
-             <div class="col col-50">
-               {{> afQuickField name='discount' label="បញ្ចុះតម្លៃ(%)"}}
-              </div>
-           </div>
-
            {{> afQuickField name='dueAmount' readonly=true label="លុយត្រូវបង់"}}
            <input type="hidden" name="tmpDueAmount" value="{{sale.dueAmount}}">
            {{> afQuickField name='paidAmount' label="ចំនួនទឹកប្រាក់បានបង់ (៛)" type="hidden"}}
