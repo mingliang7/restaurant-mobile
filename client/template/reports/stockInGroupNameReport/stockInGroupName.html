@@ -1,0 +1,83 @@
+<!--Form-->
+<template name="stockInGroupNameReport">
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.report" text='របាយការណ៍'}}
+    {{/contentFor}}
+
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">របាយការណ៍ នាំទំនិញចូលឃ្លាំងតាមមុខទំនិញ</h1>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+            {{#autoForm schema="Restaurant.Schema.StockInGroupNameReport"  id="stockInGroupName" action="/restaurant/stock-in-group-name-report-gen"  target="_blank"}}
+                <div class="bar bar-header">
+                    <button type="submit" class="button button-balanced">Generate</button>
+                    <button type="reset" class="button button-stable">Reset</button>
+                </div>
+                <div class="content has-header overflow-scroll">
+                    {{> afQuickField name='fromDate' type='datetime'}}
+                    {{> afQuickField name='toDate' type="datetime"}}
+                    <div class="row">
+                      <div class="col col-33">{{> afQuickField name='type'}}</div>
+                      <div class="col col-33">{{> afQuickField name='materialCategoryId'}}</div>
+                    </div>
+                </div>
+            {{/autoForm}}
+        {{/ionContent}}
+    {{/ionView}}
+</template>
+
+<!--Generate-->
+<template name="stockInGroupNameReportGen">
+    {{#if data}}
+            {{#with data}}
+                {{#with title}}
+                    <div class="title">
+                        <div class="title-1x-kh-muol">{{khName}}</div>
+                        <div class="title-1x">{{enName}}</div>
+                        <div style="text-decoration: underline;">របាយការណ៍ នាំទំនិញចូលឃ្លាំងតាមមុខទំនិញ</div>
+                        <div class="title-2x">{{khAddress}}</div>
+                    </div>
+                {{/with}}
+                {{#with header}}
+                    <div style="width: 100%">
+                        <div style="width: 50%; float: left">
+                            <ul class="list-unstyled">
+                                <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
+                                <li><strong>ផ្នែក:</strong> {{category}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {{/with}}
+
+                <!--Content-->
+                <table class="report-content">
+                    <thead class="content-header">
+                    <tr>
+                        <th>ឈ្មោះ</th>
+                        <th>ចំនួនសរុប</th>
+                        <th>តម្លៃជាមធ្យម</th>
+                        <th>តម្លៃសរុបជាមធ្យម</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="content-body">
+                    {{#each content}}
+                        <tr>
+                            <td>{{materialName}}</td>
+                            <td align="center">{{totalQuantity}}</td>
+                            <td align="right">{{numFormat avgPrice '0,0'}}</td>
+                            <td align="right">{{numFormat avgAmount '0,0'}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+
+            {{/with}}
+
+    {{else}}
+        <p> សូមមេត្តារងចាំ ...</p>
+    {{/if}}
+
+</template>

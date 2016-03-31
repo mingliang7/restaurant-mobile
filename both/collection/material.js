@@ -52,6 +52,11 @@ Restaurant.Schema.Materials = new SimpleSchema({
     optional: true,
     blackbox: true
   },
+  _materialCategory: {
+    type: Object,
+    optional: true,
+    blackbox: true
+  },
   _outstandingAmount:{
     type: [Object],
     optional: true,
