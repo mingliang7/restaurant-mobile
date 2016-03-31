@@ -3,7 +3,7 @@
  */
 Restaurant.Schema.SaleDetailReport = new SimpleSchema({
   categoryId: {
-    type: String,
+    type: [String],
     label: "ផ្នែក",
     autoform: {
       firstOption: 'All'
@@ -49,7 +49,7 @@ Restaurant.Schema.SaleDetailReport = new SimpleSchema({
     optional: true
   },
   staffId: {
-    type: Date,
+    type: String,
     label: "បុគ្កលិក",
     autoform: {
       firstOption: 'All'
