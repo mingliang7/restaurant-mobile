@@ -106,17 +106,19 @@ Meteor.publish("sale", (id) => {
   if (sales) {
     return sales;
   }
-  return this.ready()
+  return this.ready();
 });
 
 Meteor.publish("closedSale", (id) => {
   let sales = Restaurant.Collection.Sales.find(id, {
-    status: 'closed'
+    status: {
+      $in: ['closed', 'canceled']
+    }
   });
   if (sales) {
     return sales;
   }
-  return this.ready()
+  return this.ready();
 });
 
 
@@ -193,7 +195,7 @@ Meteor.publish('activeSalesCount', function() {
     status: 'active'
   }));
   this.ready();
-})
+});
 
 
 //product search
@@ -322,10 +324,10 @@ Meteor.publish("materials", function(limit) {
 
 //publish stockIn with status active
 
-Meteor.publish("stockIn", function(selector){
-  let stockIns = Restaurant.Collection.StockIn.find({},selector);
+Meteor.publish("stockIn", function(selector) {
+  let stockIns = Restaurant.Collection.StockIn.find({}, selector);
   // console.log(stockIns.fetch());
-  if(stockIns){
+  if (stockIns) {
     return stockIns;
   }
   return this.ready();
@@ -333,9 +335,9 @@ Meteor.publish("stockIn", function(selector){
 
 
 //publish end of process
-Meteor.publish("endOfProcess", function(selector){
-  let eops = Restaurant.Collection.EndOfProcess.find({},selector);
-  if(eops){
+Meteor.publish("endOfProcess", function(selector) {
+  let eops = Restaurant.Collection.EndOfProcess.find({}, selector);
+  if (eops) {
     return eops;
   }
   return this.ready();
