@@ -99,17 +99,19 @@ Meteor.publish("sale", (id) => {
   if (sales) {
     return sales;
   }
-  return this.ready()
+  return this.ready();
 });
 
 Meteor.publish("closedSale", (id) => {
   let sales = Restaurant.Collection.Sales.find(id, {
-    status: 'closed'
+    status: {
+      $in: ['closed', 'canceled']
+    }
   });
   if (sales) {
     return sales;
   }
-  return this.ready()
+  return this.ready();
 });
 
 
@@ -186,7 +188,7 @@ Meteor.publish('activeSalesCount', function() {
     status: 'active'
   }));
   this.ready();
-})
+});
 
 
 //product search
@@ -262,4 +264,13 @@ Meteor.publish("activeUsers", function() {
 //publish roles
 Meteor.publish("null", function() {
   return Meteor.roles.find({});
+});
+//publish latest exchangeRates
+Meteor.publish("latestExchange", function() {
+  return Restaurant.Collection.ExchangeRates.find({}, {
+    sort: {
+      _id: -1
+    },
+    limit: 1
+  })
 });

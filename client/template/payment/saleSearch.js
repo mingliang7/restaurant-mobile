@@ -1,5 +1,5 @@
 Deps.autorun(function() {
-  if (Session.get('searchSaleQuery')) {
+  if (Session.get('searchSaleQuery') ||  Session.get('filterByLocation') || Session.get('saleStatus') || Session.get('queryDate')) {
     Meteor.subscribe('searchSaleByTable', Session.get('searchSaleQuery'), Session.get('filterByLocation'), Session.get('saleStatus'), Session.get('queryDate'), Session.get('searchLimit'));
   }
 });
@@ -7,22 +7,26 @@ Template.restaurantActivePaymentSearch.created = function() {
   Session.set('filterByLocation', {});
   Session.set('searchLimit', 5);
   Session.set('saleStatus', 'active');
-  Session.set('queryDate', undefined)
+  Session.set('queryDate', undefined);
   this.autorun(() => {
     this.subscribe = Meteor.subscribe("tableLocations");
     Meteor.subscribe("activeSales", Session.get('activeSaleLimit'));
-  })
-}
+  });
+};
 Template.restaurantActivePaymentSearch.rendered = function() {
   $('[name="date"]').datetimepicker();
-  this.autorun(() => {
-    if (!this.subscription.ready()) {
-      IonLoading.show();
-    } else {
-      IonLoading.hide();
-    }
-  })
-}
+  try {
+    this.autorun(() => {
+      if (!this.subscription.ready()) {
+        IonLoading.show();
+      } else {
+        IonLoading.hide();
+      }
+    });
+  } catch (e) {
+
+  }
+};
 Template.restaurantActivePaymentSearch.events({
   'keyup input': function(event, template) {
     Session.set('searchSaleQuery', event.target.value);
@@ -32,11 +36,11 @@ Template.restaurantActivePaymentSearch.events({
     IonModal.close();
   },
   'change .location' (event) {
-    let locations = Session.get('filterByLocation')
+    let locations = Session.get('filterByLocation');
     if ($(event.currentTarget).prop('checked')) {
       locations[this._id] = this._id;
     } else {
-      delete locations[this._id]
+      delete locations[this._id];
     }
     Session.set('searchSaleQuery', ''); //reactive search query
     Session.set('filterByLocation', locations);
@@ -67,24 +71,25 @@ Template.restaurantActivePaymentSearch.helpers({
     return limit < count;
   },
   products: function() {
-    let filter = []
+    let filter = [];
     let locations = Session.get('filterByLocation');
     if (!_.isEmpty(locations)) {
       for (let k in locations) {
         filter.push(locations[k]);
       }
     }
-    return Restaurant.Collection.Sales.searchByTable(Session.get('searchSaleQuery'), filter, Session.get('saleStatus'), Session.get('queryDate'), Session.get('searchLimit'));
+    let restaurants = Restaurant.Collection.Sales.searchByTable(Session.get('searchSaleQuery'), filter, Session.get('saleStatus'), Session.get('queryDate'), Session.get('searchLimit'));
+    return restaurants;
   },
   saleIsNotZero(){
-    let filter = []
+    let filter = [];
     let locations = Session.get('filterByLocation');
     if (!_.isEmpty(locations)) {
       for (let k in locations) {
         filter.push(locations[k]);
       }
     }
-    let sales = Restaurant.Collection.Sales.searchByTable(Session.get('searchSaleQuery'), filter, Session.get('saleStatus'));
+    let sales = Restaurant.Collection.Sales.searchByTable(Session.get('searchSaleQuery'), filter, Session.get('saleStatus'),Session.get('queryDate'));
     if(sales.count() > 0){
       return true;
     }
@@ -98,7 +103,7 @@ Template.restaurantActivePaymentSearch.helpers({
     if(status == 'active'){
       return `/restaurant/sale/${this.tableLocation}/table/${this.tableId}/saleInvoice/${this._id}`;
     }else{
-      return `/restaurant/payment/${this._id}/show`
+      return `/restaurant/payment/${this._id}/show`;
     }
   },
   locations() {
