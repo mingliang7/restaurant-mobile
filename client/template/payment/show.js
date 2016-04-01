@@ -18,15 +18,15 @@ Template.restaurantActivePaymentShow.rendered = function(){
 
 Template.restaurantActivePaymentShow.helpers({
   saleDetails(){
-    return Restaurant.Collection.SaleDetails.find({saleId: Router.current().params.saleId, status: 'saved'});
+    return Restaurant.Collection.SaleDetails.find({saleId: Router.current().params.saleId});
   },
   invoiceNumber(){
-    return `វិក័យប័ត្រលេខៈ ${Router.current().params.saleId}`
+    return `វិក័យប័ត្រលេខៈ ${Router.current().params.saleId}`;
   },
   saleInvoice(){
-    return Restaurant.Collection.Sales.findOne({_id: Router.current().params.saleId, status: 'closed'});
+    return Restaurant.Collection.Sales.findOne({_id: Router.current().params.saleId});
   }
-})
+});
 
 
 Template._sale_options.helpers({
@@ -39,10 +39,13 @@ Template._sale_options.events({
   'click .print'(){
     let arr = [];
     let sale = Restaurant.Collection.Sales.findOne(Router.current().params.saleId);
-    sale._payment.forEach(function(payment) {
-      arr.push({text: payment._id});
-    });
-    debugger
+    if(sale._payment){
+      sale._payment.forEach(function(payment) {
+        arr.push({text: payment._id, url: `/restaurant/invoice`});
+      });
+    }else{
+      arr.push({text: sale._id, url: `/restaurant/sale-print`});
+    }
     IonActionSheet.show({
       titleText: `ជម្រើសលេខវិក័យប័ត្របង់ប្រាក់ដើម្បីព្រីន`,
       buttons: arr,
@@ -52,7 +55,8 @@ Template._sale_options.events({
         console.log('Cancelled!');
       },
       buttonClicked: function(index) {
-        window.open(`/restaurant/invoice/${arr[index].text}`, '_blank');
+        let url = `${arr[index].url}/${arr[index].text}`;
+        window.open(url, '_blank');
         return true;
       },
       destructiveButtonClicked: function() {

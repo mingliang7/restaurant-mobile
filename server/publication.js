@@ -99,17 +99,19 @@ Meteor.publish("sale", (id) => {
   if (sales) {
     return sales;
   }
-  return this.ready()
+  return this.ready();
 });
 
 Meteor.publish("closedSale", (id) => {
   let sales = Restaurant.Collection.Sales.find(id, {
-    status: 'closed'
+    status: {
+      $in: ['closed', 'canceled']
+    }
   });
   if (sales) {
     return sales;
   }
-  return this.ready()
+  return this.ready();
 });
 
 
@@ -186,7 +188,7 @@ Meteor.publish('activeSalesCount', function() {
     status: 'active'
   }));
   this.ready();
-})
+});
 
 
 //product search
@@ -285,6 +287,57 @@ Meteor.publish("vipcards", function(obj) {
   return this.ready();
 });
 //publish latest exchangeRates
-Meteor.publish("latestExchange", function(){
-  return Restaurant.Collection.ExchangeRates.find({}, {sort: {_id: -1}, limit: 1})
+Meteor.publish("latestExchange", function() {
+  return Restaurant.Collection.ExchangeRates.find({}, {
+    sort: {
+      _id: -1
+    },
+    limit: 1
+  });
+});
+
+
+//material search
+Meteor.publish("materialSearch", function(query, limit) {
+  return Restaurant.Collection.Materials.search(query, limit);
+});
+
+//publish material with 100 records
+
+Meteor.publish("materials", function(limit) {
+  let limitAmount = limit || 100;
+  return Restaurant.Collection.Materials.find({}, {
+    sort: {
+      name: 1
+    },
+    limit: limitAmount
+  })
+});
+
+
+//publish stockIn with status active
+
+Meteor.publish("stockIn", function(selector) {
+  let stockIns = Restaurant.Collection.StockIn.find({}, selector);
+  // console.log(stockIns.fetch());
+  if (stockIns) {
+    return stockIns;
+  }
+  return this.ready();
+});
+
+
+//publish end of process
+Meteor.publish("endOfProcess", function(selector) {
+  let eops = Restaurant.Collection.EndOfProcess.find({}, selector);
+  if (eops) {
+    return eops;
+  }
+  return this.ready();
+});
+
+//count stockIn
+Meteor.publish("countStockIn", function() {
+  Counts.publish(this, 'countStockIn', Restaurant.Collection.StockIn.find());
+  this.ready();
 });
