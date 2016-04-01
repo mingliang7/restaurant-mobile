@@ -51,6 +51,9 @@ Template.productNew.helpers({
     return TmpItem.find();
   }
 });
+Template.productNew.onDestroyed(()=>{
+  TmpItem.remove({});
+});
 AutoForm.hooks({
   productNew: {
     before: {
@@ -72,6 +75,7 @@ AutoForm.hooks({
       //IonModal.close();
     },
     onError(formType, err) {
+      TmpItem.remove({});
       Bert.alert(err.message, 'danger', 'growl-bottom-right');
     }
   }

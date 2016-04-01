@@ -4,15 +4,23 @@ Template.editProduct.helpers({
     let product = Restaurant.Collection.Products.findOne({
       _id: template.data.id
     });
-    product.ingradient.forEach((ingradient) => {
-      Meteor.call('getMaterialName', ingradient.productId, (err, result) => {
-        TmpItem.insert({
-          _id: ingradient.productId,
-          name: result,
-          qty: ingradient.qty
+    if (product.ingradient) {
+      product.ingradient.forEach((ingradient) => {
+        Meteor.call('getMaterialName', ingradient.productId, (err, result) => {
+          TmpItem.insert({
+            _id: ingradient.productId,
+            name: result,
+            qty: ingradient.qty
+          });
         });
       });
-    });
+    } else {
+      product.ingradient = [{
+        productId: '',
+        qty: ''
+      }];
+    }
+    console.log(product);
     return product;
   },
   tmpItems() {
@@ -63,7 +71,9 @@ Template.editProduct.events({
     }
   }
 });
-
+Template.editProduct.onDestroyed(()=>{
+  TmpItem.remove({});
+});
 AutoForm.hooks({
   productEdit: {
     before: {
@@ -81,9 +91,11 @@ AutoForm.hooks({
     },
     onSuccess(formType, result) {
       Bert.alert('កែប្រែបានជោគជ័យ', 'success', 'growl-bottom-right');
+      TmpItem.remove({});
       IonModal.close();
     },
     onError(formType, err) {
+      TmpItem.remove({});
       Bert.alert(err.message, 'danger', 'growl-bottom-right');
     }
   }

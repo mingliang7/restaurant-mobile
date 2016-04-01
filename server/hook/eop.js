@@ -48,17 +48,19 @@ let extractNewProduct = (saleId, productObj) => {
     saleId: saleId
   });
   saleDetails.forEach((saleDetail) => {
-    saleDetail._product.ingradient.forEach((ingradient) => {
-      if (_.isUndefined(product[ingradient.productId])) {
-        product[ingradient.productId] = {
-          qty: ingradient.qty * saleDetail.quantity,
-          saleId: [saleId]
-        };
-      } else {
-        product[ingradient.productId].qty += ingradient.qty * saleDetail.quantity;
-        product[ingradient.productId].saleId.push(saleId);
-      }
-    });
+    if(saleDetail._product.ingradient){
+      saleDetail._product.ingradient.forEach((ingradient) => {
+        if (_.isUndefined(product[ingradient.productId])) {
+          product[ingradient.productId] = {
+            qty: ingradient.qty * saleDetail.quantity,
+            saleId: [saleId]
+          };
+        } else {
+          product[ingradient.productId].qty += ingradient.qty * saleDetail.quantity;
+          product[ingradient.productId].saleId.push(saleId);
+        }
+      });
+    }
   });
   return product;
 };
