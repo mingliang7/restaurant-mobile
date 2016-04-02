@@ -11,9 +11,9 @@ Meteor.methods({
 
     var params = {};
     let tmpCategoryName = [];
-    if(arg.categoryId != ''){
+    if (arg.categoryId != '') {
       let arr = arg.categoryId.split(',');
-      for(let i =0; i< arr.length;i++){
+      for (let i = 0; i < arr.length; i++) {
         tmpCategoryName.push(Restaurant.Collection.Categories.findOne(arr[i]).name);
       }
     }
@@ -32,7 +32,11 @@ Meteor.methods({
     var fromDate = moment(arg.fromDate, "YYYY/MM/DD HH:mm").toDate();
     var toDate = moment(arg.toDate, "YYYY/MM/DD HH:mm").toDate();
     var customerId = arg.customerId;
-    var exchange = Restaurant.Collection.ExchangeRates.findOne({}, {sort:{_id: -1}});
+    var exchange = Restaurant.Collection.ExchangeRates.findOne({}, {
+      sort: {
+        _id: -1
+      }
+    });
     var categoryId = arg.categoryId;
 
     /****** Title *****/
@@ -47,17 +51,17 @@ Meteor.methods({
 
     var header = {};
     header.staffId = "ទាំងអស់";
-    if(arg.staffId != ''){
+    if (arg.staffId != '') {
       params.staffId = arg.staffId;
       header.staffId = Meteor.users.findOne(arg.staffId).profile.username;
     }
 
     header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
-    if(arg.status == 'active'){
+    if (arg.status == 'active') {
       header.status = 'កំពុងលក់';
-    }else if(arg.status == 'closed'){
+    } else if (arg.status == 'closed') {
       header.status = 'ទូរទាត់រួច';
-    }else{
+    } else {
       header.status = 'បោះបង់';
     }
 
@@ -80,9 +84,9 @@ Meteor.methods({
       groupSaleDetail(sale, saleDetailObj, tmpCategoryName);
       total += sale.total;
     });
-    for(let k in saleDetailObj){
-      for(let j in saleDetailObj[k].status){
-        for(let d in saleDetailObj[k].status[j]){
+    for (let k in saleDetailObj) {
+      for (let j in saleDetailObj[k].status) {
+        for (let d in saleDetailObj[k].status[j]) {
           saleDetailObj[k].totalAmount += saleDetailObj[k].status[j][d].amount;
           saleDetailObj[k].totalQty += saleDetailObj[k].status[j][d].qty;
         }
@@ -94,9 +98,9 @@ Meteor.methods({
     //return reportHelper;
     /****** Content *****/
     if (content.length > 0) {
-        data.content = content;
-        data.footer.total= numeral(total).format('0,0');
-        data.footer.totalInDollar= numeral(total/exchange.rates[0].rate).format('0,0.00');
+      data.content = content;
+      data.footer.total = numeral(total).format('0,0');
+      data.footer.totalInDollar = numeral(total / exchange.rates[0].rate).format('0,0.00');
     }
     return data;
   }
@@ -105,18 +109,22 @@ Meteor.methods({
 let groupSaleDetail = (sale, saleDetailObj, tmpCategoryName) => {
   let selector = {};
   selector.saleId = sale._id;
-  if(tmpCategoryName.length > 0){
+  if (tmpCategoryName.length > 0) {
     selector['_product._category.name'] = {
       $in: tmpCategoryName
     };
   }
-  let saleDetails = Restaurant.Collection.SaleDetails.find(selector);
+  let saleDetails = Restaurant.Collection.SaleDetails.find(selector, {
+    sort: {
+      '_product.name': 1
+    }
+  });
   saleDetails.forEach((saleDetail) => {
     if (_.isUndefined(saleDetailObj[saleDetail.productId])) {
       saleDetailObj[saleDetail.productId] = {};
       saleDetailObj[saleDetail.productId].totalAmount = 0;
       saleDetailObj[saleDetail.productId].totalQty = 0;
-      saleDetailObj[saleDetail.productId].productName = saleDetail._product.name;
+      saleDetailObj[saleDetail.productId].productName = saleDetail._product.name + ` (${saleDetail._product._unit.name})`;
       saleDetailObj[saleDetail.productId].actualPrice = saleDetail.price;
       saleDetailObj[saleDetail.productId].status = {};
       saleDetailObj[saleDetail.productId].status[sale.status] = {};
