@@ -8,7 +8,7 @@ Meteor.methods({
     if(eop){
       date = moment(eop.endEopDate).add('1', 'days').format('YYYY-MM-DD');
     }else{
-      date = moment().format('YYYY-MM-DD');
+      date = moment().subtract('1', 'days').format('YYYY-MM-DD');
     }
     return date;
   }
