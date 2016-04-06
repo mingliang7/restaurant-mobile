@@ -324,8 +324,8 @@ Meteor.publish("materials", function(limit) {
 
 //publish stockIn with status active
 
-Meteor.publish("stockIn", function(selector) {
-  let stockIns = Restaurant.Collection.StockIn.find({}, selector);
+Meteor.publish("stockIn", function(querySelector,selector) {
+  let stockIns = Restaurant.Collection.StockIn.find(querySelector, selector);
   // console.log(stockIns.fetch());
   if (stockIns) {
     return stockIns;

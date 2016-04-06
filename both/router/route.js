@@ -128,6 +128,28 @@ Router.map(function() {
       this.next();
     }
   });
+  this.route('restaurant.stocks', {
+    path: '/restaurant/stocks',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/');
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
+      this.next();
+    }
+  });
+  this.route('restaurant.stocks.new', {
+    path: '/restaurant/stocks/new',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/');
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
+      this.next();
+    }
+  });
   this.route('restaurant.note', {
     path: '/restaurant/notes',
     onBeforeAction: function(pause) {
@@ -465,7 +487,7 @@ Router.map(function() {
     }
   });
   this.route('restaurant.stockIn', {
-    path: '/restaurant/stockIn',
+    path: '/restaurant/:stockId/stockIn',
     onBeforeAction(pause) {
       if (!Meteor.userId()) {
         Router.go('/');

@@ -1,0 +1,71 @@
+<template name="restaurantStocks">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">ស្តុកទំនិញ</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <a class="button button-clear"  href="/restaurant/stocks/new">{{> ionIcon icon="ios-plus-empty"}}</a>
+  {{/contentFor}}
+  {{#ionContent}}
+    <div class="card row">
+      <div class="col col-20"><span class="positive">ថ្ងៃដាក់ទំនិញចូល</span></div>
+      <div class="col col-10"><span class="positive">ឈ្មោះវត្ថុធាតុដើម</span></div>
+      <div class="col col-10"><span class="positive">តម្លៃ</span></div>
+      <div class="col col-10"><span class="positive">ចំនួន</span></div>
+      <div class="col col-10"><span class="positive">ប្រភេទ</span></div>
+      <div class="col col-10"><span class="positive">ស្ថានភាព</span></div>
+      <div class="col col-20"><span class="positive">បរិយាយ</span></div>
+      <div class="col col-10"><span class="positive">ជម្រើស</span></div>
+    </div>
+    <div class="card">
+    {{#if noStockIns}}
+    <div class="col" align="center">
+      អត់មានទិន្នន័យ
+    </div>
+    {{else}}
+    {{#each stockIns}}
+      <div class="row">
+        <div class="col col-20" style="border: 1px solid #ddd;">{{moFormat stockInDate 'YYYY-MM-DD HH:mm:ss'}}</div>
+        <div class="col col-10" style="border: 1px solid #ddd;">{{_material.name}}</div>
+        <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat price '0,0'}}</div>
+        <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat qty '0,0'}} {{_material._unit.name}}</div>
+        <div class="col col-10" style="border: 1px solid #ddd;">{{{type}}}</div>
+        <div class="col col-10" style="border: 1px solid #ddd;">{{{colorStatus status}}}</div>
+        <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
+        <div class="col col-5" style="border: 1px solid #ddd;">
+          {{#if isActived status}}
+          <a href="#" class="edit-stock positive" data-ion-modal="editStockIn" data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+          {{/if}}
+        </div>
+        <div class="col col-5" style="border: 1px solid #ddd;">
+          {{#if isActived status}}
+          <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+          {{/if}}
+        </div>
+      </div>
+    {{/each}}
+    {{#if isSkipNotEqToZero}}
+    <div class="row">
+      <div class="col col-33"></div>
+      <div class="col col-10" align='center'>
+        {{#if isSkipped}}
+        <a href="#" class="previous"><i class="icon ion-ios-arrow-back"></i></a>
+        {{/if}}
+      </div>
+      <div class="col col-10" align='center'>បានមើលរំលង​ {{skipAmount}}</div>
+      <div class="col col-10" align='center'>
+        {{#if smallerThanAmount}}
+          <a href="#" class="next"><i class="icon ion-ios-arrow-forward"></i></a>
+        {{/if}}
+      </div>
+      <div class="col col-33"></div>
+    </div>
+    {{/if}}
+    {{/if}}
+  </div>
+  {{/ionContent}}
+  {{> _data}}
+</template>
