@@ -7,7 +7,8 @@ AutoForm.hooks({
   newStockIn: {
     before: {
       insert(doc){
-        doc.stockInDate = new Date();
+        doc.stockInDate = moment(Router.current().params.stockDate, 'YYYY-MM-DD HH:mm:ss').toDate();
+        doc.stockId = Router.current().params.stockId;
         return doc;
       }
     },

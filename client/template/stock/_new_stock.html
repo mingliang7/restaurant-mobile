@@ -1,0 +1,107 @@
+<template name="restaurantStocksNew">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.stocks" text="ត្រឡប់ទៅកាន់ស្តុក"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">បង្កើតស្តុក</h1>
+  {{/contentFor}}
+  {{#ionContent}}
+    {{#autoForm collection="Restaurant.Collection.Stocks" id="addNewStock" type="insert" label-type="stacked"}}
+      <div class="row">
+        <div class="col col-33">{{> afQuickField name='stockDate' type="datetime" readonly='true'}}</div>
+        <div class="col col-33">{{> afQuickField name='voucher'}}</div>
+        <div class="col col-33">{{> afQuickField name='supplierId' options=suppliers}}</div>
+      </div>
+      <div class="item item-divider">
+        វត្ថុធាតុដើម
+      </div>
+      <div class="card autoform-array-item">
+        <div class="row">
+          <div class="col col-25">
+            <label class="item item-input">
+              <span class="input-label">ឈ្មោះ</span>
+              <input type="text" name="materialName" style="border: 1px solid #ddd;">
+              <input type="hidden" name="materialId">
+            </label>
+          </div>
+        <div class="col col-25">
+          <label class="item item-input">
+            <span class="input-label">ចំនួន</span>
+            <input type="text" name="qty" style="border: 1px solid #ddd;">
+          </label>
+        </div>
+        <div class="col col-25">
+          <label class="item item-input">
+            <span class="input-label">តម្លៃ</span>
+            <input type="text" name="price" style="border: 1px solid #ddd;">
+          </label>
+        </div>
+        <div class="col col-15">
+          <label class="item item-input">
+            <span class="input-label">ប្រភេទ</span>
+            <select class='stock-type'>
+              <option value="order">Purchase</option>
+              <option value="adjustment">Adjustment</option>
+            </select>
+          </label>
+        </div>
+        <div class="col col-10">
+          <div class="item">
+            <button type="button" class="button button-balanced button-small pull-right add-material">
+              <span class="icon ion-plus"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      {{#each tmpMaterialItems}}
+        {{> _tmpMaterialItem}}
+      {{/each}}
+    </div>
+      {{> afQuickField name='description'}}
+      {{> afQuickField name="tmpItems" type="hidden"}}
+      <button type="submit" class="button button-positive">រក្សាទុក</button>
+    {{/autoForm}}
+  {{/ionContent}}
+</template>
+
+
+<template name="_tmpMaterialItem">
+  <div class="row">
+    <div class="col col-25">
+      <label class="item item-input">
+        <input type="text" class="tmpName" readonly="true" value="{{name}}">
+      </label>
+    </div>
+    <div class="col col-25">
+      <label class="item item-input">
+        <input type="text" class="tmpQty"  value="{{qty}}" style="border: 1px solid #ddd;">
+      </label>
+    </div>
+    <div class="col col-25">
+      <label class="item item-input">
+        <input type="text" class="tmpPrice"  value="{{price}}" style="border: 1px solid #ddd;">
+      </label>
+    </div>
+    <div class="col col-15">
+      <label class="item item-input">
+          <span class="input-label">ប្រភេទ</span>
+        <select class='stock-type'>
+          {{#if stockTypeIsOrder type}}
+            <option value="order">Purchase</option>
+            <option value="adjustment">Adjustment</option>
+          {{else}}
+            <option value="adjustment">Adjustment</option>
+            <option value="order">Purchase</option>
+          {{/if}}
+        </select>
+      </label>
+    </div>
+  <div class="col col-10">
+    <div class="item">
+      <button type="button" class="button button-assertive button-small pull-right remove-material-item">
+        <span class="icon ion-minus"></span>
+      </button>
+    </div>
+  </div>
+</div>
+</template>

@@ -52,6 +52,9 @@ Restaurant.Schema.StockIn = new SimpleSchema({
     type: Object,
     optional: true,
     blackbox: true
+  },
+  stockId: {
+    type: String
   }
 });
 Restaurant.Collection.StockIn.attachSchema(Restaurant.Schema.StockIn);

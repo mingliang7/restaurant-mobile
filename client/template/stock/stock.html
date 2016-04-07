@@ -1,47 +1,42 @@
-<template name="restaurantStockIn">
+<template name="restaurantStocks">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="restaurant.stocks" text="ត្រឡប់ក្រោយ"}}
+    {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
   {{/contentFor}}
   {{#contentFor "headerTitle"}}
-    <h1 class="title">ទំនិញបានកម្ម៉ង់ចូលថ្ងៃទី {{importDate}}</h1>
+    <h1 class="title">ស្តុកទំនិញ</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-ion-modal="newStockIn">{{> ionIcon icon="ios-plus-empty"}}</button>
+    <a class="button button-clear"  href="/restaurant/stocks/new">{{> ionIcon icon="ios-plus-empty"}}</a>
   {{/contentFor}}
   {{#ionContent}}
     <div class="card row">
       <div class="col col-20"><span class="positive">ថ្ងៃដាក់ទំនិញចូល</span></div>
-      <div class="col col-10"><span class="positive">ឈ្មោះវត្ថុធាតុដើម</span></div>
-      <div class="col col-10"><span class="positive">តម្លៃ</span></div>
-      <div class="col col-10"><span class="positive">ចំនួន</span></div>
-      <div class="col col-10"><span class="positive">ប្រភេទ</span></div>
-      <div class="col col-10"><span class="positive">ស្ថានភាព</span></div>
+      <div class="col col-20"><span class="positive">លេខវិក័យប័ត្រ</span></div>
+      <div class="col col-20"><span class="positive">ឈ្មោះអ្នកផ្គត់ផ្គង់</span></div>
       <div class="col col-20"><span class="positive">បរិយាយ</span></div>
       <div class="col col-10"><span class="positive">ជម្រើស</span></div>
+
     </div>
     <div class="card">
-    {{#if noStockIns}}
+    {{#if noStocks}}
     <div class="col" align="center">
       អត់មានទិន្នន័យ
     </div>
     {{else}}
-    {{#each stockIns}}
+    {{#each stocks}}
       <div class="row">
-        <div class="col col-20" style="border: 1px solid #ddd;">{{moFormat stockInDate 'YYYY-MM-DD HH:mm:ss'}}</div>
-        <div class="col col-10" style="border: 1px solid #ddd;">{{_material.name}}</div>
-        <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat price '0,0'}}</div>
-        <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat qty '0,0'}} {{_material._unit.name}}</div>
-        <div class="col col-10" style="border: 1px solid #ddd;">{{{type}}}</div>
-        <div class="col col-10" style="border: 1px solid #ddd;">{{{colorStatus status}}}</div>
+        <div class="col col-20" style="border: 1px solid #ddd;"><a href="/restaurant/{{_id}}/{{moFormat stockDate 'YYYY-MM-DD HH:mm:ss'}}/stockIn">{{moFormat stockDate 'YYYY-MM-DD HH:mm:ss'}}</a></div>
+        <div class="col col-20" style="border: 1px solid #ddd;">{{voucher}}</div>
+        <div class="col col-20" style="border: 1px solid #ddd;">{{_supplier.name}} | {{_supplier.phone}}</div>
         <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
         <div class="col col-5" style="border: 1px solid #ddd;">
-          {{#if isActived status}}
-          <a href="#" class="edit-stock positive" data-ion-modal="editStockIn" data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+          {{#if isInRole 'setting'}}
+          <a href="#" class="edit-stock positive" data-ion-modal="editStock" data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
           {{/if}}
         </div>
         <div class="col col-5" style="border: 1px solid #ddd;">
-          {{#if isActived status}}
+          {{#if isInRole 'setting'}}
           <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
           {{/if}}
         </div>
@@ -68,7 +63,4 @@
   </div>
   {{/ionContent}}
   {{> _data}}
-</template>
-<template name="_materialsWithSkip">
-
 </template>

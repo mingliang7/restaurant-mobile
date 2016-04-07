@@ -1,6 +1,6 @@
 Tracker.autorun(function() {
   if (Session.get('stockInSkip')) {
-    Meteor.subscribe("stockIn", {
+    Meteor.subscribe("stockIn",{stockId: Router.current().params.stockId},{
       limit: 10,
       sort: {
         _id: -1,
@@ -13,7 +13,7 @@ Tracker.autorun(function() {
 
 Template.restaurantStockIn.created = function() {
   this.autorun(() => {
-    this.subscribe = Meteor.subscribe("stockIn", {
+    this.subscribe = Meteor.subscribe("stockIn",{stockId: Router.current().params.stockId}, {
       limit: 10,
       sort: {
         _id: -1,
@@ -21,7 +21,7 @@ Template.restaurantStockIn.created = function() {
       },
       skip: Session.get('stockInSkip')
     });
-    this.subscribe = Meteor.subscribe("countStockIn");
+    this.subscribe = Meteor.subscribe("countStockIn", Router.current().params.stockId);
   });
 };
 
@@ -70,15 +70,18 @@ Template.restaurantStockIn.events({
   }
 });
 Template.restaurantStockIn.helpers({
+  importDate(){
+    return Router.current().params.stockDate;
+  },
   stockIns() {
-    return Restaurant.Collection.StockIn.find({}, {
+    return Restaurant.Collection.StockIn.find({stockId: Router.current().params.stockId}, {
       sort: {
         _id: -1
       }
     });
   },
   noStockIns() {
-    let stockIns = Restaurant.Collection.StockIn.find();
+    let stockIns = Restaurant.Collection.StockIn.find({stockId: Router.current().params.stockId});
     if (stockIns.count() <= 0) {
       return true;
     }

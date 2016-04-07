@@ -318,21 +318,27 @@ Meteor.publish("materials", function(limit) {
       name: 1
     },
     limit: limitAmount
-  })
+  });
 });
 
 
 //publish stockIn with status active
 
-Meteor.publish("stockIn", function(selector) {
-  let stockIns = Restaurant.Collection.StockIn.find({}, selector);
-  // console.log(stockIns.fetch());
+Meteor.publish("stockIn", function(querySelector,selector) {
+  let stockIns = Restaurant.Collection.StockIn.find(querySelector, selector);
   if (stockIns) {
     return stockIns;
   }
   return this.ready();
 });
 
+Meteor.publish("stocks", function(selector) {
+  let stocks = Restaurant.Collection.Stocks.find({},selector);
+  if (stocks) {
+    return stocks;
+  }
+  return this.ready();
+});
 
 //publish end of process
 Meteor.publish("endOfProcess", function(selector) {
@@ -344,7 +350,22 @@ Meteor.publish("endOfProcess", function(selector) {
 });
 
 //count stockIn
-Meteor.publish("countStockIn", function() {
-  Counts.publish(this, 'countStockIn', Restaurant.Collection.StockIn.find());
+Meteor.publish("countStockIn", function(stockId) {
+  Counts.publish(this, 'countStockIn', Restaurant.Collection.StockIn.find({stockId: stockId}));
   this.ready();
+});
+
+//count stocks
+Meteor.publish("countStocks", function() {
+  Counts.publish(this, 'countStocks', Restaurant.Collection.Stocks.find());
+  this.ready();
+});
+
+//publish supplier
+Meteor.publish("suppliers", function(){
+  let suppliers = Restaurant.Collection.Suppliers.find();
+  if(suppliers){
+    return suppliers;
+  }
+  return this.ready();
 });

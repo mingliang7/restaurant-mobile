@@ -16,5 +16,7 @@ Security.permit(['insert', 'update', 'remove']).collections([
     Restaurant.Collection.Vipcards,
     Restaurant.Collection.Materials,
     Restaurant.Collection.StockIn,
-    Restaurant.Collection.EndOfProcess
+    Restaurant.Collection.EndOfProcess,
+    Restaurant.Collection.Stocks,
+    Restaurant.Collection.Suppliers
 ]).apply();
