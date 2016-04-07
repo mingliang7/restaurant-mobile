@@ -1,0 +1,10 @@
+Meteor.methods({
+    insertRTBUnit() {
+        let tmpUnit = 'ចាន ចានធំ ចានតូច គូ ដប កំប៉ុង កែវ កេះ អត់ដឹង កញ្ចប់ ឆ្នាំងធំ ឆ្នាំងតូច ឆ្នាំង';
+        let units = tmpUnit.split(' ');
+        Restaurant.Collection.Units.remove({});
+        for (let i = 0; i < units.length; i++) {
+          Restaurant.Collection.Units.insert({name: units[i]});
+        }
+    }
+});

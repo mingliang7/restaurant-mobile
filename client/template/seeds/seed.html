@@ -1,0 +1,27 @@
+<template name="restaurantSeeds">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Seeds </h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear" data-ion-modal="unitNew">{{> ionIcon icon="ios-plus-empty"}}</button>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+    <div class="row">
+      <div class="col col-50">  <select class="migrate-data">
+          <option value="rtb">Migrate RTB</option>
+          <option value="asean-beer">Migrate ASEAN Beer</option>
+        </select>
+        <button class="go-seed">GO {{>ionIcon icon="arrow-right-c"}}</button>
+        </div>
+    </div>
+
+    {{/ionContent}}
+  {{/ionView}}
+  {{> _settings}}
+</template>

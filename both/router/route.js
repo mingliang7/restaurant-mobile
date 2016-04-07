@@ -526,4 +526,14 @@ Router.map(function() {
       this.next();
     }
   });
+  this.route('restaurant.seeds', {
+    path: '/restaurant/seeds',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/');
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['super']);
+      this.next();
+    }
+  });
 });

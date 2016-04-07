@@ -51,6 +51,13 @@
           {{> ionIcon icon="ios-arrow-forward" class="positive"}}
         </a>
         {{/if}}
+        {{#if isInRole 'super'}}
+        <a class="item item-icon-left item-icon-right" href="/restaurant/seeds">
+          {{> ionIcon icon="soup-can" class="assertive"}}
+          Seed Data
+          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+        </a>
+        {{/if}}
       {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
