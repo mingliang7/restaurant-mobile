@@ -333,7 +333,7 @@ Restaurant.List = {
   },
   stockType: function() {
     return [{
-      label: "Order",
+      label: "Purchase",
       value: "order"
     }, {
       label: "Adjustment",

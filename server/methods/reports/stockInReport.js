@@ -50,6 +50,7 @@ function calculateSaleHelper(sl) {
     // grandTotal += s.total;
     s.order = i;
     s.stockInDate = moment(s.stockInDate).format("DD-MM-YY, HH:mm:ss");
+    s.amount =  s.price * s.qty;
     i++;
     saleList.push(s);
   });
