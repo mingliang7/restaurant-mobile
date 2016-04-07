@@ -13,11 +13,12 @@ AutoForm.hooks({
   editStockIn: {
     before: {
       update(doc){
-        doc.stockInDate = new Date();
+        doc.stockInDate = moment(Router.current().params.stockDate, 'YYYY-MM-DD HH:mm:ss').toDate();
         return doc;
       }
     },
     onSuccess(formType, result) {
+      IonModal.close();
       Bert.alert('បង្កើតបានជោគជ័យ', 'success', 'growl-top-right', 'fa-check');
     },
     onError(formType, err) {

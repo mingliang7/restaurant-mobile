@@ -1,0 +1,21 @@
+<template name="newSupplier">
+    {{#ionModal customTemplate=true}}
+        {{#autoForm collection="Restaurant.Collection.Suppliers" id="newSupplier" type="insert"}}
+            <div class="bar bar-header bar-stable">
+                <button data-dismiss="modal" type="button" class="button button-clear">បោះបង់</button>
+                <h2 class="title">បង្កើតផ្គត់ផ្គង់</h2>
+                <button class="button button-positive button-clear">រក្សាទុក</button>
+            </div>
+            <div class="content has-header overflow-scroll">
+              <div class="row">
+                <div class="col col-50">{{> afQuickField name='name'}}</div>
+                <div class="col col-50">{{> afQuickField name='gender'}}</div>
+              </div>
+              <div class="row">
+                <div class="col col-50">{{> afQuickField name='phone'}}</div>
+                <div class="col col-50">{{> afQuickField name='address'}}</div>
+              </div>
+            </div>
+        {{/autoForm}}
+    {{/ionModal}}
+</template>

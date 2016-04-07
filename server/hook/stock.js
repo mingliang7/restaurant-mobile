@@ -1,5 +1,5 @@
 Restaurant.Collection.Stocks.before.insert(function(userId, doc) {
-    doc._id = idGenerator.gen(Restaurant.Collection.StockIn, 9);
+    doc._id = idGenerator.gen(Restaurant.Collection.Stocks, 9);
 });
 
 Restaurant.Collection.Stocks.after.insert(function(userId, doc) {

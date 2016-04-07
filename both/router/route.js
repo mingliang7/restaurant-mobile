@@ -115,14 +115,24 @@ Router.map(function() {
       this.next();
     }
   });
-
+  this.route('restaurant.supplier', {
+    path: '/restaurant/suppliers',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/');
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
+      this.next();
+    }
+  });
 
   this.route('unit', {
     path: '/restaurant/unit',
     onBeforeAction: function(pause) {
       if (!Meteor.user()) {
         // render the login template but keep the url in the browser the same
-        Router.go('/')
+        Router.go('/');
       }
       Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
       this.next();
@@ -487,7 +497,7 @@ Router.map(function() {
     }
   });
   this.route('restaurant.stockIn', {
-    path: '/restaurant/:stockId/stockIn',
+    path: '/restaurant/:stockId/:stockDate/stockIn',
     onBeforeAction(pause) {
       if (!Meteor.userId()) {
         Router.go('/');

@@ -25,6 +25,11 @@ Restaurant.Schema.Stocks = new SimpleSchema({
       type: [Object],
       optional: true,
       blackbox: true
+    },
+    _supplier:{
+      type: Object,
+      blackbox: true,
+      optional: true
     }
 });
 Restaurant.Collection.Stocks.attachSchema(Restaurant.Schema.Stocks);

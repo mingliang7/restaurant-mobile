@@ -21,7 +21,7 @@ Template.restaurantStockIn.created = function() {
       },
       skip: Session.get('stockInSkip')
     });
-    this.subscribe = Meteor.subscribe("countStockIn");
+    this.subscribe = Meteor.subscribe("countStockIn", Router.current().params.stockId);
   });
 };
 
@@ -70,6 +70,9 @@ Template.restaurantStockIn.events({
   }
 });
 Template.restaurantStockIn.helpers({
+  importDate(){
+    return Router.current().params.stockDate;
+  },
   stockIns() {
     return Restaurant.Collection.StockIn.find({stockId: Router.current().params.stockId}, {
       sort: {

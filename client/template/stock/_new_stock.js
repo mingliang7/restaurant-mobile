@@ -94,7 +94,10 @@ Template._tmpMaterialItem.events({
 });
 Template.restaurantStocksNew.helpers({
     tmpMaterialItems() {
-        return TmpItem.find();
+      return TmpItem.find();
+    },
+    suppliers(){
+      return ReactiveMethod.call('getSupplierList');
     }
 });
 

@@ -1,34 +1,32 @@
 Tracker.autorun(function() {
-  if (Session.get('stockInSkip')) {
-    Meteor.subscribe("stockIn", {
+  if (Session.get('stockSkip')) {
+    Meteor.subscribe("stocks", {
       limit: 10,
       sort: {
-        _id: -1,
-        status: 1
+        _id: -1
       },
-      skip: Session.get('stockInSkip')
+      skip: Session.get('stockSkip')
     });
   }
 });
 
-Template.restaurantStockIn.created = function() {
+Template.restaurantStocks.created = function() {
   this.autorun(() => {
-    this.subscribe = Meteor.subscribe("stockIn", {
+    this.subscribe = Meteor.subscribe("stocks", {
       limit: 10,
       sort: {
-        _id: -1,
-        status: 1
+        _id: -1
       },
-      skip: Session.get('stockInSkip')
+      skip: Session.get('stockSkip')
     });
-    this.subscribe = Meteor.subscribe("countStockIn");
+    this.subscribe = Meteor.subscribe("countStocks");
   });
 };
 
 
-Template.restaurantStockIn.rendered = function() {
+Template.restaurantStocks.rendered = function() {
   try {
-    Session.set('stockInSkip', 0);
+    Session.set('stockSkip', 0);
     this.autorun(() => {
       if (!this.subscription.ready()) {
         IonLoading.show();
@@ -40,17 +38,17 @@ Template.restaurantStockIn.rendered = function() {
 
   }
 };
-Template.restaurantStockIn.events({
+Template.restaurantStocks.events({
   "click .remove-stock" (event, template) {
-    let name = this._material.name;
+    let name = moment(this.stockDate).format('YYYY-MM-DD HH:mm:ss');
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
-      template: `លុប ${name} ?`,
+      template: `លុបស្តុកទំនិញថ្ងៃទី ${name} ?`,
       onOk: () => {
         IonLoading.show();
-        Meteor.call('removeStockIn', this._id, function(err, result) {
+        Meteor.call('removeStock', this._id, function(err, result) {
           if (err) {
-            Bert.alert(`Can't Removed ${name}`, 'danger', 'growl-bottom-right', 'fa-remove');
+            Bert.alert(err.message, 'danger', 'growl-bottom-right');
             IonLoading.hide();
           } else {
             IonLoading.hide();
@@ -61,25 +59,25 @@ Template.restaurantStockIn.events({
     });
   },
   'click .next' () {
-    let skip = Session.get('stockInSkip');
-    Session.set('stockInSkip', skip + 10);
+    let skip = Session.get('stockSkip');
+    Session.set('stockSkip', skip + 10);
   },
   'click .previous' () {
-    let skip = Session.get('stockInSkip');
-    Session.set('stockInSkip', skip - 10);
+    let skip = Session.get('stockSkip');
+    Session.set('stockSkip', skip - 10);
   }
 });
-Template.restaurantStockIn.helpers({
-  stockIns() {
-    return Restaurant.Collection.StockIn.find({}, {
+Template.restaurantStocks.helpers({
+  stocks() {
+    return Restaurant.Collection.Stocks.find({}, {
       sort: {
         _id: -1
       }
     });
   },
-  noStockIns() {
-    let stockIns = Restaurant.Collection.StockIn.find();
-    if (stockIns.count() <= 0) {
+  noStocks() {
+    let stocks = Restaurant.Collection.Stocks.find();
+    if (stocks.count() <= 0) {
       return true;
     }
     return false;
@@ -97,25 +95,25 @@ Template.restaurantStockIn.helpers({
     return `<span class="balanced"><i class="icon ion-checkmark-round"></i>&nbsp;បានកាត់រួចរាល់</span>`;
   },
   skipAmount() {
-    return Session.get('stockInSkip');
+    return Session.get('stockSkip');
   },
   smallerThanAmount() {
-    let currentStockInCount = Restaurant.Collection.StockIn.find().count();
-    let stockInSkipCount = Session.get('stockInSkip');
-    if (stockInSkipCount >= Counts.get('countStockIn') || stockInSkipCount >= (Counts.get('countStockIn') - currentStockInCount)) {
+    let currentStocksCount = Restaurant.Collection.Stocks.find().count();
+    let stockSkipCount = Session.get('stockSkip');
+    if (stockSkipCount >= Counts.get('countStocks') || stockSkipCount >= (Counts.get('countStocks') - currentStocksCount)) {
       return false;
     }
     return true;
   },
   isSkipped() {
-    let skip = Session.get('stockInSkip');
-    if (skip == 0) {
+    let skip = Session.get('stockSkip');
+    if (skip === 0) {
       return false;
     }
     return true;
   },
   isSkipNotEqToZero() {
-    if (Counts.get('countStockIn') > 10) {
+    if (Counts.get('countStocks') > 10) {
       return true;
     }
     return false;
