@@ -83,6 +83,11 @@ Restaurant.Schema.Materials = new SimpleSchema({
     optional: true,
     decimal: true
   },
+  '_outstandingAmount.$.totalBalance':{
+    type: Number,
+    optional: true,
+    decimal: true
+  },
   '_outstandingAmount.$.qty':{
     type: Number,
     optional: true,

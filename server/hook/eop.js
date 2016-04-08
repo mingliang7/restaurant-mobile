@@ -72,24 +72,27 @@ let extractNewProduct = (saleId, productObj) => {
 
 let reduceStock = (eopId, saleObj, startDate, endDate) => {
     for (let k in saleObj) { //extract obj by day
+      console.log(k);
         for (let j in saleObj[k]) { //extrach productId, and quantity
             let stockIn = Restaurant.Collection.StockIn.findOne({
                 materialId: j,
                 status: 'active',
                 stockInDate: {
-                    $gte: startDate,
-                    $lt: endDate
+                    $gte: moment(k, 'YYYY-MM-DD HH:mm:ss').toDate(),
+                    $lt: moment(k, 'YYYY-MM-DD HH:mm:ss').add('1', 'days').toDate()
                 }
-            });
-            let tmpQty = 0;
-            let tmpReduceAmount = saleObj[k][j].qty;
-            let totalQty = 0;
+            }, {sort: {_id: 1}});
+            let tmpQty = 0; //ទំនិញសរុបបន្ទាប់ពីកាត់រួច
+            let tmpReduceAmount = saleObj[k][j].qty; //កាត់ចំនួនសរុបតាមទំនិញនីមួយៗ
+            let totalQty = 0; //ទំនិញក្នុងស្តុកសរុប
+            let tmpTotalBalance = 0; //សរុបទំនិញចុងគ្រាមុនពេលកាត់
             let material = Restaurant.Collection.Materials.findOne(j);
             if (stockIn) {
                 totalQty = stockIn.qty;
                 tmpQty = stockIn.qty - saleObj[k][j].qty; //minus qty from stock in
                 if (material._outstandingAmount && material._outstandingAmount.length > 0) { //check if material is exist or empty
                     let lastOs = material._outstandingAmount.last(); //find outstanding amout obj from _outstandingAmount
+                    tmpTotalBalance = lastOs.qty;
                     tmpQty += lastOs.qty;
                 }
                 Restaurant.Collection.StockIn.direct.update(stockIn._id, {
@@ -102,6 +105,7 @@ let reduceStock = (eopId, saleObj, startDate, endDate) => {
                 if (material._outstandingAmount && material._outstandingAmount.length > 0) {
                     let lastOs = material._outstandingAmount.last();
                     tmpQty = lastOs.qty - saleObj[k][j].qty;
+                    tmpTotalBalance = lastOs.qty;
                 } else {
                     tmpQty = tmpQty - saleObj[k][j].qty;
                 }
@@ -115,6 +119,7 @@ let reduceStock = (eopId, saleObj, startDate, endDate) => {
                         reduceStockDate: k,
                         reduceAmount: tmpReduceAmount,
                         totalQty: totalQty,
+                        totalBalance: tmpTotalBalance,
                         qty: tmpQty
                     }
                 };
@@ -125,12 +130,12 @@ let reduceStock = (eopId, saleObj, startDate, endDate) => {
                         eopId: eopId,
                         reduceAmount: tmpReduceAmount,
                         reduceStockDate: k,
+                        totalBalance: tmpTotalBalance,
                         totalQty: totalQty,
                         qty: tmpQty
                     }
                 };
             }
-            console.log(selector);
             updateMaterial(j, selector);
             for (let i = 0; i < saleObj[k][j].saleId.length; i++) {
                 Restaurant.Collection.Sales.direct.update({
@@ -151,8 +156,12 @@ let reduceStock = (eopId, saleObj, startDate, endDate) => {
 
 let reduceActiveStock = (eopId, startDate, endDate) => {
     let stockIns = Restaurant.Collection.StockIn.find({
-        status: 'active'
-    });
+        status: 'active',
+        stockInDate: {
+            $gte: startDate,
+            $lt: endDate
+        }
+    }, {_id: 1});
     if (stockIns.count() > 0) {
         stockIns.forEach((stockIn) => {
             let selector = {};
@@ -162,6 +171,7 @@ let reduceActiveStock = (eopId, startDate, endDate) => {
             if (material._outstandingAmount && material._outstandingAmount.length > 0) {
                 let lastOs = material._outstandingAmount.last();
                 tmpQty = lastOs.qty + stockIn.qty;
+                totalQty += lastOs.totalQty;
             } else {
                 tmpQty = tmpQty + stockIn.qty;
             }
@@ -191,6 +201,7 @@ let reduceActiveStock = (eopId, startDate, endDate) => {
                     '_outstandingAmount.reduceStockDate': startDate
                 }, {
                     $set: {
+                        '_outstandingAmount.$.totalQty': totalQty,
                         '_outstandingAmount.$.qty': tmpQty
                     }
                 });

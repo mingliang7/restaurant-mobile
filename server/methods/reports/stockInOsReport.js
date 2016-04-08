@@ -33,6 +33,7 @@ Meteor.methods({
           material._outstandingAmount.forEach((os)=>{
             if(os.reduceStockDate < tomorrow){
               os.name = material.name;
+              os.totalBalancePlusTotalQty = os.totalBalance + os.totalQty;
               tmpArr.push(os);
             }
           });
