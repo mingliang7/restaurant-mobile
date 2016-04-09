@@ -16,6 +16,17 @@ Template.restaurantSeeds.events({
             }
           });
         }
+        if(migrate == 'asean-beer'){
+          Meteor.call('fetchProduct', 'insertRTBUnit', 'insertASEANCategory', 'asean-food.json', (err,result)=>{
+            if(result){
+              IonLoading.hide();
+              alertify.success('បញ្ចូលទិន្នន័យបានជោគជ័យ');
+            }else{
+              IonLoading.hide();
+            }
+          });
+
+        }
       }
     });
 
