@@ -50,10 +50,16 @@ Template.restaurantSaleDetailReportGen.helpers({
           let data = obj[k].status[j][d];
           let discount = data.discount == 0 ? '' : `(-${data.discount} %)`;
           if(index > 0){
+            // concate += `<tr><td></d><td><b>${data.qty}</b>${discount}</td>
+            //           <td  align='right'>${numeral(data.price).format('0,0')}</td>
+            //           <td align='right'>${numeral(data.amount).format('0,0')}</td></tr>`
             concate += `<tr><td></d><td><b>${data.qty}</b>${discount}</td>
                       <td  align='right'>${numeral(data.price).format('0,0')}</td>
-                      <td align='right'>${numeral(data.amount).format('0,0')}</td></tr>`
+                      <td align='right'>${numeral(data.amount).format('0,0')}</td></tr>`;
           }else{
+            // concate += `<td><b>${data.qty}</b>${discount}</td>
+            //             <td align="right">${numeral(data.price).format('0,0')}</td>
+            //             <td align="right">${numeral(data.amount).format('0,0')}</td></tr>`;
             concate += `<td><b>${data.qty}</b>${discount}</td>
                         <td align="right">${numeral(data.price).format('0,0')}</td>
                         <td align="right">${numeral(data.amount).format('0,0')}</td></tr>`;
@@ -61,8 +67,10 @@ Template.restaurantSaleDetailReportGen.helpers({
           index++;
         }
       }
-      concate += `<tr><td align="right">សរុបចំនួន</td><td><u><b>${obj[k].totalQty}</b></u></td>
-              <td align="right"><u><b>${numeral(obj[k].actualPrice).format('0,0')}</b></u></td>
+      // concate += `<tr><td align="right">សរុបចំនួន</td><td><u><b>${obj[k].totalQty}</b></u></td>
+      //         <td align="right"><u><b>${numeral(obj[k].actualPrice).format('0,0')}</b></u></td>
+      //         <td align="right"><u><b>${numeral(obj[k].totalAmount).format('0,0')}</b></u></td></tr>`;
+      concate += `<tr style="background: #ddd;"><td align="right" colspan="3"></td>
               <td align="right"><u><b>${numeral(obj[k].totalAmount).format('0,0')}</b></u></td></tr>`;
     }
     return concate;
