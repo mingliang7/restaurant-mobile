@@ -57,8 +57,8 @@
                         <th>តម្លៃរាយ</th>
                         <th>បរិមាណ</th>
                         <th>ខ្នាត</th>
-                        <th>សរុប</th>
                         <th>ប្រភេទ</th>
+                        <th>សរុប</th>
                     </tr>
                     </thead>
 
@@ -72,10 +72,18 @@
                             <td>{{price}} ៛​​​</td>
                             <td>{{qty}}</td>
                             <td>{{_material._unit.name}}</td>
-                            <td>{{amount}} ៛</td>
                             <td>{{type}}</td>
+                            <td>{{amount}} ៛</td>
                         </tr>
                     {{/each}}
+                    <tr>
+                      <td colspan="8" align="right">Grand Total :</td>
+                      <td>{{grandTotalKhr}} ៛</td>
+                    </tr>
+                    <tr>
+                      <td colspan="8" align="right">USD :</td>
+                      <td>{{grandTotalUsd}}</td>
+                    </tr>
                     </tbody>
                 </table>
 

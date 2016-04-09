@@ -32,8 +32,11 @@ Meteor.methods({
 
     /****** Header *****/
     data.header = header;
+    var exchange = Restaurant.Collection.ExchangeRates.findOne({},{sort:{_id:-1}});
     var content = calculateSaleHelper(sale);
 
+    data.grandTotalKhr = numeral(content.grandTotalKhr).format('0,0.00');
+    data.grandTotalUsd = numeral(content.grandTotalKhr / exchange.rates[0].rate).format('0,0.00 $');
     /****** Content *****/
     if (content.length > 0) {
       data.content = content;
@@ -44,13 +47,16 @@ Meteor.methods({
 });
 
 function calculateSaleHelper(sl) {
+  var grandTotal = 0;
   var saleList = [];
   var i = 1;
   sl.forEach(function(s) {
-    // grandTotal += s.total;
     s.order = i;
     s.stockInDate = moment(s.stockInDate).format("DD-MM-YY, HH:mm:ss");
+    s.amount =  s.price * s.qty;
+    grandTotal += s.amount;
     i++;
+    saleList.grandTotalKhr = grandTotal;
     saleList.push(s);
   });
   return saleList;
