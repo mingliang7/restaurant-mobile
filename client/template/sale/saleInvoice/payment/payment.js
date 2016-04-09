@@ -34,6 +34,7 @@ Template.restaurantSalePayment.helpers({
   },
   sale() {
     let sale = Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
+    let exchange = sale._exchangeRate.rates[0].rate;
     try {
       let selector = {
         customerId: sale.customerId,
@@ -41,8 +42,11 @@ Template.restaurantSalePayment.helpers({
         paymentDate: new Date(),
         paidAmount: sale.balanceAmount,
         dueAmount: sale.balanceAmount,
+        dueAmountKhr: sale.balanceAmount * exchange,
         balanceAmount: 0
       }
+      console.log(exchange);
+      console.log(selector);
       return selector;
     } catch (e) {
 
@@ -59,21 +63,21 @@ Template.restaurantSalePayment.events({
     tmpPaidAmount = tmpPaidAmount == '' ? 0 : parseFloat(tmpPaidAmount);
     dollar = dollar == '' ? 0 : parseFloat(dollar);
     var exchangeRate = Restaurant.Collection.ExchangeRates.findOne();
-    var dollarConverted = dollar * exchangeRate.rates[0].rate;
+    var dollarConverted = dollar / exchangeRate.rates[0].rate;
     var totalPaid = dollarConverted + tmpPaidAmount;
     $('[name="balanceAmount"]').val(dueAmount - totalPaid);
     $('[name="paidAmount"]').val(totalPaid);
     if((dueAmount - totalPaid) < 0) {
-      let changeInDollar = (totalPaid - dueAmount) / exchangeRate.rates[0].rate;
+      let changeInDollar = (totalPaid - dueAmount) * exchangeRate.rates[0].rate;
       $('[name="changeInDollar"]').val('-' + changeInDollar)
     }else if((dueAmount - totalPaid) == 0){
       $('[name="changeInDollar"]').val(0)
     }else{
-      let changeInDollar = (dueAmount - totalPaid) / exchangeRate.rates[0].rate;
+      let changeInDollar = (dueAmount - totalPaid) * exchangeRate.rates[0].rate;
       $('[name="changeInDollar"]').val(changeInDollar)
     }
   },
-  "keypress [name='tmpPaidAmount']" (evt) {
+  "keypress [name='dollar']" (evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
   },

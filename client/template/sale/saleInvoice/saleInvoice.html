@@ -81,7 +81,7 @@
 
             </div>
             <div class="col col-15">
-                <h4>{{numFormat price '0,0'}}</h4>
+                <h4>{{price}}</h4>
             </div>
             <div class="col col-15">
                 <h4>{{discount}}</h4>
@@ -90,7 +90,7 @@
                 </p>
             </div>
             <div class="col col-15">
-                <h4>{{numFormat amount '0,0'}}</h4>
+                <h4>{{amount}}</h4>
                 <p>
                     {{details.notes}}
                 </p>
@@ -152,7 +152,7 @@
 
 <template name="saleInvoiceTotal">
     <div class="col col-50 col-offset-50">
-      {{#with saleInvoice}}
+      <!-- {{#with saleInvoice}} -->
         <div class="list card">
             <div class="item item-body">
                     <div class="row">
@@ -161,7 +161,7 @@
                             Sub Total
                         </div>
                         <div class="col col-50">
-                            <b>{{numFormat subTotal '0,0'}} {{exchangeRate.symbol}}</b>
+                            <b>{{numFormat subTotal '0,0.00 $'}}</b>
                         </div>
                     </div>
                     <div class="row">
@@ -183,19 +183,23 @@
                         </div>
                         <span class="hidden total">{{total}}</span>
                         <div class="col col-50">
-                            <b>{{numFormat total '0,0'}} {{exchangeRate.symbol}}</b>
+                              <b>{{numFormat subTotal '0,0.00 $'}}</b>
+                           <!-- {{#each exchangeRate.rates}}
+                            <b>{{multiply saleInvoice.total rate toCurrencyId}} {{symbol}}</b>
+                            {{/each}} -->
+
                         </div>
 
                     </div>
-                     {{#each exchangeRate.rates}}
+
                     <div class="row">
                         <div class="col col-10"></div>
                         <div class="col col-20"></div>
                         <div class="col col-50">
-                            <b>{{multiply saleInvoice.total rate toCurrencyId}} {{symbol}}</b>
+                            <b>{{numFormat totalKhr '0,0'}} {{exchangeRate.symbol}}</b>
                         </div>
                     </div>
-                {{/each}}
+
                     <div class="row">
                         <div class="col col-10"></div>
                         <div class="col col-20">
@@ -203,14 +207,16 @@
                         </div>
                         <span class="hidden total">{{paidAmount}}</span>
                         <div class="col col-20">
-                            <b>{{numFormat paidAmount '0,0'}} {{exchangeRate.symbol}}</b>
+                          <b>{{numFormat paidAmount '0,0.00 $'}}</b>
+                            <!-- <b>{{numFormat paidAmount '0,0'}} {{exchangeRate.symbol}}</b> -->
                         </div>
                         <div class="col col-20">
                             នៅសល់ៈ
                         </div>
                         <span class="hidden total">{{balanceAmount}}</span>
                         <div class="col col-20">
-                            <b>{{numFormat balanceAmount '0,0'}} {{exchangeRate.symbol}}</b>
+                            <b>{{numFormat balanceAmount '0,0.00 $'}}</b>
+                            <!-- <b>{{numFormat balanceAmount '0,0'}} {{exchangeRate.symbol}}</b> -->
                         </div>
 
                     </div>
@@ -222,7 +228,7 @@
         {{else}}
           <a href="{{goToPayment}}" class="button  button-balanced payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
         {{/if}}
-        {{/with}}
+        <!-- {{/with}} -->
     </div>
 
 </template>

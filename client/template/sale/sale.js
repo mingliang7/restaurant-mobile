@@ -2,7 +2,7 @@ Template.restaurantSale.created = function() {
   this.autorun(() => {
     this.subscribe = Meteor.subscribe('tableLocations');
   });
-}
+};
 
 Template.restaurantSale.rendered = function() {
   try {
@@ -16,7 +16,7 @@ Template.restaurantSale.rendered = function() {
   } catch (e) {
 
   }
-}
+};
 
 Template.restaurantSale.helpers({
   tableLocations() {
