@@ -73,6 +73,21 @@ Restaurant.Schema.Materials = new SimpleSchema({
     type: Date,
     optional: true
   },
+  '_outstandingAmount.$.reduceAmount':{
+    type: Number,
+    optional: true,
+    decimal: true
+  },
+  '_outstandingAmount.$.totalQty':{
+    type: Number,
+    optional: true,
+    decimal: true
+  },
+  '_outstandingAmount.$.totalBalance':{
+    type: Number,
+    optional: true,
+    decimal: true
+  },
   '_outstandingAmount.$.qty':{
     type: Number,
     optional: true,
@@ -80,7 +95,7 @@ Restaurant.Schema.Materials = new SimpleSchema({
   },
 });
 Restaurant.Collection.Materials.search = function(query, limit) {
-  let limitAmount = limit || 30
+  let limitAmount = limit || 30;
   if (!query) {
     return;
   }
