@@ -82,13 +82,13 @@ Meteor.methods({
     var sales = Restaurant.Collection.Sales.find(params);
     sales.forEach((sale) => {
       groupSaleDetail(sale, saleDetailObj, tmpCategoryName);
-      total += sale.total;
     });
     for (let k in saleDetailObj) {
       for (let j in saleDetailObj[k].status) {
         for (let d in saleDetailObj[k].status[j]) {
           saleDetailObj[k].totalAmount += saleDetailObj[k].status[j][d].amount;
           saleDetailObj[k].totalQty += saleDetailObj[k].status[j][d].qty;
+          total += saleDetailObj[k].status[j][d].amount;
         }
       }
     }
