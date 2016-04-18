@@ -51,7 +51,8 @@ Restaurant.Schema.Payments = new SimpleSchema({
     },
     balanceAmount: {
         type: Number,
-        label: "Balance Amount"
+        label: "Balance Amount",
+        decimal: true
     },
     status: {
         type: String,

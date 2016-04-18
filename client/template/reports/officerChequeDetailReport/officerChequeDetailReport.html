@@ -98,7 +98,7 @@
                           <td>{{discount}}</td>
                           <td align="right">{{total}}</td>
                           {{#each exchangeRates}}
-                              <td align="right">{{exTotalFormatted}}</td>
+                              <td align="right">{{exTotalFormatted}} ៛</td>
                           {{/each}}
                       </tr>
                       <tr style="background: #ddd; font-size: 11px;">
@@ -123,7 +123,7 @@
                           សរុប
                         </th>
                         <th>
-                          ដុល្លារ
+                          រៀល
                         </th>
                       </tr>
                         {{#each saleDetailObj}}
@@ -144,10 +144,10 @@
                             {{discount}}
                           </td>
                           <td align="right">
-                            {{numFormat amount '0,0'}}
+                            {{numFormat amount '0,0.00 $'}}
                           </td>
                           <td align="right">
-                            {{convertToDollar amount}}
+                            {{convertToDollar amount}} ៛
                           </td>
                         </tr>
                         {{/each}}
@@ -165,7 +165,7 @@
                       <!--<td align="right">{{grandTotalOwedAmount}}</td>-->
                       <td align="right">{{grandTotal}}</td>
                       {{#each grandTotalConvert}}
-                          <td align="right">{{totalConvert}}</td>
+                          <td align="right">{{totalConvert}} ៛</td>
                       {{/each}}
                   </tr>
                   </tbody>
