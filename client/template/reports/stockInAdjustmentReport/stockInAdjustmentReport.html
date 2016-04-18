@@ -59,6 +59,7 @@
                         <th>ខ្នាត</th>
                         <th>ប្រភេទ</th>
                         <th>បរិយាយ</th>
+                        <th>សរុប</th>
                     </tr>
                     </thead>
 
@@ -74,8 +75,17 @@
                             <td>{{_material._unit.name}}</td>
                             <td>{{type}}</td>
                             <td>{{description}}</td>
+                            <td>{{amount}} ៛</td>
                         </tr>
                     {{/each}}
+                    <tr>
+                      <td colspan="9" align="right">Grand Total :</td>
+                      <td>{{grandTotalKhr}} ៛</td>
+                    </tr>
+                    <tr>
+                      <td colspan="9" align="right">USD :</td>
+                      <td>{{grandTotalUsd}}</td>
+                    </tr>
                     </tbody>
                 </table>
 

@@ -25,7 +25,6 @@ Template.restaurantSeeds.events({
               IonLoading.hide();
             }
           });
-
         }
       }
     });
