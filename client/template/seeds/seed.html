@@ -13,12 +13,20 @@
   {{#ionView}}
     {{#ionContent}}
     <div class="row">
-      <div class="col col-50">  <select class="migrate-data">
+      <div class="col col-10">  <select class="migrate-data">
           <option value="rtb">Migrate RTB</option>
           <option value="asean-beer">Migrate ASEAN Beer</option>
         </select>
+        <br>
         <button class="go-seed">GO {{>ionIcon icon="arrow-right-c"}}</button>
-        </div>
+      </div>
+      <div class="col col-10">  <select class="migrate-material">
+          <option value="">(Select One)</option>
+          <option value="material">Migrate Material</option>
+        </select>
+        <br>
+        <button class="go-seed-material">GO {{>ionIcon icon="arrow-right-c"}}</button>
+      </div>
     </div>
 
     {{/ionContent}}
