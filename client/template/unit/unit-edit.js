@@ -8,7 +8,7 @@ Template.editUnit.helpers({
 });
 
 AutoForm.hooks({
-  editUnit: {
+  unitEdit: {
     onSuccess(formType, result) {
       Bert.alert('កែប្រែបានជោគជ័យ', 'success', 'growl-bottom-right');
       IonModal.close();

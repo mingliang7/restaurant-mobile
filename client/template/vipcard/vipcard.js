@@ -33,7 +33,7 @@ Template.restaurantVipcard.helpers({
 });
 
 Template.restaurantVipcard.events({
-  'click [data-action="confirm"]' (event, template) {
+  'click .remove-vipcard' (event, template) {
     let name = this.name;
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',

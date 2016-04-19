@@ -1,20 +1,56 @@
 <template name="restaurantCustomer">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
-  {{/contentFor}}
-  {{#contentFor "headerTitle"}}
-    <h1 class="title">អតិថិជន</h1>
-  {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">អតិថិជន</h1>
+    {{/contentFor}}
 
-  {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-ion-modal="newCustomer">{{> ionIcon icon="ios-plus-empty"}}</button>
-  {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
+        <button class="button button-clear" data-ion-modal="newCustomer">{{> ionIcon icon="ios-plus-empty"}}</button>
+    {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent}}
-      {{#ionList}}
-        {{#each customers}}
-          {{#ionItem  buttonRight=true avatar=true class="item-icon-right"}}
+    {{#ionView}}
+        {{#ionContent}}
+
+
+            <div class="card row">
+                <div class="col col-25 text-center"><span class="positive">ឈ្មោះ</span></div>
+                <div class="col col-10 text-center"><span class="positive">ភេទ</span></div>
+                <div class="col col-10 text-center"><span class="positive">ប្រភេទ</span></div>
+                <div class="col col-10 text-center"><span class="positive">បញ្ចុះតម្លៃ</span></div>
+                <div class="col col-10 text-center"><span class="positive">ទូរស័ព្ទ</span></div>
+                <div class="col col-25 text-center"><span class="positive">អាសយដ្ឋាន</span></div>
+                <div class="col col-10 text-center"><span class="positive">ជម្រើស</span></div>
+            </div>
+
+            <div class="card">
+                {{#each customers}}
+                    <div class="row">
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{name}}</div>
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{gender}}</div>
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{type}}</div>
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{discount}} %</div>
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{phone}}</div>
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{address}}</div>
+
+
+                        <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="positive" data-ion-modal="editCustomer"
+                               data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                        </div>
+                        <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="remove-customer assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                        </div>
+                    </div>
+
+                {{/each}}
+            </div>
+
+            <!--before change-->
+            <!--{{#ionList}}
+                {{#each customers}}
+                    {{#ionItem  buttonRight=true avatar=true class="item-icon-right"}}
           <span class="cursor-p" data-ion-modal="editCustomer" data-id="{{_id}}">
             {{name}} | ប្រភេទ: {{type}} | បញ្ចុះតម្លៃ: {{discount}}%
           </span>
@@ -24,9 +60,9 @@
           <button data-action="confirm" class=" button button-clear">
             {{> ionIcon icon="close-circled"}}</button>
           {{/ionItem}}
-        {{/each}}
-      {{/ionList}}
-    {{/ionContent}}
-  {{/ionView}}
-  {{> _data}}
+                {{/each}}
+            {{/ionList}}-->
+        {{/ionContent}}
+    {{/ionView}}
+    {{> _data}}
 </template>

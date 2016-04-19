@@ -13,7 +13,38 @@
 
     {{#ionView}}
         {{#ionContent}}
-            {{#ionList}}
+
+            <div class="card row">
+                <div class="col col-25 text-center"><span class="positive">Base Currency</span></div>
+                <div class="col col-25 text-center"><span class="positive">1$ Exchange to</span></div>
+                <div class="col col-25 text-center"><span class="positive">Value</span></div>
+                <div class="col col-25 text-center"><span class="positive">ជម្រើស</span></div>
+            </div>
+
+            <div class="card">
+                {{#each exchangeRates}}
+                    <div class="row">
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{base}}</div>
+
+                        {{#each rates}}
+                            <div class="col col-25" style="border: 1px solid #ddd;">{{toCurrencyId}}</div>
+                            <div class="col col-25" style="border: 1px solid #ddd;">៛ {{numFormat rate '0,0'}}</div>
+                        {{/each}}
+
+                        <div class="col col-12 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="positive" data-ion-modal="editExchangeRate"
+                               data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                        </div>
+                        <div class="col col-12 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="remove-exchangeRates assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                        </div>
+                    </div>
+
+                {{/each}}
+            </div>
+
+            <!--before change-->
+            <!--{{#ionList}}
                 {{#each exchangeRates}}
                     {{#ionItem buttonRight=true avatar=true }}
                         <span class="cursor-p" data-ion-modal="editExchangeRate" data-id="{{_id}}">
@@ -21,7 +52,7 @@
                         </span>
                         <p>
                             {{#each rates}}
-                                {{toCurrencyId}} : {{rate}},
+                        {{toCurrencyId}} : {{rate}},
                             {{/each}}
                         </p>
                         <button data-action="confirm" class=" button button-clear">
@@ -29,7 +60,9 @@
 
                     {{/ionItem}}
                 {{/each}}
-            {{/ionList}}
+            {{/ionList}}-->
+            <!--before change-->
+
         {{/ionContent}}
     {{/ionView}}
     {{> _settings}}

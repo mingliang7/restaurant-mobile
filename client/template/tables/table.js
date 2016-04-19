@@ -26,7 +26,7 @@ Template.tables.helpers({
 });
 
 Template.tables.events({
-  'click [data-action="confirm"]' (event, template) {
+  'click .remove-table' (event, template) {
     let name = this.name;
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
