@@ -20,7 +20,7 @@ Template.unit.helpers({
 });
 
 Template.unit.events({
-  'click [data-action="confirm"]' (event, template) {
+  'click .remove-unit' (event, template) {
     let name = this.name;
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
