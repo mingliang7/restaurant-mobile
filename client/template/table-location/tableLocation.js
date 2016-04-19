@@ -20,7 +20,7 @@ Template.tableLocations.helpers({
 });
 
 Template.tableLocations.events({
-  'click [data-action="confirm"]' (event, template) {
+  'click .remove-table-location' (event, template) {
     let name = this.name;
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',

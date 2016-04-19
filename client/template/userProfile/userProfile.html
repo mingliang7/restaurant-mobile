@@ -1,31 +1,73 @@
 <template name="restaurantUserProfiles">
 
-  {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton path="restaurant.home" text="ទំព័រដើម"}}
-  {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.home" text="ទំព័រដើម"}}
+    {{/contentFor}}
 
-  {{#contentFor "headerTitle"}}
-    <h1 class="title">កំណត់សិទ្ធិអ្នកប្រើប្រាស់</h1>
-  {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">កំណត់សិទ្ធិអ្នកប្រើប្រាស់</h1>
+    {{/contentFor}}
 
-  {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-ion-modal="newUser">{{> ionIcon icon="ios-plus-empty"}}</button>
-  {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
+        <button class="button button-clear" data-ion-modal="newUser">{{> ionIcon icon="ios-plus-empty"}}</button>
+    {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent class="padding user-detail"}}
-      {{#each users}}
+    {{#ionView}}
+        {{#ionContent class="padding user-detail"}}
+
+            <div class="card row">
+                <div class="col col-25 text-center"><span class="positive">ឈ្មោះ</span></div>
+                <div class="col col-25 text-center"><span class="positive">សិទ្ធិ</span></div>
+                <div class="col col-25 text-center"><span class="positive">តូនាទី</span></div>
+                <div class="col col-25 text-center"><span class="positive">ជម្រើស</span></div>
+            </div>
+            <div class="card">
+                {{#each users}}
+                    <div class="row">
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{profile.username}}</div>
+
+                        {{#if profile.approved}}
+                            <div class="col col-25" style="border: 1px solid #ddd;">
+                            <span class="cursor-p approved-toggle">
+                                <i class="cursor-p ion-checkmark-circled positive "></i> មានសិទ្ធ
+                            </span>
+                            </div>
+                        {{else}}
+                            <div class="col col-25" style="border: 1px solid #ddd;">
+                            <span class="cursor-p approved-toggle">
+                                <i class="cursor-p ion-minus-circled assertive"></i> គ្មានសិទ្ធ
+                            </span>
+                            </div>
+                        {{/if}}
+
+                        {{#if roles}}
+                            <div class="col col-25" style="border: 1px solid #ddd;">{{roles}}</div>
+                        {{else}}
+                            <div class="col col-25" style="border: 1px solid #ddd;">​គ្មានតួនាទី</div>
+                        {{/if}}
+
+                        <div class="col col-25 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="positive" data-ion-modal="_selectRole"
+                               data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                        </div>
+                    </div>
+
+                {{/each}}
+            </div>
+
+            <!--before changed-->
+                <!--{{#each users}}
         <div class="list card">
 
           <div class="item item-avatar">
             <img src="{{avatarUrl}}">
             <h2>{{profile.username}}</h2>
-            <!-- <p>{{emails[0].address}}</p> -->
-            <!-- <p>{{location.city}}, {{location.state}}</p> -->
+            &lt;!&ndash; <p>{{emails[0].address}}</p> &ndash;&gt;
+            &lt;!&ndash; <p>{{location.city}}, {{location.state}}</p> &ndash;&gt;
           </div>
 
           <div class="item item-body">
-            <!-- {{{activeLabel}}} -->
+            &lt;!&ndash; {{{activeLabel}}} &ndash;&gt;
 
           {{#if profile.approved}}
               <span class="cursor-p approved-toggle">
@@ -40,31 +82,31 @@
             <h4 data-ion-modal="_selectRole" class="cursor-p" data-id="{{_id}}">តួនាទី</h4>
             <p>
               {{#if roles}}
-                {{roles}}
-              {{else}}
+            {{roles}}
+        {{else}}
                 ​គ្មានតួនាទី
               {{/if}}
             </p>
-          </div>
+          </div>-->
 
-          <!-- <div class="item tabs tabs-secondary tabs-icon-left">
-            <a class="tab-item" href="#" data-action="fake">
-              <i class="icon ion-email"></i>
-              Send Email
-            </a>
-            <a class="tab-item​ " href="#">
-              <i class="icon ion-ios-color-wand"></i>
-              ផ្តល់សិទ្ធ
-            </a>
-            <a class="tab-item" href="#" data-action="fake">
-              <i class="icon ion-share"></i>
-              Share
-            </a>
-          </div> -->
+            <!-- <div class="item tabs tabs-secondary tabs-icon-left">
+              <a class="tab-item" href="#" data-action="fake">
+                <i class="icon ion-email"></i>
+                Send Email
+              </a>
+              <a class="tab-item​ " href="#">
+                <i class="icon ion-ios-color-wand"></i>
+                ផ្តល់សិទ្ធ
+              </a>
+              <a class="tab-item" href="#" data-action="fake">
+                <i class="icon ion-share"></i>
+                Share
+              </a>
+            </div> -->
 
-        </div>
-        {{/each}}
-    {{/ionContent}}
-  {{/ionView}}
-  {{> _settings}}
+                <!--</div>
+        {{/each}}-->
+        {{/ionContent}}
+    {{/ionView}}
+    {{> _settings}}
 </template>

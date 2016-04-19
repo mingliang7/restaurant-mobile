@@ -1,27 +1,63 @@
 <template name="materialCategory">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
-  {{/contentFor}}
-  {{#contentFor "headerTitle"}}
-    <h1 class="title">ផ្នែកវត្ថុធាតុដើម</h1>
-  {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">ផ្នែកវត្ថុធាតុដើម</h1>
+    {{/contentFor}}
 
-  {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-ion-modal="materialCategoryNew">{{> ionIcon icon="ios-plus-empty"}}</button>
-  {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
+        <button class="button button-clear"
+                data-ion-modal="materialCategoryNew">{{> ionIcon icon="ios-plus-empty"}}</button>
+    {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent}}
-      {{#ionList}}
-        {{#each categories}}
-          {{#ionItem buttonRight=true avatar=true }}
+    {{#ionView}}
+        {{#ionContent}}
+
+            <div class="card row">
+                <div class="col col-50 text-center"><span class="positive">ឈ្មោះ</span></div>
+                <div class="col col-25 text-center"><span class="positive">Units</span></div>
+                <div class="col col-10 text-center"><span class="positive">ពិពណ៌នា</span></div>
+                <div class="col col-10 text-center"><span class="positive">ជម្រើស</span></div>
+            </div>
+
+            <div class="card">
+                {{#each categories}}
+                    <div class="row">
+                        <div class="col col-50" style="border: 1px solid #ddd;">{{name}}</div>
+
+                        {{#if units}}
+                            <div class="col col-25" style="border: 1px solid #ddd;">{{units}}</div>
+                        {{else}}
+                            <div class="col col-25" style="border: 1px solid #ddd;">No Units</div>
+                        {{/if}}
+
+
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{description}}</div>
+
+                        <div class="col col-5 text-center" style="border: 1px solid #ddd; ">
+                            <a href="#" class="positive" data-ion-modal="editMaterialCategory"
+                               data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                        </div>
+                        <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="remove-MaterialCategory assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                        </div>
+                    </div>
+
+                {{/each}}
+            </div>
+
+            <!--before changed-->
+            <!--{{#ionList}}
+                {{#each categories}}
+                    {{#ionItem buttonRight=true avatar=true }}
             <span class="cursor-p" data-ion-modal="editMaterialCategory" data-id="{{_id}}">
               {{name}}
             </span>
             <p>
               {{#if units}}
                 Units: {{units}}
-              {{else}}
+                    {{else}}
                 No Units
               {{/if}}
             </p>
@@ -32,9 +68,10 @@
               {{> ionIcon icon="close-circled"}}</button>
 
           {{/ionItem}}
-        {{/each}}
-      {{/ionList}}
-    {{/ionContent}}
-  {{/ionView}}
-  {{> _settings}}
+                {{/each}}
+            {{/ionList}}-->
+            <!--before changed-->
+        {{/ionContent}}
+    {{/ionView}}
+    {{> _settings}}
 </template>

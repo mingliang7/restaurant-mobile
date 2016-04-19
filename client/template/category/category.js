@@ -20,7 +20,7 @@ Template.category.helpers({
 });
 
 Template.category.events({
-  'click [data-action="confirm"]' (event, template) {
+  'click .remove-category' (event, template) {
     let name = this.name;
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
