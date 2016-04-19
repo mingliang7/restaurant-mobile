@@ -21,6 +21,7 @@ Meteor.methods({
         let sale = Restaurant.Collection.Sales.findOne(payment.saleId);
         sale.exchangeRate=sale._exchangeRate.rates[0].rate;
         sale.saleDate = moment(sale.saleDate).format('DD-MM-YY HH:mm');
+        sale.paymentDate = moment(sale.paymentDate).format('DD-MM-YY HH:mm');
         let saleDetails = Restaurant.Collection.SaleDetails.find({
             saleId: sale._id
         });
