@@ -22,7 +22,7 @@ Template.restaurantSupplier.helpers({
 });
 
 Template.restaurantSupplier.events({
-  'click [data-action="confirm"]' (event, template) {
+  'click .remove-supplier' (event, template) {
     let name = this.name;
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',

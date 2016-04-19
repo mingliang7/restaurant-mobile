@@ -20,7 +20,7 @@ Template.exchangeRate.helpers({
 });
 
 Template.exchangeRate.events({
-  'click [data-action="confirm"]' (event, template) {
+  'click .remove-exchangeRates' (event, template) {
     let base = this.base;
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
