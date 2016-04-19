@@ -33,7 +33,7 @@ Template.product.helpers({
 });
 
 Template.product.events({
-  'click [data-action="confirm"]' (event, template) {
+  'click .remove-product' (event, template) {
     let name = this.name;
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',

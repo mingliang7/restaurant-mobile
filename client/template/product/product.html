@@ -13,7 +13,49 @@
 
   {{#ionView}}
     {{#ionContent}}
-      {{#ionList}}
+
+
+        <div class="card row">
+            <div class="col col-25 text-center"><span class="positive">ឈ្មោះ</span></div>
+            <div class="col col-25 text-center"><span class="positive">ឈ្មោះអង់គ្លេស</span></div>
+            <div class="col col-10 text-center"><span class="positive">ផ្នែក</span></div>
+            <div class="col col-10 text-center"><span class="positive">តម្លៃ</span></div>
+            <div class="col col-10 text-center"><span class="positive">គិតជា</span></div>
+            <div class="col col-10 text-center"><span class="positive">Tags</span></div>
+            <div class="col col-10 text-center"><span class="positive">ជម្រើស</span></div>
+        </div>
+
+        <div class="card">
+            {{#each products}}
+                <div class="row">
+                    <div class="col col-25" style="border: 1px solid #ddd;">{{name}}</div>
+                    <div class="col col-25" style="border: 1px solid #ddd;">{{enName}}</div>
+                    <div class="col col-10" style="border: 1px solid #ddd;">{{_category.name}}</div>
+                    <div class="col col-10" style="border: 1px solid #ddd;">{{price}}</div>
+                    <div class="col col-10" style="border: 1px solid #ddd;">{{_unit.name}}</div>
+
+                    {{#if tags}}
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{join tags}}</div>
+                    {{else}}
+                        <div class="col col-10" style="border: 1px solid #ddd;">No tags</div>
+                    {{/if}}
+
+
+                    <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                        <a href="#" class="positive" data-ion-modal="editProduct"
+                           data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                    </div>
+                    <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                        <a href="#" class="remove-product assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                    </div>
+                </div>
+
+            {{/each}}
+        </div>
+
+
+        <!--before changed-->
+      <!--{{#ionList}}
         {{#each products}}
           {{#ionItem buttonRight=true avatar=true }}
             <img src="{{url}}">
@@ -36,7 +78,9 @@
 
           {{/ionItem}}
         {{/each}}
-      {{/ionList}}
+      {{/ionList}}-->
+        <!--before changed-->
+
     {{/ionContent}}
   {{/ionView}}
   {{> _settings}}
