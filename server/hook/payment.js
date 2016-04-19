@@ -77,6 +77,7 @@ var updateSale = function(doc, update, oldDoc) {
       $set: {
         status: 'closed',
         statusDate: doc.paymentDate,
+        paymentDate: doc.paymentDate,
         paidAmount: paidAmount,
         balanceAmount: balanceAmount
       }
@@ -86,6 +87,7 @@ var updateSale = function(doc, update, oldDoc) {
       $set: {
         status: 'partial',
         statusDate: sale.saleDate,
+        paymentDate: doc.paymentDate,
         paidAmount: paidAmount,
         balanceAmount: balanceAmount
       }
