@@ -99,8 +99,8 @@ Meteor.methods({
     /****** Content *****/
     if (content.length > 0) {
       data.content = content;
-      data.footer.total = numeral(total).format('0,0');
-      data.footer.totalInDollar = numeral(total / exchange.rates[0].rate).format('0,0.00');
+      data.footer.total = numeral(total).format('0,0.00 $');
+      data.footer.totalInKhr = numeral(total * exchange.rates[0].rate).format('0,0');
     }
     return data;
   }

@@ -13,9 +13,9 @@ Meteor.methods({
       balanceAmount: balanceAmount,
       dueAmount: dueAmount,
       paidAmount: paidAmount,
-      balanceAmountInUSD: balanceAmount / exchange.rates[0].rate,
-      paidAmountInUSD: paidAmount / exchange.rates[0].rate,
-      dueAmountInUSD: dueAmount / exchange.rates[0].rate,
+      balanceAmountInKHR: balanceAmount * exchange.rates[0].rate,
+      paidAmountInKHR: paidAmount * exchange.rates[0].rate,
+      dueAmountInKHR: dueAmount * exchange.rates[0].rate,
     };
     return footer;
   }
