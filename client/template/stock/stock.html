@@ -11,11 +11,11 @@
   {{/contentFor}}
   {{#ionContent}}
     <div class="card row">
-      <div class="col col-20"><span class="positive">ថ្ងៃដាក់ទំនិញចូល</span></div>
-      <div class="col col-20"><span class="positive">លេខវិក័យប័ត្រ</span></div>
-      <div class="col col-20"><span class="positive">ឈ្មោះអ្នកផ្គត់ផ្គង់</span></div>
-      <div class="col col-20"><span class="positive">បរិយាយ</span></div>
-      <div class="col col-10"><span class="positive">ជម្រើស</span></div>
+      <div class="col col-20 text-center"><span class="positive">ថ្ងៃដាក់ទំនិញចូល</span></div>
+      <div class="col col-20 text-center"><span class="positive">លេខវិក័យប័ត្រ</span></div>
+      <div class="col col-20 text-center"><span class="positive">ឈ្មោះអ្នកផ្គត់ផ្គង់</span></div>
+      <div class="col col-20 text-center"><span class="positive">បរិយាយ</span></div>
+      <div class="col col-10 text-center"><span class="positive">ជម្រើស</span></div>
 
     </div>
     <div class="card">
@@ -30,12 +30,13 @@
         <div class="col col-20" style="border: 1px solid #ddd;">{{voucher}}</div>
         <div class="col col-20" style="border: 1px solid #ddd;">{{_supplier.name}} | {{_supplier.phone}}</div>
         <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
-        <div class="col col-5" style="border: 1px solid #ddd;">
+
+        <div class="col col-5 text-center" style="border: 1px solid #ddd;">
           {{#if isInRole 'setting'}}
           <a href="#" class="edit-stock positive" data-ion-modal="editStock" data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
           {{/if}}
         </div>
-        <div class="col col-5" style="border: 1px solid #ddd;">
+        <div class="col col-5 text-center" style="border: 1px solid #ddd;">
           {{#if isInRole 'setting'}}
           <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
           {{/if}}

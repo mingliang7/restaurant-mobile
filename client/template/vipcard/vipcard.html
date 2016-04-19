@@ -1,21 +1,58 @@
 <template name="restaurantVipcard">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
-  {{/contentFor}}
-  {{#contentFor "headerTitle"}}
-    <h1 class="title">Vipcard</h1>
-  {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">Vipcard</h1>
+    {{/contentFor}}
 
-  {{#contentFor "headerButtonRight"}}
-  <a href="/restaurant/vipcards/new" class="button button-clear">{{> ionIcon icon="ios-plus-empty"}}</a>
-  {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
+        <a href="/restaurant/vipcards/new" class="button button-clear">{{> ionIcon icon="ios-plus-empty"}}</a>
+    {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent}}
-      {{#ionList}}
-        {{#if vipcardsNotZero}}
-          {{#each vipcards}}
-            {{#ionItem  buttonRight=true avatar=true class="item-icon-right"}}
+    {{#ionView}}
+        {{#ionContent}}
+
+
+            <div class="card row">
+                <div class="col col-25 text-center"><span class="positive">ឈ្មោះ</span></div>
+                <div class="col col-25 text-center"><span class="positive">ចំនួនបញ្ចុះតម្លៃ</span></div>
+                <div class="col col-20 text-center"><span class="positive">ថ្ងៃផុតកំណត់</span></div>
+                <div class="col col-25 text-center"><span class="positive">ពិពណ៌នា</span></div>
+                <div class="col col-5 text-center"><span class="positive">ជម្រើស</span></div>
+            </div>
+
+
+            {{#if vipcardsNotZero}}
+                <div class="card">
+                    {{#each vipcards}}
+                        <div class="row">
+                            <div class="col col-25" style="border: 1px solid #ddd;">{{name}}</div>
+                            <div class="col col-25" style="border: 1px solid #ddd;">{{value}}</div>
+                            <div class="col col-20"
+                                 style="border: 1px solid #ddd;">{{moFormat expiredDate 'YYYY-DD-MM'}}</div>
+                            <div class="col col-25" style="border: 1px solid #ddd;">{{description}}</div>
+
+
+                            <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                                <a href="#" class="remove-vipcard assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                <div class="list card">
+                    <div class="item item-text-wrap" align="center">
+                        <h2>អត់មានទិន្នន័យ</h2>
+                    </div>
+                </div>
+            {{/if}}
+
+            <!--before Changed-->
+            <!--{{#ionList}}
+                {{#if vipcardsNotZero}}
+                    {{#each vipcards}}
+                        {{#ionItem  buttonRight=true avatar=true class="item-icon-right"}}
 
             <span class="cursor-p vipcard-name">
               ឈ្មោះ: {{name}}
@@ -32,16 +69,18 @@
             <button data-action="confirm" class=" button button-clear">
               {{> ionIcon icon="close-circled"}}</button>
             {{/ionItem}}
-          {{/each}}
-        {{else}}
+                    {{/each}}
+                {{else}}
           <div class="list card">
             <div class="item item-text-wrap" align="center">
               <h2>អត់មានទិន្នន័យ</h2>
             </div>
           </div>
         {{/if}}
-      {{/ionList}}
-    {{/ionContent}}
-  {{/ionView}}
-  {{> _data}}
+            {{/ionList}}-->
+            <!--before Changed-->
+
+        {{/ionContent}}
+    {{/ionView}}
+    {{> _data}}
 </template>

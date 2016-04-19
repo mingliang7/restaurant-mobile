@@ -1,21 +1,51 @@
 <template name="restaurantMaterials">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
-  {{/contentFor}}
-  {{#contentFor "headerTitle"}}
-    <button class="button button-clear" data-ion-modal="materialSearch">{{> ionIcon icon="search"}}</button>
-    <h1 class="title">វត្ថុធាតុដើម<span class="badge badge-positive">0 </span></h1>
-  {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <button class="button button-clear" data-ion-modal="materialSearch">{{> ionIcon icon="search"}}</button>
+        <h1 class="title">វត្ថុធាតុដើម<span class="badge badge-positive">0 </span></h1>
+    {{/contentFor}}
 
-  {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-ion-modal="newMaterial">{{> ionIcon icon="ios-plus-empty"}}</button>
-  {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
+        <button class="button button-clear" data-ion-modal="newMaterial">{{> ionIcon icon="ios-plus-empty"}}</button>
+    {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent}}
-      {{#ionList}}
-        {{#each materials}}
-          {{#ionItem buttonRight=true avatar=true }}
+    {{#ionView}}
+        {{#ionContent}}
+
+            <div class="card row">
+                <div class="col col-25 text-center"><span class="positive">ឈ្មោះ</span></div>
+                <div class="col col-25 text-center"><span class="positive">ឈ្មោះអង់គ្លេស</span></div>
+                <div class="col col-10 text-center"><span class="positive">គិតជា</span></div>
+                <div class="col col-25 text-center"><span class="positive">តម្លៃ</span></div>
+                <div class="col col-10 text-center"><span class="positive">ជម្រើស</span></div>
+            </div>
+
+            <div class="card">
+                {{#each materials}}
+                    <div class="row">
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{name}}</div>
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{enName}}</div>
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{_unit.name}}</div>
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{price}}</div>
+
+                        <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="positive" data-ion-modal="editMaterial"
+                               data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                        </div>
+                        <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="remove-material assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                        </div>
+                    </div>
+
+                {{/each}}
+            </div>
+
+            <!--before Changed-->
+            <!--{{#ionList}}
+                {{#each materials}}
+                    {{#ionItem buttonRight=true avatar=true }}
             <img src="{{url}}">
             <span class="cursor-p" data-ion-modal="editMaterial" data-id="{{_id}}">
               <b>{{name}}</b>({{enName}})
@@ -27,9 +57,11 @@
               {{> ionIcon icon="close-circled"}}</button>
 
           {{/ionItem}}
-        {{/each}}
-      {{/ionList}}
-    {{/ionContent}}
-  {{/ionView}}
-  {{> _settings}}
+                {{/each}}
+            {{/ionList}}-->
+            <!--before Changed-->
+
+        {{/ionContent}}
+    {{/ionView}}
+    {{> _settings}}
 </template>

@@ -1,6 +1,6 @@
 Template.restaurantMaterials.created = function() {
   this.autorun(() => {
-    this.subscribe = Meteor.subscribe('materials');
+    this.subscribe = Meteor.subscribe('materials', 500);
   });
 }
 Template.restaurantMaterials.rendered = function() {
@@ -23,7 +23,7 @@ Template.restaurantMaterials.helpers({
 })
 
 // Template.restaurantMaterials.events({
-//   'click [data-action="confirm"]' (event, template) {
+//   'click .remove-material' (event, template) {
 //     let name = this.name;
 //     IonPopup.confirm({
 //       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',

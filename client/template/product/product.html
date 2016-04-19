@@ -1,21 +1,62 @@
 <template name="product">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
-  {{/contentFor}}
-  {{#contentFor "headerTitle"}}
-    <button class="button button-clear" data-ion-modal="productSearch">{{> ionIcon icon="search"}}</button>
-    <h1 class="title">ទំនិញ<span class="badge badge-positive">{{getPublishedCount 'productCounts'}} </span></h1>
-  {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <button class="button button-clear" data-ion-modal="productSearch">{{> ionIcon icon="search"}}</button>
+        <h1 class="title">ទំនិញ<span class="badge badge-positive">{{getPublishedCount 'productCounts'}} </span></h1>
+    {{/contentFor}}
 
-  {{#contentFor "headerButtonRight"}}
-  <a href="/restaurant/product/new" class="button button-clear">{{> ionIcon icon="ios-plus-empty"}}</a>
-  {{/contentFor}}
+    {{#contentFor "headerButtonRight"}}
+        <a href="/restaurant/product/new" class="button button-clear">{{> ionIcon icon="ios-plus-empty"}}</a>
+    {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent}}
-      {{#ionList}}
-        {{#each products}}
-          {{#ionItem buttonRight=true avatar=true }}
+    {{#ionView}}
+        {{#ionContent}}
+
+
+            <div class="card row">
+                <div class="col col-25 text-center"><span class="positive">ឈ្មោះ</span></div>
+                <div class="col col-25 text-center"><span class="positive">ឈ្មោះអង់គ្លេស</span></div>
+                <div class="col col-10 text-center"><span class="positive">ផ្នែក</span></div>
+                <div class="col col-10 text-center"><span class="positive">តម្លៃ</span></div>
+                <div class="col col-10 text-center"><span class="positive">គិតជា</span></div>
+                <div class="col col-10 text-center"><span class="positive">Tags</span></div>
+                <div class="col col-10 text-center"><span class="positive">ជម្រើស</span></div>
+            </div>
+
+            <div class="card">
+                {{#each products}}
+                    <div class="row">
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{name}}</div>
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{enName}}</div>
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{_category.name}}</div>
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{price}}</div>
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{_unit.name}}</div>
+
+                        {{#if tags}}
+                            <div class="col col-10" style="border: 1px solid #ddd;">{{join tags}}</div>
+                        {{else}}
+                            <div class="col col-10" style="border: 1px solid #ddd;">No tags</div>
+                        {{/if}}
+
+
+                        <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="positive" data-ion-modal="editProduct"
+                               data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                        </div>
+                        <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="remove-product assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                        </div>
+                    </div>
+
+                {{/each}}
+            </div>
+
+            <!--before change-->
+            <!--{{#ionList}}
+                {{#each products}}
+                    {{#ionItem buttonRight=true avatar=true }}
             <img src="{{url}}">
             <span class="cursor-p" data-ion-modal="editProduct" data-id="{{_id}}">
               <b>{{name}}({{enName}})</b> |{{_category.name}}
@@ -35,9 +76,11 @@
               {{> ionIcon icon="close-circled"}}</button>
 
           {{/ionItem}}
-        {{/each}}
-      {{/ionList}}
-    {{/ionContent}}
-  {{/ionView}}
-  {{> _settings}}
+                {{/each}}
+            {{/ionList}}-->
+            <!--before change-->
+
+        {{/ionContent}}
+    {{/ionView}}
+    {{> _settings}}
 </template>

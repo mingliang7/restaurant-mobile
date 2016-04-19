@@ -3,7 +3,7 @@
     {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
   {{/contentFor}}
   {{#contentFor "headerTitle"}}
-    <h1 class="title">អតិថិជន</h1>
+    <h1 class="title">អ្នកផ្គត់ផ្គង់</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
@@ -12,7 +12,43 @@
 
   {{#ionView}}
     {{#ionContent}}
-      {{#ionList}}
+
+        <div class="card row">
+            <div class="col col-25 text-center"><span class="positive">ឈ្មោះ</span></div>
+            <div class="col col-10 text-center"><span class="positive">ភេទ</span></div>
+            <div class="col col-10 text-center"><span class="positive">ទូរស័ព្ទ</span></div>
+            <div class="col col-25 text-center"><span class="positive">អាសយដ្ឋាន</span></div>
+            <div class="col col-10 text-center"><span class="positive">ប្រភេទ</span></div>
+            <div class="col col-10 text-center"><span class="positive">បញ្ចុះតម្លៃ</span></div>
+            <div class="col col-10 text-center"><span class="positive">ជម្រើស</span></div>
+        </div>
+
+        <div class="card">
+            {{#each suppliers}}
+                <div class="row">
+                    <div class="col col-25" style="border: 1px solid #ddd;">{{name}}</div>
+                    <div class="col col-10" style="border: 1px solid #ddd;">{{gender}}</div>
+                    <div class="col col-10" style="border: 1px solid #ddd;">{{phone}}</div>
+                    <div class="col col-25" style="border: 1px solid #ddd;">{{address}}</div>
+                    <div class="col col-10" style="border: 1px solid #ddd;">{{type}}</div>
+                    <div class="col col-10" style="border: 1px solid #ddd;">{{discount}} %</div>
+
+
+                    <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                        <a href="#" class="positive" data-ion-modal="editSupplier"
+                           data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                    </div>
+                    <div class="col col-5 text-center" style="border: 1px solid #ddd;">
+                        <a href="#" class="remove-supplier assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                    </div>
+                </div>
+
+            {{/each}}
+        </div>
+
+
+        <!--before changed-->
+      <!--{{#ionList}}
         {{#each suppliers}}
           {{#ionItem  buttonRight=true avatar=true class="item-icon-right"}}
           <span class="cursor-p" data-ion-modal="editSupplier" data-id="{{_id}}">
@@ -25,7 +61,8 @@
             {{> ionIcon icon="close-circled"}}</button>
           {{/ionItem}}
         {{/each}}
-      {{/ionList}}
+      {{/ionList}}-->
+        <!--before changed-->
     {{/ionContent}}
   {{/ionView}}
   {{> _data}}

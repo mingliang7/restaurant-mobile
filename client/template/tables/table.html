@@ -12,7 +12,37 @@
 
   {{#ionView}}
     {{#ionContent}}
-      {{#ionList}}
+
+        <div class="card row">
+            <div class="col col-20 text-center"><span class="positive">តុលេខ</span></div>
+            <div class="col col-20 text-center"><span class="positive">ចំនួនកៅអី</span></div>
+            <div class="col col-20 text-center"><span class="positive">ទីតាំង</span></div>
+            <div class="col col-20 text-center"><span class="positive">ពិពណ៌នា</span></div>
+            <div class="col col-20 text-center"><span class="positive">ជម្រើស</span></div>
+        </div>
+
+        <div class="card">
+            {{#each tables}}
+                <div class="row">
+                    <div class="col col-20" style="border: 1px solid #ddd;">{{name}}</div>
+                    <div class="col col-20" style="border: 1px solid #ddd;">{{chairAmount}}</div>
+                    <div class="col col-20" style="border: 1px solid #ddd;">{{_tableLocation.name}}</div>
+                    <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
+
+                    <div class="col col-10 text-center" style="border: 1px solid #ddd;">
+                        <a href="#" class="positive" data-ion-modal="tableEdit"
+                           data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                    </div>
+                    <div class="col col-10 text-center" style="border: 1px solid #ddd;">
+                        <a href="#" class="remove-table assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                    </div>
+                </div>
+
+            {{/each}}
+        </div>
+
+        <!--before changed-->
+      <!--{{#ionList}}
         {{#each tables}}
           {{#ionItem  buttonRight=true avatar=true class="item-icon-right"}}
 
@@ -32,7 +62,10 @@
             {{> ionIcon icon="close-circled"}}</button>
           {{/ionItem}}
         {{/each}}
-      {{/ionList}}
+      {{/ionList}}-->
+        <!--before changed-->
+
+
     {{/ionContent}}
   {{/ionView}}
   {{> _data}}

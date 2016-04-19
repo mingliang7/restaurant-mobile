@@ -1,16 +1,46 @@
 <template name="company">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
-  {{/contentFor}}
-  {{#contentFor "headerTitle"}}
-    <h1 class="title">ក្រុមហ៊ុន</h1>
-  {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">ក្រុមហ៊ុន</h1>
+    {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent}}
-      {{#ionList}}
-        {{#with company}}
-          {{#ionItem buttonRight=true avatar=true }}
+    {{#ionView}}
+        {{#ionContent}}
+
+            <div class="card row">
+                <div class="col col-15 text-center"><span class="positive">ឈ្មោះ</span></div>
+                <div class="col col-15 text-center"><span class="positive">ឈ្មោះអង់គ្លេស</span></div>
+                <div class="col col-10 text-center"><span class="positive">BaseCurrency</span></div>
+                <div class="col col-25 text-center"><span class="positive">អាស័យដ្ឋាន</span></div>
+                <div class="col col-25 text-center"><span class="positive">Address</span></div>
+                <div class="col col-10 text-center"><span class="positive">ជម្រើស</span></div>
+            </div>
+
+            <div class="card">
+                {{#with company}}
+                    <div class="row">
+                        <div class="col col-15" style="border: 1px solid #ddd;">{{khName}}</div>
+                        <div class="col col-15" style="border: 1px solid #ddd;">{{enName}}</div>
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{baseCurrency}}</div>
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{khAddress}}</div>
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{enAddress}}</div>
+
+
+                        <div class="col col-10 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="positive" data-ion-modal="editCompany"
+                               data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                        </div>
+                    </div>
+
+                {{/with}}
+            </div>
+
+            <!--before changed-->
+            <!--{{#ionList}}
+                {{#with company}}
+                    {{#ionItem buttonRight=true avatar=true }}
             <span class="cursor-p" data-ion-modal="editCompany" data-id="{{_id}}">
              ឈ្មោះ: {{khName}}
             </span>
@@ -27,9 +57,11 @@
               Address: {{enAddress}}
             </p>
           {{/ionItem}}
-        {{/with}}
-      {{/ionList}}
-    {{/ionContent}}
-  {{/ionView}}
-  {{> _settings}}
+                {{/with}}
+            {{/ionList}}-->
+            <!--before changed-->
+
+        {{/ionContent}}
+    {{/ionView}}
+    {{> _settings}}
 </template>
