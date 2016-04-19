@@ -1,8 +1,8 @@
 Meteor.methods({
   fetchMaterial(assetFile) {
-    if(Restaurant.Collection.Categories.find().count() <= 0){
-      Meteor.call('insertRTBCategory');
-      Meteor.call('insertRTBUnit');
+    let materialsCount = Restaurant.Collection.MaterialCategories.find().count();
+    if(materialsCount <= 0){
+      Meteor.call('insertMaterialCategory');
     }
     Restaurant.Collection.Materials.remove({});
     let materials  = JSON.parse(Assets.getText(`products/${assetFile}`)); //fetch products from private/products file;

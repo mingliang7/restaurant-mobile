@@ -1,6 +1,6 @@
 Template.restaurantMaterials.created = function() {
   this.autorun(() => {
-    this.subscribe = Meteor.subscribe('materials');
+    this.subscribe = Meteor.subscribe('materials', 500);
   });
 }
 Template.restaurantMaterials.rendered = function() {
