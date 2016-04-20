@@ -2,6 +2,9 @@ Meteor.methods({
   getMaterialName(id) {
     return Restaurant.Collection.Materials.findOne(id).name;
   },
+  getUnitName(id) {
+    return Restaurant.Collection.Materials.findOne(id)._unit.name;
+  },
   fetchMaterials(query) {
     let selector = {};
     if (query !== null && query != '') {

@@ -1,46 +1,60 @@
 <template name="productSearch">
-  {{#ionModal focusFirstInput=true title="Search"}}
-      <div class="list">
-        <div class="item item-input-inset">
-          <label class="item-input-wrapper">
-            {{> ionIcon icon="ios-search" class="placeholder-icon"}}
-            <input type="text" placeholder="Search" value="{{searchQuery}}">
-          </label>
+    {{#ionModal focusFirstInput=true title="Search"}}
+        <div class="list">
+            <div class="item item-input-inset">
+                <label class="item-input-wrapper">
+                    {{> ionIcon icon="ios-search" class="placeholder-icon"}}
+                    <input type="text" placeholder="Search" value="{{searchQuery}}">
+                </label>
+            </div>
+            <ul>
+                {{#each products}}
+                    {{> _productItem}}
+                {{/each}}
+
+            </ul>
+            {{#if searchQuery}}
+                <div class="col col-offset-50">
+                    <button class="button button-positive loadMore">Load More</button>
+                </div>
+            {{/if}}
         </div>
-      <ul>
-        {{#each products}}
-          {{> _productItem}}
-        {{/each}}
-      </ul>
-        {{#if searchQuery}}
-          <div class="col col-offset-50" >
-          <button class="button button-positive loadMore">Load More</button>
-          </div>
-        {{/if}}
-      </div>
 
     {{/ionModal}}
 </template>
 
 <template name="_productItem">
-      {{#ionItem buttonRight=true avatar=true }}
+    {{#ionItem buttonRight=true avatar=true }}
         <img src="{{url}}">
         <span class="cursor-p" data-ion-modal="editProduct" data-id="{{_id}}">
           <b>{{name}}({{enName}})</b> | ផ្នែកៈ {{_category.name}}
         </span>
         <p>
-          តម្លៃៈ <b>{{price}}</b>​ | គិតជាៈ <b>{{_unit.name}}</b>
+            តម្លៃៈ <b>{{price}}</b>​ | គិតជាៈ <b>{{_unit.name}}</b>
         </p>
-        <p>
-          Tags:
-          {{#if tags}}
-            <b>{{tags}}</b>
-          {{else}}
-            No tags
-          {{/if}}
+        <p>productId
+            Tags:
+            {{#if tags}}
+                <b>{{tags}}</b>
+            {{else}}
+                No tags
+            {{/if}}
+        </p>
+
+       <p>
+            វត្ថុធាតុដើម:
+            {{#if ingradient}}
+                {{#each ingradient}}
+                    <b>{{findMaterial productId}}</b>
+                    {{qty}} {{findUnit productId}}
+                {{/each}}
+            {{else}}
+                គ្មានវត្ថុធាតុដើម
+            {{/if}}
+
         </p>
         <button data-action="confirm" class=" button button-clear">
-          {{> ionIcon icon="close-circled"}}</button>
+            {{> ionIcon icon="close-circled"}}</button>
 
-      {{/ionItem}}
+    {{/ionItem}}
 </template>
