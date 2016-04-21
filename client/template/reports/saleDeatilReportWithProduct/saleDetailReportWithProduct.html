@@ -157,13 +157,15 @@
                   <tbody>
                   <tr class="content-body">
                     {{#if statusCanceled data.header.status}}
-                      <td colspan="10" style="text-align: right">Grand Total:</td>
+                      <td colspan="8" style="text-align: right">Grand Total:</td>
                     {{else}}
-                      <td colspan="9" style="text-align: right">Grand Total:</td>
+                      <td colspan="7" style="text-align: right">Grand Total:</td>
                     {{/if}}
                       <!--<td align="right">{{grandTotalCost}}</td>-->
                       <!--<td align="right">{{grandTotalPaidAmount}}</td>-->
                       <!--<td align="right">{{grandTotalOwedAmount}}</td>-->
+                      <td align="right">{{subTotal}}</td>
+                      <td align="right"></td>
                       <td align="right">{{grandTotal}}</td>
                       {{#each grandTotalConvert}}
                           <td align="right">{{totalConvert}}</td>

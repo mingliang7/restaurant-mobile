@@ -46,6 +46,7 @@ Meteor.methods({
         data.header = header;
         var content = calculateSaleHelper(sale);
         data.grandTotal = content.grandTotal;
+        data.subTotal = content.subTotal;
         data.grandTotalConvert = content.grandTotalConvert;
         if (content.length > 0) {
             data.content = content;
@@ -57,6 +58,7 @@ Meteor.methods({
 
 function calculateSaleHelper(sl) {
     var grandTotal = 0;
+    var subTotal = 0;
     var grandTotalConvert = {};
     var saleList = [];
     var i = 1;
@@ -64,6 +66,7 @@ function calculateSaleHelper(sl) {
     sl.forEach(function (s) {
         s.saleDetailObj = getSaleDetail(s._id); // fetch all saleDetails with saleId
         grandTotal += s.total;
+        subTotal += s.subTotal;
         s.order = i;
         s.exchangeRates = [];
         //var exchange = Restaurant.Collection.ExchangeRates.findOne(s.exchangeRateId);
@@ -82,10 +85,10 @@ function calculateSaleHelper(sl) {
         s.customer = s._customer.name;
         s.user = s._staff.profile.username;
         i++;
-        console.log(s);
         saleList.push(s);
     });
-    saleList.grandTotal = numeral(grandTotal).format('0,0.00');
+    saleList.grandTotal = numeral(grandTotal).format('0,0');
+    saleList.subTotal = numeral(subTotal).format('0,0');
     saleList.grandTotalConvert = [];
     for (var key in grandTotalConvert) {
         saleList.grandTotalConvert.push({
