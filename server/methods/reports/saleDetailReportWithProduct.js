@@ -68,29 +68,29 @@ function calculateSaleHelper(sl) {
         s.exchangeRates = [];
         //var exchange = Restaurant.Collection.ExchangeRates.findOne(s.exchangeRateId);
         s._exchangeRate.rates.forEach(function (ex) {
-            ex.exTotal = s.total / ex.rate;
+            ex.exTotal = s.total * ex.rate;
             if (grandTotalConvert[ex.toCurrencyId] == null) {
                 grandTotalConvert[ex.toCurrencyId] = 0
             }
             grandTotalConvert[ex.toCurrencyId] += ex.exTotal;
-            ex.exTotalFormatted = numeral(ex.exTotal).format('0,0.00');
+            ex.exTotalFormatted = numeral(ex.exTotal).format('0,0');
             s.exchangeRates.push(ex);
 
         });
         s.saleDate = moment(s.saleDate).format("DD-MM-YY, HH:mm:ss");
-        s.total = numeral(s.total).format('0,0.00');
+        s.total = numeral(s.total).format('0,0.00 $');
         s.customer = s._customer.name;
         s.user = s._staff.profile.username;
         i++;
         console.log(s);
         saleList.push(s);
     });
-    saleList.grandTotal = numeral(grandTotal).format('0,0.00');
+    saleList.grandTotal = numeral(grandTotal).format('0,0.00 $');
     saleList.grandTotalConvert = [];
     for (var key in grandTotalConvert) {
         saleList.grandTotalConvert.push({
             toCurrencyId: key,
-            totalConvert: numeral(grandTotalConvert[key]).format('0,0.00')
+            totalConvert: numeral(grandTotalConvert[key]).format('0,0')
         });
     }
     return saleList;

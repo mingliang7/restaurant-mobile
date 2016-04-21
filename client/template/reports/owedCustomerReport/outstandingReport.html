@@ -80,31 +80,31 @@
                          <td>{{_customer.name}}</td>
                          <td>{{_customer.telephone}}</td>
                          <td>{{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}</td>
-                         <td align='right'>{{numFormat _payment.dueAmount '0,0'}}</td>
-                         <td align='right'>{{numFormat _payment.paidAmount '0,0'}}</td>
-                         <td align='right'>{{numFormat _payment.balanceAmount '0,0'}}</td>
+                         <td align='right'>{{numFormat _payment.dueAmount '0,0.00 $'}}</td>
+                         <td align='right'>{{numFormat _payment.paidAmount '0,0.00 $'}}</td>
+                         <td align='right'>{{numFormat _payment.balanceAmount '0,0.00 $'}}</td>
                      </tr>
                  {{/each}}
                  {{#with footer}}
                      <tr align='right'>
                        <td colspan="5">
-                       សរុប (៛):
-                       </td>
-                       <td align='right'>
-                            {{numFormat dueAmount '0,0'}}
-                       </td>
-                       <td align='right'>{{numFormat paidAmount '0,0'}}</td>
-                       <td align='right'>{{numFormat balanceAmount '0,0'}}</td>
-                     </tr>
-                     <tr align='right'>
-                       <td colspan="5">
                        សរុប ($):
                        </td>
                        <td align='right'>
-                            {{numFormat dueAmountInUSD '0,0.00'}}
+                            {{numFormat dueAmount '0,0.00 $'}}
                        </td>
-                       <td align='right'>{{numFormat paidAmountInUSD '0,0.00'}}</td>
-                       <td align='right'>{{numFormat balanceAmountInUSD '0,0.00'}}</td>
+                       <td align='right'>{{numFormat paidAmount '0,0.00 $'}}</td>
+                       <td align='right'>{{numFormat balanceAmount '0,0.00 $'}}</td>
+                     </tr>
+                     <tr align='right'>
+                       <td colspan="5">
+                       សរុប (៛):
+                       </td>
+                       <td align='right'>
+                            {{numFormat dueAmountInKHR '0,0'}} ៛
+                       </td>
+                       <td align='right'>{{numFormat paidAmountInKHR '0,0'}} ៛</td>
+                       <td align='right'>{{numFormat balanceAmountInKHR '0,0'}} ៛</td>
                      </tr>
                  {{/with}}
                  </tbody>
