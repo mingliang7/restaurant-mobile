@@ -37,7 +37,7 @@
                         <td align="right" style="text-align: right;"><b>អតិថិជន : </b> {{sale._customer.name}}</td>
                     </tr>
                     <tr>
-                        <td style="width: 120px"><b>កាលបរិច្ឆេទ : </b> {{sale.saleDate}}</td>
+                        <td style="width: 120px"><b>កាលបរិច្ឆេទ : </b> {{sale.saleDate}} - {{sale.paymentDate}}</td>
                         <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់ : </b>{{sale.exchangeRate}}៛</td>
 
                     </tr>
@@ -133,7 +133,7 @@
 
             </div>
         {{/with}}
-        {{goBack}}
+        <!-- {{goBack}} -->
     {{else}}
         {{> ionSpinner icon="spiral"}}
     {{/if}}
