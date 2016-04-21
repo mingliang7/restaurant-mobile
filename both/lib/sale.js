@@ -3,23 +3,25 @@ Sale = {
     let subTotal = 0;
     let total;
     let index = 0;
+    let hasDiscount = false;
     let text = '';
     let sale = Restaurant.Collection.Sales.findOne(saleId);
     let saleDetails = Restaurant.Collection.SaleDetails.find({
       saleId: saleId
     });
     saleDetails.forEach((saleDetail) => {
+      if(saleDetail.discount == 100){
+        hasDiscount = true;
+      }
       if (index < 2) {
-          text += `${Restaurant.Collection.Products.findOne(saleDetail.productId).name},`
+          text += `${Restaurant.Collection.Products.findOne(saleDetail.productId).name},`;
       }
       index++;
       subTotal += saleDetail.amount;
     });
     total = subTotal * (1 - sale.discount / 100);
     sale.text = `${sale._id} | ${total} | ${text}  `;
-    if(total == 0){
-      Restaurant.Collection.Sales.direct.remove(saleId);
-    }else{
+    if(hasDiscount){
       Restaurant.Collection.Sales.direct.update(saleId, {
         $set: {
           total: total,
@@ -29,6 +31,20 @@ Sale = {
           text: sale.text
         }
       });
+    }else{
+      if(total == 0){
+        Restaurant.Collection.Sales.direct.remove(saleId);
+      }else{
+        Restaurant.Collection.Sales.direct.update(saleId, {
+          $set: {
+            total: total,
+            subTotal: subTotal,
+            paidAmount: 0,
+            balanceAmount: total,
+            text: sale.text
+          }
+        });
+      }
     }
   },
   tags: {
