@@ -56,12 +56,15 @@ Template.restaurantSaleTableSaleInvoice.helpers({
   saleInvoice() {
     let saleDoc =  Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
     let last = saleDoc._exchangeRate.rates.last();
+
+    saleDoc.totalKhr = 0;
+    if(!_.isUndefined(saleDoc.total)){
     saleDoc.totalKhr = saleDoc.total * last.rate;
+    }
     // saleDoc.subTotalUsd = saleDoc.subTotal * last.rate;
     // saleDoc.paidAmountUsd = saleDoc.paidAmount * last.rate;
     // saleDoc.balanceAmountUsd = saleDoc.balanceAmount * last.rate;
 
-    console.log(saleDoc);
     return saleDoc;
   },
   goToPayment() {
