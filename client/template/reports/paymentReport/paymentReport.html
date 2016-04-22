@@ -1,0 +1,121 @@
+<!--Form-->
+<template name="restaurantPaymentReport">
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.report" text='របាយការណ៍'}}
+    {{/contentFor}}
+
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">របាយការណ៍ បង់បា្រក់</h1>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+            {{#autoForm schema="Restaurant.Schema.PaymentReport"  id="restaurantPaymentReport" action="/restaurant/payment-report-gen"  target="_blank"}}
+                <div class="bar bar-header">
+                    <button type="submit" class="button button-balanced">Generate</button>
+                    <button type="reset" class="button button-stable">Reset</button>
+                </div>
+                <div class="content has-header overflow-scroll">
+                    {{> afQuickField name='fromDate' type='datetime'}}
+                    {{> afQuickField name='toDate' type="datetime"}}
+                    <div class="row">
+                      <div class="col col-33">{{> afQuickField name='status' type="select" options=status }}</div>
+                      <div class="col col-33">{{> afQuickField name='customerId' type="select" options=customers }}</div>
+                      <div class="col col-33">{{> afQuickField name='staffId' type="select" options=users }}</div>
+                    </div>
+                </div>
+            {{/autoForm}}
+        {{/ionContent}}
+    {{/ionView}}
+</template>
+
+<!--Generate-->
+<template name="restaurantPaymentReportGen">
+    {{#if data}}
+            {{#with data}}
+                {{#with title}}
+                    <div class="title">
+                        <div class="title-1x-kh-muol">{{khName}}</div>
+                        <div class="title-1x">{{enName}}</div>
+                        <div style="text-decoration: underline;">របាយការណ៍ បង់បា្រក់</div>
+                        <div class="title-2x">{{khAddress}}</div>
+                    </div>
+                {{/with}}
+                {{#with header}}
+                    <div style="width: 100%">
+                        <div style="width: 50%; float: left">
+                            <ul class="list-unstyled">
+                                <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
+                                <li><strong>ប្រភេទវិក័យប័ត្រ:</strong> {{status}}</li>
+                            </ul>
+                        </div>
+                        <div style="width: 50%; float: right">
+                            <ul class="list-unstyled">
+                                <li><strong>អតិថិជន:</strong> {{customer}}</li>
+                                <li><strong>បុគ្គលិក:</strong> {{staff}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {{/with}}
+
+                <!--Content-->
+                <table class="report-content">
+                    <thead class="content-header">
+                    <tr>
+                        <th>ល.រ</th>
+                        <th>លេខវិក័យប័ត្រ</th>
+                        <th>កាលបរិច្ឆេទ</th>
+                        <th>អតិថិជន</th>
+                        <th>ប្រភេទវិក័យប័ត្រ</th>
+                        <th>បា្រក់ត្រូវបង់</th>
+                        <th>បា្រក់បានបង់</th>
+                        <th align="right">ប្រាក់នៅសល់</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="content-body">
+                    {{#each content}}
+                        <tr>
+                            <td align="center">{{order}}</td>
+                            <td>{{saleId}}</td>
+                            <td>{{paymentDate}}</td>
+                            <td>{{customer}}</td>
+                            <td>{{status}}</td>
+                            <td align="right">{{numFormat dueAmount '0,0'}} ៛</td>
+                            <td align="right">{{numFormat truelyPaid '0,0'}} ៛</td>
+                            <td align="right">{{numFormat balanceAmount '0,0'}} ៛</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                    <tbody>
+                    <tr class="content-body">
+                        {{#if statusCanceled data.header.status}}
+                          <td colspan="6" style="text-align: right">Grand Total:</td>
+                        {{else}}
+                          <td colspan="5" style="text-align: right">Grand Total:</td>
+                        {{/if}}
+                        <td align="right">{{grandTotalDueAmount}} ៛</td>
+                        <td align="right">{{grandTotalPaidAmount}} ៛</td>
+                        <td align="right">{{grandTotalBalanceAmount}} ៛</td>
+                    </tr>
+
+                    <tr class="content-body">
+                        {{#if statusCanceled data.header.status}}
+                          <td colspan="6" style="text-align: right">USD:</td>
+                        {{else}}
+                          <td colspan="5" style="text-align: right">USD:</td>
+                        {{/if}}
+                        <td align="right">{{grandTotalDueAmountUsd}}</td>
+                        <td align="right">{{grandTotalPaidAmountUsd}}</td>
+                        <td align="right">{{grandTotalBalanceAmountUsd}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            {{/with}}
+
+    {{else}}
+        <p> សូមមេត្តារងចាំ ...</p>
+    {{/if}}
+
+</template>
