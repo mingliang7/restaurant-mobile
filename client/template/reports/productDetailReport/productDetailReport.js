@@ -1,6 +1,6 @@
 Template.restaurantProductDetailReport.helpers({
     categories(){
-        return ReactiveMethod.call('getCategoryList')
+        return ReactiveMethod.call('getCategoryList');
     }
 });
 
@@ -24,7 +24,9 @@ Template.restaurantProductDetailReportGen.helpers({
         Fetcher.retrieve(params, 'getProductDetailReport', query);
         return Fetcher.get(params);
 
+    },
+    fetchMaterial(id){
+      let material = ReactiveMethod.call('getMaterial', id);
+      return material;
     }
 });
-
-

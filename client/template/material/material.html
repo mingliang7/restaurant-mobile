@@ -3,8 +3,8 @@
         {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
     {{/contentFor}}
     {{#contentFor "headerTitle"}}
-        <button class="button button-clear" data-ion-modal="materialSearch">{{> ionIcon icon="search"}}</button>
-        <h1 class="title">វត្ថុធាតុដើម<span class="badge badge-positive">0 </span></h1>
+        <!-- <button class="button button-clear" data-ion-modal="materialSearch">{{> ionIcon icon="search"}}</button> -->
+        <h1 class="title">វត្ថុធាតុដើម</h1>
     {{/contentFor}}
 
     {{#contentFor "headerButtonRight"}}
@@ -28,14 +28,14 @@
                         <div class="col col-25" style="border: 1px solid #ddd;">{{name}}</div>
                         <div class="col col-25" style="border: 1px solid #ddd;">{{enName}}</div>
                         <div class="col col-10" style="border: 1px solid #ddd;">{{_unit.name}}</div>
-                        <div class="col col-25" style="border: 1px solid #ddd;">{{price}}</div>
+                        <div class="col col-25" style="border: 1px solid #ddd;">{{numFormat price '0,0.00'}}</div>
 
                         <div class="col col-5 text-center" style="border: 1px solid #ddd;">
                             <a href="#" class="positive" data-ion-modal="editMaterial"
                                data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
                         </div>
                         <div class="col col-5 text-center" style="border: 1px solid #ddd;">
-                            <a href="#" class="remove-material assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+                            <!-- <a href="#" class="remove-material assertive">{{>ionIcon icon="trash-b"}}លុប</a> -->
                         </div>
                     </div>
 

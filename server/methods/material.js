@@ -5,6 +5,11 @@ Meteor.methods({
   getUnitName(id) {
     return Restaurant.Collection.Materials.findOne(id)._unit.name;
   },
+  getMaterial(id){
+    let material = Restaurant.Collection.Materials.findOne(id);
+    let unit = Restaurant.Collection.Units.findOne(material.unitId);
+    return `${material.name}(${unit.name})`;
+  },
   fetchMaterials(query) {
     let selector = {};
     if (query !== null && query != '') {
