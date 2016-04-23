@@ -18,8 +18,7 @@
             <div class="card row">
                 <div class="col col-25 text-center"><span class="positive">ឈ្មោះ</span></div>
                 <div class="col col-25 text-center"><span class="positive">សិទ្ធិ</span></div>
-                <div class="col col-25 text-center"><span class="positive">តូនាទី</span></div>
-                <div class="col col-25 text-center"><span class="positive">ជម្រើស</span></div>
+                <div class="col col-50 text-center"><span class="positive">តូនាទី</span></div>
             </div>
             <div class="card">
                 {{#each users}}
@@ -41,15 +40,23 @@
                         {{/if}}
 
                         {{#if roles}}
-                            <div class="col col-25" style="border: 1px solid #ddd;">{{roles}}</div>
+                            <div class="col col-50" style="border: 1px solid #ddd;">{{roles}}
+                                <span class="pull-right">
+                                 <a href="#" class="positive" data-ion-modal="_selectRole"
+                                    data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ
+                                 </a>
+                             </span>
+                            </div>
                         {{else}}
-                            <div class="col col-25" style="border: 1px solid #ddd;">​គ្មានតួនាទី</div>
+                            <div class="col col-50" style="border: 1px solid #ddd;">​គ្មានតួនាទី
+                                <span class="pull-right">
+                                    <a href="#" class="positive" data-ion-modal="_selectRole"
+                                       data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ
+                                    </a>
+                                </span>
+                            </div>
                         {{/if}}
 
-                        <div class="col col-25 text-center" style="border: 1px solid #ddd;">
-                            <a href="#" class="positive" data-ion-modal="_selectRole"
-                               data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
-                        </div>
                     </div>
 
                 {{/each}}

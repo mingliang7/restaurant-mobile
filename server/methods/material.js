@@ -23,17 +23,7 @@ Meteor.methods({
           }
         }]
       };
+
     }
-    let materials = Restaurant.Collection.Materials.find(selector);
-    let list = [];
-    if (materials.count() > 0) {
-      materials.forEach((material) => {
-        list.push({
-          label: `${material.name}`,
-          value: `${material._unit.name} ${material.price} ${material._id}`
-        });
-      });
-    }
-    return list;
   }
 });

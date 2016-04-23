@@ -98,6 +98,16 @@
                         <td align="right">{{grandTotalPaidAmount}}</td>
                         <td align="right">{{grandTotalBalanceAmount}}</td>
                     </tr>
+                    <tr class="content-body">
+                        {{#if statusCanceled data.header.status}}
+                          <td colspan="6" style="text-align: right">KHR:</td>
+                        {{else}}
+                          <td colspan="5" style="text-align: right">KHR:</td>
+                        {{/if}}
+                        <td align="right">{{grandTotalDueAmountKhr}} ៛</td>
+                        <td align="right">{{grandTotalPaidAmountKhr}} ៛</td>
+                        <td align="right">{{grandTotalBalanceAmountKhr}} ៛</td>
+                    </tr>
                     </tbody>
                 </table>
 

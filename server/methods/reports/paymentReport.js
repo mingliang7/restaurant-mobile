@@ -56,6 +56,10 @@ Meteor.methods({
     data.grandTotalPaidAmount = content.grandTotalPaidAmount;
     data.grandTotalBalanceAmount = content.grandTotalBalanceAmount;
 
+    data.grandTotalDueAmountKhr = content.grandTotalDueAmountKhr;
+    data.grandTotalPaidAmountKhr = content.grandTotalPaidAmountKhr;
+    data.grandTotalBalanceAmountKhr = content.grandTotalBalanceAmountKhr;
+
     //return reportHelper;
     /****** Content *****/
     if (content.length > 0) {
@@ -70,6 +74,12 @@ function calculateSaleHelper(sl) {
   var grandTotalDueAmount = 0;
   var grandTotalPaidAmount = 0;
   var grandTotalBalanceAmount = 0;
+
+  var grandTotalDueAmountKhr = 0;
+  var grandTotalPaidAmountKhr = 0;
+  var grandTotalBalanceAmountKhr = 0;
+
+  var exchange = Restaurant.Collection.ExchangeRates.findOne({},{sort:{_id:-1}});
   var subTotal = 0;
   var grandTotalConvert = {};
   var saleList = [];
@@ -79,7 +89,6 @@ function calculateSaleHelper(sl) {
     grandTotalPaidAmount += s.truelyPaid;
 
     s.order = i;
-
     s.customer = Restaurant.Collection.Customers.findOne({_id:s.customerId}).name;
     s.paymentDate = moment(s.paymentDate).format("DD-MM-YY, HH:mm:ss");
     s.balanceAmount = s.dueAmount - s.truelyPaid;
@@ -91,6 +100,10 @@ function calculateSaleHelper(sl) {
   saleList.grandTotalDueAmount = numeral(grandTotalDueAmount).format('0,0.00 $');
   saleList.grandTotalPaidAmount = numeral(grandTotalPaidAmount).format('0,0.00 $');
   saleList.grandTotalBalanceAmount = numeral(grandTotalBalanceAmount).format('0,0.00 $');
+
+  saleList.grandTotalDueAmountKhr = numeral(grandTotalDueAmount * exchange.rates[0].rate).format('0,0');
+  saleList.grandTotalPaidAmountKhr = numeral(grandTotalPaidAmount * exchange.rates[0].rate).format('0,0');
+  saleList.grandTotalBalanceAmountKhr = numeral(grandTotalBalanceAmount * exchange.rates[0].rate).format('0,0');
 
   return saleList;
 
