@@ -1,7 +1,7 @@
 Template.editMaterial.helpers({
   material(){
     let template = Template.instance();
-    return Restaurant.Collection.Materials.findOne(template.data.id);
+    return Restaurant.Collection.Materials.findOne(`${template.data.id}`);
   }
 });
 

@@ -66,6 +66,13 @@
                             <td>{{_category.name}}</td>
                             <!--<td>{{barcode}}</td>-->
                         </tr>
+                          {{#each ingradient}}
+                          <tr>
+                            <td></td>
+                            <td><b>{{fetchMaterial productId}}</b></td>
+                            <td colspan="3"><b>{{qty}}</b></td>
+                          </tr>
+                          {{/each}}
                     {{/each}}
                     </tbody>
                 </table>
