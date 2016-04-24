@@ -25,9 +25,17 @@ Meteor.methods({
       }
     }];
     if (arg.status != '') {
-      params.status = {
-        $in: arg.status.trim().split(',')
-      };
+      let status = arg.status.trim().split(',');
+      if(status == 'closed'){
+        status.push('partial');
+        params.status = {
+          $in: status
+        };
+      }else{
+        params.status = {
+          $in: status
+        };
+      }
     }
     var fromDate = moment(arg.fromDate, "YYYY/MM/DD HH:mm").toDate();
     var toDate = moment(arg.toDate, "YYYY/MM/DD HH:mm").toDate();
@@ -60,7 +68,7 @@ Meteor.methods({
     if (arg.status == 'active') {
       header.status = 'កំពុងលក់';
     } else if (arg.status == 'closed') {
-      header.status = 'ទូរទាត់រួច';
+      header.status = 'ទូរទាត់រួច ជំពាក់';
     } else {
       header.status = 'បោះបង់';
     }
@@ -80,6 +88,7 @@ Meteor.methods({
     var saleDetailObj = {};
     var total = 0;
     var sales = Restaurant.Collection.Sales.find(params);
+    console.log(params);
     sales.forEach((sale) => {
       groupSaleDetail(sale, saleDetailObj, tmpCategoryName);
     });
