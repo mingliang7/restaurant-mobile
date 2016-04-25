@@ -41,6 +41,13 @@ Meteor.methods({
         lastOs.push(tmpArr.last());
       });
     }
+    lastOs.sort(function(a,b) {
+      if ( a.reduceStockDate < b.reduceStockDate )
+          return -1;
+      if ( a.reduceStockDate > b.reduceStockDate )
+          return 1;
+      return 0;
+    });
     if(lastOs.length > 0){
       data.content= [];
     }

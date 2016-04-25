@@ -136,6 +136,7 @@ let reduceStock = (eopId, saleObj, startDate, endDate) => {
                     }
                 };
             }
+            console.log(selector);
             updateMaterial(j, selector);
             for (let i = 0; i < saleObj[k][j].saleId.length; i++) {
                 Restaurant.Collection.Sales.direct.update({
@@ -166,12 +167,15 @@ let reduceActiveStock = (eopId, startDate, endDate) => {
         stockIns.forEach((stockIn) => {
             let selector = {};
             let tmpQty = 0;
+            let tmpTotalBalance = 0 ;
             let totalQty = stockIn.qty;
             let material = Restaurant.Collection.Materials.findOne(stockIn.materialId);
             if (material._outstandingAmount && material._outstandingAmount.length > 0) {
                 let lastOs = material._outstandingAmount.last();
+                console.log(lastOs);
+                console.log(stockIn)
                 tmpQty = lastOs.qty + stockIn.qty;
-                totalQty += lastOs.totalQty;
+                tmpTotalBalance = lastOs.qty;
             } else {
                 tmpQty = tmpQty + stockIn.qty;
             }
@@ -186,7 +190,8 @@ let reduceActiveStock = (eopId, startDate, endDate) => {
                     reduceStockDate: startDate,
                     reduceAmount: 0,
                     totalQty: totalQty,
-                    qty: tmpQty
+                    qty: tmpQty,
+                    totalBalance: tmpTotalBalance
                 }
             };
             Restaurant.Collection.StockIn.update(stockIn._id, {
