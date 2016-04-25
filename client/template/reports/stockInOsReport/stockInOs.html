@@ -60,6 +60,7 @@
                     <thead class="content-header">
                     <tr>
                         <th>ល.រ</th>
+                        <th>ថ្ងៃកាត់ចុងក្រោយ</th>
                         <th>ឈ្មោះទំនិញ</th>
                         <th>ដើមគ្រា</th>
                         <th>ដាក់ចូល</th>
@@ -73,6 +74,7 @@
                     {{#each content}}
                         <tr>
                             <td>{{order}}</td>
+                            <td>{{moFormat reduceStockDate 'YYYY-MM-DD'}}</td>
                             <td>{{name}}</td>
                             <td>{{totalBalance}}</td>
                             <td>{{totalQty}}</td>
