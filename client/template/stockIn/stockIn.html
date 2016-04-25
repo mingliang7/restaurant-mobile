@@ -37,13 +37,17 @@
         <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
 
         <div class="col col-5 text-center" style="border: 1px solid #ddd;">
-          {{#if isActived status}}
-          <a href="#" class="edit-stock positive" data-ion-modal="editStockIn" data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+          {{#if isInRole 'setting'}}
+            {{#if isActived status}}
+            <a href="#" class="edit-stock positive" data-ion-modal="editStockIn" data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+            {{/if}}
           {{/if}}
         </div>
         <div class="col col-5 text-center" style="border: 1px solid #ddd;">
-          {{#if isActived status}}
-          <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+          {{#if isInRole 'setting'}}
+            {{#if isActived status}}
+            <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+            {{/if}}
           {{/if}}
         </div>
       </div>

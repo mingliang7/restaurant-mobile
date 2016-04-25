@@ -72,12 +72,12 @@ Template.restaurantActivePayment.helpers({
   },
   goToActivePaymentInvoice() {
     let status =Session.get('saleStatus');
-    if(status == 'partial'){
-      if(Roles.userIsInRole(Meteor.userId(), 'setting')){
-        return `/restaurant/sale/${this.tableLocation}/table/${this.tableId}/saleInvoice/${this._id}`;
-      }
-      return false;
-    }
+    // if(status == 'partial'){
+    //   if(Roles.userIsInRole(Meteor.userId(), 'setting')){
+    //     return `/restaurant/sale/${this.tableLocation}/table/${this.tableId}/saleInvoice/${this._id}`;
+    //   }
+    //   return false;
+    // }
     return `/restaurant/sale/${this.tableLocation}/table/${this.tableId}/saleInvoice/${this._id}`;
   },
   hasMore() {
