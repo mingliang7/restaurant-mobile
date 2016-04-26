@@ -42,7 +42,7 @@ Meteor.methods({
       params.staffId = arg.staffId;
     }
 
-    var sale = Restaurant.Collection.Payments.find(params);
+    var sale = Restaurant.Collection.Payments.find(params, {sort: {saleId: 1}});
     var header = {};
     header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
     header.customer = customer;
