@@ -28,28 +28,28 @@ Meteor.methods({
         let i = 1;
         saleDetails.forEach(function (saleDetail) {
             saleDetail.order = i;
-            saleDetail.amount = numeral(saleDetail.amount).format('0,0');
+            saleDetail.amount = numeral(saleDetail.amount).format('0,0.00');
             i++;
             content.push(saleDetail)
         });
         var totalConverts = [];
         sale._exchangeRate.rates.forEach(function (ex) {
-            var totalConvert=parseFloat(payment.dueAmount)/parseFloat(ex.rate);
-            ex.total = numeral(totalConvert).format('0,0.00');
+            var totalConvert=parseFloat(payment.dueAmount)*parseFloat(ex.rate);
+            ex.total = numeral(totalConvert).format('0,0');
             totalConverts.push(ex);
         });
-        var paidAmountUs=parseFloat(payment.paidAmount)/parseFloat(sale.exchangeRate);
-        var balanceAmountUs=parseFloat(payment.balanceAmount)/parseFloat(sale.exchangeRate);
+        var paidAmountUs=parseFloat(payment.paidAmount)*parseFloat(sale.exchangeRate);
+        var balanceAmountUs=parseFloat(payment.balanceAmount)*parseFloat(sale.exchangeRate);
 
         data.footer = {
-            subTotal: numeral(sale.subTotal).format('0,0'),
+            subTotal: numeral(sale.subTotal).format('0,0.00'),
             discount: numeral(sale.discount).format('0,0'),
-            total: numeral(payment.dueAmount).format('0,0'),
-            paidAmount: numeral(payment.paidAmount).format('0,0'),
-            balanceAmount: numeral(payment.balanceAmount).format('0,0'),
+            total: numeral(payment.dueAmount).format('0,0.00'),
+            paidAmount: numeral(payment.paidAmount).format('0,0.00'),
+            balanceAmount: numeral(payment.balanceAmount).format('0,0.00'),
             totalConverts: totalConverts,
-            paidAmountUs:numeral(paidAmountUs).format('0,0.00'),
-            balanceAmountUs:numeral(balanceAmountUs).format('0,0.00')
+            paidAmountUs:numeral(paidAmountUs).format('0,0'),
+            balanceAmountUs:numeral(balanceAmountUs).format('0,0')
         };
         data.content = content;
         data.sale = sale;
@@ -78,20 +78,20 @@ Meteor.methods({
         let i = 1;
         saleDetails.forEach(function (saleDetail) {
             saleDetail.order = i;
-            saleDetail.amount = numeral(saleDetail.amount).format('0,0');
+            saleDetail.amount = numeral(saleDetail.amount).format('0,0.00');
             i++;
             content.push(saleDetail)
         });
         var totalConverts = [];
         sale._exchangeRate.rates.forEach(function (ex) {
-            var totalConvert=parseFloat(sale.total)/parseFloat(ex.rate);
-            ex.total = numeral(totalConvert).format('0,0.00');
+            var totalConvert=parseFloat(sale.total)*parseFloat(ex.rate);
+            ex.total = numeral(totalConvert).format('0,0');
             totalConverts.push(ex);
         });
         data.footer = {
-            subTotal: numeral(sale.subTotal).format('0,0'),
+            subTotal: numeral(sale.subTotal).format('0,0.00'),
             discount: numeral(sale.discount).format('0,0'),
-            total: numeral(sale.total).format('0,0'),
+            total: numeral(sale.total).format('0,0.00'),
             totalConverts: totalConverts
         };
         data.content = content;

@@ -65,15 +65,15 @@ Template.restaurantSalePayment.events({
     var exchangeRate = Restaurant.Collection.ExchangeRates.findOne();
     var dollarConverted = dollar / exchangeRate.rates[0].rate;
     var totalPaid = dollarConverted + tmpPaidAmount;
-    $('[name="balanceAmount"]').val(dueAmount - totalPaid);
+    $('[name="balanceAmount"]').val(numeral(dueAmount - totalPaid).format('0,0.00'));
     $('[name="paidAmount"]').val(totalPaid);
     if((dueAmount - totalPaid) < 0) {
-      let changeInDollar = (totalPaid - dueAmount) * exchangeRate.rates[0].rate;
+      let changeInDollar = numeral((totalPaid - dueAmount) * exchangeRate.rates[0].rate).format('0,0');
       $('[name="changeInDollar"]').val('-' + changeInDollar)
     }else if((dueAmount - totalPaid) == 0){
       $('[name="changeInDollar"]').val(0)
     }else{
-      let changeInDollar = (dueAmount - totalPaid) * exchangeRate.rates[0].rate;
+      let changeInDollar = numeral((dueAmount - totalPaid) * exchangeRate.rates[0].rate).format('0,0');
       $('[name="changeInDollar"]').val(changeInDollar)
     }
   },

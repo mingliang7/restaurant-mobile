@@ -60,9 +60,9 @@
                         <tr>
                             <td>{{_product.name}}</td>
                             <td align="center">{{quantity}}</td>
-                            <td align="center">{{numFormat price '0,0'}}</td>
+                            <td align="center">{{numFormat price '0,0.00'}}</td>
                             <td align="center">{{discount}}</td>
-                            <td align="right">{{numFormat amount '0,0'}}</td>
+                            <td align="right">{{numFormat amount '0,0.00'}}</td>
                         </tr>
                         <tr>
                             <td colspan="5">
@@ -85,7 +85,7 @@
                         <td>សរុបរួម:</td>
                         <td align="right" colspan="3"><b>{{footer.total}}{{sale._exchangeRate.symbol}}</b>
                         = <b>{{#each footer.totalConverts}}
-                          {{total}}{{symbol}}
+                          {{total}}៛
                           {{/each}}</b></td>
                     </tr>
                     <!--{{#each footer.totalConverts}}
@@ -105,7 +105,7 @@
                         <td>បានបង់:</td>
                         <td align="right" colspan="3">
                           <b>{{footer.paidAmount}}{{sale._exchangeRate.symbol}}</b>
-                          =<b>{{footer.paidAmountUs}}$</b>
+                          =<b>{{footer.paidAmountUs}}៛</b>
                         </td>
                     </tr>
                     <tr>
@@ -114,12 +114,12 @@
                           <td>លុយអាប់​​​​​់:</td>
                           <td align="right" colspan="3">
                             <b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b>
-                          =<b>{{footer.balanceAmountUs}}</b>
+                          =<b>{{footer.balanceAmountUs}}៛</b>
                         </td>
                         {{else}}
                           <td>លុយជំពាក់:</td>
                           <td align="right" colspan="3"><b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b>
-                          =<b>{{footer.balanceAmountUs}}$</b>
+                          =<b>{{footer.balanceAmountUs}}៛</b>
                         </td>
                         {{/if}}
                     </tr>

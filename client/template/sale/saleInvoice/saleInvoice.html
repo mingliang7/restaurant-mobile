@@ -95,7 +95,7 @@
                     {{details.notes}}
                 </p>
             </div>
-            {{#if noPayment}}
+            <!-- {{#if noPayment}} -->
               <div class="col col-5">
                 {{#if isPrinting}}
                   <a class="tab-item positive" href="{{goToSaleDetailEdit}}" data-action="fake">
@@ -110,30 +110,30 @@
                   </a>
                 {{/if}}
               </div>
-            <div class="col col-5" align="center">
-                {{#if isPrinting}}
-                <label class="toggle">
-                    <input type="checkbox" class="detach">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
+              <div class="col col-5" align="center">
+                  {{#if isPrinting}}
+                  <label class="toggle">
+                      <input type="checkbox" class="detach">
+                      <div class="track">
+                          <div class="handle"></div>
+                      </div>
+                  </label>
+                  {{/if}}
+              </div>
+              <div class="col col-5">
+                {{#if hasDetachSaleDetail.flag}}
+                <a href="#" class="tab-item assertive" data-ion-modal="takeOutQty" data-id="{{_id}}" data-qty="{{quantity}}">
+                  {{#with hasDetachSaleDetail}}
+                    {{#if qty}}
+                        <i class="icon">{{qty}}</i>
+                      {{else}}
+                        <i class="icon ion-grid"></i>
+                      {{/if}}
+                  {{/with}}
+                </a>
                 {{/if}}
-            </div>
-            <div class="col col-5">
-              {{#if hasDetachSaleDetail.flag}}
-              <a href="#" class="tab-item assertive" data-ion-modal="takeOutQty" data-id="{{_id}}" data-qty="{{quantity}}">
-                {{#with hasDetachSaleDetail}}
-                  {{#if qty}}
-                      <i class="icon">{{qty}}</i>
-                    {{else}}
-                      <i class="icon ion-grid"></i>
-                    {{/if}}
-                {{/with}}
-              </a>
-              {{/if}}
-            </div>
-            {{/if}}
+              </div>
+          <!-- {{/if}} -->
         </div>
     </div>
     <!-- <div class="item tabs tabs-secondary tabs-icon-left" style="background: #ddd;">
