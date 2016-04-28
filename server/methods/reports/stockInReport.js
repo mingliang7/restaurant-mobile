@@ -38,7 +38,7 @@ Meteor.methods({
 
     // console.log(exchange.rates[0].rate);
 
-    data.grandTotalKhr = numeral(content.grandTotalKhr).format('0,0.00');
+    data.grandTotalKhr = numeral(content.grandTotalKhr).format('0,0');
     data.grandTotalUsd = numeral(content.grandTotalKhr / exchange.rates[0].rate).format('0,0.00 $');
     /****** Content *****/
     if (content.length > 0) {
