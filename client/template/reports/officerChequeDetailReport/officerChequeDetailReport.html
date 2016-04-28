@@ -34,7 +34,7 @@
                   <div class="title">
                       <div class="title-1x-kh-muol">{{khName}}</div>
                       <div class="title-1x">{{enName}}</div>
-                      <div style="text-decoration: underline;">របាយការណ៍ លក់លម្អិត</div>
+                      <div style="text-decoration: underline;">របាយការណ៍ លក់លម្អិតសម្រាប់បុគ្គលិក(Officer Cheque with Detail)</div>
                       <div class="title-2x">{{khAddress}}</div>
                   </div>
               {{/with}}
@@ -94,7 +94,7 @@
                           <td>{{user}}</td>
                           <td>{{_customer.name}}</td>
                           <td>{{status}}</td>
-                          <td>{{numFormat subTotal '0,0'}}</td>
+                          <td>{{numFormat subTotal '0,0.00 $'}}</td>
                           <td>{{discount}}</td>
                           <td align="right">{{total}}</td>
                           {{#each exchangeRates}}
@@ -135,7 +135,7 @@
                             {{_product.name}}
                           </td>
                           <td align="center">
-                            {{numFormat price '0,0'}}
+                            {{numFormat price '0,0.00 $'}}
                           </td>
                           <td align="center">
                             {{quantity}}
