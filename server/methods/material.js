@@ -2,6 +2,9 @@ Meteor.methods({
   getMaterialName(id) {
     return Restaurant.Collection.Materials.findOne(id).name;
   },
+  getUnitName(id) {
+    return Restaurant.Collection.Materials.findOne(id)._unit.name;
+  },
   getMaterial(id){
     let material = Restaurant.Collection.Materials.findOne(id);
     let unit = Restaurant.Collection.Units.findOne(material.unitId);
@@ -9,7 +12,7 @@ Meteor.methods({
   },
   fetchMaterials(query) {
     let selector = {};
-    if (query !== null && query != '') {
+    if (query !== null && query !== '') {
       let regPattern = `${query}`;
       let reg = new RegExp(regPattern, 'i'); //match all case
       selector = {
@@ -23,7 +26,17 @@ Meteor.methods({
           }
         }]
       };
-
     }
+    let materials = Restaurant.Collection.Materials.find(selector,{limit: 20});
+    let list = [];
+    if (materials.count() > 0) {
+      materials.forEach((material) => {
+        list.push({
+          label: `${material.name}`,
+          value: `${material._unit.name} ${material.price} ${material._id}`
+        });
+      });
+    }
+    return list;
   }
 });
