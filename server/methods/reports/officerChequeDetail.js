@@ -25,7 +25,7 @@ Meteor.methods({
             params.staffId = arg.staffId;
         }
 
-        var sale = Restaurant.Collection.Sales.find(params);
+        var sale = Restaurant.Collection.Sales.find(params, {sort: {_id: 1}});
         var header = {};
         header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
         header.customer = customer;
