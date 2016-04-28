@@ -12,7 +12,7 @@ Meteor.methods({
   },
   fetchMaterials(query) {
     let selector = {};
-    if (query !== null && query != '') {
+    if (query !== null && query !== '') {
       let regPattern = `${query}`;
       let reg = new RegExp(regPattern, 'i'); //match all case
       selector = {
@@ -27,7 +27,7 @@ Meteor.methods({
         }]
       };
     }
-    let materials = Restaurant.Collection.Materials.find(selector);
+    let materials = Restaurant.Collection.Materials.find(selector,{limit: 20});
     let list = [];
     if (materials.count() > 0) {
       materials.forEach((material) => {
