@@ -1,0 +1,39 @@
+<template name="restaurantMultiInvoice">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="restaurant.payment.list" text="ត្រឡប់ក្រោយ"}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">ទូរទាត់វិក័យប័ត្រច្រើនក្នុងពេលតែមួយ</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+    {{#autoForm schema="Restaurant.Schema.MultiPayment" id="multiPayment"}}
+        <div class="content has-header overflow-scroll">
+          <div class="row">
+            <div class="col col-33">
+              {{> afQuickField name='selectLocation'}}
+            </div>
+            <div class="col col-33">
+              {{> afQuickField name='selectTable'  options=tableByLocation}}
+            </div>
+            <hr>
+          </div>
+
+          {{#each invoices}}
+            <div class="row">
+              <div class="col col-33">
+                {{_id}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+
+    {{/autoForm}}
+
+    {{/ionContent}}
+  {{/ionView}}
+</template>

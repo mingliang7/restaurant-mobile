@@ -370,5 +370,15 @@ Router.map(function() {
       Restaurant.Roles.checkRoles(Meteor.userId(), ['cashier','setting', 'super']);
       this.next();
     }
-  })
+  });
+  this.route('restaurant.multi.invoice',{
+    path: '/restaurant/multi-invoice',
+    onBeforeAction(pause){
+      if(!Meteor.userId()){
+        Router.go('/')
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['cashier', 'setting']);
+      this.next();
+    }
+  });
 });
