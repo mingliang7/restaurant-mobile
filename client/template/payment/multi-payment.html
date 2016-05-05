@@ -22,14 +22,47 @@
             </div>
             <hr>
           </div>
-
+          {{#if invoiceNotZero invoices}}
+          <div class="row">
+            <div class="col col-10">
+              <label class="item-input-wrapper">
+                <label class="toggle">
+                  <input type="checkbox" class="check-all" checked="{{isInvoiceObjEmpty}}">
+                  <div class="track">
+                    <div class="handle"></div>
+                  </div>
+                </label>
+                <span class="sale-status-label">ជ្រើសរើសយកទាំងអស់</span>
+              </label>
+            </div>
+          </div>
           {{#each invoices}}
             <div class="row">
               <div class="col col-33">
-                {{_id}}
+                <label class="item-input-wrapper">
+                  <label class="toggle">
+                    <input type="checkbox" class="invoice" checked="{{markAsChecked _id}}">
+                    <div class="track">
+                      <div class="handle"></div>
+                    </div>
+                  </label>
+                  <span class="sale-status-label">&nbsp;វិក័យប័ត្រលេខ: {{_id}} | សរុប: {{total}}&nbsp;៛</span>
+                </label>
               </div>
             </div>
           {{/each}}
+          <div class="row">
+            <div class="col col-10">
+              <a href="#" class="button button-positive payment">បង់ប្រាក់</a>
+            </div>
+          </div>
+        {{else}}
+          <div class="row">
+            <div class="col col-50">
+              <div class="card"><p align='center'>អត់មានទិន្នន័យ</p></div>
+            </div>
+          </div>
+        {{/if}}
         </div>
 
     {{/autoForm}}
