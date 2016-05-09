@@ -66,15 +66,9 @@
 </template>
 
 <template name="saleDetail">
-    <div class="item item-body animated bounceInDown {{#if transferOrSplit}}bg-blue{{/if}}">
-        <div class="row">
+        <div class="row item item-body animated bounceInDown {{#if transferOrSplit}}bg-blue{{/if}}">
             <div class="col col-20">
                 <h4>{{_product.name}}</h4>
-                {{#if note}}
-                    <p>
-                        {{note}}
-                    </p>
-                {{/if}}
             </div>
             <div class="col col-15">
               <h4>{{quantity}}</h4>
@@ -134,7 +128,6 @@
                 {{/if}}
               </div>
           <!-- {{/if}} -->
-        </div>
     </div>
     <!-- <div class="item tabs tabs-secondary tabs-icon-left" style="background: #ddd;">
       <a class="tab-item" href="#" data-action="fake">
