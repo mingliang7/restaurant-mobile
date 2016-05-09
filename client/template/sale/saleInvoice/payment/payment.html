@@ -22,13 +22,16 @@
            </div>
            <div class="row">
              <div class="col col-45">
-               {{> afQuickField name='dueAmount' readonly=true label="លុយត្រូវបង់ ($)"}}
-               <input type="hidden" name="tmpDueAmount" value="{{sale.dueAmount}}">
+               {{> afQuickField name='dueAmount' label="លុយត្រូវបង់ ($)" type="hidden"}}
+               <label class="item item-input">
+                  <span class="input-label">លុយត្រូវបង់ ($)</span>
+                 <input type="text" name="tmpDueAmount" value="{{numFormat sale.dueAmount '0,0.00'}}">
+               </label>
              </div>
              <div class="col col-45">
                <label for="dueAmountKhr" class="item item-input">
                  <span class="input-label">លុយត្រូវបង់ (៛)</span>
-                   <input type="number" name="dueAmountKhr" value="{{sale.dueAmountKhr}}" readonly>
+                   <input type="number" name="dueAmountKhr" value="{{numFormat sale.dueAmountKhr '0,0'}}" readonly>
                </label>
               </div>
            </div>
@@ -40,7 +43,7 @@
           <div class="col col-33">
             <label class="item item-input">
               <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ ($):</span>
-              <input type="text" name="tmpPaidAmount" value="{{sale.dueAmount}}" style="background: #387ef5;
+              <input type="text" name="tmpPaidAmount" value="{{numFormat sale.dueAmount '0,0.00'}}" style="background: #387ef5;
               color: #fff; padding-left: 5px; font-weight: bold;">
             </label>
           </div>
