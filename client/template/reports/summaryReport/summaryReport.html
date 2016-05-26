@@ -1,0 +1,109 @@
+<!--Form-->
+<template name="restaurantSummaryReport">
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.report" text='របាយការណ៍'}}
+    {{/contentFor}}
+
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">របាយការណ៍ សង្ខេប</h1>
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+            {{#autoForm schema="Restaurant.Schema.SummaryReport"  id="restaurantSummaryReport" action="/restaurant/summary-report-gen"  target="_blank"}}
+                <div class="bar bar-header">
+                    <button type="submit" class="button button-balanced">Generate</button>
+                    <button type="reset" class="button button-stable">Reset</button>
+                </div>
+                <div class="content has-header overflow-scroll">
+                    {{> afQuickField name='fromDate' type='datetime'}}
+                    {{> afQuickField name='toDate' type="datetime"}}
+                </div>
+            {{/autoForm}}
+        {{/ionContent}}
+    {{/ionView}}
+</template>
+
+<!--Generate-->
+<template name="restaurantSummaryReportGen">
+    {{#if data}}
+            {{#with data}}
+                {{#with title}}
+                    <div class="title">
+                        <div class="title-1x-kh-muol">{{khName}}</div>
+                        <div class="title-1x">{{enName}}</div>
+                        <div style="text-decoration: underline;">របាយការណ៍ សង្ខេប</div>
+                        <div class="title-2x">{{khAddress}}</div>
+                    </div>
+                {{/with}}
+                {{#with header}}
+                    <div style="width: 100%">
+                        <div style="width: 60%; float: left">
+                            <ul class="list-unstyled">
+                                <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                {{/with}}
+
+                <!--Content-->
+                <table class="report-content">
+                  <thead class="content-header">
+                  <tr>
+                      <th>ស្ថានភាព</th>
+                      <th colspan="2">សរុប</th>
+                  </tr>
+                  </thead>
+
+                    <tbody class="content-body">
+                      {{#each actualSales}}
+                        <tr>
+                            <!-- <td align="center">{{order}}</td> -->
+                            <td><b>{{{_id}}}({{count}})</b></td>
+                            <td align="right">{{getBaseCurrency total}}</td>
+                            <td align="right">{{exchangeCurrency total}}</td>
+                        </tr>
+                      {{/each}}
+                      {{#each sales}}
+                        <tr>
+                            <!-- <td align="center">{{order}}</td> -->
+                            {{#if statusPartial _id}}
+                              <td>{{{str _id}}}<b>({{count}})</b>{{#each invoices}} <u>{{_id}}</u>,{{/each}}</td>
+                              <td align="right">{{getBaseCurrency balanceAmount}}</td>
+                              <td align="right">{{exchangeCurrency balanceAmount}}</td>
+                            {{/if}}
+                            {{#if statusActive _id}}
+                              <td>{{{str _id}}}<b>({{count}})</b>{{#each invoices}} <u>{{_id}}</u>,{{/each}}</td>
+                              <td align="right">{{getBaseCurrency total}}</td>
+                              <td align="right">{{exchangeCurrency total}}</td>
+                            {{/if}}
+                        </tr>
+                      {{/each}}
+                      {{#each payments}}
+                        <tr>
+                            <!-- <td align="center">{{order}}</td> -->
+                            <td><b>{{_id}}({{count}})</b></td>
+                            <td align="right">{{getBaseCurrency total}}</td>
+                            <td align="right">{{exchangeCurrency total}}</td>
+                        </tr>
+                      {{/each}}
+
+                    <!-- <tr>
+                      <td colspan="8" align="right">Grand Total :</td>
+                      <td>{{grandTotalKhr}} ៛</td>
+                    </tr>
+                    <tr>
+                      <td colspan="8" align="right">USD :</td>
+                      <td>{{grandTotalUsd}}</td>
+                    </tr> -->
+                    </tbody>
+                </table>
+
+
+            {{/with}}
+
+    {{else}}
+        <p> សូមមេត្តារងចាំ ...</p>
+    {{/if}}
+
+</template>
