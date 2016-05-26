@@ -16,8 +16,17 @@
                     <button type="reset" class="button button-stable">Reset</button>
                 </div>
                 <div class="content has-header overflow-scroll">
-                    {{> afQuickField name='fromDate' type='datetime'}}
-                    {{> afQuickField name='toDate' type="datetime"}}
+                    <div class="row">
+                      <div class="col col-33">
+                        {{> afQuickField name='fromDate' type='datetime'}}
+                      </div>
+                      <div class="col col-33">
+                        {{> afQuickField name='toDate' type="datetime"}}
+                      </div>
+                    </div>
+                    <div class="col col-33">
+                      {{> afQuickField name="staff"}}
+                    </div>
                 </div>
             {{/autoForm}}
         {{/ionContent}}
@@ -41,6 +50,7 @@
                         <div style="width: 60%; float: left">
                             <ul class="list-unstyled">
                                 <li><strong>កាលបរិច្ឆេទ:</strong> {{date}}</li>
+                                <li><strong>ប្រភេទអតិថិជន:</strong> {{customer}}</li>
                             </ul>
                         </div>
                     </div>

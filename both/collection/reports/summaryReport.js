@@ -13,12 +13,14 @@ Restaurant.Schema.SummaryReport = new SimpleSchema({
         optional:true
 
     },
-    status: {
+    staff: {
         type: String,
-        label: "ប្រភេទវិក័យប័ត្រ",
-        optional: true,
+        label: "ប្រភេទអតិថិជន",
         autoform:{
-          firstOption: 'All'
+          type: 'select',
+          options(){
+            return [{label: 'General', value: 'normal'}, {label: 'Officer', value: 'officer'}]
+          }
         }
     }
 });

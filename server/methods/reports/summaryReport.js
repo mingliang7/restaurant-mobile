@@ -25,7 +25,8 @@ Meteor.methods({
     };
     params.status = {
         $in: ['active', 'partial']
-      }
+    }
+    params['_customer.type'] = arg.staff
       // if (customerId != null && customerId != "") {
       //     params.customerId = customerId;
       //     customer = Restaurant.Collection.Customers.findOne(customerId).name;
@@ -51,7 +52,8 @@ Meteor.methods({
         },
         count: {
           $sum: 1
-        }
+        },
+
       }
     }], {
       sort: {
@@ -67,7 +69,8 @@ Meteor.methods({
         status: {
           $nin: ['canceled']
           // $in: ['closed', 'active', 'partial']
-        }
+        },
+        '_customer.type': arg.staff
       }
     }, {
       $group: {
@@ -84,28 +87,31 @@ Meteor.methods({
         _id: 1
       }
     })
-    var payments = Restaurant.Collection.Payments.aggregate([{
-      $match: {
-        paymentDate: {
-          $gte: fromDate,
-          $lt: toDate
+    if(arg.staff == 'normal'){
+      var payments = Restaurant.Collection.Payments.aggregate([{
+        $match: {
+          paymentDate: {
+            $gte: fromDate,
+            $lt: toDate
+          }
         }
-      }
-    }, {
-      $group: {
-        _id: 'បានបញ្ចប់ និងបង់ប្រាក់',
-        total: {
-          $sum: '$truelyPaid'
-        },
-        count: {
-          $sum: 1
+      }, {
+        $group: {
+          _id: 'បានបញ្ចប់ និងបង់ប្រាក់',
+          total: {
+            $sum: '$truelyPaid'
+          },
+          count: {
+            $sum: 1
+          }
         }
-      }
     }])
-    data.payments = payments;
+    }
+    data.payments = payments || [];
     data.sales = sales;
     data.actualSales = actualSales;
     data.header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
+    data.header.customer = arg.staff == 'normal' ? 'ធម្មតា' : 'បុគ្គលិក'
 
     return data;
 
