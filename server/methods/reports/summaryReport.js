@@ -65,7 +65,8 @@ Meteor.methods({
           $lt: toDate
         },
         status: {
-          $nin: ['cancel']
+          $nin: ['canceled']
+          // $in: ['closed', 'active', 'partial']
         }
       }
     }, {
