@@ -86,7 +86,7 @@
 
                     <tbody class="content-body">
                     {{#each content}}
-                        <tr>
+                        <tr class="{{#if partial status}}highlight-partial{{/if}}">
                             <td align="center">{{order}}</td>
                             <td>{{_table.name}}({{_table._tableLocation.name}})</td>
                             <td>{{_id}}</td>
