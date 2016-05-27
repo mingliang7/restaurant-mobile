@@ -67,7 +67,7 @@ Meteor.methods({
           $lt: toDate
         },
         status: {
-          $nin: ['canceled']
+          $nin: ['canceled', 'transfer']
           // $in: ['closed', 'active', 'partial']
         },
         '_customer.type': arg.staff

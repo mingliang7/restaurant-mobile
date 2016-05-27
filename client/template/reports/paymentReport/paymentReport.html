@@ -75,7 +75,7 @@
 
                     <tbody class="content-body">
                     {{#each content}}
-                        <tr>
+                        <tr class="{{#if partial status saleDate paymentDate}}highlight-partial{{/if}}">
                             <td align="center">{{order}}</td>
                             <td>{{saleId}}</td>
                             <td>{{paymentDate}}</td>

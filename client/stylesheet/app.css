@@ -137,3 +137,6 @@ input[type=text] {
 .text-center {
     text-align: center;
 }
+.highlight-partial{
+  background: yellow;
+}
