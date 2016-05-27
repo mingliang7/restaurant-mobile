@@ -19,6 +19,9 @@ Template.restaurantSaleReport.helpers({
     }, {
       value: "canceled",
       label: "បោះបង់"
+    },  {
+      value: "transfer",
+      label: "ផ្ទេរ"
     }]
   },
   users() {
@@ -35,9 +38,12 @@ Template.restaurantSaleReportGen.helpers({
     return Fetcher.get(params);
   },
   statusCanceled(status){
-    if(status == 'canceled'){
+    if(status == 'canceled' || status == 'transfer'){
       return true;
     }
+  },
+  partial(status) {
+      return status == 'partial'
   }
 });
 

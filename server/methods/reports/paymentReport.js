@@ -90,9 +90,9 @@ function calculateSaleHelper(sl) {
     grandTotalPaidAmount += s.truelyPaid;
 
     s.order = i;
-
+    s.saleDate = Restaurant.Collection.Sales.findOne(s.saleId).saleDate;
     s.customer = Restaurant.Collection.Customers.findOne({_id:s.customerId}).name;
-    s.paymentDate = moment(s.paymentDate).format("DD-MM-YY, HH:mm:ss");
+    s.paymentDate = moment(s.paymentDate).format("YYYY-MM-DD, HH:mm:ss");
     s.balanceAmount = s.dueAmount - s.truelyPaid;
     grandTotalBalanceAmount += s.balanceAmount;
 
