@@ -75,40 +75,44 @@
 
                     <tbody class="content-body">
                     {{#each content}}
+
+                      {{#each payments}}
                         <tr class="{{#if partial status saleDate paymentDate}}highlight-partial{{/if}}">
-                            <td align="center">{{order}}</td>
+                            <td align="center">{{no @index}}</td>
                             <td>{{saleId}}</td>
-                            <td>{{paymentDate}}</td>
-                            <td>{{customer}}</td>
+                            <td>{{moFormat paymentDate 'YYYY-MM-DD HH:mm:ss'}}</td>
+                            <td>{{getCustomerName customerId}}</td>
                             <td>{{status}}</td>
                             <td align="right">{{numFormat dueAmount '0,0'}} ៛</td>
                             <td align="right">{{numFormat truelyPaid '0,0'}} ៛</td>
                             <td align="right">{{numFormat balanceAmount '0,0'}} ៛</td>
                         </tr>
+                        {{/each}}
+                        <tr class="content-body">
+                            {{#if statusCanceled data.header.status}}
+                              <td colspan="6" style="text-align: right">Grand Total:</td>
+                            {{else}}
+                              <td colspan="5" style="text-align: right">Grand Total:</td>
+                            {{/if}}
+                            <td align="right">{{numFormat grandTotalDueAmount '0,0'}} ៛</td>
+                            <td align="right">{{numFormat grandTotalPaidAmount '0,0'}} ៛</td>
+                            <td align="right">{{numFormat grandTotalBalanceAmount '0,0'}} ៛</td>
+                        </tr>
+
+                        <tr class="content-body">
+                            {{#if statusCanceled data.header.status}}
+                              <td colspan="6" style="text-align: right">USD:</td>
+                            {{else}}
+                              <td colspan="5" style="text-align: right">USD:</td>
+                            {{/if}}
+                            <td align="right">{{convertExchange grandTotalDueAmount}}</td>
+                            <td align="right">{{convertExchange grandTotalPaidAmount}}</td>
+                            <td align="right">{{convertExchange grandTotalBalanceAmount}}</td>
+                        </tr>
                     {{/each}}
                     </tbody>
                     <tbody>
-                    <tr class="content-body">
-                        {{#if statusCanceled data.header.status}}
-                          <td colspan="6" style="text-align: right">Grand Total:</td>
-                        {{else}}
-                          <td colspan="5" style="text-align: right">Grand Total:</td>
-                        {{/if}}
-                        <td align="right">{{grandTotalDueAmount}} ៛</td>
-                        <td align="right">{{grandTotalPaidAmount}} ៛</td>
-                        <td align="right">{{grandTotalBalanceAmount}} ៛</td>
-                    </tr>
 
-                    <tr class="content-body">
-                        {{#if statusCanceled data.header.status}}
-                          <td colspan="6" style="text-align: right">USD:</td>
-                        {{else}}
-                          <td colspan="5" style="text-align: right">USD:</td>
-                        {{/if}}
-                        <td align="right">{{grandTotalDueAmountUsd}}</td>
-                        <td align="right">{{grandTotalPaidAmountUsd}}</td>
-                        <td align="right">{{grandTotalBalanceAmountUsd}}</td>
-                    </tr>
                     </tbody>
                 </table>
 

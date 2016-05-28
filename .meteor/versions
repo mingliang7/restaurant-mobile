@@ -133,6 +133,7 @@ srp@1.0.4
 standard-minifiers@1.0.2
 templating@1.1.5
 templating-tools@1.0.0
+theara:call-async@0.1.8
 theara:collection-cache@0.8.5
 theara:id-generator@0.0.7
 theara:numeral-helpers@0.0.4
