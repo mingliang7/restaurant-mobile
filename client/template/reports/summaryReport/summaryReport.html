@@ -78,12 +78,12 @@
                         <tr>
                             <!-- <td align="center">{{order}}</td> -->
                             {{#if statusPartial _id}}
-                              <td>{{{str _id}}}<b>({{count}})</b>{{#each invoices}} <u>{{_id}}</u>,{{/each}}</td>
+                              <td>{{{str _id}}}<b>({{count}})</b>{{#each invoices}} <a href="http://localhost:3000/restaurant/sale/{{tableLocation}}/table/{{tableId}}/saleInvoice/{{_id}}">{{_id}}</a>,{{/each}}</td>
                               <td align="right">{{getBaseCurrency balanceAmount}}</td>
                               <td align="right">{{exchangeCurrency balanceAmount}}</td>
                             {{/if}}
                             {{#if statusActive _id}}
-                              <td>{{{str _id}}}<b>({{count}})</b>{{#each invoices}} <u>{{_id}}</u>,{{/each}}</td>
+                              <td>{{{str _id}}}<b>({{count}})</b>{{#each invoices}} <a href="http://localhost:3000/restaurant/sale/{{tableLocation}}/table/{{tableId}}/saleInvoice/{{_id}}">{{_id}}</a>,{{/each}}</td>
                               <td align="right">{{getBaseCurrency total}}</td>
                               <td align="right">{{exchangeCurrency total}}</td>
                             {{/if}}

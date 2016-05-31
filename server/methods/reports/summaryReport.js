@@ -26,7 +26,7 @@ Meteor.methods({
     params.status = {
         $in: ['active', 'partial']
     }
-    params['_customer.type'] = arg.staff
+    // params['_customer.type'] = arg.staff
       // if (customerId != null && customerId != "") {
       //     params.customerId = customerId;
       //     customer = Restaurant.Collection.Customers.findOne(customerId).name;
@@ -39,7 +39,7 @@ Meteor.methods({
       $group: {
         _id: '$status',
         invoices: {
-          $push: {_id: '$_id'}
+          $push: {_id: '$_id', tableId: '$tableId', 'tableLocation': '$tableLocation'}
         },
         total: {
           $sum: '$total'
@@ -70,7 +70,7 @@ Meteor.methods({
           $nin: ['canceled', 'transfer']
           // $in: ['closed', 'active', 'partial']
         },
-        '_customer.type': arg.staff
+        // '_customer.type': arg.staff
       }
     }, {
       $group: {
