@@ -6,8 +6,27 @@ Template.layout.helpers({
 
 Template.layout.events({
   'click .sign-out' () {
-    Meteor.logout();
-    Bert.alert('ចាកចេញបានជោគជ័យ!', 'success', 'fixed-top')
+    IonPopup.show({
+      title: 'បញ្ជាក់',
+      template: 'តើអ្នកពិតជាចង់ចាកចេញមែនឬទេ?',
+      buttons: [{
+        text: 'OK',
+        type: 'button-positive',
+        onTap: function() {
+          Meteor.logout();
+          Bert.alert('ចាកចេញបានជោគជ័យ!', 'success', 'fixed-top')
+          IonPopup.close();
+        }
+      },{
+        text: 'Cancel',
+        type: 'button-stable',
+        onTap: function() {
+          IonPopup.close();
+        }
+      }]
+    });
+    // Meteor.logout();
+    // Bert.alert('ចាកចេញបានជោគជ័យ!', 'success', 'fixed-top')
   },
   'click .home' () {
     Router.go('home');

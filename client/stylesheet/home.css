@@ -1,0 +1,119 @@
+.box-first {
+    background-color: white;
+    width: 100%;
+    height: 365px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 1px 1px 5px #888888;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.box-third {
+    background-color: white;
+    width: 100%;
+    height: 250px;
+    margin-top: 17px;
+    margin-left: 10px;
+    margin-right: 10px;
+    /*box-shadow: 1px 1px 5px #888888;*/
+    /*border-bottom-left-radius: 5px;*/
+    /*border-bottom-right-radius: 5px;*/
+    /*border-top-left-radius: 5px;*/
+    /*border-top-right-radius: 5px;*/
+}
+
+.box-second {
+    background-color: white;
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 1px 1px 5px #888888;
+}
+
+.box{
+    width: 100%;
+    height: 100px;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 1px 1px 5px #888888;
+}
+.box-1 {
+    background-color: #AD103C;
+}
+.box-2 {
+    background-color: #199900;
+}
+.box-3 {
+    background-color: #F3B200;
+}
+.box-4 {
+    background-color: #2572EB;
+}
+.box-5 {
+    background-color: #7200AC;
+}
+.box-6 {
+    background-color: #008287;
+}
+
+/*Text CSS*/
+.text-teal{
+    color: white;
+}
+.text-1{
+    vertical-align: middle;
+    color: white;
+    font-size: 120px;
+}
+.text-2{
+    vertical-align: middle;
+    color: white;
+    font-size: 35px;
+}
+
+
+
+/*Dashboard Background*/
+.has-tabs, .bar-footer.has-tabs {
+    background: #f5f5f5;
+}
+
+.container{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.font-one {
+    font-size: 100%;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.pie-chart{
+    margin-left: 35px;
+    margin-top: 30px;
+}
+
+.line-chart{
+    margin-left: 12px;
+}
+
+.bar-chart{
+    margin-left: 12px;
+}
+
+@media (max-width: 1000px) {
+    canvas {
+        width: 100% !important;
+        max-width: 800px;
+        height: auto !important;
+    }
+}

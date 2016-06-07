@@ -1,26 +1,132 @@
-<template name="current_user">
+<template name="current_user" xmlns="http://www.w3.org/1999/html">
     {{#if currentUser}}
-            <div class="list card">
 
-                <div class="item item-avatar">
-                    <img src="/content-images/rabbit-logo.png">
-                    <h2>រ៉ាប៊ីតអាយធីសូលូសិន</h2>
-                    <p>Rabbit IT Solution</p>
+        <!--<div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="box-third container-1">-->
+                    <!--<div class="col">-->
+                        <!--Hello-->
+                        <!--&lt;!&ndash;<img src="banner1.jpg" height="450px" width="100%">&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+        <div class="container">
+            <div class="row">
+                <div class="box-second container-1">
+                    <div class="col">
+                        <h4 class="font-one"><i class="fa fa-line-chart hvr-grow"></i> របាយការណ៍ប្រចាំឆមាស</h4>
+                    </div>
                 </div>
 
-                <div class="item item-body">
-                    <img class="full-image" src="/content-images/restaurant.jpg">
-                    <!-- <p>
-                        This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-                        the content is from a card-body consisting of an image and paragraph text. The footer
-                        consists of tabs, icons aligned left, within the card-footer.
-                    </p>
-                    <p>
-                        <a href="#" class="subdued">1 Like</a>
-                        <a href="#" class="subdued">5 Comments</a>
-                    </p> -->
+                <div class="box-second container-1">
+                    <div class="col">
+                        <h4 class="font-one"><i class="fa fa-bar-chart-o hvr-grow"></i> របាយការណ៍ប្រចាំឆមាស</h4>
+                    </div>
                 </div>
-
             </div>
+        </div>
+
+
+        <!--ទំព័រដើម-->
+        <div class="container">
+            <div class="row">
+                <div class="box-first container">
+                    <div class="col">
+                        {{> chart}}
+                    </div>
+                </div>
+
+                <div class="box-first container">
+                    <div class="col">
+                        {{> barChart}}
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Pop Menu-->
+            <!--ទិន្នន័យ-->
+            <div class="row">
+                <div class="box box-1 container hvr-grow-shadow">
+                    <div class="col"><br>
+                        <div style="text-align: center">
+                            <a href="#">
+                                <i class="fa fa-home text-2"></i>
+                            </a>
+                            <a href="#" style="text-decoration: none">
+                                <div class="text-teal font-one">ទំព័រដើម</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--លក់ថ្មី-->
+                <div class="box box-2 container hvr-grow-shadow">
+                    <a href="/restaurant/selectTable" style="text-decoration: none">
+                        <div class="col"><br>
+                            <div style="text-align: center">
+                                <!--<a href="/restaurant/selectTable">-->
+                                <i class="fa fa-coffee text-2"></i>
+
+                                <!--<a href="/restaurant/selectTable" style="text-decoration: none">-->
+                                <div class="text-teal font-one">លក់ថ្មី</div>
+                                <!--</a>-->
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!--តារាងវិក័យបត្រ-->
+                <div class="box box-3 container hvr-grow-shadow">
+                    <a href="/restaurant/payment" style="text-decoration: none">
+                        <div class="col"><br>
+                            <div style="text-align: center">
+                                <i class="fa fa-usd text-2"></i>
+                                <div class="text-teal font-one">តារាងវិក័យប័ត្រ</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!--ទិន្នន័យ-->
+                <div class="box box-4 container hvr-grow-shadow">
+                    <a href="/restaurant/data" style="text-decoration: none">
+                        <div class="col"><br>
+                            <div style="text-align: center">
+                                <i class="fa fa-database text-2"></i>
+                                <div class="text-teal font-one">ទិន្នន័យ</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!--ការកំណត់-->
+                <div class="box box-5 container hvr-grow-shadow">
+                    <a href="/restaurant/setting" style="text-decoration: none">
+                        <div class="col"><br>
+                            <div style="text-align: center">
+                                <i class="fa fa-cogs text-2"></i>
+                                <div class="text-teal font-one">ការកំណត់</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!--របាយការណ៍-->
+                <div class="box box-6 container hvr-grow-shadow">
+                    <a href="/restaurant/report" style="text-decoration: none">
+                        <div class="col"><br>
+                            <div style="text-align: center">
+                                <i class="fa fa-book text-2"></i>
+                                <div class="text-teal font-one">របាយការណ៍</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
     {{/if}}
 </template>

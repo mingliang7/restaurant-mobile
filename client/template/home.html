@@ -1,7 +1,26 @@
 <Template name="home">
     {{#contentFor "headerTitle"}}
         <h1 class="title">ប្រព័ន្ធគ្រប់គ្រងភោជនីយដ្ឋាន</h1>
+        <!--<a class="tab-item assertive sign-out">-->
+        <!--<i class="icon ion-log-out"></i>-->
+        <!--{{currentUser.profile.username}}-->
+        <!--</a>-->
     {{/contentFor}}
+    <!--{{#if currentUser}}-->
+    <!--{{#contentFor "headerButtonRight"}}-->
+        <!--<a class="tab-item assertive sign-out">-->
+        <!--&lt;!&ndash;<i class="icon ion-log-out"></i>&ndash;&gt;-->
+        <!---->
+        <!--</a>-->
+
+        <!--<button class="button button-clear tab-item assertive sign-out">-->
+            <!--{{currentUser.profile.username}}-->
+            <!--<span class="fa fa-key">-->
+            <!--</span>-->
+            <!--{{> ionIcon icon="icon ion-log-out"}}-->
+        <!--</button>-->
+    <!--{{/contentFor}}-->
+    <!--{{/if}}-->
     {{#ionView}}
         {{#ionContent}}
             {{> current_user}}
