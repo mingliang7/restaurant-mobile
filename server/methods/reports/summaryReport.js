@@ -13,7 +13,7 @@ Meteor.methods({
 
     var params = {};
     var fromDate = moment(arg.fromDate, "YYYY/MM/DD HH:mm").toDate();
-    var toDate = moment(arg.toDate, "YYYY/MM/DD HH:mm").add('1', 'days').toDate();
+    var toDate = moment(arg.toDate, "YYYY/MM/DD HH:mm").toDate();
 
     data.title = Restaurant.Collection.Company.findOne();
     // var customer = "ទាំងអស់", status = "ទាំងអស់", staff = "ទាំងអស់";
@@ -21,7 +21,7 @@ Meteor.methods({
     let exchange = Restaurant.Collection.ExchangeRates.findOne({},{sort: {_id: -1}});
     if (fromDate != null && toDate != null) params.saleDate = {
       $gte: fromDate,
-      $lt: toDate
+      $lte: toDate
     };
     params.status = {
         $in: ['active', 'partial']
@@ -64,7 +64,7 @@ Meteor.methods({
       $match: {
         saleDate: {
           $gte: fromDate,
-          $lt: toDate
+          $lte: toDate
         },
         status: {
           $nin: ['canceled', 'transfer']
@@ -92,7 +92,7 @@ Meteor.methods({
         $match: {
           paymentDate: {
             $gte: fromDate,
-            $lt: toDate
+            $lte: toDate
           }
         }
       }, {
