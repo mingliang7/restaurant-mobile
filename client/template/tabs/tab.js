@@ -4,6 +4,6 @@ Template._data_tabs.onRendered(()=>{
 Template._data_tabs.events({
   'click .sign-out' () {
     Meteor.logout();
-    Bert.alert('ចាកចេញបានជោគជ័យ!', 'success', 'fixed-top')
+    Session.set('chart', undefined);
   },
 });

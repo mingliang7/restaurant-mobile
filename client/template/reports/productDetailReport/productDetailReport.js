@@ -19,14 +19,16 @@ Template.restaurantProductDetailReportGen.helpers({
         // Get query params
         //FlowRouter.watchPathChange();
         var query = Router.current().params.query;
-        var params = "getProductDetailReport";
-        Fetcher.setDefault(params, false);
-        Fetcher.retrieve(params, 'getProductDetailReport', query);
-        return Fetcher.get(params);
+        var call = Meteor.callAsync(query, 'getProductDetailReport', query);
+        if (!call.ready()) {
+            // method call has not finished yet
+            return false;
+        }
+        return call.result();
 
     },
     fetchMaterial(id){
-      let material = ReactiveMethod.call('getMaterial', id);
-      return material;
+        let material = ReactiveMethod.call('getMaterial', id);
+        return material;
     }
 });
