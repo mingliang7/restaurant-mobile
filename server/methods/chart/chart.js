@@ -8,7 +8,7 @@ Meteor.methods({
         var sales = Restaurant.Collection.Sales.aggregate([
             {
                 $match: {
-                    saleDate: {$gte: firstDateOfMonth, $lt: currentMonth},
+                    // saleDate: {$gte: firstDateOfMonth, $lt: currentMonth},
                     status: {$in: ['closed', 'partial']}
                 }
             },
