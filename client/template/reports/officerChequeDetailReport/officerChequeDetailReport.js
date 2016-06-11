@@ -14,10 +14,12 @@ Template.officerChequeDetailReport.helpers({
 Template.officerChequeDetailReportGen.helpers({
   data: function() {
     var query = Router.current().params.query;
-    var params = "officerChequeDetailReport";
-    Fetcher.setDefault(params, false);
-    Fetcher.retrieve(params, 'officerChequeDetailReport', query);
-    return Fetcher.get(params);
+    var call = Meteor.callAsync(query, 'officerChequeDetailReport', query);
+    if (!call.ready()) {
+      // method call has not finished yet
+      return false;
+    }
+    return call.result();
   },
   convertToDollar(amount){
     let exchange = Restaurant.Collection.ExchangeRates.findOne({}, {sort: {created: -1}});

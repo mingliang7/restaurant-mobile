@@ -14,10 +14,12 @@ Template.officerChequeReport.helpers({
 Template.officerChequeReportGen.helpers({
   data: function() {
     var query = Router.current().params.query;
-    var params = "getOfficerChequeReport";
-    Fetcher.setDefault(params, false);
-    Fetcher.retrieve(params, 'getOfficerChequeReport', query);
-    return Fetcher.get(params);
+    var call = Meteor.callAsync(query, 'getOfficerChequeReport', query);
+    if (!call.ready()) {
+      // method call has not finished yet
+      return false;
+    }
+    return call.result();
   },
   statusCanceled(status){
     if(status == 'canceled'){

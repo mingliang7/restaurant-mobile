@@ -1,4 +1,4 @@
-Template.restaurantSaleDetailProductReport.onRendered(function() {
+Template.restaurantSaleDetailProductReport.onRendered(function () {
     $('[name="fromDate"]').datetimepicker();
     $('[name="toDate"]').datetimepicker();
 });
@@ -30,12 +30,14 @@ Template.restaurantSaleDetailProductReport.helpers({
 });
 
 Template.restaurantSaleDetailProductReportGen.helpers({
-    data: function() {
+    data: function () {
         var query = Router.current().params.query;
-        var params = "saleReportWithProduct";
-        Fetcher.setDefault(params, false);
-        Fetcher.retrieve(params, 'getSaleReportWithProduct', query);
-        return Fetcher.get(params);
+        var call = Meteor.callAsync(query, 'getSaleReportWithProduct', query);
+        if (!call.ready()) {
+            // method call has not finished yet
+            return false;
+        }
+        return call.result();
     },
     convertToDollar(amount) {
         let exchange = Restaurant.Collection.ExchangeRates.findOne({}, {

@@ -1,4 +1,4 @@
-Template.restaurantPaymentReport.onRendered(function() {
+Template.restaurantPaymentReport.onRendered(function () {
     $('[name="fromDate"]').datetimepicker();
     $('[name="toDate"]').datetimepicker();
 });
@@ -21,12 +21,14 @@ Template.restaurantPaymentReport.helpers({
 });
 
 Template.restaurantPaymentReportGen.helpers({
-    data: function() {
+    data: function () {
         var query = Router.current().params.query;
-        var params = "paymentReport";
-        Fetcher.setDefault(params, false);
-        Fetcher.retrieve(params, 'getPaymentReport', query);
-        return Fetcher.get(params);
+        var call = Meteor.callAsync(query, 'getPaymentReport', query);
+        if (!call.ready()) {
+            // method call has not finished yet
+            return false;
+        }
+        return call.result();
     },
     statusCanceled(status) {
         if (status == 'canceled') {
@@ -37,11 +39,11 @@ Template.restaurantPaymentReportGen.helpers({
         let currentSaleDate = moment(saleDate).format('YYYY-MM-DD');
         let currentPaymentDate = paymentDate.split(',')[0];
         debugger
-        if(status == 'partial'){
-          return true;
+        if (status == 'partial') {
+            return true;
         }
-        if(currentSaleDate < currentPaymentDate){
-          return true;
+        if (currentSaleDate < currentPaymentDate) {
+            return true;
         }
         return false;
     }
