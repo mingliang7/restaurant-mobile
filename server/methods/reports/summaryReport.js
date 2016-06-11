@@ -24,14 +24,14 @@ Meteor.methods({
       $lte: toDate
     };
     params.status = {
-        $in: ['active', 'partial']
+      $in: ['active', 'partial']
     }
-    params['_customer.type'] = arg.staff
-      // if (customerId != null && customerId != "") {
-      //     params.customerId = customerId;
-      //     customer = Restaurant.Collection.Customers.findOne(customerId).name;
-      // }
-      // params.type = 'order';
+    // params['_customer.type'] = arg.staff
+    // if (customerId != null && customerId != "") {
+    //     params.customerId = customerId;
+    //     customer = Restaurant.Collection.Customers.findOne(customerId).name;
+    // }
+    // params.type = 'order';
 
     var sales = Restaurant.Collection.Sales.aggregate([{
       $match: params
@@ -39,7 +39,7 @@ Meteor.methods({
       $group: {
         _id: '$status',
         invoices: {
-          $push: {_id: '$_id'}
+          $push: {_id: '$_id', tableId: '$tableId', 'tableLocation': '$tableLocation'}
         },
         total: {
           $sum: '$total'
@@ -70,7 +70,7 @@ Meteor.methods({
           $nin: ['canceled', 'transfer']
           // $in: ['closed', 'active', 'partial']
         },
-        '_customer.type': arg.staff
+        // '_customer.type': arg.staff
       }
     }, {
       $group: {
@@ -105,7 +105,7 @@ Meteor.methods({
             $sum: 1
           }
         }
-    }])
+      }])
     }
     data.payments = payments || [];
     data.sales = sales;
