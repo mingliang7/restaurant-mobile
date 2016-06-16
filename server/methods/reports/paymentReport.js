@@ -44,7 +44,7 @@ Meteor.methods({
 
         var payments = Restaurant.Collection.Payments.aggregate([{
             $match: params
-        }, {
+        }, {$sort: { saleId: 1}},{
             $group: {
                 _id: null,
                 payments: {
@@ -61,15 +61,9 @@ Meteor.methods({
                 }
 
             }
-        }, {
-            $sort: {
-                _id: 1
-            }
-        }], {
-            sort: {
-                saleId: 1
-            }
-        });
+        }]);
+        let sortPayments = _.sortBy(payments[0].payments, 'saleId');
+        payments[0].payments = sortPayments
         var header = {};
         header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
         header.customer = customer;
