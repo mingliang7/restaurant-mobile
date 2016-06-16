@@ -13,7 +13,6 @@ Template.barChart.events({
     //Write Something Here
 });
 function drawChart(data) {
-
     // options = {
     //     responsive: true
     // };
@@ -24,5 +23,9 @@ function drawChart(data) {
     var myNewChart = new Chart(ctx, {
     });
 
-    new Chart(ctx).Bar(data);
+    new Chart(ctx).Bar(data,{
+      scaleBeginAtZero: false,
+      scaleLabel: "<%=numeral(value).format('0,0.00')%>",
+       tooltipTemplate: "<%=numeral(value).format('0,0.00')%>",
+    });
 }
