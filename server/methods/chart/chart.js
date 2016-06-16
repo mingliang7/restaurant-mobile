@@ -2,7 +2,7 @@ Meteor.methods({
     saleInSemester(selector){
         var currentDate = new Date();
         var tmpDate = moment(currentDate).format('YYYY-MM-DD 00:00:00')
-        var currentMonth =new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        var currentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
         var firstDateOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, 1);
         console.log(firstDateOfMonth, currentMonth)
         var sales = Restaurant.Collection.Sales.aggregate([
@@ -36,12 +36,17 @@ Meteor.methods({
             }]
         };
         var arr = [];
-        if(sales.count() > 0){
+        if (sales.count() > 0) {
             sales.forEach((sale)=> {
                 let totalSale = sale.totalSale;
                 data.labels.push(getMonthName(sale._id));
                 arr.push(totalSale);
             });
+        } else {
+            data.labels.push('', 'អត់មានទិន្នន័យ', '')
+            arr = [0, 0, 0]
+            data.datasets[0].data = arr;
+            // console.log(data)
         }
 
 
@@ -51,9 +56,9 @@ Meteor.methods({
     }
 });
 
-let getMonthName = (number) =>{
+let getMonthName = (number) => {
     let month = '';
-    switch(number.month){
+    switch (number.month) {
         case 1:
             month = 'មករា'
             break;
@@ -64,31 +69,31 @@ let getMonthName = (number) =>{
             month = 'មិនា'
             break;
         case 4:
-            month ='មេសា'
+            month = 'មេសា'
             break;
         case 5:
-            month ='ឧសភា'
+            month = 'ឧសភា'
             break;
         case 6:
-            month ='មិថុនា'
+            month = 'មិថុនា'
             break;
         case 7:
-            month ='កក្កដា'
+            month = 'កក្កដា'
             break;
         case 8:
-            month ='សីហា'
+            month = 'សីហា'
             break;
         case 9:
-            month ='កញ្ញា'
+            month = 'កញ្ញា'
             break;
         case 10:
-            month ='តុលា'
+            month = 'តុលា'
             break;
         case 11:
-            month ='វិច្ឆិកា'
+            month = 'វិច្ឆិកា'
             break;
         case 12:
-            month ='ធ្នូ'
+            month = 'ធ្នូ'
             break;
 
     }
