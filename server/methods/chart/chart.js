@@ -36,12 +36,17 @@ Meteor.methods({
             }]
         };
         var arr = [];
-        if(sales.count() > 0){
+        if (sales.count() > 0) {
             sales.forEach((sale)=> {
                 let totalSale = sale.totalSale;
                 data.labels.push(getMonthName(sale._id));
                 arr.push(totalSale);
             });
+        } else {
+            data.labels.push('', 'អត់មានទិន្នន័យ', '')
+            arr = [0, 0, 0]
+            data.datasets[0].data = arr;
+            // console.log(data)
         }
 
 
