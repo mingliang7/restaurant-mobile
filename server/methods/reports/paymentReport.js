@@ -62,8 +62,10 @@ Meteor.methods({
 
             }
         }]);
-        let sortPayments = _.sortBy(payments[0].payments, 'saleId');
-        payments[0].payments = sortPayments
+        if(payments.length > 0){
+          let sortPayments = _.sortBy(payments[0].payments, 'saleId');
+          payments[0].payments = sortPayments
+        }
         var header = {};
         header.date = arg.fromDate + ' ដល់ ' + arg.toDate;
         header.customer = customer;
