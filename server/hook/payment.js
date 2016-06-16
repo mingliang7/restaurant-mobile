@@ -6,6 +6,7 @@ Restaurant.Collection.Payments.before.insert((userId, doc) => {
   if (doc.paidAmount >= doc.dueAmount) {
     doc.status = 'closed';
     doc.truelyPaid = doc.dueAmount
+    doc.balanceAmount = 0
   } else {
     doc.status = 'partial';
     doc.truelyPaid = doc.paidAmount;
