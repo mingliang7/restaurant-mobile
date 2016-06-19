@@ -4,9 +4,9 @@ Deps.autorun(function() {
   }
 });
 Template.restaurantSaleList.created = function() {
-  this.autorun(() => {
-    this.subscribe = Meteor.subscribe("categories");
-  });
+  // this.autorun(() => {
+  //   this.subscribe = Meteor.subscribe("categories");
+  // });
 };
 Template.restaurantSaleList.rendered = function() {
   Session.set('limit', 10);
@@ -186,9 +186,9 @@ Template.restaurantSaleList.helpers({
     }
     return false;
   },
-  categories(){
-    return Restaurant.Collection.Categories.find({}, {sort:{name: 1}});
-  }
+  // categories(){
+  //   return Restaurant.Collection.Categories.find({}, {sort:{name: 1}});
+  // }
 
 });
 
