@@ -20,7 +20,8 @@ Template.restaurantPaymentList.rendered = function() {
 Template.restaurantPaymentList.helpers({
   payments() {
     return Restaurant.Collection.Payments.find({
-      saleId: Router.current().params.saleId
+      saleId: Router.current().params.saleId,
+      status: {$in: ['partial', 'closed']}
     });
   },
   backToSale() {

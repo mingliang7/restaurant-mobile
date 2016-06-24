@@ -77,9 +77,13 @@
                     {{#each content}}
 
                       {{#each payments}}
-                        <tr class="{{#if partial status saleDate paymentDate}}highlight-partial{{/if}}">
+                        <tr class="{{#if partial status saleDate paymentDate}}highlight-partial{{/if}}{{#if removed status}}highlight-removed{{/if}}">
                             <td align="center">{{no @index}}</td>
-                            <td>{{saleId}}</td>
+                            {{#if removed status}}
+                              <td>{{_id}}</td>
+                            {{else}}
+                              <td>{{saleId}}</td>
+                            {{/if}}
                             <td>{{moFormat paymentDate 'YYYY-MM-DD HH:mm:ss'}}</td>
                             <td>{{getCustomerName customerId}}</td>
                             <td>{{status}}</td>

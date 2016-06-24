@@ -1,5 +1,10 @@
 Restaurant.Collection.Payments = new Mongo.Collection("restaurant_payments");
 Restaurant.Schema.Payments = new SimpleSchema({
+    change: {
+      type: Number,
+      decimal: true,
+      optional: true
+    },
     customerId: {
         type: String,
         label: 'អតិថិជន',

@@ -13,7 +13,7 @@ Template.restaurantPaymentReport.helpers({
         }, {
             value: "partial",
             label: "ជំពាក់"
-        }]
+        },{value: 'removed',label: 'បានលុប'}]
     },
     users() {
         return ReactiveMethod.call('getUserList');
@@ -41,12 +41,17 @@ Template.restaurantPaymentReportGen.helpers({
         if (status == 'partial') {
             return true;
         }
+
         if (currentSaleDate < currentPaymentDate) {
             return true;
         }
         return false;
     },
-
+    removed(status){
+      if( status == 'removed'){
+        return true;
+      }
+    },
     no(index) {
         return index + 1;
     },
