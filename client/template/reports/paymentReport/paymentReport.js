@@ -13,7 +13,7 @@ Template.restaurantPaymentReport.helpers({
         }, {
             value: "partial",
             label: "ជំពាក់"
-        }]
+        },{value: 'removed',label: 'បានលុប'}]
     },
     users() {
         return ReactiveMethod.call('getUserList');
@@ -42,10 +42,42 @@ Template.restaurantPaymentReportGen.helpers({
         if (status == 'partial') {
             return true;
         }
+
         if (currentSaleDate < currentPaymentDate) {
             return true;
         }
         return false;
+    },
+    removed(status){
+      if( status == 'removed'){
+        return true;
+      }
+    },
+    no(index) {
+        return index + 1;
+    },
+    getCustomerName(id) {
+        try {
+            let customer = ReactiveMethod.call('findOneRecord', 'Restaurant.Collection.Customers', id);
+            return customer.name;
+        } catch (e) {
+
+        }
+    },
+    convertExchange(value) {
+        try {
+            let exchange = Restaurant.Collection.ExchangeRates.findOne({}, {
+                sort: {
+                    _id: -1
+                }
+            });
+            if (exchange.base == 'KHR') {
+                return numeral(value / exchange.rates[0].rate).format('0,0.00') + '$';
+            }
+            return numeral(value * exchange.rates[0].rate).format('0,0') + '៛';
+        } catch (e) {
+
+        }
     }
 });
 

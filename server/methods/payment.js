@@ -17,6 +17,10 @@ Meteor.methods({
     return true;
   },
   removePayment(id){
+    Meteor._sleepForMs(200);
     return Restaurant.Collection.Payments.remove(id);
+  },
+  insertRemovedPayment(doc){
+    Restaurant.Collection.Payments.direct.insert(doc);
   }
 })

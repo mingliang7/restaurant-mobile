@@ -3,6 +3,7 @@ Restaurant.Collection.Payments.before.insert((userId, doc) => {
   let currentId = doc._id;
   doc._id = idGenerator.genWithPrefix(Restaurant.Collection.Payments, prefix, 2);
   Sale.State.set(currentId, doc._id);
+  doc.change = doc.balanceAmount;
   if (doc.paidAmount >= doc.dueAmount) {
     doc.status = 'closed';
     doc.truelyPaid = doc.dueAmount
@@ -29,7 +30,13 @@ Restaurant.Collection.Payments.after.insert((userId, doc) => {
 })
 Restaurant.Collection.Payments.after.remove((userId, doc) => {
   Meteor.defer(() => {
+    Meteor._sleepForMs(200);
     removePaymentFromSale(doc);
+
+    doc._id = `R${moment().format('YYYY-MM-DD-HH-mm-ss')}`;
+    doc.status = 'removed';
+    doc.staffId = userId;
+    Meteor.call('insertRemovedPayment', doc)
   });
 })
 
