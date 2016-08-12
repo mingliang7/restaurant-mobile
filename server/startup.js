@@ -74,6 +74,7 @@ Meteor.startup(function() {
   Restaurant.Collection.Sales._ensureIndex({'eop._id': 1});
   Restaurant.Collection.StockIn._ensureIndex({materialId: 1});
   Restaurant.Collection.StockIn._ensureIndex({status: 1});
+  Restaurant.Collection.Payments._ensureIndex({saleId: 1, paymentDate:1}, {sparse: 1, unique: true})
   //end ensure index
 
   Meteor.defer(function() {
