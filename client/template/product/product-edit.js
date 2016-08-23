@@ -86,6 +86,7 @@ AutoForm.hooks({
           });
         });
         doc.$set.ingradient = tmpItem;
+        delete doc.$unset;
         return doc;
       }
     },
