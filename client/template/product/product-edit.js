@@ -64,11 +64,11 @@ Template.editProduct.events({
     TmpItem.remove(this._id);
   },
   'click .save' (e) {
-    let tmpItems = TmpItem.find();
-    if (tmpItems.count() <= 0) {
-      alertify.error('សូមបំពេញគ្រឿងផ្សំ');
-      return false;
-    }
+    // let tmpItems = TmpItem.find();
+    // if (tmpItems.count() <= 0) {
+    //   alertify.error('សូមបំពេញគ្រឿងផ្សំ');
+    //   return false;
+    // }
   }
 });
 Template.editProduct.onDestroyed(()=>{
