@@ -1,61 +1,74 @@
 Meteor.methods({
-  getStockInOsReport(params) {
-    var data = {
-      title: {},
-      header: {},
-      content: [{
-        index: 'No Result'
-      }],
-      footer: {}
-    };
-    let selector = {};
-    data.title = Restaurant.Collection.Company.findOne();
-    data.header.date = params.date;
-    data.header.materialCategory = params.materialCategoryId == '' ? 'ទាំងអស់' : Restaurant.Collection.MaterialCategories.findOne(params.materialCategoryId).name;
-    let tomorrow = moment(params.date, 'YYYY-MM-DD').add('1', 'days').toDate();
-    selector._outstandingAmount =  {
-        $elemMatch: {
-          reduceStockDate: {
+    getStockInOsReport(params) {
+        var data = {
+            title: {},
+            header: {},
+            content: [{
+                index: 'No Result'
+            }],
+            footer: {}
+        };
+        let selector = {};
+        data.title = Restaurant.Collection.Company.findOne();
+        data.header.date = params.date;
+        data.header.materialCategory = params.materialCategoryId == '' ? 'ទាំងអស់' : Restaurant.Collection.MaterialCategories.findOne(params.materialCategoryId).name;
+        data.header.material = params.materialId == '' ? 'ទាំងអស់' : Restaurant.Collection.Materials.findOne(params.materialId).name;
+        let tomorrow = moment(params.date, 'YYYY-MM-DD').add('1', 'days').toDate();
+        selector.date = {
             $lt: tomorrow
-          }
+        };
+        if(params.materialCategoryId != ''){
+          selector.materialCategoryId = params.materialCategoryId;
         }
-      };
-    if(params.materialCategoryId != '') {
-      selector.materialCategoryId = params.materialCategoryId;
-    }
-    let materials = Restaurant.Collection.Materials.find(selector);
-    let lastOs = [];
-    let order = 0;
-    if(materials.count()>0){
-      materials.forEach((material)=>{
-        let tmpArr = [];
-        if(material._outstandingAmount){
-          material._outstandingAmount.forEach((os)=>{
-            if(os.reduceStockDate < tomorrow){
-              os.name = material.name;
-              os.totalBalancePlusTotalQty = os.totalBalance + os.totalQty;
-              tmpArr.push(os);
+        if(params.materialId != ''){
+          selector.materialId = params.materialId;
+        }
+        let inventory = Restaurant.Collection.Inventory.aggregate([{
+            $match: selector
+        }, {
+            $sort: {
+                date: 1
             }
-          });
-        }
-        lastOs.push(tmpArr.last());
-      });
+        }, {
+            $lookup: {
+                from: "restaurant_material",
+                localField: "materialId",
+                foreignField: "_id",
+                as: "materialDoc"
+            }
+        }, {
+            $unwind: {
+                path: '$materialDoc',
+                preserveNullAndEmptyArrays: true
+            }
+        }, {
+            $group: {
+                _id: '$materialId',
+                lastMaterial: {
+                    $last: {
+                        openingBalance: '$openingBalance',
+                        balance: '$balance',
+                        date: '$date',
+                        reduceQty: '$reduceQty',
+                        stockIn: '$stockIn',
+                        material: '$materialDoc'
+                    }
+                }
+            }
+        }, {
+            $sort: {
+                'lastMaterial.material.name': -1
+            }
+        }, {
+            $group: {
+                _id: null,
+                data: {
+                    $addToSet: "$$ROOT"
+                }
+            }
+        }]);
+        data.content = inventory[0].data;
+        console.log(data.content);
+        return data;
     }
-    lastOs.sort(function(a,b) {
-      if ( a.reduceStockDate < b.reduceStockDate )
-          return -1;
-      if ( a.reduceStockDate > b.reduceStockDate )
-          return 1;
-      return 0;
-    });
-    if(lastOs.length > 0){
-      data.content= [];
-    }
-    lastOs.forEach((os)=>{
-      order += 1;
-      os.order = order;
-      data.content.push(os);
-    });
-    return data;
-  }
 });

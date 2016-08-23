@@ -16,7 +16,8 @@ let insertStockIn = (doc) => {
                 qty: item.qty,
                 price: item.price,
                 type: item.type,
-                stockId: doc._id
+                stockId: doc._id,
+                status: 'closed'
             };
             Restaurant.Collection.StockIn.insert(selector);
         });

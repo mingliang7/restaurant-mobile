@@ -1,16 +1,8 @@
 Meteor.methods({
     removeStock(id) {
-        let stockIn = Restaurant.Collection.StockIn.findOne({
-            stockId: id,
-            status: 'closed'
+        Restaurant.Collection.StockIn.remove({
+            stockId: id
         });
-        if (stockIn) {
-            throw new Meteor.Error('មិនអាចលុបបានពីព្រោះទំនិញត្រូវបានកាត់រួច');
-        } else {
-            Restaurant.Collection.StockIn.remove({
-                stockId: id
-            });
-            Restaurant.Collection.Stocks.remove(id);
-        }
+        Restaurant.Collection.Stocks.remove(id);
     }
 });

@@ -7,7 +7,9 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
+    {{#if today}}
     <button class="button button-clear" data-ion-modal="newStockIn">{{> ionIcon icon="ios-plus-empty"}}</button>
+    {{/if}}
   {{/contentFor}}
   {{#ionContent}}
     <div class="card row">
@@ -29,7 +31,7 @@
     {{#each stockIns}}
       <div class="row">
         <div class="col col-20" style="border: 1px solid #ddd;">{{moFormat stockInDate 'YYYY-MM-DD HH:mm:ss'}}</div>
-        <div class="col col-10" style="border: 1px solid #ddd;">{{_material.name}}</div>
+        <div class="col col-10" style="border: 1px solid #ddd;">{{materialId}} | {{material}}</div>
         <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat price '0,0'}}</div>
         <div class="col col-10" style="border: 1px solid #ddd;">{{numFormat qty '0,0'}} {{_material._unit.name}}</div>
         <div class="col col-10" style="border: 1px solid #ddd;">{{{type}}}</div>
@@ -45,7 +47,7 @@
         </div>
         <div class="col col-5 text-center" style="border: 1px solid #ddd;">
           {{#if isInRole 'setting'}}
-            {{#if isActived status}}
+            {{#if today}}
             <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
             {{/if}}
           {{/if}}

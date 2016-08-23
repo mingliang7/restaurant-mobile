@@ -4,6 +4,10 @@ Restaurant.Schema.StockInOsReport = new SimpleSchema({
     label: "ថ្ងៃទី",
     optional: true
   },
+  materialId: {
+    type: String,
+    optional: true
+  },
   materialCategoryId:{
     type: 'String',
     label: 'ផ្នែក',

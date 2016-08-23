@@ -42,7 +42,7 @@ Template.restaurantStockIn.rendered = function() {
 };
 Template.restaurantStockIn.events({
   "click .remove-stock" (event, template) {
-    let name = this._material.name;
+    let name = this.materialId;
     IonPopup.confirm({
       title: 'តើលោកអ្នកត្រូវការលុបឬ ?',
       template: `លុប ${name} ?`,
@@ -70,6 +70,14 @@ Template.restaurantStockIn.events({
   }
 });
 Template.restaurantStockIn.helpers({
+  today(){
+    let currentDate = moment().format('YYYY-MM-DD');
+    let paramDate = Router.current().params.stockDate;
+    return moment().isSame(moment(paramDate), 'day');
+  },
+  material(){
+    return ReactiveMethod.call('getMaterial', this.materialId)
+  },
   importDate(){
     return Router.current().params.stockDate;
   },

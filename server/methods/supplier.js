@@ -8,5 +8,8 @@ Meteor.methods({
       });
     }
     return list;
+  },
+  getSupplier(supplierId) {
+    return Restaurant.Collection.Suppliers.findOne(supplierId)
   }
 });

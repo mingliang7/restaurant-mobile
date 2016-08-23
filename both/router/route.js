@@ -160,6 +160,17 @@ Router.map(function() {
       this.next();
     }
   });
+  this.route('restaurant.stock.enabled', {
+    path: '/restaurant/stockEnabled',
+    onBeforeAction: function(pause) {
+      if (!Meteor.user()) {
+        // render the login template but keep the url in the browser the same
+        Router.go('/');
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['setting', 'cashier']);
+      this.next();
+    }
+  });
   this.route('restaurant.note', {
     path: '/restaurant/notes',
     onBeforeAction: function(pause) {

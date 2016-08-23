@@ -369,3 +369,12 @@ Meteor.publish("suppliers", function(){
   }
   return this.ready();
 });
+
+//publish supplier
+Meteor.publish("stockEnabled", function(){
+  let stockEnabled = Restaurant.Collection.StockEnabled.find();
+  if(stockEnabled){
+    return stockEnabled;
+  }
+  return this.ready();
+});

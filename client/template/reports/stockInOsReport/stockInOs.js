@@ -1,6 +1,11 @@
 Template.restaurantStockInOsReport.onRendered(function () {
     $('[name="date"]').datetimepicker();
 });
+Template.restaurantStockInOsReport.events({
+  "click [name='materialId']": function(event, template){
+    IonModal.open('_fetch_material');
+  }
+});
 Template.restaurantStockInOsReport.helpers({
     // customers() {
     //   return ReactiveMethod.call('getCustomerList');
@@ -36,6 +41,12 @@ Template.restaurantStockInOsReportGen.helpers({
             return false;
         }
         return call.result();
+    },
+    totalBalancePlusTotalstockIn(openingBalance, stockIn){
+      return openingBalance + stockIn;
+    },
+    inc(index){
+      return index + 1 ;
     }
 });
 

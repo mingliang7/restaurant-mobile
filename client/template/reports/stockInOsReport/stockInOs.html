@@ -18,6 +18,7 @@
                 <div class="content has-header overflow-scroll">
                   <div class="row">
                     <div class="col">{{> afQuickField name='date' type='datetime'}}</div>
+                    <div class="col">{{> afQuickField name='materialId' label="វត្ថុធាតុដើម"}}</div>
                     <div class="col">{{> afQuickField name='materialCategoryId'}}</div>
                   </div>
 
@@ -73,14 +74,14 @@
                     <tbody class="content-body">
                     {{#each content}}
                         <tr>
-                            <td>{{order}}</td>
-                            <td>{{moFormat reduceStockDate 'YYYY-MM-DD'}}</td>
-                            <td>{{name}}</td>
-                            <td>{{totalBalance}}</td>
-                            <td>{{totalQty}}</td>
-                            <td>{{totalBalancePlusTotalQty}}</td>
-                            <td>{{reduceAmount}}</td>
-                            <td>{{qty}}</td>
+                            <td>{{inc @index}}</td>
+                            <td class="text-center">{{moFormat lastMaterial.date 'YYYY-MM-DD'}}</td>
+                            <td class="text-center">{{lastMaterial.material.name}}</td>
+                            <td class="text-center">{{lastMaterial.openingBalance}}</td>
+                            <td class="text-center">{{lastMaterial.stockIn}}</td>
+                            <td class="text-center">{{totalBalancePlusTotalstockIn lastMaterial.openingBalance lastMaterial.stockIn}}</td>
+                            <td class="text-center">{{lastMaterial.reduceQty}}</td>
+                            <td class="text-center">{{lastMaterial.balance}}</td>
                         </tr>
                     {{/each}}
                     </tbody>
