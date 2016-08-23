@@ -76,7 +76,9 @@ Meteor.startup(function() {
   Restaurant.Collection.StockIn._ensureIndex({status: 1});
   Restaurant.Collection.Payments._ensureIndex({saleId: 1, paymentDate:1}, {sparse: 1, unique: true})
   //end ensure index
-
+  if(Restaurant.Collection.StockEnabled.find().count() <=0 ){
+    Restaurant.Collection.StockEnabled.insert({enableReduceStock: false, autoReduceStock: false});
+  }
   Meteor.defer(function() {
     let emptySales = Restaurant.Collection.Sales.find({
       total: {

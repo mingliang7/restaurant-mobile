@@ -64,11 +64,11 @@ Template.editProduct.events({
     TmpItem.remove(this._id);
   },
   'click .save' (e) {
-    // let tmpItems = TmpItem.find();
-    // if (tmpItems.count() <= 0) {
-    //   alertify.error('សូមបំពេញគ្រឿងផ្សំ');
-    //   return false;
-    // }
+    let tmpItems = TmpItem.find();
+    if (tmpItems.count() <= 0) {
+      alertify.error('សូមបំពេញគ្រឿងផ្សំ');
+      return false;
+    }
   }
 });
 Template.editProduct.onDestroyed(()=>{
@@ -78,14 +78,14 @@ AutoForm.hooks({
   productEdit: {
     before: {
       update(doc) {
-        // let tmpItem = [];
-        // TmpItem.find().forEach(function(item) {
-        //   tmpItem.push({
-        //     productId: item._id,
-        //     qty: item.qty
-        //   });
-        // });
-        // doc.$set.ingradient = tmpItem;
+        let tmpItem = [];
+        TmpItem.find().forEach(function(item) {
+          tmpItem.push({
+            productId: item._id,
+            qty: item.qty
+          });
+        });
+        doc.$set.ingradient = tmpItem;
         return doc;
       }
     },

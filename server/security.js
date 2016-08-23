@@ -18,5 +18,6 @@ Security.permit(['insert', 'update', 'remove']).collections([
     Restaurant.Collection.StockIn,
     Restaurant.Collection.EndOfProcess,
     Restaurant.Collection.Stocks,
-    Restaurant.Collection.Suppliers
+    Restaurant.Collection.Suppliers,
+    Restaurant.Collection.StockEnabled
 ]).apply();

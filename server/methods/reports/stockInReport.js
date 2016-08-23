@@ -37,10 +37,9 @@ Meteor.methods({
     var content = calculateSaleHelper(sale);
 
     // console.log(exchange.rates[0].rate);
-
-    data.grandTotalKhr = numeral(content.grandTotalKhr).format('0,0');
     data.grandTotalUsd = numeral(content.grandTotalKhr / exchange.rates[0].rate).format('0,0.00 $');
-    /****** Content *****/
+    data.grandTotalKhr = numeral(content.grandTotalKhr).format('0,0');
+      /****** Content *****/
     if (content.length > 0) {
       data.content = content;
     }
@@ -55,13 +54,16 @@ function calculateSaleHelper(sl) {
   var i = 1;
 
   sl.forEach(function(s) {
+    s._material = Restaurant.Collection.Materials.findOne(s.materialId);
+    s.name = s._material.name;
     s.order = i;
     s.stockInDate = moment(s.stockInDate).format("DD-MM-YY, HH:mm:ss");
     s.amount =  s.price * s.qty;
     grandTotal += s.amount;
     i++;
-    saleList.grandTotalKhr = grandTotal;
     saleList.push(s);
   });
+  saleList=_.sortBy(saleList, 'name');
+  saleList.grandTotalKhr = grandTotal;
   return saleList;
 }

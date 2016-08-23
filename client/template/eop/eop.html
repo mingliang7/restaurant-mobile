@@ -1,42 +1,64 @@
 <template name="restaurantEop">
-    {{#contentFor "headerButtonLeft"}}
-      {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}}
-    {{/contentFor}}
-    {{#contentFor "headerTitle"}}
-      <h1 class="title">បិទបញ្ជី</h1>
-    {{/contentFor}}
+    {{#contentFor "headerButtonLeft"}} {{>ionNavBackButton path="restaurant.data" text="ទិន្នន័យ"}} {{/contentFor}} {{#contentFor "headerTitle"}}
+    <h1 class="title">បិទបញ្ជី</h1> {{/contentFor}} {{#contentFor "headerButtonRight"}}
 
-    {{#contentFor "headerButtonRight"}}
-    <a href="/restaurant/eop/new" class="button button-clear">
-      {{> ionIcon icon="ios-plus-empty"}}
-    </a>
-    {{/contentFor}}
-    {{#ionContent}}
-      <div class="card row">
-        <div class="col col-10 text-center"><span class="positive">លេខកូដ</span></div>
-        <div class="col col-67 text-center"><span class="positive">ថ្ងៃបិទបញ្ជី</span></div>
-        <div class="col col-20 text-center"><span class="positive">ជម្រើស</span></div>
-      </div>
-      <div class="card">
-      {{#if noEops}}
-      <div class="col" align="center">
+    {{/contentFor}} {{#ionContent}}
+  {{#if isSaleNotExist}}
+    <div class="card row col" align="center">
         អត់មានទិន្នន័យ
       </div>
-      {{else}}
-      {{#each eops}}
-        <div class="row">
-          <div class="col col-10" style="border: 1px solid #ddd;">{{_id}}</div>
-          <div class="col col-67" style="border: 1px solid #ddd;">{{moFormat startEopDate 'YYYY-MM-DD'}} ដល់ {{moFormat endEopDate 'YYYY-MM-DD'}}</div>
-
-            <div class="col col-20 text-center" style="border: 1px solid #ddd;">
-            {{#if findLastRecord _id}}
-              <a href="#" class="remove-eop assertive">{{>ionIcon icon="trash-b"}}លុប</a>
+  {{else}}
+    {{#each sale in sales}}
+    <div class="card">
+        <span class="hidden saleId">{{sale._id}}</span>
+        <div class="col col-2">
+            <strong class="positive">
+            <i class="ion-calendar"></i>
+            ថ្ងៃទី: {{sale._id}},
+            {{#if checkIndex sale.index}}
+            កាត់វិក័យប័ត្រទាំងអស់:
+              <input type="checkbox" class="reduceAllInvoice">
             {{/if}}
-          </div>
+          </strong>
         </div>
-      {{/each}}
-      {{/if}}
+        {{#each obj in sale.data}}
+        <div class="col col-2 sale-obj-parents">
+            <span class="hidden sale-obj-id">{{obj.saleId}}</span>
+            <ul>
+              <hr>
+                <i class="ion-ios-list-outline"></i>
+                <strong>វិក័យប័ត្រ: {{obj.saleId}},
+                  {{#if checkIndex sale.index}}
+                    កាត់វិក័យប័ត្រនេះ:
+                    {{#if saleId obj.saleId}}
+                    <input type="checkbox" class="current-invoice" checked>
+                    {{else}}
+                    <input type="checkbox" class="current-invoice">
+                    {{/if}}
+                  {{/if}}
+                </strong></ul>
+        </div>
+        <div class="row">
+            <div class="col col-3 text-center"><span class="dark">វត្ថុធាតុដើមដែលត្រូវកាត់</span></div>
+            <div class="col col-3 text-center"><span class="dark">ចំនួនកាត់ក្នុងមួយឯកតា</span></div>
+            <div class="col col-3 text-center"><span class="dark">បរិមាណក្នុងវិក័យប័ត្រ</span></div>
+            <div class="col col-3 text-center"><span class="dark">សរុបកាត់ចំនួន</span></div>
+        </div>
+
+        {{#each obj.materials}}
+        <div class="card row">
+            <div class="col col-3">{{data.materialDoc.name}}</div>
+            <div class="col col-3 text-center" >{{data.qty}}</div>
+            <div class="col col-3 text-center">{{fromSaleDetailQty}}</div>
+            <div class="col col-3 text-center">{{data.totalQty}}</div>
+        </div>
+        {{/each}} {{/each}}
     </div>
+    {{/each}}
+    &nbsp;<a  class="button button-balanced save">
+      Save
+    </a>
+    {{/if}}
     {{/ionContent}}
     {{> _data}}
 </template>

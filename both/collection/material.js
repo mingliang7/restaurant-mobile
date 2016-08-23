@@ -93,6 +93,14 @@ Restaurant.Schema.Materials = new SimpleSchema({
     optional: true,
     decimal: true
   },
+  balance: {
+    type: Number,
+    autoValue(){
+      if(this.isInsert){
+        return 0;
+      }
+    }
+  }
 });
 Restaurant.Collection.Materials.search = function(query, limit) {
   let limitAmount = limit || 30;

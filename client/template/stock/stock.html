@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col col-20" style="border: 1px solid #ddd;"><a href="/restaurant/{{_id}}/{{moFormat stockDate 'YYYY-MM-DD HH:mm:ss'}}/stockIn">{{moFormat stockDate 'YYYY-MM-DD HH:mm:ss'}}</a></div>
         <div class="col col-20" style="border: 1px solid #ddd;">{{voucher}}</div>
-        <div class="col col-20" style="border: 1px solid #ddd;">{{_supplier.name}} | {{_supplier.phone}}</div>
+        <div class="col col-20" style="border: 1px solid #ddd;">{{supplier.name}} | {{supplier.phone}}</div>
         <div class="col col-20" style="border: 1px solid #ddd;">{{description}}</div>
 
         <div class="col col-5 text-center" style="border: 1px solid #ddd;">
@@ -37,7 +37,7 @@
           {{/if}}
         </div>
         <div class="col col-5 text-center" style="border: 1px solid #ddd;">
-          {{#if isInRole 'setting'}}
+          {{#if today stockDate}}
           <a href="#" class="remove-stock assertive">{{>ionIcon icon="trash-b"}}លុប</a>
           {{/if}}
         </div>

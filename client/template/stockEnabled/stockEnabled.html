@@ -1,0 +1,57 @@
+<template name="restaurantStockEnabled">
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.setting" text="ការកំណត់"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">កំណត់ក្នុងការប្រើប្រាស់ស្តុក</h1>
+    {{/contentFor}}
+
+    {{#contentFor "headerButtonRight"}}
+        <!-- <button class="button button-clear" data-ion-modal="unitNew">{{> ionIcon icon="ios-plus-empty"}}</button> -->
+    {{/contentFor}}
+
+    {{#ionView}}
+        {{#ionContent}}
+
+            <div class="card row">
+                <div class="col col-30 text-center"><span class="positive">ការដាក់ស្តុកអោយប្រើប្រាស់</span></div>
+                <div class="col col-30 text-center"><span class="positive">កាត់ដោយស្វ័យប្រវត្តិ</span></div>
+                <div class="col col-20 text-center"><span class="positive">ចាប់ផ្តើមកាត់ស្តុកពីថ្ងៃទី</span></div>
+                <div class="col col-20 text-center"><span class="positive"></span></div>
+            </div>
+            <div class="card">
+                {{#each stockEnabled}}
+                    <div class="row">
+                        <div class="text-center col col-30" style="border: 1px solid #ddd;">{{{checkEnable enableReduceStock}}}</div>
+                        <div class="text-center col col-30" style="border: 1px solid #ddd;">{{{checkEnable autoReduceStock}}}</div>
+                        <div class="text-center col col-20" style="border: 1px solid #ddd;">{{moFormat enabledDate 'YYYY-MM-DD'}}</div>
+                        <div class="col col-20 text-center" style="border: 1px solid #ddd;">
+                            <a href="#" class="positive" data-ion-modal="stockEnabledEdit"
+                               data-id="{{_id}}">{{>ionIcon icon="edit"}}កែប្រែ</a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+
+            <!--before Changed-->
+            <!--{{#ionList}}
+                {{#each units}}
+                    {{#ionItem buttonRight=true avatar=true }}
+            <span class="cursor-p" data-ion-modal="editUnit" data-id="{{_id}}">
+              {{name}}
+            </span>
+            <p>
+              {{description}}
+            </p>
+            <button data-action="confirm" class=" button button-clear">
+              {{> ionIcon icon="close-circled"}}</button>
+
+          {{/ionItem}}
+                {{/each}}
+            {{/ionList}}-->
+            <!--before Changed-->
+
+        {{/ionContent}}
+    {{/ionView}}
+    {{> _settings}}
+</template>

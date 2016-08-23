@@ -36,22 +36,9 @@ Restaurant.Schema.StockIn = new SimpleSchema({
     type: String,
     optional: true
   },
-  eopId: {
-    type: String,
-    optional: true
-  },
   status: {
     type: String,
-    autoValue() {
-      if (this.isInsert) {
-        return 'active';
-      }
-    }
-  },
-  _material: {
-    type: Object,
-    optional: true,
-    blackbox: true
+    optional: true
   },
   stockId: {
     type: String
