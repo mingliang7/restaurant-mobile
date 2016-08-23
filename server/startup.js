@@ -71,10 +71,11 @@ Meteor.startup(function() {
     saleId: 1
   });
   Restaurant.Collection.Sales._ensureIndex({'eop.status': 1});
+  Restaurant.Collection.Inventory._ensureIndex({materialId: 1,date: 1, materialCategoryId: 1});
   Restaurant.Collection.Sales._ensureIndex({'eop._id': 1});
   Restaurant.Collection.StockIn._ensureIndex({materialId: 1});
   Restaurant.Collection.StockIn._ensureIndex({status: 1});
-  Restaurant.Collection.Payments._ensureIndex({saleId: 1, paymentDate:1}, {sparse: 1, unique: true})
+  Restaurant.Collection.Payments._ensureIndex({saleId: 1, paymentDate:1}, {sparse: 1, unique: true});
   //end ensure index
   if(Restaurant.Collection.StockEnabled.find().count() <=0 ){
     Restaurant.Collection.StockEnabled.insert({enableReduceStock: false, autoReduceStock: false});
