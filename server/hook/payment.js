@@ -132,6 +132,9 @@ function reduceStock({
             $gte: moment(formatDate).toDate()
         };
         selector._id = doc.saleId;
+        selector.eop = {
+            status: false
+        }
         let sales = Restaurant.Collection.Sales.aggregate([{
             $match: selector
         }, {
