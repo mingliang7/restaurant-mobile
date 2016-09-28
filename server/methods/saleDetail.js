@@ -8,10 +8,14 @@ Meteor.methods({
                 discount: selector[k].discount,
                 amount: selector[k].amount,
                 quantity: selector[k].quantity,
-                price: selector[k].price
+                price: selector[k].price,
+                finishQty: 0,
+                cookQty: 0,
+                isFinishing: false,
+                isCooking: false,
+                monitor: false
             });
         }
-        console.log(saleDetails)
         var sale = Restaurant.Collection.Sales.findOne(saleDetails[0].saleId);
         if (_.isUndefined(sale.total)) {
             Meteor.defer(() => {
@@ -76,6 +80,11 @@ Meteor.methods({
                     price: saleDetail.price,
                     quantity: obj[k].qtyChanged,
                     discount: obj[k].discount,
+                    finishQty: obj[k].finishQty,
+                    cookQty: obj[k].cookQty,
+                    isFinishing: obj[k].isFinishing,
+                    isCooking:  obj[k].isCooking,
+                    monitor: obj[k].monitor,
                     amount: (obj[k].qtyChanged * saleDetail.price) * (1 - obj[k].discount / 100),
                     productId: saleDetail.productId,
                     saleId: saleId,
@@ -145,7 +154,13 @@ Meteor.methods({
                     amount: (amount) * (1 - (obj[k].discount / 100)),
                     productId: saleDetail.productId,
                     discount: obj[k].discount,
+                    finishQty: obj[k].finishQty,
+                    cookQty: obj[k].cookQty,
+                    isFinishing: obj[k].isFinishing,
+                    isCooking:  obj[k].isCooking,
+                    monitor: obj[k].monitor,
                     saleId: transferSaleId,
+
                     transferOrSplit: true
                 }
                 Restaurant.Collection.SaleDetails.insert(newSaleDetail);
