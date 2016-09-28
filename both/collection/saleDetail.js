@@ -98,43 +98,24 @@ Restaurant.Schema.SaleDetails = new SimpleSchema({
     },
     monitor: {
         type: Boolean,
-        autoValue: function () {
-            if (this.isInsert) {
-                return false;
-            }
-        }
+        optional: true
     },
     isCooking: {
         type: Boolean,
-        autoValue: function () {
-            if (this.isInsert) {
-                return false;
-            }
-        }
+        optional: true
     },
     isFinishing: {
         type: Boolean,
-        autoValue: function () {
-            if (this.isInsert) {
-                return false;
-            }
-        }
+        optional: true,
     },
     cookQty: {
         type: Number,
-        autoValue: function () {
-            if (this.isInsert) {
-                return 0;
-            }
-        }
+        optional: true
+
     },
     finishQty: {
         type: Number,
-        autoValue: function(){
-            if(this.isInsert) {
-                return 0;
-            }
-        }
+        optional: true
     },
     notify: {
         type: Boolean,
