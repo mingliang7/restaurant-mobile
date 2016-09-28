@@ -131,6 +131,11 @@ Template.saleDetail.events({
                 saleDate: currentDate,
                 oldSaleId: this.saleId,
                 defaultQty: this.quantity,
+                finishQty: this.finishQty,
+                cookQty: this.cookQty,
+                isFinishing: this.isFinishing,
+                isCooking: this.isCooking,
+                monitor: this.monitor,
                 discount: this.discount == undefined ? 0 : this.discount,
                 numberOfCustomer: numberOfCustomer
 
@@ -144,7 +149,7 @@ Template.saleDetail.events({
         var data = this;
         IonPopup.confirm({
             title: 'ចង់បញ្ជូនទៅចុងភៅ?',
-            template: `<b>${this._product.name}(${data.cookQty - data.finishQty})</b>`,
+            template: `<b>${this._product.name}(${data.quantity - data.finishQty})</b>`,
             onOk: () => {
                 Meteor.call('addSaleDetailToChef', data, (err, result) => {
                     if (err) {

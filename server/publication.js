@@ -382,7 +382,12 @@ Meteor.publish("stockEnabled", function () {
 //publish monitor
 Meteor.publish('chefMonitorPub', function (selector) {
     if (this.userId) {
-        let saleDetails = Restaurant.Collection.SaleDetails.find(selector);
+        let saleDetails;
+        if (selector.isFinishing) {
+            saleDetails = Restaurant.Collection.SaleDetails.find(selector, {limit: 50});
+        }else{
+            saleDetails = Restaurant.Collection.SaleDetails.find(selector);
+        }
         return saleDetails;
     }
     return this.ready();
