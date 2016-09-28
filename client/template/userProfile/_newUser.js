@@ -1,8 +1,8 @@
 AutoForm.hooks({
     newUser: {
         onSubmit: function (insertDoc, updateDoc, currentDoc) {
-            debugger;
             this.event.preventDefault();
+            debugger;
             Meteor.call('insertNewUser', insertDoc, function (er, re) {
                 if (er) {
                     Bert.alert(er.message, 'danger', 'growl-top-right');

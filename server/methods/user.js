@@ -21,7 +21,6 @@ Meteor.methods({
         Meteor.users.update(userId, {$set: {roles: roles}});
     },
     insertNewUser: function (doc) {
-
         if (!Roles.userIsInRole(this.userId, ['super', 'setting'])) {
             throw new Meteor.Error("403", "Access denied");
         }
@@ -36,6 +35,7 @@ Meteor.methods({
             roles: doc.roles
         };
         var id = Accounts.createUser(userObj);
+        console.log(id);
         if (doc.roles && doc.roles.length > 0) {
             Roles.addUsersToRoles(id, doc.roles);
         }

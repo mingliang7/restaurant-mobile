@@ -369,6 +369,9 @@ Restaurant.List = {
     }, {
       label: 'អ្នកលក់',
       value: 'seller'
+    }, {
+      label: 'ចុងភៅ',
+      value: 'chef'
     }]
   },
 

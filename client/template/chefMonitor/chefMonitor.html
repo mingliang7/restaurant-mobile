@@ -1,0 +1,86 @@
+<template name="restaurantChefMonitor">
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="restaurant.home" text="ទិន្នន័យ"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">ម៉ូនីទ័រចុងភៅ</h1>
+    {{/contentFor}}
+
+        <!--{{#contentFor "headerButtonRight"}}-->
+    <!--<button class="button button-clear" data-ion-modal="newStaff">{{> ionIcon icon="ios-plus-empty"}}</button>-->
+        <!--{{/contentFor}}-->
+
+    {{#ionView}}
+        {{#ionContent}}
+            <div class="divider-title">
+                <div class="row">
+                    <label class="toggle">
+                        <input type="checkbox" class="toggleCook">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                        <span class="monitor-info">មិនទាន់បានចំអិន</span>
+                    </label>
+
+                    <div class="col">
+                        <label class="item item-input">
+                            <input class="search-table" type="text" placeholder="ស្វែងរកតុ ឬមុខទំនិញ.....">
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+            <ul class="timeline">
+                {{#each saleDetails}}
+                    {{#if notZeroQty}}
+                        <li class="{{#if isCooking}}animate-color{{/if}}">
+                            <br>
+                            <div class="timeline-thumb bg-color-bluegray timeline-icon">
+                                <i class="ion-more"></i>
+                            </div>
+                            <div class="timeline-item">
+                                <h3 class="{{#unless isCooking}}positive{{else}}light{{/unless}}">លេខតុ: {{cookForTable}},
+                                    ម៉ោង: {{moFormat updatedAt 'DD-MM-YY HH:mm:ss'}} <span
+                                            class="{{#unless isCooking}}dark{{else}}light{{/unless}}">| {{_product.name}} |, ចំនួន:
+                                    x{{cookLeft cookQty finishQty isFinishing}}</span>
+                                    {{#unless isFinishing}}
+                                        {{#if isCooking}}
+                                            <!--<button class="button button-small cooking"><i class="ion-check"></i>-->
+                                                <!--កំពុងចំអិន...-->
+                                            <!--</button>-->
+                                            <button class="button button-small button-positive finish-cook"><i
+                                                    class="ion-check"></i>កំពុងចំអិន...
+                                            </button>
+                                        {{else}}
+                                            <button class="button button-small cook"><i class="ion-check"></i>
+                                                កម្ម៉ង់ថ្មី
+                                            </button>
+                                        {{/if}}
+
+                                        <!--<button class="button button-small button-positive finish-cook"><i-->
+                                                <!--class="ion-check"></i>រួចរាល់-->
+                                        <!--</button>-->
+                                        <button class="button button-small button-assertive cancel-cook"><i class="ion-check"></i>ដកចេញ
+                                        </button>
+                                    {{else}}
+                                        <button class="button button-small button-energized unfinish-cook"><i
+                                                class="icon ion-reply"></i>ត្រលប់ក្រោយ
+                                        </button>
+                                    {{/unless}}
+                                </h3>
+
+
+                                <div class="timeline-stats">
+                                    <i class="ion-pin"></i>
+                                    <span class="pos-absolute-right"><i
+                                            class="ion-ios-clock"></i> {{livestamp updatedAt}}</span>
+                                </div>
+                            </div>
+                        </li>
+                    {{/if}}
+                {{/each}}
+            </ul>
+        {{/ionContent}}
+    {{/ionView}}
+</template>
