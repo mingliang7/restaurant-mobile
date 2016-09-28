@@ -1,27 +1,30 @@
 <template name="_data_tabs">
-  <!-- {{#if isAndroid}}
+<!-- {{#if isAndroid}}
     {{#ionTabs style="android" class="tabs-background-positive tabs-color-light"}}
-      {{> ionTab title="ទំព័រដើម" path="home" icon="android-home"}}
-      {{> ionTab title="លក់ថ្មី" path="restaurant.sale" icon="coffee"}}
-      {{> ionTab title="តារាងវិក័យប័ត្រ" path="restaurant.active.payment" icon="cash"}}
-      {{> ionTab title="ទិន្នន័យ" path="restaurant.data" icon="filing"}}
-      {{> ionTab title="ការកំណត់" path="restaurant.setting" icon="gear-b"}}
-      {{> ionTab title="របាយការណ៍" path="restaurant.report" icon="ios-paper-outline"}}
+        {{> ionTab title="ទំព័រដើម" path="home" icon="android-home"}}
+        {{> ionTab title="លក់ថ្មី" path="restaurant.sale" icon="coffee"}}
+        {{> ionTab title="តារាងវិក័យប័ត្រ" path="restaurant.active.payment" icon="cash"}}
+        {{> ionTab title="ទិន្នន័យ" path="restaurant.data" icon="filing"}}
+        {{> ionTab title="ការកំណត់" path="restaurant.setting" icon="gear-b"}}
+        {{> ionTab title="របាយការណ៍" path="restaurant.report" icon="ios-paper-outline"}}
     {{/ionTabs}}
-    {{else}} -->
+{{else}} -->
     {{#ionTabs style="ios"}}
-      {{> ionTab title="ទំព័រដើម" path="home" iconOff="ios-home-outline" iconOn="ios-home"}}
-      {{> ionTab title="លក់ថ្មី" path="restaurant.select.table" iconOff="coffee" iconOn="coffee"}}
-      {{#if isInRole 'cashier, setting'}}
-        {{> ionTab title="តារាងវិក័យប័ត្រ" path="restaurant.active.payment" iconOff="cash" iconOn="cash"}}
-        {{> ionTab title="ទិន្នន័យ" path="restaurant.data" iconOff="filing" iconOn="filing"}}
-        {{> ionTab title="ការកំណត់" path="restaurant.setting" iconOff="ios-gear-outline" iconOn="ios-gear"}}
-        {{> ionTab title="របាយការណ៍" path="restaurant.report" iconOff="ios-paper-outline" iconOn="ios-paper"}}
-      {{/if}}
-      <a class="tab-item assertive sign-out">
-        <i class="icon ion-log-out"></i>
-        {{currentUser.profile.username}}
-      </a>
+        {{> ionTab title="ទំព័រដើម" path="home" iconOff="ios-home-outline" iconOn="ios-home"}}
+        {{> ionTab title="លក់ថ្មី" path="restaurant.select.table" iconOff="coffee" iconOn="coffee"}}
+        {{#if isInRole 'cashier, setting'}}
+            {{> ionTab title="តារាងវិក័យប័ត្រ" path="restaurant.active.payment" iconOff="cash" iconOn="cash"}}
+            {{> ionTab title="ទិន្នន័យ" path="restaurant.data" iconOff="filing" iconOn="filing"}}
+            {{> ionTab title="ការកំណត់" path="restaurant.setting" iconOff="ios-gear-outline" iconOn="ios-gear"}}
+            {{> ionTab title="របាយការណ៍" path="restaurant.report" iconOff="ios-paper-outline" iconOn="ios-paper"}}
+        {{/if}}
+        {{#if isInRole 'chef, setting'}}
+            {{> ionTab title="ម៉ូនីទ័រចុងភៅ" path="restaurant.chef.monitor" iconOff="monitor" iconOn="easel"}}
+        {{/if}}
+        <a class="tab-item assertive sign-out">
+            <i class="icon ion-log-out"></i>
+            {{currentUser.profile.username}}
+        </a>
     {{/ionTabs}}
-  <!-- {{/if}} -->
+        <!-- {{/if}} -->
 </template>

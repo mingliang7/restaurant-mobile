@@ -3,63 +3,66 @@
         {{>ionNavBackButton href="/restaurant/selectTable" text='ត្រលប់ទៅកាន់តុ'}}
     {{/contentFor}}
     {{#if isInRole 'setting, cashier'}}
-      {{#contentFor "headerButtonRight"}}
-          <!-- <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a> -->
-      {{/contentFor}}
+        {{#contentFor "headerButtonRight"}}
+            <!-- <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a> -->
+        {{/contentFor}}
     {{/if}}
     {{#contentFor "headerTitle"}}
         <h1 class="title">{{{invoiceNumber}}}</h1>
     {{/contentFor}}
     {{#ionView}}
         {{#ionContent class="padding contact-detail"}}
-        <div class="row">
-          {{> restaurantSaleList}} <!--call from saleList Folder !-->
-        <div class="col col-67" id="sticky">
-            {{#with saleInvoice}}
-                {{> tableHeader}}
-            {{/with}}
-            <div class="list card">
-                    <div class="row">
-                        <div class="col col-20">
-                            <b>បរិយាយ</b>
-                        </div>
-                        <div class="col col-15">
-                          <b>ចំនួន</b>
-                        </div>
-                        <div class="col col-15">
-                            <b>តម្លៃ</b>
-                        </div>
-                        <div class="col col-15">
-                            <b>បញ្ចុះតម្លៃ (%)</b>
-                        </div>
-                        <div class="col col-15">
-                            <b>សរុប</b>
-                        </div>
-                        <div class="col col-5">
+            <div class="row">
+                {{> restaurantSaleList}} <!--call from saleList Folder !-->
+                <div class="col col-67" id="sticky">
+                    {{#with saleInvoice}}
+                        {{> tableHeader}}
+                    {{/with}}
+                    <div class="list card">
+                        <div class="row">
+                            <div class="col col-20">
+                                <b>បរិយាយ</b>
+                            </div>
+                            <div class="col col-15">
+                                <b>ចំនួន</b>
+                            </div>
+                            <div class="col col-15">
+                                <b>តម្លៃ</b>
+                            </div>
+                            <div class="col col-15">
+                                <b>បញ្ចុះតម្លៃ (%)</b>
+                            </div>
+                            <div class="col col-15">
+                                <b>សរុប</b>
+                            </div>
+                            <div class="col col-5">
 
+                            </div>
+                            <div class="col col-5">
+
+                            </div>
+                            <div class="col col-5" align="center">
+                                <b>ជម្រើស</b>
+                            </div>
+                            <div class="col col-5" align="center">
+                            </div>
+                            <div class="col col-5">
+                            </div>
                         </div>
-                        <div class="col col-5" align="center">
-                          <b>ជម្រើស</b>
-                        </div>
-                        <div class="col col-5" align="center">
-                        </div>
-                        <div class="col col-5">
-                        </div>
-                </div>
-                {{#each saleDetails}}
-                    {{> saleDetail}}
-                {{/each}}
-                {{#if hasMore}}
-                    <div class="col col-20 col-offset-50">
-                        <button class="button button-positive loadMore">Load More</button>
+                        {{#each saleDetails}}
+                            {{> saleDetail}}
+                        {{/each}}
+                        {{#if hasMore}}
+                            <div class="col col-20 col-offset-50">
+                                <button class="button button-positive loadMore">Load More</button>
+                            </div>
+                        {{/if}}
                     </div>
-                {{/if}}
+                    {{#with saleInvoice}}
+                        {{> saleInvoiceTotal}}
+                    {{/with}}
+                </div>
             </div>
-            {{#with saleInvoice}}
-                {{> saleInvoiceTotal}}
-            {{/with}}
-          </div>
-        </div>
         {{/ionContent}}
     {{/ionView}}
     {{> _sale_invoice_tabs}}
@@ -67,73 +70,99 @@
 
 <template name="saleDetail">
     <!-- <div class="item item-body animated bounceInDown {{#if transferOrSplit}}bg-blue{{/if}}"> -->
-        <div class="row item item-body animated bounceInDown {{#if transferOrSplit}}bg-blue{{/if}}">
-            <div class="col col-20">
-                <h4>{{_product.name}}</h4>
-                {{#if note}}
-                    <p>
-                        {{note}}
-                    </p>
-                {{/if}}
-            </div>
-            <div class="col col-15">
-              <h4>{{quantity}}</h4>
+    <div class="row item item-body animated bounceInDown {{#if transferOrSplit}}bg-blue{{/if}}">
+        <div class="col col-20">
+            <h4>{{_product.name}}</h4>
+            {{#if note}}
+                <p>
+                    {{note}}
+                </p>
+            {{/if}}
+        </div>
+        <div class="col col-15">
+            <h4>{{quantity}}</h4>
 
-            </div>
-            <div class="col col-15">
-                <h4>{{numFormat price '0,0'}}</h4>
-            </div>
-            <div class="col col-15">
-                <h4>{{discount}}</h4>
-                <p>
-                    {{details.notes}}
-                </p>
-            </div>
-            <div class="col col-15">
-                <h4>{{numFormat amount '0,0'}}</h4>
-                <p>
-                    {{details.notes}}
-                </p>
-            </div>
-            {{#if noPayment}}
-              <div class="col col-5">
+        </div>
+        <div class="col col-15">
+            <h4>{{numFormat price '0,0'}}</h4>
+        </div>
+        <div class="col col-15">
+            <h4>{{discount}}</h4>
+            <p>
+                {{details.notes}}
+            </p>
+        </div>
+        <div class="col col-15">
+            <h4>{{numFormat amount '0,0'}}</h4>
+            <p>
+                {{details.notes}}
+            </p>
+        </div>
+        {{#if noPayment}}
+            <div class="col col-5">
                 {{#if isPrinting}}
-                  <a class="tab-item positive" href="{{goToSaleDetailEdit}}" data-action="fake">
-                      <i class="icon ion-ios-compose-outline"></i>
-                  </a>
-                  {{/if}}
-              </div>
-              <div class="col col-5">
-                {{#if isPrinting}}
-                  <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
-                      <i class="icon ion-trash-a"></i>
-                  </a>
-                {{/if}}
-              </div>
-            <div class="col col-5" align="center">
-                {{#if isPrinting}}
-                <label class="toggle">
-                    <input type="checkbox" class="detach">
-                    <div class="track">
-                        <div class="handle"></div>
-                    </div>
-                </label>
+                    {{#unless isFinishing}}
+                        {{#if checkIfIsCooking}}
+                            {{#if checkMonitor monitor cookQty quantity}}
+                                <a class="tab-item positive add-to-chef" data-action="fake">
+                                    <i class="icon ion-monitor"></i>{{cookLeft quantity finishQty}}</a>
+
+                            {{else}}
+                                <a class="tab-item balanced remove-from-chef" data-action="fake">
+                                    <i class="icon ion-share"></i>
+                                </a>
+                            {{/if}}
+                        {{else}}
+                            <a class="tab-item assertive" data-action="fake">
+                                {{#ionSpinner}}{{/ionSpinner}}
+                            </a>
+                        {{/if}}
+                    {{else}}
+                        <a class="tab-item balanced" data-action="fake">
+                            <i class="icon ion-checkmark-circled"></i>
+                        </a>
+                    {{/unless}}
                 {{/if}}
             </div>
             <div class="col col-5">
-              {{#if hasDetachSaleDetail.flag}}
-              <a href="#" class="tab-item assertive" data-ion-modal="takeOutQty" data-id="{{_id}}" data-qty="{{quantity}}">
-                {{#with hasDetachSaleDetail}}
-                  {{#if qty}}
-                      <i class="icon">{{qty}}</i>
-                    {{else}}
-                      <i class="icon ion-grid"></i>
-                    {{/if}}
-                {{/with}}
-              </a>
-              {{/if}}
+                {{#if isPrinting}}
+                    <a class="tab-item positive" href="{{goToSaleDetailEdit}}" data-action="fake">
+                        <i class="icon ion-ios-compose-outline"></i>
+                    </a>
+                {{/if}}
             </div>
-            {{/if}}
+            <div class="col col-5">
+                {{#if isPrinting}}
+                    <a class="tab-item assertive remove-sale-detail" href="#" data-action="fake">
+                        <i class="icon ion-trash-a"></i>
+                    </a>
+                {{/if}}
+            </div>
+            <div class="col col-5" align="center">
+                {{#if isPrinting}}
+                    <label class="toggle">
+                        <input type="checkbox" class="detach">
+                        <div class="track">
+                            <div class="handle"></div>
+                        </div>
+                    </label>
+                {{/if}}
+            </div>
+            <div class="col col-5">
+                {{#if hasDetachSaleDetail.flag}}
+                    <a href="#" class="tab-item assertive" data-ion-modal="takeOutQty" data-id="{{_id}}"
+                       data-qty="{{quantity}}">
+                        {{#with hasDetachSaleDetail}}
+                            {{#if qty}}
+                                <i class="icon">{{qty}}</i>
+                            {{else}}
+                                <i class="icon ion-grid"></i>
+                            {{/if}}
+                        {{/with}}
+                    </a>
+                {{/if}}
+            </div>
+        {{/if}}
         <!-- </div> -->
     </div>
     <!-- <div class="item tabs tabs-secondary tabs-icon-left" style="background: #ddd;">
@@ -152,9 +181,9 @@
 
 <template name="saleInvoiceTotal">
     <div class="col col-50 col-offset-50">
-      {{#with saleInvoice}}
-        <div class="list card">
-            <div class="item item-body">
+        {{#with saleInvoice}}
+            <div class="list card">
+                <div class="item item-body">
                     <div class="row">
                         <div class="col col-10"></div>
                         <div class="col col-20">
@@ -187,15 +216,15 @@
                         </div>
 
                     </div>
-                     {{#each exchangeRate.rates}}
-                    <div class="row">
-                        <div class="col col-10"></div>
-                        <div class="col col-20"></div>
-                        <div class="col col-50">
-                            <b>{{multiply saleInvoice.total rate toCurrencyId}} {{symbol}}</b>
+                    {{#each exchangeRate.rates}}
+                        <div class="row">
+                            <div class="col col-10"></div>
+                            <div class="col col-20"></div>
+                            <div class="col col-50">
+                                <b>{{multiply saleInvoice.total rate toCurrencyId}} {{symbol}}</b>
+                            </div>
                         </div>
-                    </div>
-                {{/each}}
+                    {{/each}}
                     <div class="row">
                         <div class="col col-10"></div>
                         <div class="col col-20">
@@ -215,13 +244,17 @@
 
                     </div>
 
+                </div>
             </div>
-        </div>
-        {{#if isOfficerCheque _customer.type}}
-          <a href="#" class="button  button-positive save-officer-cheque">{{> ionIcon icon="ios-download-outline"}}&nbsp;រក្សាទុក</a>
-        {{else}}
-          <a href="{{goToPayment}}" class="button  button-balanced payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
-        {{/if}}
+            {{#if isOfficerCheque _customer.type}}
+                <a href="#"
+                   class="button  button-positive save-officer-cheque">{{> ionIcon icon="ios-download-outline"}}&nbsp;រក្សាទុក</a>
+            {{else}}
+                <a href="{{goToPayment}}" class="button  button-balanced payment">{{> ionIcon icon="calculator"}}
+                    គិតលុយ</a>
+                <a class="button  button-royal add-all-sale-detail-to-monitor">
+                    បញ្ជូនមុខទំនិញទាំងអស់ទៅចុងភៅ<i class="icon ion-ios-redo"></i></a>
+            {{/if}}
         {{/with}}
     </div>
 
@@ -229,11 +262,11 @@
 
 
 <template name="_sale_invoice_tabs">
-    <!-- {{#if isAndroid}}
-        {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
-            {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
-            {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
-            {{> ionTab title="លក់ថ្មី" href=goToTable icon="coffee"}}
+<!-- {{#if isAndroid}}
+    {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
+        {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
+        {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
+        {{> ionTab title="លក់ថ្មី" href=goToTable icon="coffee"}}
             <a class="tab-item" data-ion-modal="searchSaleForMerge">
               <i class="icon ion-ios-download assertive"></i>
               ផ្ទេរវិក័យប័ត្រ
@@ -244,72 +277,72 @@
                 ផ្ទេរទំនិញ
               </a>
               {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
-            {{/if}}
-        {{/ionTabs}}
-    {{else}} -->
-        {{#ionTabs style="ios"}}
-            {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
-            <!-- {{#if noPayment}}
-                {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
-            {{/if}} -->
-            {{> ionTab title="លក់ថ្មី" path="restaurant.select.table" class="positive" iconOff="coffee" iconOn="coffee"}}
-            {{#if noPayment}}
-                <a class="tab-item" data-ion-modal="searchSaleForMerge">
-                  <i class="icon ion-ios-download assertive"></i>
-                  ផ្ទេរវិក័យប័ត្រ
-                </a>
-            {{/if}}
-            {{#if hasDetachSaleDetail}}
-              <a class="tab-item" data-ion-modal="transferItem">
+    {{/if}}
+    {{/ionTabs}}
+{{else}} -->
+    {{#ionTabs style="ios"}}
+        {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
+        <!-- {{#if noPayment}}
+            {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
+        {{/if}} -->
+        {{> ionTab title="លក់ថ្មី" path="restaurant.select.table" class="positive" iconOff="coffee" iconOn="coffee"}}
+        {{#if noPayment}}
+            <a class="tab-item" data-ion-modal="searchSaleForMerge">
+                <i class="icon ion-ios-download assertive"></i>
+                ផ្ទេរវិក័យប័ត្រ
+            </a>
+        {{/if}}
+        {{#if hasDetachSaleDetail}}
+            <a class="tab-item" data-ion-modal="transferItem">
                 <i class="icon ion-log-in balanced"></i>
                 ផ្ទេរទំនិញ
-              </a>
-              {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
-            {{/if}}
-            {{> ionTab title="ផ្អាកវិក័យប័ត្រ&កូពី" class="cancel-and-copy icon-teal" icon="ios-copy"}}
-            {{> ionTab title="ផ្អាកវិក័យប័ត្រ" class="cancel-invoice  assertive" icon="close-circled"}}
+            </a>
+            {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
+        {{/if}}
+        {{> ionTab title="ផ្អាកវិក័យប័ត្រ&កូពី" class="cancel-and-copy icon-teal" icon="ios-copy"}}
+        {{> ionTab title="ផ្អាកវិក័យប័ត្រ" class="cancel-invoice  assertive" icon="close-circled"}}
 
-        {{/ionTabs}}
-    <!-- {{/if}} -->
+    {{/ionTabs}}
+        <!-- {{/if}} -->
 </template>
 
 <template name="tableHeader">
     <div class="list card" style="white-space: nowrap;">
-            <div class="row">
-                <div class="col col-10">
-                    <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editSale" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
-                    <a href="{{goToEditSale}}" class="assertive edit-sale">{{> ionIcon icon="edit"}}កែប្រែ</a>
-                </div>
-                <div class="col col-10">
-                    <b>តុៈ</b>
-                </div>
-                <div class="col col-10">
-                    {{_table._tableLocation.name}}/{{_table.name}}
-                </div>
-                <div class="col col-10">
-                    <b>ថ្ងៃទីៈ</b>
-                </div>
-                <div class="col col-15 saleDate">
-                    {{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}
-                </div>
-                <div class="col col-10">
-                    <b>អតិថិជនៈ</b>
-                </div>
-                <div class="col col-10">
-                    {{_customer.name}}
-                </div>
-                <div class="col col-5">
-                    <b>ចំនួនភ្ញៀវ:</b>
-                </div>
-                <div class="col col-5 numberOfCustomer">
-                    {{numberOfCustomer}}
-                </div>
-                <div class="col col-10">
-                    <b>បុគ្គលិក:</b>
-                </div>
-                <div class="col col-10">
-                    {{_staff.profile.username}}
-                </div>
+        <div class="row">
+            <div class="col col-10">
+                <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editSale" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
+                <a href="{{goToEditSale}}" class="assertive edit-sale">{{> ionIcon icon="edit"}}កែប្រែ</a>
             </div>
+            <div class="col col-10">
+                <b>តុៈ</b>
+            </div>
+            <div class="col col-10">
+                {{_table._tableLocation.name}}/{{_table.name}}
+            </div>
+            <div class="col col-10">
+                <b>ថ្ងៃទីៈ</b>
+            </div>
+            <div class="col col-15 saleDate">
+                {{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}
+            </div>
+            <div class="col col-10">
+                <b>អតិថិជនៈ</b>
+            </div>
+            <div class="col col-10">
+                {{_customer.name}}
+            </div>
+            <div class="col col-5">
+                <b>ចំនួនភ្ញៀវ:</b>
+            </div>
+            <div class="col col-5 numberOfCustomer">
+                {{numberOfCustomer}}
+            </div>
+            <div class="col col-10">
+                <b>បុគ្គលិក:</b>
+            </div>
+            <div class="col col-10">
+                {{_staff.profile.username}}
+            </div>
+        </div>
     </div>
 </template>

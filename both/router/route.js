@@ -547,4 +547,14 @@ Router.map(function() {
       this.next();
     }
   });
+    this.route('restaurant.chef.monitor', {
+    path: '/restaurant/chef-monitor',
+    onBeforeAction(pause) {
+      if (!Meteor.userId()) {
+        Router.go('/');
+      }
+      Restaurant.Roles.checkRoles(Meteor.userId(), ['chef','setting','super']);
+      this.next();
+    }
+  });
 });

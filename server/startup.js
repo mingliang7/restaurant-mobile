@@ -68,7 +68,7 @@ Meteor.startup(function() {
     tags: 'text'
   });
   Restaurant.Collection.SaleDetails._ensureIndex({
-    saleId: 1
+    saleId: 1, monitor: 1, isFinishing: 1
   });
   Restaurant.Collection.Sales._ensureIndex({'eop.status': 1});
   Restaurant.Collection.Inventory._ensureIndex({materialId: 1,date: 1, materialCategoryId: 1});
