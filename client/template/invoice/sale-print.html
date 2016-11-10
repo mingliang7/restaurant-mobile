@@ -26,11 +26,9 @@
                 <hr style="border-top: 1px dashed #8c8b8b;
 	border-bottom: 1px dashed #fff;">
                 <table border="1" width="100%">
-
                     <tr>
-                        <td style="width: 120px" colspan="2"><b># </b>: {{sale._id}}</td>
+                        <td style="width: 120px" colspan="2"><b># </b>: {{sale._id}}, {{#if sale.numberOfCustomer}}N: {{sale.numberOfCustomer}}{{/if}}</td>
                         <td align="right" style="text-align: right;"><b>បុគ្គលិក : </b> {{sale._staff.profile.username}}</td>
-
                     </tr>
                     <tr>
                         <td style="width: 120px" colspan="2"><b>តុ : </b> {{sale._table.name}}</td>

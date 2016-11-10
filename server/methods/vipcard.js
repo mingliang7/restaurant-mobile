@@ -3,7 +3,7 @@ Meteor.methods({
     Restaurant.Collection.Vipcards.remove(id);
   },
   getVipCard(name) {
-    let expired = moment(new Date()).format('YYYY-MM-DD');
+    let expired = moment(moment().toDate()).format('YYYY-MM-DD');
     let vipcard = Restaurant.Collection.Vipcards.findOne({
       name: name
     });

@@ -3,9 +3,9 @@
         {{>ionNavBackButton href="/restaurant/selectTable" text='ត្រលប់ទៅកាន់តុ'}}
     {{/contentFor}}
     {{#if isInRole 'setting, cashier'}}
-      {{#contentFor "headerButtonRight"}}
-          <!-- <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a> -->
-      {{/contentFor}}
+        {{#contentFor "headerButtonRight"}}
+            <!-- <a href="{{goToPayment}}" class="button button-clear payment">{{> ionIcon icon="calculator"}}គិតលុយ</a> -->
+        {{/contentFor}}
     {{/if}}
     {{#contentFor "headerTitle"}}
         <h1 class="title">{{{invoiceNumber}}}</h1>
@@ -14,7 +14,7 @@
         {{#ionContent class="padding contact-detail"}}
         <div class="row">
           {{> restaurantSaleList}} <!--call from saleList Folder !-->
-        <div class="col col-67" id="sticky">
+        <div class="col col-50" id="sticky">
             {{#with saleInvoice}}
                 {{> tableHeader}}
             {{/with}}
@@ -37,29 +37,29 @@
                         </div>
                         <div class="col col-5">
 
+                            </div>
+                            <div class="col col-5" align="center">
+                                <b>ជម្រើស</b>
+                            </div>
+                            <div class="col col-5" align="center">
+                            </div>
+                            <div class="col col-5">
+                            </div>
                         </div>
-                        <div class="col col-5" align="center">
-                          <b>ជម្រើស</b>
-                        </div>
-                        <div class="col col-5" align="center">
-                        </div>
-                        <div class="col col-5">
-                        </div>
-                </div>
-                {{#each saleDetails}}
-                    {{> saleDetail}}
-                {{/each}}
-                {{#if hasMore}}
-                    <div class="col col-20 col-offset-50">
-                        <button class="button button-positive loadMore">Load More</button>
+                        {{#each saleDetails}}
+                            {{> saleDetail}}
+                        {{/each}}
+                        {{#if hasMore}}
+                            <div class="col col-20 col-offset-50">
+                                <button class="button button-positive loadMore">Load More</button>
+                            </div>
+                        {{/if}}
                     </div>
-                {{/if}}
+                    {{#with saleInvoice}}
+                        {{> saleInvoiceTotal}}
+                    {{/with}}
+                </div>
             </div>
-            {{#with saleInvoice}}
-                {{> saleInvoiceTotal}}
-            {{/with}}
-          </div>
-        </div>
         {{/ionContent}}
     {{/ionView}}
     {{> _sale_invoice_tabs}}
@@ -135,6 +135,7 @@
             </div>
             {{/if}}
         <!-- </div> -->
+
     </div>
     <!-- <div class="item tabs tabs-secondary tabs-icon-left" style="background: #ddd;">
       <a class="tab-item" href="#" data-action="fake">
@@ -162,18 +163,6 @@
                         </div>
                         <div class="col col-50">
                             <b>{{numFormat subTotal '0,0'}} {{exchangeRate.symbol}}</b>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-10">
-                            <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editDiscount" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
-                            <a href="{{goToEditDiscount}}" class="assertive edit-discount">{{> ionIcon icon="edit"}}</a>
-                        </div>
-                        <div class="col col-20">
-                            បញ្ចុះតម្លៃ
-                        </div>
-                        <div class="col col-50">
-                            <b>{{discount}}</b>
                         </div>
                     </div>
                     <div class="row">
@@ -212,15 +201,14 @@
                         <div class="col col-20">
                             <b>{{numFormat balanceAmount '0,0'}} {{exchangeRate.symbol}}</b>
                         </div>
-
-                    </div>
-
+                </div>
             </div>
         </div>
         {{#if isOfficerCheque _customer.type}}
-          <a href="#" class="button  button-positive save-officer-cheque">{{> ionIcon icon="ios-download-outline"}}&nbsp;រក្សាទុក</a>
+            <a href="#" class="button  button-positive save-officer-cheque">{{> ionIcon icon="ios-download-outline"}}
+                &nbsp;រក្សាទុក</a>
         {{else}}
-          <a href="{{goToPayment}}" class="button  button-balanced payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
+            <a href="{{goToPayment}}" class="button  button-balanced payment">{{> ionIcon icon="calculator"}}គិតលុយ</a>
         {{/if}}
         {{/with}}
     </div>
@@ -229,11 +217,11 @@
 
 
 <template name="_sale_invoice_tabs">
-    <!-- {{#if isAndroid}}
-        {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
-            {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
-            {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
-            {{> ionTab title="លក់ថ្មី" href=goToTable icon="coffee"}}
+<!-- {{#if isAndroid}}
+    {{#ionTabs style="android" class="tabs-background-balanced tabs-color-light"}}
+        {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
+        {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more" icon="ios-cart"}}
+        {{> ionTab title="លក់ថ្មី" href=goToTable icon="coffee"}}
             <a class="tab-item" data-ion-modal="searchSaleForMerge">
               <i class="icon ion-ios-download assertive"></i>
               ផ្ទេរវិក័យប័ត្រ
@@ -244,72 +232,75 @@
                 ផ្ទេរទំនិញ
               </a>
               {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
-            {{/if}}
-        {{/ionTabs}}
-    {{else}} -->
-        {{#ionTabs style="ios"}}
-            {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
-            <!-- {{#if noPayment}}
-                {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
-            {{/if}} -->
-            {{> ionTab title="លក់ថ្មី" path="restaurant.select.table" class="positive" iconOff="coffee" iconOn="coffee"}}
-            {{#if noPayment}}
-                <a class="tab-item" data-ion-modal="searchSaleForMerge">
-                  <i class="icon ion-ios-download assertive"></i>
-                  ផ្ទេរវិក័យប័ត្រ
-                </a>
-            {{/if}}
-            {{#if hasDetachSaleDetail}}
-              <a class="tab-item" data-ion-modal="transferItem">
+    {{/if}}
+    {{/ionTabs}}
+{{else}} -->
+    {{#ionTabs style="ios"}}
+        {{> ionTab title="បោះពុម្ភ" class="sale-print positive" icon="printer"}}
+        <!-- {{#if noPayment}}
+            {{> ionTab title="កម្ម៉ង់បន្ថែម" href=goToCheckout class="order-more positive" icon="ios-cart"}}
+        {{/if}} -->
+        {{#if enableFastSale}}
+            {{> ionTab title="លក់លឿន" class="fastSell" iconOff="ios-cart" iconOn="ios-cart"}}
+        {{/if}}
+        {{> ionTab title="លក់ថ្មី" path="restaurant.select.table" class="positive" iconOff="coffee" iconOn="coffee"}}
+        {{#if noPayment}}
+            <a class="tab-item" data-ion-modal="searchSaleForMerge">
+                <i class="icon ion-ios-download assertive"></i>
+                ផ្ទេរវិក័យប័ត្រ
+            </a>
+        {{/if}}
+        {{#if hasDetachSaleDetail}}
+            <a class="tab-item" data-ion-modal="transferItem">
                 <i class="icon ion-log-in balanced"></i>
                 ផ្ទេរទំនិញ
-              </a>
-              {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
-            {{/if}}
-            {{> ionTab title="ផ្អាកវិក័យប័ត្រ&កូពី" class="cancel-and-copy icon-teal" icon="ios-copy"}}
-            {{> ionTab title="ផ្អាកវិក័យប័ត្រ" class="cancel-invoice  assertive" icon="close-circled"}}
+            </a>
+            {{> ionTab title="បំបែកវិក័យប័ត្រ" path="#" class="positive detachSaleDetail" iconOff="share" iconOn="share"}}
+        {{/if}}
+        {{> ionTab title="ផ្អាកវិក័យប័ត្រ&កូពី" class="cancel-and-copy icon-teal" icon="ios-copy"}}
+        {{> ionTab title="ផ្អាកវិក័យប័ត្រ" class="cancel-invoice  assertive" icon="close-circled"}}
 
-        {{/ionTabs}}
-    <!-- {{/if}} -->
+    {{/ionTabs}}
+        <!-- {{/if}} -->
 </template>
 
 <template name="tableHeader">
     <div class="list card" style="white-space: nowrap;">
-            <div class="row">
-                <div class="col col-10">
-                    <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editSale" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
-                    <a href="{{goToEditSale}}" class="assertive edit-sale">{{> ionIcon icon="edit"}}កែប្រែ</a>
-                </div>
-                <div class="col col-10">
-                    <b>តុៈ</b>
-                </div>
-                <div class="col col-10">
-                    {{_table._tableLocation.name}}/{{_table.name}}
-                </div>
-                <div class="col col-10">
-                    <b>ថ្ងៃទីៈ</b>
-                </div>
-                <div class="col col-15 saleDate">
-                    {{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}
-                </div>
-                <div class="col col-10">
-                    <b>អតិថិជនៈ</b>
-                </div>
-                <div class="col col-10">
-                    {{_customer.name}}
-                </div>
-                <div class="col col-5">
-                    <b>ចំនួនភ្ញៀវ:</b>
-                </div>
-                <div class="col col-5 numberOfCustomer">
-                    {{numberOfCustomer}}
-                </div>
-                <div class="col col-10">
-                    <b>បុគ្គលិក:</b>
-                </div>
-                <div class="col col-10">
-                    {{_staff.profile.username}}
-                </div>
+        <div class="row">
+            <div class="col col-10">
+                <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editSale" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
+                <a href="{{goToEditSale}}" class="assertive edit-sale">{{> ionIcon icon="edit"}}កែប្រែ</a>
             </div>
+            <div class="col col-10">
+                <b>តុៈ</b>
+            </div>
+            <div class="col col-10">
+                {{_table._tableLocation.name}}/{{_table.name}}
+            </div>
+            <div class="col col-10">
+                <b>ថ្ងៃទីៈ</b>
+            </div>
+            <div class="col col-15 saleDate">
+                {{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}
+            </div>
+            <div class="col col-10">
+                <b>អតិថិជនៈ</b>
+            </div>
+            <div class="col col-10">
+                {{_customer.name}}
+            </div>
+            <div class="col col-5">
+                <b>លេខ:</b>
+            </div>
+            <div class="col col-5 numberOfCustomer">
+                {{numberOfCustomer}}
+            </div>
+            <!--<div class="col col-10">-->
+            <!--<b>បុគ្គលិក:</b>-->
+            <!--</div>-->
+            <!--<div class="col col-10">-->
+            <!--{{_staff.profile.username}}-->
+            <!--</div>-->
+        </div>
     </div>
 </template>

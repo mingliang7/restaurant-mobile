@@ -14,7 +14,7 @@ AutoForm.hooks({
         let stockEnabled = Restaurant.Collection.StockEnabled.findOne();
         console.log();
         if(doc.$set.enableReduceStock && (!stockEnabled.enabledDate || stockEnabled.enabledDate == '')){
-          doc.$set.enabledDate = new Date();
+          doc.$set.enabledDate = moment().toDate();
         }
         if(!doc.$set.enableReduceStock){
           doc.$set.enabledDate = '';

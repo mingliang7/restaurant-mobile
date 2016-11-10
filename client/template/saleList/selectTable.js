@@ -82,32 +82,43 @@ Template.restaurantSelectTable.events({
     let tableLocationId = this.tableLocationId;;
     let tableId = this._id;
     let selector = {};
-    selector.saleDate = new Date();
+    selector.saleDate = moment().toDate();
     selector.status = "active";
     selector.tableId = tableId;
     selector.tableLocation = tableLocationId;
-    alertify.defaults.glossary.title = `សូមវាយបញ្ចូលចំនួនភ្ញៀវ`;
-    alertify.prompt('', '',
-      function(evt, value) {
-      var numericReg = /^\d*[0-9](|.\d*[0-9]|,\d*[0-9])?$/;
-       if (!numericReg.test(value) || value == '0') {
-           alertify.warning('សូមវាយបញ្ចូលចំនួនជាលេខ');
-       }else{
-         selector.numberOfCustomer = parseInt(value);
-         Meteor.call('insertSale', selector, (err, result) => {
-           if (err) {
-             Bert.alert(err.message,'danger', 'growl-bottom-right');
-             IonLoading.hide();
-           } else {
-             IonLoading.hide();
-             Session.set('invoiceId', result);
-             Router.go(`/restaurant/sale/${tableLocationId}/table/${tableId}/saleInvoice/${result}`);
-            //  Router.go(`/restaurant/saleList/location/${tableLocationId}/table/${tableId}/checkout/${result}`);
-           }
-         })
-       }
+    Meteor.call('insertSale', selector, (err, result) => {
+      if (err) {
+        Bert.alert(err.message, 'danger', 'growl-bottom-right');
+        IonLoading.hide();
+      } else {
+        IonLoading.hide();
+        Session.set('invoiceId', result);
+        Router.go(`/restaurant/sale/${tableLocationId}/table/${tableId}/saleInvoice/${result}`);
+        //  Router.go(`/restaurant/saleList/location/${tableLocationId}/table/${tableId}/checkout/${result}`);
       }
-    );
+    });
+    // alertify.defaults.glossary.title = `សូមវាយបញ្ចូលចំនួនភ្ញៀវ`;
+    // alertify.prompt('', '',
+    //   function(evt, value) {
+    //   var numericReg = /^\d*[0-9](|.\d*[0-9]|,\d*[0-9])?$/;
+    //    if (!numericReg.test(value) || value == '0') {
+    //        alertify.warning('សូមវាយបញ្ចូលចំនួនជាលេខ');
+    //    }else{
+    //      selector.numberOfCustomer = parseInt(value);
+    //      Meteor.call('insertSale', selector, (err, result) => {
+    //        if (err) {
+    //          Bert.alert(err.message,'danger', 'growl-bottom-right');
+    //          IonLoading.hide();
+    //        } else {
+    //          IonLoading.hide();
+    //          Session.set('invoiceId', result);
+    //          Router.go(`/restaurant/sale/${tableLocationId}/table/${tableId}/saleInvoice/${result}`);
+    //         //  Router.go(`/restaurant/saleList/location/${tableLocationId}/table/${tableId}/checkout/${result}`);
+    //        }
+    //      })
+    //    }
+    //   }
+    // );
   },
   'click .current-order' () {
     let sale = Restaurant.Collection.Sales.findOne({

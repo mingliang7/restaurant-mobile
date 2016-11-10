@@ -80,7 +80,7 @@ Template.restaurantSaleTableLocationShow.events({
     let tableLocationId = Router.current().params.tableLocationId;;
     let tableId = $(event.currentTarget).parents('.item').find('.table-id').text();
     let selector = {};
-    selector.saleDate = new Date();
+    selector.saleDate = moment().toDate();
     selector.status = "active";
     selector.tableId = tableId;
     selector.tableLocation = tableLocationId;
