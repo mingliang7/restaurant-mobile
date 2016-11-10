@@ -147,7 +147,7 @@ Restaurant.Collection.Products.search = function(query, limit) {
           $regex: reg
         }
 
-      }];
+      }, {categoryId: query}];
 
   return Restaurant.Collection.Products.find(selector, {
     sort: {

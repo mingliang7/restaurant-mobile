@@ -1,69 +1,69 @@
 <template name="restaurantSetting">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="home" text="ទំព័រដើម"}}
-  {{/contentFor}}
-  {{#contentFor "headerTitle"}}
-    <h1 class="title">ការកំណត់</h1>
-  {{/contentFor}}
-  {{#ionView}}
-    {{#ionContent}}
-      {{#ionList}}
-        {{#if isInRole 'setting, super'}}
-        <a class="item item-icon-left item-icon-right" href="/restaurant/user-profiles">
-            {{> ionIcon icon="ios-people" class="assertive"}}
-          កំណត់សិទ្ធអ្នកប្រើប្រាស់
-            {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-        </a>
-        <a class="item item-icon-left item-icon-right" href="/restaurant/stockEnabled">
-            {{> ionIcon icon="gear-a" class="assertive"}}
-          ការកំណត់ស្តុក
-            {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-        </a>
-          <a class="item item-icon-left item-icon-right" href="/restaurant/company">
-              {{> ionIcon icon="ios-home-outline" class="assertive"}}
-            ក្រុមហ៊ុន
-              {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-          </a>
-        <a class="item item-icon-left item-icon-right" href="/restaurant/exchange-rate">
-          {{> ionIcon icon="cash" class="assertive"}}
-          អត្រាប្តូរប្រាក់
-          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-        </a>
-        <a class="item item-icon-left item-icon-right" href="/restaurant/unit">
-          {{> ionIcon icon="cube" class="assertive"}}
-          ឯកតា
-          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-        </a>
-        <a class="item item-icon-left item-icon-right" href="/restaurant/category">
-          {{> ionIcon icon="clipboard" class="assertive"}}
-          ផ្នែក
-          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-        </a>
-        <a class="item item-icon-left item-icon-right" href="/restaurant/materialCategory">
-          {{> ionIcon icon="funnel" class="assertive"}}
-          ផ្នែកវត្ថុធាតុដើម
-          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-        </a>
+    {{#contentFor "headerButtonLeft"}}
+        {{>ionNavBackButton path="home" text="ទំព័រដើម"}}
+    {{/contentFor}}
+    {{#contentFor "headerTitle"}}
+        <h1 class="title">ការកំណត់</h1>
+    {{/contentFor}}
+    {{#ionView}}
+        {{#ionContent}}
+            {{#ionList}}
+                {{#if isInRole 'setting, super'}}
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/user-profiles">
+                        {{> ionIcon icon="ios-people" class="assertive"}}
+                        កំណត់សិទ្ធអ្នកប្រើប្រាស់
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/stockEnabled">
+                        {{> ionIcon icon="gear-a" class="assertive"}}
+                        ការកំណត់ស្តុក
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/company">
+                        {{> ionIcon icon="ios-home-outline" class="assertive"}}
+                        ក្រុមហ៊ុន
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/exchange-rate">
+                        {{> ionIcon icon="cash" class="assertive"}}
+                        អត្រាប្តូរប្រាក់
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/unit">
+                        {{> ionIcon icon="cube" class="assertive"}}
+                        ឯកតា
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/category">
+                        {{> ionIcon icon="clipboard" class="assertive"}}
+                        ផ្នែក
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/materialCategory">
+                        {{> ionIcon icon="funnel" class="assertive"}}
+                        ផ្នែកវត្ថុធាតុដើម
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
 
-        <a class="item item-icon-left item-icon-right" href="/restaurant/product">
-          {{> ionIcon icon="beer" class="assertive"}}
-          ទំនិញ
-          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-        </a>
-          <a class="item item-icon-left item-icon-right" href="/restaurant/materials">
-          {{> ionIcon icon="erlenmeyer-flask" class="assertive"}}
-          វត្ថុធាតុដើម
-          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-        </a>
-        {{/if}}
-        {{#if isInRole 'super'}}
-        <a class="item item-icon-left item-icon-right" href="/restaurant/seeds">
-          {{> ionIcon icon="soup-can" class="assertive"}}
-          Seed Data
-          {{> ionIcon icon="ios-arrow-forward" class="positive"}}
-        </a>
-        {{/if}}
-      {{/ionList}}
-    {{/ionContent}}
-  {{/ionView}}
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/product">
+                        {{> ionIcon icon="beer" class="assertive"}}
+                        ទំនិញ
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/materials">
+                        {{> ionIcon icon="erlenmeyer-flask" class="assertive"}}
+                        វត្ថុធាតុដើម
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
+                {{/if}}
+                {{#if isInRole 'super'}}
+                    <a class="item item-icon-left item-icon-right" href="/restaurant/seeds">
+                        {{> ionIcon icon="soup-can" class="assertive"}}
+                        Seed Data
+                        {{> ionIcon icon="ios-arrow-forward" class="positive"}}
+                    </a>
+                {{/if}}
+            {{/ionList}}
+        {{/ionContent}}
+    {{/ionView}}
 </template>

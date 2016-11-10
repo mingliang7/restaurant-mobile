@@ -1,6 +1,6 @@
 Meteor.methods({
     saleInSemester(selector){
-        var currentDate = new Date();
+        var currentDate = moment().toDate();
         var tmpDate = moment(currentDate).format('YYYY-MM-DD 00:00:00')
         var currentMonth =new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
         var firstDateOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, 1);

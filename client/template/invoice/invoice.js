@@ -18,7 +18,7 @@ Template.restaurantInvoice.helpers({
   goBack() {
     Meteor.setTimeout(() => {
       window.print();
-      Router.go('/restaurant/selectTable')
+      Router.go('/')
     }, 1000)
   }
 });

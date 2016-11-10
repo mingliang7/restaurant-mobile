@@ -14,9 +14,9 @@ Say we have collection called `Posts`:
 
 ```js
 {
-	createdAt: new Date(),
+	createdAt: moment().toDate(),
 	createdBy: userId,
-	updatedAt: new Date(),
+	updatedAt: moment().toDate(),
 	updatedBy: userId,
 }
 ```
@@ -163,7 +163,7 @@ Say we have collection called `Invoice` that have `items` field like this:
 ```js
 {
 	_id:
-	invoiceDate: new Date(),
+	invoiceDate: moment().toDate(),
 	items: [
 		null,
 		{itemId: 1, itemName: ABC, qty: 10, price: 50, amount: 500},

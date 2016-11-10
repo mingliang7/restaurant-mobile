@@ -1,0 +1,27 @@
+.select-category > a.item{
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -ms-transition: all .3s ease-out; /* IE10 is actually unprefixed */
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+}
+.select-category > a.item:hover {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    background: #387EF5;
+}
+a.active.item{
+    background: #387EF5;
+    color: #ffffff;
+    cursor: pointer;
+
+}
+
+.product-list > a.item {
+}
+
+.product-list > a.item:active{
+    background: lightblue;
+    color: #fff;
+}

@@ -35,7 +35,7 @@ Template.restaurantActivePaymentInvoice.helpers({
       let selector = {
         customerId: sale.customerId,
         saleId: sale._id,
-        paymentDate: new Date(),
+        paymentDate: moment().toDate(),
         paidAmount: sale.balanceAmount,
         dueAmount: sale.balanceAmount,
         balanceAmount: 0

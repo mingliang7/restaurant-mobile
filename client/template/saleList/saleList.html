@@ -1,76 +1,70 @@
 <template name="restaurantSaleList">
-      <div class="col col-33" >
-          <!-- {{#each categories}}
-            <div class="col col-30" style="display: inline-block;">
-
-
-              <div class="item-custom item-checkbox item-input-wrapper-custom item-text-wrap">
-        <label class="checkbox">
-          <input type="checkbox" class="cursor-p category">
-        </label>
-        {{name}}
-      </div>
-
-            <label class="item-input-wrapper">
-              <label class="toggle">
-                <input type="checkbox" class="cursor-p category">
-                <div class="track">
-                  <div class="handle"></div>
-                </div>
-              </label>
-              {{name}}
-            </label>
-            </div>
-          {{/each}} -->
+    <br>
+    <div class="col col-10">
+        <br>
+        <ul class="select-category">
+            <a class="{{activeSearch}} item selectCategory"> <i class="ion ion-search"></i> Search</a>
+            {{#each categories}}
+                <a class="{{activeCategory}} item selectCategory">{{name}}</a>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="col col-33">
         <div class="list card">
-        <label class="item-input-wrapper">
-          <a href="#" data-ion-modal="newProductModal">
-            {{> ionIcon icon="ios-plus-empty" class="placeholder-icon cursor-p"}}
-          </a>
-          <input type="text" placeholder="ស្វែងរកទំនិញ" value="{{searchListQuery}}" style="width: 100%; border: 1px solid #ddd" class="search">
-        </label>
+            <label class="item-input-wrapper">
+                <a href="#" data-ion-modal="newProductModal">
+                    {{> ionIcon icon="ios-plus-empty" class="placeholder-icon cursor-p"}}
+                </a>
+                <input type="text" placeholder="ស្វែងរកទំនិញ" value="{{searchListQuery}}"
+                       style="width: 100%; border: 1px solid #ddd" class="search">
+            </label>
         </div>
         <br>
 
-        <ul >
-          {{#each products}}
-            {{> _saleListItem}}
-          {{/each}}
-
-              <div class="col col-offset-50" >
+        <div class="list product-list">
+            {{#each products}}
+                {{> _saleListItem}}
+            {{/each}}
+            <div class="col col-offset-50">
                 <button class="button button-positive loadMoreProduct">បង្ហាញបន្ថែម</button>
-              </div>
-        </ul>
-      </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 
 <template name="_saleListItem">
-      <a href="#" class="item cursor-p order">
-        <p>
-          <b>{{name}}({{enName}})</b> | តម្លៃៈ <b>{{price}}</b> | គិតជាៈ <b>{{_unit.name}}</b>
-        </p>
-      </a>
+    <a class="animated fadeIn item item-thumbnail-left order" href="#">
+        <img src="{{images}}">
+        <h2>{{name}}({{enName}})</h2>
+        <p>តម្លៃៈ <b>{{numFormat price '0,0'}}</b> | គិតជាៈ <b>{{_unit.name}}</b></p>
+    </a>
+
+    <!--<a href="#" class="item cursor-p order">-->
+    <!--<p>-->
+    <!--<b>{{name}}({{enName}})</b> | តម្លៃៈ <b>{{price}}</b> | គិតជាៈ <b>{{_unit.name}}</b>-->
+    <!--</p>-->
+    <!--</a>-->
 </template>
 
 
 <template name="newProductModal">
-      {{#ionModal customTemplate=true}}
+    {{#ionModal customTemplate=true}}
         {{#autoForm collection="Restaurant.Collection.Products" id="newProduct" type="insert"}}
-          <div class="bar bar-header bar-stable">
-              <button data-dismiss="modal" type="button" class="button button-clear">បោះបង់</button>
-              <h2 class="title">បន្ថែមទំនិញ</h2>
-              <button type="submit" class="button button-positive button-clear">កែប្រែ</button>
-          </div>
-          <div class="content has-header overflow-scroll">
-            {{> afQuickField name='name'}}
-            {{> afQuickField name='enName'}}
-            {{> afQuickField name='unitId'}}
-            {{> afQuickField name='price'}}
-            {{> afQuickField name='categoryId'}}
-            {{> afQuickField name='status' }}
-            {{> afQuickField name='description'}}
-          </div>
-      {{/autoForm}}
-  {{/ionModal}}
+            <div class="bar bar-header bar-stable">
+                <button data-dismiss="modal" type="button" class="button button-clear">បោះបង់</button>
+                <h2 class="title">បន្ថែមទំនិញ</h2>
+                <button type="submit" class="button button-positive button-clear">កែប្រែ</button>
+            </div>
+            <div class="content has-header overflow-scroll">
+                {{> afQuickField name='name'}}
+                {{> afQuickField name='enName'}}
+                {{> afQuickField name='unitId'}}
+                {{> afQuickField name='price'}}
+                {{> afQuickField name='categoryId'}}
+                {{> afQuickField name='status' }}
+                {{> afQuickField name='description'}}
+            </div>
+        {{/autoForm}}
+    {{/ionModal}}
 </template>
