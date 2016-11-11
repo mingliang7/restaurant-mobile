@@ -44,9 +44,9 @@ Meteor.methods({
         data.footer = {
             subTotal: numeral(sale.subTotal).format('0,0.00'),
             discount: numeral(sale.discount).format('0,0'),
-            total: numeral(payment.dueAmount).format('0,0'),
-            paidAmount: numeral(payment.paidAmount).format('0,0'),
-            balanceAmount: numeral(payment.change).format('0,0'),
+            total: numeral(payment.dueAmount).format('0,0.00'),
+            paidAmount: numeral(payment.paidAmount).format('0,0.00'),
+            balanceAmount: numeral(payment.change).format('0,0.00'),
             totalConverts: totalConverts,
             paidAmountUs:numeral(paidAmountUs).format('0,0'),
             balanceAmountUs:numeral(balanceAmountUs).format('0,0')
