@@ -63,6 +63,10 @@ Restaurant.Collection.Sales.searchByTable = function(query, locations, status, d
     }]
   } else {
     selector.$or = [{
+      _id: {
+        $regex: reg
+      }
+    },{
       '_table._tableLocation.name': {
         $regex: reg
       }
