@@ -10,13 +10,13 @@ Meteor.methods({
             status: false
         };
     },
-    insertSale(selector) {
+    insertSale(selector, fDate) {
         let fastSell = false;
-        if (_.isUndefined(selector)) {
+        if (!selector) {
             fastSell = true;
             selector = {};
             let table = Restaurant.Collection.Tables.findOne({}, {_id: 1});
-            selector.saleDate = moment().toDate();
+            selector.saleDate = fDate;
             selector.status = "active";
             selector.tableId = table._id;
             selector.tableLocation = table.tableLocationId;

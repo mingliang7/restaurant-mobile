@@ -11,7 +11,7 @@
                         </h4>
                         <p>
                     <span style="font-family:'Khmer OS Fasthand','Khmer OS Freehand';">
-                         {{company.address}}</span>
+                        {{company.address}}</span>
                             <br>
                             <span>Tel: {{company.phoneNumber}}</span>
                         </p>
@@ -29,7 +29,8 @@
 
                     <tr>
                         <td style="width: 120px"><b>#</b> : {{sale._id}}</td>
-                        <td align="right" style="text-align: right;"><b>បុគ្គលិក : </b> {{sale._staff.profile.username}}</td>
+                        <td align="right" style="text-align: right;"><b>បុគ្គលិក : </b> {{sale._staff.profile.username}}
+                        </td>
 
                     </tr>
                     <tr>
@@ -38,7 +39,8 @@
                     </tr>
                     <tr>
                         <td style="width: 120px"><b>កាលបរិច្ឆេទ : </b> {{sale.saleDate}} - {{sale.paymentDate}}</td>
-                        <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់ : </b>{{sale.exchangeRate}}៛</td>
+                        <td align="right" style="text-align: right;"><b>អត្រាប្តូរប្រាក់ : </b>{{sale.exchangeRate}}៛
+                        </td>
 
                     </tr>
 
@@ -65,7 +67,7 @@
                         </tr>
                         <tr>
                             <td colspan="5">
-                              <hr size="1"/>
+                                <hr size="1"/>
                             </td>
                         </tr>
                     {{/each}}
@@ -83,9 +85,9 @@
                         <td></td>
                         <td>សរុបរួម:</td>
                         <td align="right" colspan="3"><b>{{footer.total}}{{sale._exchangeRate.symbol}}</b>
-                        = <b>{{#each footer.totalConverts}}
-                          {{total}}{{symbol}}
-                          {{/each}}</b></td>
+                            = <b>{{#each footer.totalConverts}}
+                                {{total}}{{symbol}}
+                            {{/each}}</b></td>
                     </tr>
                     <!--{{#each footer.totalConverts}}
                         <tr>
@@ -96,35 +98,44 @@
                     {{/each}}
                   -->
                     <tr>
-                      <td></td>
-                    <td colspan="4"><hr></td>
+                        <td></td>
+                        <td colspan="4">
+                            <hr>
+                        </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>បានបង់:</td>
                         <td align="right" colspan="3">
-                          <b>{{footer.paidAmount}}{{sale._exchangeRate.symbol}}</b>
-                          =<b>{{footer.paidAmountUs}}$</b>
+                            <b>{{footer.paidAmount}}{{sale._exchangeRate.symbol}}</b>
+                            =<b>{{footer.paidAmountUs}}$</b>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         {{#if negativeNumber footer.balanceAmount}}
-                          <td>លុយអាប់​​​​​់:</td>
-                          <td align="right" colspan="3">
-                            <b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b>
-                          =<b>{{footer.balanceAmountUs}}</b>
-                        </td>
+                            <td>លុយអាប់​​​​​់:</td>
+                            <td align="right" colspan="3">
+                                <b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b>
+                                =<b>{{footer.balanceAmountUs}}</b>
+                            </td>
                         {{else}}
-                          <td>លុយជំពាក់:</td>
-                          <td align="right" colspan="3"><b>{{convertNumber footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b>
-                          =<b>{{footer.balanceAmountUs}}$</b>
-                        </td>
+                            <td>លុយជំពាក់:</td>
+                            <td align="right" colspan="3"><b>{{convertNumber
+                                    footer.balanceAmount}}{{sale._exchangeRate.symbol}}</b>
+                                =<b>{{footer.balanceAmountUs}}$</b>
+                            </td>
                         {{/if}}
                     </tr>
 
                 </table>
-                <div>សូមអរគុណ!</div>
+                <div>
+                    <br>
+                    {{#if sale.description}}
+                        <b>ចំណាំ:</b>{{sale.description}}
+                    {{/if}}
+                    <p align="center">សូមអរគុណ!</p>
+                </div>
                 <div style="width: 253px;margin:0 auto;">
                     <hr style="border-top: 1px dashed #8c8b8b;
 	border-bottom: 1px dashed #fff;">

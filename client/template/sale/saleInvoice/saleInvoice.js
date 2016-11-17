@@ -291,7 +291,7 @@ Template._sale_invoice_tabs.helpers({
 
 Template._sale_invoice_tabs.events({
     'click .fastSell'(event, instance){
-        Meteor.call('insertSale', (err, result) => {
+        Meteor.call('insertSale', undefined, moment().toDate(), (err, result) => {
             if (err) {
                 Bert.alert(err.message, 'danger', 'growl-bottom-right');
                 IonLoading.hide();
