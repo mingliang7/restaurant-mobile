@@ -21,6 +21,7 @@ Template.restaurantSaleList.created = function () {
 
 };
 Template.restaurantSaleList.rendered = function () {
+    $('.search').focus();
     Session.set('limit', 10);
     Session.set('filter', {});
 };
@@ -61,6 +62,7 @@ Template.restaurantSaleList.events({
                 Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`)
             }
         });
+        $('.search').focus();
     },
     'click .remove-sale-detail' () {
         let saleDetailObj = Session.get('saleDetailObj');
