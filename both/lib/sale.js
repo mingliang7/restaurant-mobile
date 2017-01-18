@@ -20,7 +20,7 @@ Sale = {
       subTotal += saleDetail.amount;
     });
     total = subTotal * (1 - sale.discount / 100);
-    sale.text = `${sale._id} | ${total} | ${text}  `;
+    sale.text = `${sale._id} | ${numeral(total).format('0,0.00')} | ${text}  `;
     if(hasDiscount){
       Restaurant.Collection.Sales.direct.update(saleId, {
         $set: {

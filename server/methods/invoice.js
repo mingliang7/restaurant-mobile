@@ -27,6 +27,7 @@ Meteor.methods({
         });
         let i = 1;
         saleDetails.forEach(function (saleDetail) {
+            saleDetail._product = Restaurant.Collection.Products.findOne({_id: saleDetail.productId});
             saleDetail.order = i;
             saleDetail.amount = numeral(saleDetail.amount).format('0,0.00');
             i++;
@@ -77,6 +78,7 @@ Meteor.methods({
         });
         let i = 1;
         saleDetails.forEach(function (saleDetail) {
+            saleDetail._product = Restaurant.Collection.Products.findOne({_id: saleDetail.productId});
             saleDetail.order = i;
             saleDetail.amount = numeral(saleDetail.amount).format('0,0.00');
             i++;
