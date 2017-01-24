@@ -287,29 +287,28 @@
                 <!-- <a href="#" class="assertive edit-sale" data-ion-modal="_editSale" data-id="{{_id}}">{{> ionIcon icon="edit"}}កែប្រែ</a> -->
                 <a href="{{goToEditSale}}" class="assertive edit-sale">{{> ionIcon icon="edit"}}កែប្រែ</a>
             </div>
-            <div class="col col-10">
-                <b>តុៈ</b>
+            <div class="col col-10" style="text-align: center;">
+                <b>តុៈ</b> {{_table._tableLocation.name}}/{{_table.name}}
             </div>
-            <div class="col col-10">
-                {{_table._tableLocation.name}}/{{_table.name}}
+            <div class="col col-2">
+                <!-- {{_table._tableLocation.name}}/{{_table.name}} -->
             </div>
-            <div class="col col-10">
+            <div class="col col-10" style="text-align: center;">
                 <b>ថ្ងៃទីៈ</b>
             </div>
-            <div class="col col-15 saleDate">
+            <div class="col col-10 saleDate" style="text-align: center;">
                 {{moFormat saleDate 'YYYY-MM-DD HH:mm:ss'}}
             </div>
-            <div class="col col-10">
-                <b>អតិថិជនៈ</b>
+            <div class="col col-10" >
             </div>
-            <div class="col col-10">
-                {{_customer.name}}
+            <div class="col col-10" style="text-align: right;">
+
             </div>
-            <div class="col col-5">
-                <b>លេខ:</b>
+            <div class="col col-5" style="text-align: center;">
+                <b>អតិថិជនៈ</b>{{_customer.name}}
             </div>
-            <div class="col col-5 numberOfCustomer">
-                {{numberOfCustomer}}
+            <div class="col col-5 numberOfCustomer" style="text-align: center;">
+                <b>លេខ:</b> {{numberOfCustomer}}
             </div>
             <!--<div class="col col-10">-->
             <!--<b>បុគ្គលិក:</b>-->

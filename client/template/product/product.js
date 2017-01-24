@@ -1,6 +1,8 @@
 Template.product.created = function () {
+    this.limitAmount = new ReactiveVar(10);
+    this.skipAmount = new ReactiveVar(0);
     this.autorun(function () {
-        this.subscription = Meteor.subscribe('products');
+        this.subscription = Meteor.subscribe('products', this.limitAmount.get(), this.skipAmount.get());
         this.subscription = Meteor.subscribe("productCount");
     }.bind(this));
 };
@@ -16,23 +18,22 @@ Template.product.rendered = function () {
 
 Template.product.helpers({
     products() {
-        var arr = [];
         var products = Restaurant.Collection.Products.find({}, {sort: {name: 1}});
-        products.forEach(function (product) {
-            // if (product.picture) {
-            //   var img = Images.findOne(product.picture);
-            //   product.url = img.url();
-            // }
-            arr.push(product);
-        });
-        return arr;
+        return products;
     },
     join(tags){
         return tags.join(' ');
+    },
+    checkIfSkipZero(){
+        let instance = Template.instance();
+        return instance.skipAmount.get() == 0;
     }
 });
 
 Template.product.events({
+    'change .limitAmountSelect'(event,instance){
+        instance.limitAmount.set(parseFloat(event.currentTarget.value))
+    },
     'click .remove-product' (event, template) {
         let name = this.name;
         IonPopup.confirm({
@@ -54,9 +55,26 @@ Template.product.events({
                 Bert.alert('មិនយល់ព្រមក្នុងការលុប !', 'info', 'growl-bottom-right', 'fa-info')
             }
         });
+    },
+    'click .next'(event,instance){
+        let limitAmount = instance.limitAmount.get();
+        let skipAmount = instance.skipAmount.get();
+        instance.skipAmount.set(limitAmount + skipAmount);
+    },
+    'click .previous'(event,instance){
+        let limitAmount = instance.limitAmount.get();
+        let skipAmount = instance.skipAmount.get();
+        let calSkip = skipAmount - limitAmount  ;
+        if( calSkip <= 0 ){
+            instance.skipAmount.set(0);
+        }else{
+            instance.skipAmount.set(calSkip);
+        }
     }
 });
-
+Template.product.onDestroyed(function(){
+    Session.set('subProductImages', undefined);
+});
 let removeProduct = (name, id)=> {
     Meteor.call('removeProduct', id, function (err, result) {
         if (err) {

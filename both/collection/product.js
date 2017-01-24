@@ -1,5 +1,5 @@
 Images = new FS.Collection("images", {
-  stores: [new FS.Store.GridFS("images", {})],
+  stores: [new FS.Store.GridFS("images", {path: "~/uploads"})],
   filter: {
     maxSize: 1048576, // in bytes
     allow: {

@@ -1,6 +1,9 @@
 Deps.autorun(function () {
   if (Session.get('searchQuery')) {
     Meteor.subscribe('productsSearch', Session.get('searchQuery'), Session.get('limit'));
+    if (Session.get('subProductImages')) {
+      Meteor.subscribe('subProductImages', {_id: {$in: Session.get('subProductImages')}})
+    }
   }
 });
 
@@ -41,20 +44,32 @@ Template.productSearch.events({
 
 Template.productSearch.helpers({
   products: function () {
-    return Restaurant.Collection.Products.search(Session.get('searchQuery'), Session.get('limit'), ['sale', 'material']);
+    let products = Restaurant.Collection.Products.search(Session.get('searchQuery'), Session.get('limit'), ['sale', 'material']);
+    let arr = [];
+    products.forEach(function (product) {
+        if (product.picture) {
+         arr.push(product.picture);
+        }
+
+    });
+    Session.set('subProductImages', arr)
+    return products;
   },
   searchQuery: function () {
     return Session.get('searchQuery');
   }
-
 });
 
 
 Template._productItem.helpers({
-  findMaterial(id) {
-    return ReactiveMethod.call("getMaterialName", id);
-  },
-  findUnit(id) {
-    return ReactiveMethod.call("getUnitName", id);
-  }
+    findMaterial(id) {
+      return ReactiveMethod.call("getMaterialName", id);
+    },
+    findUnit(id) {
+        return ReactiveMethod.call("getUnitName", id);
+    },
+    images() {
+     let img = Images.findOne(this.picture)
+     return img ? img.url() : ''
+   }
 });

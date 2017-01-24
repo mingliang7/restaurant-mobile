@@ -51,8 +51,30 @@
                     </div>
 
                 {{/each}}
-            </div>
 
+
+            </div>
+            <div class="col col-25"></div>
+            <div class="col col-50 center">
+                {{#unless checkIfSkipZero}}
+                    <a class="previous cursor-pointer" style="cursor: pointer;"> {{> ionIcon icon="chevron-left"}} Previous </a>
+                {{/unless}}
+                <span>
+                    &emsp;
+                    &emsp;
+                    <select class="limitAmountSelect" name="">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    &emsp;
+                    &emsp;
+                </span>
+                <a class="next cursor-pointer" style="cursor: pointer;"> Next {{> ionIcon icon="chevron-right"}} </a>
+            </div>
+            <div class="col col-25"></div>
             <!--before change-->
             <!--{{#ionList}}
                 {{#each products}}

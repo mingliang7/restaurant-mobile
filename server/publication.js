@@ -36,11 +36,15 @@ Meteor.publish('materialCategories', () => {
     }
     return this.ready();
 });
-Meteor.publish('products', (limit) => {
+Meteor.publish('products', (limit, skip) => {
     let amount = limit || 10;
-    let products = Restaurant.Collection.Products.find({}, {
+    let options = {
         limit: amount
-    });
+    }
+    if(skip){
+        options.skip = skip
+    }
+    let products = Restaurant.Collection.Products.find({}, options);
     if (products) {
         return products;
     }
