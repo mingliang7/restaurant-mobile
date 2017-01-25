@@ -138,6 +138,8 @@ Meteor.methods({
             saleDetail.saleId = newSaleId;
             saleDetail._id = idGenerator.genWithPrefix(Restaurant.Collection.SaleDetails, newSaleId, 2);
             saleDetail.isPrinting = true;
+            saleDetail.amount = (saleDetail.quantity + saleDetail.quantityOut) * saleDetail.price;
+            saleDetail.quantity = saleDetail.quantity + saleDetail.quantityOut;
             Restaurant.Collection.SaleDetails.insert(saleDetail);
         });
         Meteor.defer(() => {

@@ -15,8 +15,9 @@
 
             <div class="card row">
                 <div class="col col-10 text-center"><span class="positive">ឈ្មោះ</span></div>
-                <div class="col col-50 text-center"><span class="positive">Tags</span></div>
-                <div class="col col-20 text-center"><span class="positive">Units</span></div>
+                <div class="col col-10 text-center"><span class="positive">បន្ថែមចំនួនសំរាប់ទំនិញ</span></div>
+                <div class="col col-33 text-center"><span class="positive">Tags</span></div>
+                <div class="col col-25 text-center"><span class="positive">Units</span></div>
                 <div class="col col-10 text-center"><span class="positive">ពិពណ៌នា</span></div>
                 <div class="col col-10 text-center"><span class="positive">ជម្រើស</span></div>
             </div>
@@ -25,17 +26,16 @@
                 {{#each categories}}
                     <div class="row">
                         <div class="col col-10" style="border: 1px solid #ddd;">{{name}}</div>
-
+                        <div class="col col-10" style="border: 1px solid #ddd;">{{increaseChildQty}}</div>
                         {{#if tags}}
-                            <div class="col col-50" style="border: 1px solid #ddd;">{{tags}}</div>
+                            <div class="col col-33" style="border: 1px solid #ddd;">{{tags}}</div>
                         {{else}}
-                            <div class="col col-50" style="border: 1px solid #ddd;">No Tags</div>
+                            <div class="col col-33" style="border: 1px solid #ddd;">No Tags</div>
                         {{/if}}
-
                         {{#if units}}
-                            <div class="col col-20" style="border: 1px solid #ddd;">{{units}}</div>
+                            <div class="col col-25" style="border: 1px solid #ddd;">{{units}}</div>
                         {{else}}
-                            <div class="col col-20" style="border: 1px solid #ddd;">No Units</div>
+                            <div class="col col-25" style="border: 1px solid #ddd;">No Units</div>
                         {{/if}}
 
                         <div class="col col-10" style="border: 1px solid #ddd;">{{description}}</div>

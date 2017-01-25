@@ -32,7 +32,7 @@ Sale = {
         }
       });
     }else{
-      if(total == 0){
+      if(total == 0 && saleDetails.length == 0){
         Restaurant.Collection.Sales.direct.remove(saleId);
       }else{
         Restaurant.Collection.Sales.direct.update(saleId, {

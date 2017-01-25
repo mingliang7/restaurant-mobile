@@ -2,16 +2,17 @@ Meteor.methods({
     insertSaleDetail(selector) {
         var saleDetails = [];
         for (let k in selector) {
+            let product = Restaurant.Collection.Products.findOne(selector[k]._id);
+            let category = Restaurant.Collection.Categories.findOne(product.categoryId);
             saleDetails.push({
                 saleId: selector[k].saleId,
                 productId: selector[k]._id,
                 discount: selector[k].discount,
-                amount: selector[k].amount,
-                quantity: selector[k].quantity,
+                amount: selector[k].price * category.increaseChildQty,
+                quantity: category.increaseChildQty,
                 price: selector[k].price
             });
         }
-        console.log(saleDetails)
         var sale = Restaurant.Collection.Sales.findOne(saleDetails[0].saleId);
         if (_.isUndefined(sale.total)) {
             Meteor.defer(() => {
@@ -186,6 +187,17 @@ Meteor.methods({
                 multi: true
             });
         })
+    },
+    updateQtyOut(saleDetailDoc, changeQtyOut){
+        if(saleDetailDoc){
+            let currentTotalQty = saleDetailDoc.quantity + saleDetailDoc.quantityOut;
+            changeQtyOut = changeQtyOut > currentTotalQty ? currentTotalQty : changeQtyOut;
+            let calcQtyAfterQtyOut= currentTotalQty - changeQtyOut;
+            Restaurant.Collection.SaleDetails.update(
+                {_id: saleDetailDoc._id},
+                {$set: {amount: calcQtyAfterQtyOut * saleDetailDoc.price,quantity: calcQtyAfterQtyOut, quantityOut: changeQtyOut}}
+            );
+        }
     }
 });
 

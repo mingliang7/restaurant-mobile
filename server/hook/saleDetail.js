@@ -4,7 +4,7 @@ Restaurant.Collection.SaleDetails.after.insert((userId, doc) => {
   })
 });
 
-Restaurant.Collection.SaleDetails.after.update((userId, doc) => {
+Restaurant.Collection.SaleDetails.after.update(function(userId, doc) {
   Meteor.defer(() => {
     Sale.sumSaleDetail(doc.saleId); //sum sale details
   })

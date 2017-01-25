@@ -1,14 +1,15 @@
-Tracker.autorun(function () {
+Tracker.autorun(function() {
     if (Session.get('paramsInvoiceId')) {
         Meteor.subscribe("sale", Session.get('paramsInvoiceId'));
     }
     if (Session.get('searchListQuery')) {
-        Meteor.subscribe('productsSearch', Session.get('searchListQuery'), Session.get('limit'));
+        Meteor.subscribe('productsSearch', Session.get(
+            'searchListQuery'), Session.get('limit'));
     }
 });
 
 
-Template.restaurantSaleTableSaleInvoice.created = function () {
+Template.restaurantSaleTableSaleInvoice.created = function() {
     let saleId = Router.current().params.invoiceId;
     Session.set('limit', 10);
     Session.set('saleDetailObj', {});
@@ -18,11 +19,13 @@ Template.restaurantSaleTableSaleInvoice.created = function () {
         this.subscribe = Meteor.subscribe("sale", saleId);
         this.subscribe = Meteor.subscribe("saleDetailCount", saleId);
         this.subscribe = Meteor.subscribe('productCount');
-        this.subscribe = Meteor.subscribe("saleDetails", Router.current().params.invoiceId, Session.get('saleDetailLimited'));
+        this.subscribe = Meteor.subscribe("saleDetails", Router.current()
+            .params.invoiceId, Session.get('saleDetailLimited')
+        );
     });
 };
 
-Template.restaurantSaleTableSaleInvoice.rendered = function () {
+Template.restaurantSaleTableSaleInvoice.rendered = function() {
     try {
         this.autorun(() => {
             if (!this.subscription.ready()) {
@@ -38,47 +41,48 @@ Template.restaurantSaleTableSaleInvoice.rendered = function () {
 
 Template.restaurantSaleTableSaleInvoice.helpers({
     invoiceNumber() {
-        let invoiceId = Router.current().params.invoiceId;
-        return `វិក័យប័ត្រលេខ: ${invoiceId}`;
-    },
-    saleDetails() {
-        let limit = Session.get('saleDetailLimited');
-        let saleId = Router.current().params.invoiceId;
-        return Restaurant.Collection.SaleDetails.find({
-            saleId: saleId
-        }, {
-            sort: {
-                _id: 1
-            },
-            limit: limit
-        });
-    },
-    saleInvoice() {
-        let saleDoc = Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
-        let last = saleDoc._exchangeRate.rates.last();
+            let invoiceId = Router.current().params.invoiceId;
+            return `វិក័យប័ត្រលេខ: ${invoiceId}`;
+        },
+        saleDetails() {
+            let limit = Session.get('saleDetailLimited');
+            let saleId = Router.current().params.invoiceId;
+            return Restaurant.Collection.SaleDetails.find({
+                saleId: saleId
+            }, {
+                sort: {
+                    _id: 1
+                },
+                limit: limit
+            });
+        },
+        saleInvoice() {
+            let saleDoc = Restaurant.Collection.Sales.findOne(Router.current()
+                .params.invoiceId);
+            let last = saleDoc._exchangeRate.rates.last();
 
-        saleDoc.totalKhr = 0;
-        if (!_.isUndefined(saleDoc.total)) {
-            saleDoc.totalKhr = saleDoc.total * last.rate;
+            saleDoc.totalKhr = 0;
+            if (!_.isUndefined(saleDoc.total)) {
+                saleDoc.totalKhr = saleDoc.total * last.rate;
+            }
+            // saleDoc.subTotalUsd = saleDoc.subTotal * last.rate;
+            // saleDoc.paidAmountUsd = saleDoc.paidAmount * last.rate;
+            // saleDoc.balanceAmountUsd = saleDoc.balanceAmount * last.rate;
+
+            return saleDoc;
+        },
+        goToPayment() {
+            let params = Router.current().params;
+            return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
+        },
+        goToTable() {
+            return `restaurant.select.table`;
+        },
+        hasMore() {
+            let currentLimited = Session.get('saleDetailLimited');
+            let counts = Counts.get('saleDetailCount');
+            return currentLimited < counts
         }
-        // saleDoc.subTotalUsd = saleDoc.subTotal * last.rate;
-        // saleDoc.paidAmountUsd = saleDoc.paidAmount * last.rate;
-        // saleDoc.balanceAmountUsd = saleDoc.balanceAmount * last.rate;
-
-        return saleDoc;
-    },
-    goToPayment() {
-        let params = Router.current().params;
-        return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
-    },
-    goToTable() {
-        return `restaurant.select.table`;
-    },
-    hasMore() {
-        let currentLimited = Session.get('saleDetailLimited');
-        let counts = Counts.get('saleDetailCount');
-        return currentLimited < counts
-    }
 });
 Template.restaurantSaleTableSaleInvoice.events({
     "click .loadMore" () {
@@ -91,49 +95,67 @@ Template.restaurantSaleTableSaleInvoice.events({
 });
 
 Template._sale_invoice_tabs.helpers({
-    enableFastSale(){
-        let saleId = Router.current().params.invoiceId;
-        let saleDetail = Restaurant.Collection.SaleDetails.find({
-            saleId: saleId
-        });
-        return saleDetail.count() <= 0 ? false : true;
-    },
-    goToCheckout() {
-        Session.set('saleDetailObj', {});
-        let params = Router.current().params;
-        // return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`;
-        return `/restaurant/saleList/location/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`
-    },
-    goToTable() {
-        let params = Router.current().params;
-        return `/restaurant/sale/${params.tableLocationId}`;
-    },
-    noPayment() {
-        let sale = Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
-        console.log(sale.paidAmount <= 0)
-        if (sale.paidAmount <= 0) {
-            return true;
+    enableFastSale() {
+            let saleId = Router.current().params.invoiceId;
+            let saleDetail = Restaurant.Collection.SaleDetails.find({
+                saleId: saleId
+            });
+            return saleDetail.count() <= 0 ? false : true;
+        },
+        goToCheckout() {
+            Session.set('saleDetailObj', {});
+            let params = Router.current().params;
+            // return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`;
+            return `/restaurant/saleList/location/${params.tableLocationId}/table/${params.tableId}/checkout/${params.invoiceId}`
+        },
+        goToTable() {
+            let params = Router.current().params;
+            return `/restaurant/sale/${params.tableLocationId}`;
+        },
+        noPayment() {
+            let sale = Restaurant.Collection.Sales.findOne(Router.current()
+                .params.invoiceId);
+            console.log(sale.paidAmount <= 0)
+            if (sale.paidAmount <= 0) {
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
 });
 
 Template.saleDetail.events({
+    'change .qtyOut' (event, instance) {
+        let currentValue = event.currentTarget.value;
+        if (currentValue == '') {
+            $(event.currentTarget).val(this.quantityOut);
+        } else {
+            Meteor.call('updateQtyOut', this, parseInt(currentValue));
+        }
+    },
+    'keypress .qtyOut': function(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        return !(charCode > 31 && (charCode < 48 || charCode > 57));
+    },
     'click .remove-sale-detail' () {
         let data = this;
         IonPopup.confirm({
             title: 'តើអ្នកត្រូវការលុបឬ?',
             template: `លុបទំនិញ ${data._product.name}?`,
             onOk: () => {
-                Meteor.call('removeSaleDetail', data._id, (err, result) => {
+                Meteor.call('removeSaleDetail', data._id, (
+                    err, result) => {
                     if (err) {
-                        Bert.alert(`លុបមិនបានជោគជ័យ! ${data._product.name}`, 'danger', 'growl-bottom-right', 'fa-remove')
+                        Bert.alert(
+                            `លុបមិនបានជោគជ័យ! ${data._product.name}`,
+                            'danger',
+                            'growl-bottom-right',
+                            'fa-remove')
                     } else {
                         // Bert.alert(`លុបបានជោគជ័យ! ${data._product.name}`, 'success', 'growl-bottom-right', 'fa-check')
                     }
                 });
             },
-            onCancel: function () {
+            onCancel: function() {
 
             }
         });
@@ -170,10 +192,10 @@ Template.tableHeader.helpers({
 
 //go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editDiscount
 Template.saleInvoiceTotal.events({
-    "click .save-officer-cheque"(){
+    "click .save-officer-cheque" () {
         debugger
         let invoiceId = Router.current().params.invoiceId;
-        Meteor.call('saveOfficerCheque', invoiceId, (err, result)=> {
+        Meteor.call('saveOfficerCheque', invoiceId, (err, result) => {
             if (err) {
                 alertify.error(err.message);
             } else {
@@ -184,98 +206,106 @@ Template.saleInvoiceTotal.events({
     }
 });
 Template.saleInvoiceTotal.helpers({
-    isOfficerCheque(type){
-        if (type == 'officer') {
-            return true;
-        }
-        return false;
-    },
-    goToPayment() {
-        let params = Router.current().params;
-        return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
-    },
-    multiply: function (val1, val2, id) {
-        debugger;
-        if (val1 != null && val2 != null) {
-            var value = (val1 / val2);
-            if (id != null && id == "KHR") {
-                value = roundRielCurrency(value);
+    isOfficerCheque(type) {
+            if (type == 'officer') {
+                return true;
+            }
+            return false;
+        },
+        goToPayment() {
+            let params = Router.current().params;
+            return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
+        },
+        multiply: function(val1, val2, id) {
+            debugger;
+            if (val1 != null && val2 != null) {
+                var value = (val1 / val2);
+                if (id != null && id == "KHR") {
+                    value = roundRielCurrency(value);
+                    return numeral(value).format('0,0.00');
+                }
                 return numeral(value).format('0,0.00');
             }
-            return numeral(value).format('0,0.00');
-        }
-    },
-    exchangeRate: function () {
-        let invoiceId = Router.current().params.invoiceId;
-        var sale = Restaurant.Collection.Sales.findOne(invoiceId);
-        if (sale != null) {
-            var selector = {
-                _id: sale.exchangeRateId
-            };
-            return ReactiveMethod.call('findOneRecord', 'Restaurant.Collection.ExchangeRates', selector, {});
-            // return Restaurant.Collection.ExchangeRates.findOne(sale.exchangeRateId);
-        } else {
-            var id = "";
-            var company = Restaurant.Collection.Company.findOne();
-            if (company != null) {
-                id = company.baseCurrency;
-            }
-            var selector = {
-                base: id
-            };
-            var option = {
-                sort: {
-                    _id: -1,
-                    createdAt: -1
+        },
+        exchangeRate: function() {
+            let invoiceId = Router.current().params.invoiceId;
+            var sale = Restaurant.Collection.Sales.findOne(invoiceId);
+            if (sale != null) {
+                var selector = {
+                    _id: sale.exchangeRateId
+                };
+                return ReactiveMethod.call('findOneRecord',
+                    'Restaurant.Collection.ExchangeRates', selector, {}
+                );
+                // return Restaurant.Collection.ExchangeRates.findOne(sale.exchangeRateId);
+            } else {
+                var id = "";
+                var company = Restaurant.Collection.Company.findOne();
+                if (company != null) {
+                    id = company.baseCurrency;
                 }
-            };
-            return ReactiveMethod.call('findOneRecord', 'Restaurant.Collection.ExchangeRates', selector, option);
-            /*return Restaurant.Collection.ExchangeRates.findOne({
-             base: id,
-             }, {sort: {_id: -1, createdAt: -1}});*/
+                var selector = {
+                    base: id
+                };
+                var option = {
+                    sort: {
+                        _id: -1,
+                        createdAt: -1
+                    }
+                };
+                return ReactiveMethod.call('findOneRecord',
+                    'Restaurant.Collection.ExchangeRates', selector,
+                    option);
+                /*return Restaurant.Collection.ExchangeRates.findOne({
+                 base: id,
+                 }, {sort: {_id: -1, createdAt: -1}});*/
+            }
+        },
+        goToEditDiscount() {
+            let params = Router.current().params;
+            return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editDiscount`;
+        },
+        saleInvoice() {
+            let sale = Restaurant.Collection.Sales.findOne(Router.current()
+                .params.invoiceId);
+            return sale;
         }
-    },
-    goToEditDiscount() {
-        let params = Router.current().params;
-        return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editDiscount`;
-    },
-    saleInvoice() {
-        let sale = Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
-        return sale;
-    }
 });
 
 //go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editSaleDetail/:saleDetailId
-
 Template.saleDetail.helpers({
-    goToSaleDetailEdit() {
-        let params = Router.current().params;
-        return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editSaleDetail/${this._id}`;
-    },
-    hasDetachSaleDetail() {
-        let id = this._id;
-        debugger
-        let saleDetailObj = Session.get('detachSaleDetailObj');
-        if (!_.isEmpty(saleDetailObj)) {
-            if (_.has(saleDetailObj, id)) {
-                let qty = saleDetailObj[id].qtyChanged == undefined ? '' : saleDetailObj[id].qtyChanged;
-                return {
-                    qty: qty,
-                    flag: true
+        sumQty(qty, qtyOut) {
+                return qty + qtyOut;
+        },
+        goToSaleDetailEdit() {
+            let params = Router.current().params;
+            return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/editSaleDetail/${this._id}`;
+        },
+        hasDetachSaleDetail() {
+            let id = this._id;
+            let saleDetailObj = Session.get('detachSaleDetailObj');
+            if (!_.isEmpty(saleDetailObj)) {
+                if (_.has(saleDetailObj, id)) {
+                    let qty = saleDetailObj[id].qtyChanged == undefined ?
+                        '' : saleDetailObj[id].qtyChanged;
+                    return {
+                        qty: qty,
+                        flag: true
+                    }
                 }
             }
+            return {
+                flag: false
+            };
+        },
+        noPayment() {
+            let sale = Restaurant.Collection.Sales.findOne(Router.current()
+                .params.invoiceId);
+            if (sale.paidAmount <= 0) {
+                return true
+            }
+            return false;
         }
-        return {
-            flag: false
-        };
-    },
-    noPayment() {
-        let sale = Restaurant.Collection.Sales.findOne(Router.current().params.invoiceId);
-        if (sale.paidAmount <= 0) {
-            return true
-        }
-        return false;
-    }
 })
 
 Template._sale_invoice_tabs.helpers({
@@ -290,10 +320,12 @@ Template._sale_invoice_tabs.helpers({
 
 
 Template._sale_invoice_tabs.events({
-    'click .fastSell'(event, instance){
-        Meteor.call('insertSale', undefined, moment().toDate(), (err, result) => {
+    'click .fastSell' (event, instance) {
+        Meteor.call('insertSale', undefined, moment().toDate(), (err,
+            result) => {
             if (err) {
-                Bert.alert(err.message, 'danger', 'growl-bottom-right');
+                Bert.alert(err.message, 'danger',
+                    'growl-bottom-right');
                 IonLoading.hide();
             } else {
                 IonLoading.hide();
@@ -306,8 +338,7 @@ Template._sale_invoice_tabs.events({
     'click .cancel-and-copy' () {
         let params = Router.current().params;
         let invoiceId = params.invoiceId;
-        let tableLocationId = params.tableLocationId;
-        ;
+        let tableLocationId = params.tableLocationId;;
         let tableId = params.tableId;
         let selector = {};
         selector.saleDate = moment().toDate();
@@ -319,19 +350,31 @@ Template._sale_invoice_tabs.events({
             template: `តើអ្នកពិតជាចង់ផ្អាកនិងកូពីវិក័យប័ត្រមួយនេះឬ?`,
             onOk: () => {
                 IonLoading.show()
-                Meteor.call('cancelAndCopy', selector, invoiceId, (err, result) => {
-                    if (err) {
-                        Bert.alert(`ផ្អាកវិក័យប័ត្រនិងកូពីមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
-                        IonLoading.hide()
-                    } else {
-                        let params = Router.current().params;
-                        IonLoading.hide()
-                        Bert.alert(`ផ្អាកវិក័យប័ត្រនិងកូពីបានជោគជ័យ!!`, 'success', 'growl-bottom-right', 'fa-check')
-                        Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`);
-                    }
-                });
+                Meteor.call('cancelAndCopy', selector,
+                    invoiceId, (err, result) => {
+                        if (err) {
+                            Bert.alert(
+                                `ផ្អាកវិក័យប័ត្រនិងកូពីមិនបានជោគជ័យ!`,
+                                'danger',
+                                'growl-bottom-right',
+                                'fa-remove')
+                            IonLoading.hide()
+                        } else {
+                            let params = Router.current()
+                                .params;
+                            IonLoading.hide()
+                            Bert.alert(
+                                `ផ្អាកវិក័យប័ត្រនិងកូពីបានជោគជ័យ!!`,
+                                'success',
+                                'growl-bottom-right',
+                                'fa-check')
+                            Router.go(
+                                `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`
+                            );
+                        }
+                    });
             },
-            onCancel: function () {
+            onCancel: function() {
                 // Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
             }
         });
@@ -343,19 +386,31 @@ Template._sale_invoice_tabs.events({
             template: `តើអ្នកពិតជាចង់ផ្អាកវិក័យប័ត្រមួយនេះឬ?`,
             onOk: () => {
                 IonLoading.show()
-                Meteor.call('cancelInvoice', invoiceId, (err, result) => {
+                Meteor.call('cancelInvoice', invoiceId, (
+                    err, result) => {
                     if (err) {
-                        Bert.alert(`ផ្អាកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
+                        Bert.alert(
+                            `ផ្អាកវិក័យប័ត្រមិនបានជោគជ័យ!`,
+                            'danger',
+                            'growl-bottom-right',
+                            'fa-remove')
                         IonLoading.hide()
                     } else {
-                        let params = Router.current().params;
+                        let params = Router.current()
+                            .params;
                         IonLoading.hide()
-                        Bert.alert(`ផ្អាកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
-                        Router.go('/restaurant/selectTable');
+                        Bert.alert(
+                            `ផ្អាកវិក័យប័ត្របានជោគជ័យ!`,
+                            'success',
+                            'growl-bottom-right',
+                            'fa-check')
+                        Router.go(
+                            '/restaurant/selectTable'
+                        );
                     }
                 });
             },
-            onCancel: function () {
+            onCancel: function() {
                 // Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
             }
         });
@@ -373,21 +428,37 @@ Template._sale_invoice_tabs.events({
             template: `តើអ្នកពិតជាចង់បំបែកវិក័យប័ត្រ?`,
             onOk: () => {
                 IonLoading.show()
-                Meteor.call('detachSaleDetail', params.tableId, params.tableLocationId, detachObj, (err, result) => {
-                    if (err) {
-                        Bert.alert(`បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`, 'danger', 'growl-bottom-right', 'fa-remove')
-                        IonLoading.hide()
-                    } else {
-                        let params = Router.current().params;
-                        IonLoading.hide()
-                        Bert.alert(`បំបែកវិក័យប័ត្របានជោគជ័យ!`, 'success', 'growl-bottom-right', 'fa-check')
-                        Session.set('detachSaleDetailObj', {});
-                        Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`)
-                    }
-                });
+                Meteor.call('detachSaleDetail', params.tableId,
+                    params.tableLocationId, detachObj, (
+                        err, result) => {
+                        if (err) {
+                            Bert.alert(
+                                `បំបែកវិក័យប័ត្រមិនបានជោគជ័យ!`,
+                                'danger',
+                                'growl-bottom-right',
+                                'fa-remove')
+                            IonLoading.hide()
+                        } else {
+                            let params = Router.current()
+                                .params;
+                            IonLoading.hide()
+                            Bert.alert(
+                                `បំបែកវិក័យប័ត្របានជោគជ័យ!`,
+                                'success',
+                                'growl-bottom-right',
+                                'fa-check')
+                            Session.set(
+                                'detachSaleDetailObj', {}
+                            );
+                            Router.go(
+                                `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${result}`
+                            )
+                        }
+                    });
             },
-            onCancel: function () {
-                Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
+            onCancel: function() {
+                Bert.alert('Cancelled', 'info',
+                    'growl-bottom-right', 'fa-info')
             }
         });
     }
@@ -400,9 +471,11 @@ let goToNewInvoice = (location, tableId, saleId) => {
         title: 'បញ្ជាក់',
         template: `ចូលទៅកាន់វិក័យប័ត្រថ្មី`,
         onOk: () => {
-            Router.go(`/restaurant/sale/${location}/table/${tableId}/saleInvoice/${saleId}}`)
+            Router.go(
+                `/restaurant/sale/${location}/table/${tableId}/saleInvoice/${saleId}}`
+            )
         },
-        onCancel: function () {
+        onCancel: function() {
             console.log('cancel')
         }
     });

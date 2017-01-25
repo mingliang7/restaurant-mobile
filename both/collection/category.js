@@ -6,31 +6,37 @@ Restaurant.Schema.Categories = new SimpleSchema({
         //unique: true,
         max: 200
     },
-    description:{
-        type:String,
-        label:"ពិពណ៌នា",
-        optional:true
+    description: {
+        type: String,
+        label: "ពិពណ៌នា",
+        optional: true
     },
     tags: {
-      type: [String],
-      optional: true
+        type: [String],
+        optional: true
     },
     units: {
-      type: [String],
-      optional: true
+        type: [String],
+        optional: true
+    },
+    increaseChildQty: {
+        type: Number,
+        defaultValue: 1,
+        min: 1,
+        label: 'បន្ថែមចំនួនសំរាប់ទំនិញ'
     }
-  /*  parentId:{
-        type:String,
-        label:"ParentId",
-        optional:true,
-        autoform: {
-            type: "select2",
-            options: function () {
-                //return Restaurant.List.category();
-               return Restaurant.List.category("Select Parent | No Parent");
-            }
-        }
-    }*/
+    /*  parentId:{
+          type:String,
+          label:"ParentId",
+          optional:true,
+          autoform: {
+              type: "select2",
+              options: function () {
+                  //return Restaurant.List.category();
+                 return Restaurant.List.category("Select Parent | No Parent");
+              }
+          }
+      }*/
 
 });
 Restaurant.Collection.Categories.attachSchema(Restaurant.Schema.Categories);

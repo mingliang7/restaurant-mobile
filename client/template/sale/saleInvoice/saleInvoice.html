@@ -23,8 +23,11 @@
                             <div class="col col-20">
                                 <b>បរិយាយ</b>
                             </div>
-                            <div class="col col-15">
+                            <div class="col col-5">
                                 <b>ចំនួន</b>
+                            </div>
+                            <div class="col col-20">
+                                <b>ដកចេញ</b>
                             </div>
                             <div class="col col-15">
                                 <b>តម្លៃ</b>
@@ -76,9 +79,21 @@
                 </p>
             {{/if}}
         </div>
-        <div class="col col-15">
-            <h4>{{quantity}}</h4>
-
+        <div class="col col-5">
+            <h4>{{sumQty quantity quantityOut}}</h4>
+        </div>
+        <div class="col col-20">
+            <label class="item item-input">
+            {{#if noPayment}}
+                {{#if isPrinting}}
+                    <input type="number" value="{{quantityOut}}" class="qtyOut" style="font-size: 11px;width: 10%;">
+                {{else}}
+                    <input type="number" value="{{quantityOut}}" readonly="true" style="font-size: 11px;width: 10%;">
+                {{/if}}
+            {{else}}
+                <input type="number" value="{{quantityOut}}" readonly="true" style="font-size: 11px;width: 10%;">
+            {{/if}}
+            </label>
         </div>
         <div class="col col-15">
             <h4>{{numFormat price '0,0'}}</h4>
