@@ -65,7 +65,7 @@ Meteor.methods({
         let saleId, oldSaleId;
         for (let k in obj) {
             if (count <= 1) {
-                saleId = insertSale(tableId, tableLocation, obj[k].saleDate, obj[k].numberOfCustomer);
+                saleId = insertSale(tableId, tableLocation, obj[k].saleDate);
                 oldSaleId = obj[k].oldSaleId;
             }
             count++;
@@ -212,7 +212,9 @@ let insertSale = (tableId, location, saleDate, numberOfCustomer) => {
     selector.saleDate = moment(saleDate).toDate();
     selector.status = 'active';
     selector.staff = Meteor.userId();
-    selector.numberOfCustomer = numberOfCustomer;
+    if(numberOfCustomer){
+        selector.numberOfCustomer = numberOfCustomer;
+    }
     var customerId = Restaurant.Collection.Customers.findOne({}, {
         sort: {
             _id: 1
