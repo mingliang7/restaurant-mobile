@@ -2,13 +2,13 @@ Meteor.methods({
     saleInSemester(selector){
         var currentDate = new Date();
         var tmpDate = moment(currentDate).format('YYYY-MM-DD 00:00:00')
-        var currentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        var firstDateOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, 1);
-        console.log(firstDateOfMonth, currentMonth)
+        var startOfYear = moment().startOf('year').toDate();
+        var endOfYear = moment().endOf('year').toDate();
+        console.log(startOfYear, endOfYear)
         var sales = Restaurant.Collection.Sales.aggregate([
             {
                 $match: {
-                    // saleDate: {$gte: firstDateOfMonth, $lt: currentMonth},
+                    saleDate: {$gte: startOfYear, $lte: endOfYear},
                     status: {$in: ['closed', 'partial']}
                 }
             },
