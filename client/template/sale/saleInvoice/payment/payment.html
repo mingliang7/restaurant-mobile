@@ -11,8 +11,8 @@
    {{#ionContent}}
      {{#autoForm collection="Restaurant.Collection.Payments" doc=sale id="activePayment" type="insert"}}
          <div class="bar bar-header" >
-           <button type="submit" class="button button-positive">រក្សាទុក</button>
-           <button type="submit" class="button button-balanced savePrint">រក្សាទុក&Print</button>
+           <!--<button type="submit" class="button button-positive">រក្សាទុក</button>-->
+           <button type="submit" class="button button-balanced savePrint">រក្សាទុក&Print(Enter)</button>
          </div>
          <div class="content has-header overflow-scroll">
            <div class="row">
@@ -25,13 +25,13 @@
                {{> afQuickField name='dueAmount' label="លុយត្រូវបង់ ($)" type="hidden"}}
                <label class="item item-input">
                   <span class="input-label">លុយត្រូវបង់ ($)</span>
-                 <input type="text" name="tmpDueAmount" value="{{numFormat sale.dueAmount '0,0.00'}}">
+                 <input type="text" name="tmpDueAmount" value="{{numFormat sale.dueAmount '0,0.00'}}" readonly style="padding-left: 5px; font-weight: bold; height: 50px; font-size: 30px;">
                </label>
              </div>
              <div class="col col-45">
                <label for="dueAmountKhr" class="item item-input">
                  <span class="input-label">លុយត្រូវបង់ (៛)</span>
-                   <input type="number" name="dueAmountKhr" value="{{numFormat sale.dueAmountKhr '0,0'}}" readonly>
+                   <input type="text" name="dueAmountKhr" value="{{numFormat sale.dueAmountKhr '0,0'}}" readonly style="padding-left: 5px; font-weight: bold; height: 50px; font-size: 30px;">
                </label>
               </div>
            </div>
@@ -44,24 +44,24 @@
             <label class="item item-input">
               <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ ($):</span>
               <input type="text" name="tmpPaidAmount" value="{{numFormat sale.dueAmount '0,0.00'}}" style="background: #387ef5;
-              color: #fff; padding-left: 5px; font-weight: bold;">
+              color: #fff; padding-left: 5px; font-weight: bold; height: 50px; font-size: 30px;">
             </label>
           </div>
           <div class="col col-33">
             <label class="item item-input">
               <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ (៛):</span>
               <input type="text" name="dollar" style="background: #387ef5;
-              color: #fff; padding-left: 5px; font-weight: bold;">
+              color: #fff; padding-left: 5px; font-weight: bold; height: 50px; font-size: 30px;">
             </label>
           </div>
 
            <div class="item item-divider assertive">
 
            </div>
-           {{> afQuickField name='balanceAmount' label="លុយអាប់ ($)" readonly=true}}
+           {{> afQuickField name='balanceAmount' style="padding-left: 5px; font-weight: bold; height: 50px; font-size: 30px;" label="លុយអាប់ ($)" readonly=true}}
            <label class="item item-input">
              <span class="input-label">លុយអាប់ (៛):</span>
-             <input type="text" name="changeInDollar" readonly="true">
+             <input type="text" style="padding-left: 5px; font-weight: bold; height: 50px; font-size: 30px;" name="changeInDollar" readonly="true">
            </label>
            {{> afQuickField name='description' label="បរិយាយ" type="textarea"}}
          </div>

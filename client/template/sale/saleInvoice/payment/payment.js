@@ -1,13 +1,14 @@
-Template.restaurantSalePayment.created = function() {
+Template.restaurantSalePayment.created = function () {
   this.autorun(() => {
     this.subscribe = Meteor.subscribe('sale', Router.current().params.invoiceId);
     this.subscribe = Meteor.subscribe('latestExchange');
   });
 };
-Template.restaurantSalePayment.rendered = function() {
-  $(document).on("keydown", "input", function(e) {
-    if (e.which == 13) e.preventDefault();
-  });
+Template.restaurantSalePayment.rendered = function () {
+  // $(document).on("keydown", "input", function (e) {
+  //   if (e.which == 13) e.preventDefault();
+  // });
+  $('[name="tmpPaidAmount"]').select();
   try {
     this.autorun(() => {
       if (!this.subscription.ready()) {
@@ -55,7 +56,7 @@ Template.restaurantSalePayment.helpers({
 });
 
 Template.restaurantSalePayment.events({
-  'keyup [name="tmpPaidAmount"],[name="dollar"]': function() {
+  'keyup [name="tmpPaidAmount"],[name="dollar"]': function () {
     var dueAmount, tmpPaidAmount, dollar;
     dueAmount = parseFloat($('[name="dueAmount"]').val());
     tmpPaidAmount = $('[name="tmpPaidAmount"]').val();
@@ -67,12 +68,12 @@ Template.restaurantSalePayment.events({
     var totalPaid = dollarConverted + tmpPaidAmount;
     $('[name="balanceAmount"]').val(numeral(dueAmount - totalPaid).format('0.00'));
     $('[name="paidAmount"]').val(totalPaid);
-    if((dueAmount - totalPaid) < 0) {
+    if ((dueAmount - totalPaid) < 0) {
       let changeInDollar = numeral((totalPaid - dueAmount) * exchangeRate.rates[0].rate).format('0,0');
       $('[name="changeInDollar"]').val('-' + changeInDollar)
-    }else if((dueAmount - totalPaid) == 0){
+    } else if ((dueAmount - totalPaid) == 0) {
       $('[name="changeInDollar"]').val(0)
-    }else{
+    } else {
       let changeInDollar = numeral((dueAmount - totalPaid) * exchangeRate.rates[0].rate).format('0,0');
       $('[name="changeInDollar"]').val(changeInDollar)
     }
@@ -118,13 +119,15 @@ AutoForm.hooks({
   activePayment: {
     onSuccess(formType, result) {
       // Bert.alert('គិតលុយរួចរាល់', 'success', 'growl-bottom-right', 'fa-check');
-      if (Session.get('savePrint')) {
-        //window.open(`/restaurant/invoice/${result}`, '_blank');
-        Router.go(`/restaurant/invoice/${result}`);
-      } else {
-        Router.go(`/restaurant/payment`);
-      }
-      Session.set('savePrint', false);
+      Router.go(`/restaurant/invoice/${result}`);
+
+      // if (Session.get('savePrint')) {
+      //   //window.open(`/restaurant/invoice/${result}`, '_blank');
+      //   Router.go(`/restaurant/invoice/${result}`);
+      // } else {
+      //   Router.go(`/restaurant/payment`);
+      // }
+      // Session.set('savePrint', false);
 
     },
     onError(formType, err) {

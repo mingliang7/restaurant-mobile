@@ -23,6 +23,13 @@ Template.restaurantSaleTableSaleInvoice.created = function () {
 };
 
 Template.restaurantSaleTableSaleInvoice.rendered = function () {
+    $(document).keydown(function (e) {
+        if(e.altKey && e.which == 13){
+            if(Router.current().params.invoiceId){
+                $('.payment').trigger('click');
+            }
+        }
+    });
     try {
         this.autorun(() => {
             if (!this.subscription.ready()) {
@@ -35,7 +42,9 @@ Template.restaurantSaleTableSaleInvoice.rendered = function () {
 
     }
 }
-
+Template.restaurantSaleTableSaleInvoice.onDestroyed(function(){
+    $(document).remove();
+});
 Template.restaurantSaleTableSaleInvoice.helpers({
     invoiceNumber() {
         let invoiceId = Router.current().params.invoiceId;
