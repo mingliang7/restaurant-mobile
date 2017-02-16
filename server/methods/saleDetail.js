@@ -2,16 +2,17 @@ Meteor.methods({
     insertSaleDetail(selector) {
         var saleDetails = [];
         for (let k in selector) {
+            let product = Restaurant.Collection.Products.findOne(selector[k]._id);
+            let category = Restaurant.Collection.Categories.findOne(product.categoryId);
             saleDetails.push({
                 saleId: selector[k].saleId,
                 productId: selector[k]._id,
                 discount: selector[k].discount,
-                amount: selector[k].amount,
-                quantity: selector[k].quantity,
+                amount: selector[k].price * category.increaseChildQty,
+                quantity: category.increaseChildQty,
                 price: selector[k].price
             });
         }
-        console.log(saleDetails)
         var sale = Restaurant.Collection.Sales.findOne(saleDetails[0].saleId);
         if (_.isUndefined(sale.total)) {
             Meteor.defer(() => {
@@ -24,7 +25,7 @@ Meteor.methods({
             })
         } else {
             Meteor.defer(() => {
-                saleDetails.forEach(function(saleDetail) {
+                saleDetails.forEach(function (saleDetail) {
                     let existSaleDetail = Restaurant.Collection.SaleDetails.findOne({
                         saleId: saleDetail.saleId,
                         productId: saleDetail.productId
@@ -101,7 +102,7 @@ Meteor.methods({
                 });
             }
         }
-        Meteor.defer(function() {
+        Meteor.defer(function () {
             Sale.sumSaleDetail(oldSaleId);
         })
         return saleId;
@@ -111,7 +112,7 @@ Meteor.methods({
         let saleDetails = Restaurant.Collection.SaleDetails.find({
             saleId: currentSaleId
         });
-        saleDetails.forEach(function(saleDetail) {
+        saleDetails.forEach(function (saleDetail) {
             dupplicatedSaleDetail(saleDetail);
             Restaurant.Collection.SaleDetails.update({
                 _id: saleDetail._id
@@ -167,7 +168,7 @@ Meteor.methods({
                 });
             }
         }
-        Meteor.defer(function() {
+        Meteor.defer(function () {
             console.log(currentSaleId);
             Sale.sumSaleDetail(currentSaleId); //recalculate saleDetail
             Sale.sumSaleDetail(transferSaleId); //recalculate saleDetail
@@ -212,7 +213,7 @@ let insertSale = (tableId, location, saleDate, numberOfCustomer) => {
     selector.saleDate = moment(saleDate).toDate();
     selector.status = 'active';
     selector.staff = Meteor.userId();
-    if(numberOfCustomer){
+    if (numberOfCustomer) {
         selector.numberOfCustomer = numberOfCustomer;
     }
     var customerId = Restaurant.Collection.Customers.findOne({}, {
@@ -244,14 +245,14 @@ let insertSale = (tableId, location, saleDate, numberOfCustomer) => {
 }
 
 let dupplicatedSaleDetail = (saleDetail) => {
-  Restaurant.Collection.SaleDetails.insert({
-      _id: 'T' + saleDetail._id,
-      discount: saleDetail.discount,
-      amount: saleDetail.amount,
-      price: saleDetail.price,
-      productId: saleDetail.productId,
-      quantity: saleDetail.quantity,
-      saleId: saleDetail.saleId,
-      status: 'saved',
-  });
+    Restaurant.Collection.SaleDetails.insert({
+        _id: 'T' + saleDetail._id,
+        discount: saleDetail.discount,
+        amount: saleDetail.amount,
+        price: saleDetail.price,
+        productId: saleDetail.productId,
+        quantity: saleDetail.quantity,
+        saleId: saleDetail.saleId,
+        status: 'saved',
+    });
 }

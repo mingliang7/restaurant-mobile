@@ -10,12 +10,30 @@ Meteor.methods({
             status: false
         };
     },
+    updateQtyOut(saleDetailDoc, changeQtyOut) {
+        if (saleDetailDoc) {
+            let currentTotalQty = saleDetailDoc.quantity + saleDetailDoc.quantityOut;
+            changeQtyOut = changeQtyOut > currentTotalQty ? currentTotalQty : changeQtyOut;
+            let calcQtyAfterQtyOut = currentTotalQty - changeQtyOut;
+            Restaurant.Collection.SaleDetails.update({
+                _id: saleDetailDoc._id
+            }, {
+                $set: {
+                    amount: calcQtyAfterQtyOut * saleDetailDoc.price,
+                    quantity: calcQtyAfterQtyOut,
+                    quantityOut: changeQtyOut
+                }
+            });
+        }
+    },
     insertSale(selector, fDate) {
         let fastSell = false;
         if (!selector) {
             fastSell = true;
             selector = {};
-            let table = Restaurant.Collection.Tables.findOne({}, {_id: 1});
+            let table = Restaurant.Collection.Tables.findOne({}, {
+                _id: 1
+            });
             selector.saleDate = fDate;
             selector.status = "active";
             selector.tableId = table._id;
