@@ -1,4 +1,4 @@
-Template.restaurantSelectTable.created = function() {
+Template.restaurantSelectTable.created = function () {
   Session.set('saleDetailObj', {}); //set saleDetailObj for order product
   this.autorun(() => {
     this.subscribe = Meteor.subscribe("existSales");
@@ -6,7 +6,7 @@ Template.restaurantSelectTable.created = function() {
 }
 
 
-Template.restaurantSelectTable.rendered = function() {
+Template.restaurantSelectTable.rendered = function () {
   let invoiceId = Session.get('invoiceId');
   if (!_.isUndefined(invoiceId)) {
     Meteor.call('removeSaleIfNoSaleDetailExist', invoiceId);
@@ -32,15 +32,19 @@ Template.restaurantSelectTable.helpers({
     for (let k in locations) {
       arr.push(locations[k]);
     }
-
+    let tables = [];
     if (arr.length > 0) {
-      return Restaurant.Collection.Tables.find({
+      tables = Restaurant.Collection.Tables.find({
         tableLocationId: {
           $in: arr
         }
-      }, {orderBy: {name: -1}});
+      }).fetch();
+    } else {
+      tables = Restaurant.Collection.Tables.find({}).fetch();
     }
-    return Restaurant.Collection.Tables.find({}, {sort: {name: 1}});
+    return tables.sort(function (a, b) {
+      return a.name - b.name;
+    })
   },
   locations() {
     return Restaurant.Collection.TableLocations.find();
@@ -55,9 +59,9 @@ Template.restaurantSelectTable.helpers({
     }
     return false;
   },
-  checkBoxValue(_id){
+  checkBoxValue(_id) {
     let location = Session.get('tableLocationFilter');
-    if(_.has(location, _id)){
+    if (_.has(location, _id)) {
       return true;
     }
     console.log(_.has(location, _id))
@@ -142,14 +146,14 @@ Template.restaurantSelectTable.events({
       buttons: sales,
       // destructiveText: 'ផ្ទេរវិក័យប័ត្រ',
       cancelText: 'Cancel',
-      cancel: function() {
+      cancel: function () {
         console.log('Cancelled!');
       },
-      buttonClicked: function(index) {
+      buttonClicked: function (index) {
         Router.go(`/restaurant/sale/${data.tableLocationId}/table/${sales[index].tableId}/saleInvoice/${sales[index]._id}`);
         return true;
       },
-      destructiveButtonClicked: function() {
+      destructiveButtonClicked: function () {
         console.log('Destructive Action!');
         return true;
       }

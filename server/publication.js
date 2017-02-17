@@ -3,7 +3,7 @@ Meteor.publish("tableLocations", () => {
 });
 
 Meteor.publish('tables', () => {
-    return Restaurant.Collection.Tables.find();
+    return Restaurant.Collection.Tables.find({});
 });
 Meteor.publish("tableByLocation", function (tableLocationId, tableId) {
     let tables = Restaurant.Collection.Tables.find({
