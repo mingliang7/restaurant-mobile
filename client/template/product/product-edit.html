@@ -53,6 +53,30 @@
                 <div class="item item-divider">
                 </div>
                 </div>
+                <!--scheme-->
+                {{> afQuickField name='typeScheme'}}
+                {{#if scheme}}
+                 <div class="item item-divider">
+                  ឈុត
+                </div>
+                <div class="card autoform-array-item">
+                  <div class="row">
+                  <div class="col col-10">
+                    <div class="item">
+                      <button type="button" class="button button-balanced button-small pull-right add-scheme">
+                        ជ្រេីសរើសឈុត <span class="icon ion-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {{#each schemeItems}}
+                  {{> _schemeItem}}
+                {{/each}}
+                <div class="item item-divider">
+                </div>
+                </div>
+                {{/if}}
+                <!--end scheme-->
                 {{> afQuickField name='ingradient' type="hidden"}}
                 {{> afQuickField name='status' type="hidden" value="enable"}}
                 {{> afQuickField name='description'}}

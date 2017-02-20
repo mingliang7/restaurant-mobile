@@ -1,0 +1,39 @@
+<template name="fetchProductForScheme">
+  {{#ionModal focusFirstInput=true title="Search Items"}}
+      <div class="list">
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            {{> ionIcon icon="ios-search" class="placeholder-icon"}}
+            <input type="text" name="searchProductForScheme" placeholder="Search" value="{{schemeQuery}}" autofocus>
+          </label>
+        </div>
+      <ul>
+        {{#each schemeItems}}
+          {{> productScheme}}
+        {{/each}}
+      </ul>
+      </div>
+    {{/ionModal}}
+</template>
+
+<template name="productScheme">
+    <li class="product-scheme">
+        <img src="{{url}}">
+        <span>
+        <b>{{name}}({{enName}})</b> |  តម្លៃៈ <b>{{price}}</b>
+         គិតជាៈ <b>{{_unit.name}}</b>
+         <label class="item item-input">
+             <span class="input-label">ចំនួន</span>
+             <input type="number" class="qty-scheme" value="1" style="border: 1px solid black;">
+             <label class="toggle">
+                <input type="checkbox" class="add-qty-scheme">
+                <div class="track">
+                 <div class="handle"></div>
+                   </div>
+             </label>
+           </label>
+
+        </span>
+
+        </li>
+</template>
