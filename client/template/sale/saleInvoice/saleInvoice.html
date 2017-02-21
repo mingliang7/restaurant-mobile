@@ -14,7 +14,7 @@
         {{#ionContent class="padding contact-detail"}}
             <div class="row">
                 {{> restaurantSaleList}} <!--call from saleList Folder !-->
-                <div class="col col-50" id="sticky">
+                <div class="col col-70" id="sticky">
                     {{#with saleInvoice}}
                         {{> tableHeader}}
                     {{/with}}
@@ -52,11 +52,11 @@
                         {{#each saleDetails}}
                             {{> saleDetail}}
                         {{/each}}
-                        {{#if hasMore}}
+                        <!-- {{#if hasMore}}
                             <div class="col col-20 col-offset-50">
                                 <button class="button button-positive loadMore">Load More</button>
                             </div>
-                        {{/if}}
+                        {{/if}} -->
                     </div>
                     {{#with saleInvoice}}
                         {{> saleInvoiceTotal}}
@@ -86,7 +86,7 @@
             <label class="item item-input">
             {{#if noPayment}}
                 {{#if isPrinting}}
-                    <input type="number" value="{{quantityOut}}" class="qtyOut" style="font-size: 11px;width: 10%;">
+                    <input type="number" value="{{quantityOut}}" class="qtyOut" style="background: #ddd; font-size: 11px;width: 6%;">
                 {{else}}
                     <input type="number" value="{{quantityOut}}" readonly="true" style="font-size: 11px;width: 10%;">
                 {{/if}}

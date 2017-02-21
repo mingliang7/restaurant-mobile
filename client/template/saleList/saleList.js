@@ -1,65 +1,110 @@
-
-Deps.autorun(function () {
+Deps.autorun(function() {
     if (Session.get('searchListQuery')) {
-       Meteor.subscribe('productsSearch', Session.get('searchListQuery'), Session.get('limit'), Session.get('filter'));
+        Meteor.subscribe('productsSearch', Session.get(
+            'searchListQuery'), Session.get('limit'), Session.get(
+            'filter'));
     }
     if (Session.get('subImages')) {
-        Meteor.subscribe('pubImages', {_id: {$in: Session.get('subImages')}});
+        Meteor.subscribe('pubImages', {
+            _id: {
+                $in: Session.get('subImages')
+            }
+        });
     }
 });
 
-Template.restaurantSaleList.created = function () {
+Template.restaurantSaleList.created = function() {
+    this.typeScheme = new ReactiveVar(false);
     this.autorun(() => {
         this.subscription = Meteor.subscribe("categories");
 
         if (this.subscription.ready()) {
-            let category = Restaurant.Collection.Categories.findOne({}, {sort: {_id: 1}});
-            Session.set('searchListQuery', categoryId ? category._id : '');
-            Session.set('activeCategoryId',category ? category._id : '');
+            let category = Restaurant.Collection.Categories.findOne({}, {
+                sort: {
+                    _id: 1
+                }
+            });
+            Session.set('searchListQuery', categoryId ? category._id :
+                '');
+            Session.set('activeCategoryId', category ? category._id :
+                '');
         }
     });
 
 };
-Template.restaurantSaleList.rendered = function () {
+Template.restaurantSaleList.rendered = function() {
     $('.search').focus();
     Session.set('limit', 10);
     Session.set('filter', {});
 };
 Template.restaurantSaleList.events({
-    'click .selectCategory': function (event, instance) {
+    'click .scheme' (event, instance) {
+        Session.set('searchListQuery', 'true');
+        instance.typeScheme.set(true);
+        Session.set('activeSearch', false);
+    },
+    'click .selectCategory': function(event, instance) {
         Session.set('searchListQuery', this._id);
         Session.set('activeCategoryId', this._id);
         Session.set('activeSearch', false);
+        instance.typeScheme.set(false);
+
     },
-    'keyup input.search': function (event, template) {
+    'keyup input.search': function(event, template) {
         Session.set('searchListQuery', event.target.value);
         Session.set('limit', 10);
         Session.set('activeSearch', true);
         Session.set('activeCategoryId', '');
+        instance.typeScheme.set(false);
+
     },
     'click .order' (event) {
         let saleDetailObj = Session.get('saleDetailObj');
-        if (!_.has(saleDetailObj, this._id)) {
-            this.quantity = 1;
-            this.discount = 0;
-            this.saleId = Router.current().params.invoiceId;
-            this.amount = this.price * this.quantity;
-            saleDetailObj[this._id] = this;
-        } else {
-            saleDetailObj[this._id].quantity = saleDetailObj[this._id].quantity + 1;
-            saleDetailObj[this._id].amount = saleDetailObj[this._id].quantity * saleDetailObj[this._id].price;
+        if(this.typeScheme){
+            this.scheme.forEach(function(o){
+                if (!_.has(saleDetailObj, o._id)) {
+                    o.quantity = o.qty;
+                    o.typeScheme = true;
+                    o.discount = 0;
+                    o.saleId = Router.current().params.invoiceId;
+                    o.amount = o.price * o.quantity;
+                    saleDetailObj[o._id] = o;
+                } else {
+                    saleDetailObj[o._id].quantity = saleDetailObj[o._id].quantity +
+                        o.qty;
+                    saleDetailObj[o._id].amount = saleDetailObj[o._id].quantity *
+                        saleDetailObj[o._id].price;
+                }
+            });
+        }else{
+            if (!_.has(saleDetailObj, this._id)) {
+                this.quantity = 1;
+                this.discount = 0;
+                this.saleId = Router.current().params.invoiceId;
+                this.amount = this.price * this.quantity;
+                saleDetailObj[this._id] = this;
+            } else {
+                saleDetailObj[this._id].quantity = saleDetailObj[this._id].quantity +
+                    1;
+                saleDetailObj[this._id].amount = saleDetailObj[this._id].quantity *
+                    saleDetailObj[this._id].price;
+            }
         }
         Session.set('saleDetailObj', saleDetailObj)
         var selector = Session.get('saleDetailObj');
-        Meteor.call('insertSaleDetail', selector, function (err, result) {
+        console.log(selector)
+        Meteor.call('insertSaleDetail', selector, function(err, result) {
             if (err) {
-                Bert.alert(`កម្ម៉ង់ត្រូវបានច្រានចោល!`, 'danger', 'growl-bottom-right', 'fa-remove')
+                Bert.alert(`កម្ម៉ង់ត្រូវបានច្រានចោល!`, 'danger',
+                    'growl-bottom-right', 'fa-remove')
                 Session.set('saleDetailObj', {});
             } else {
                 // Bert.alert(`កម្ម៉ង់បានសម្រេច!`, 'success', 'growl-bottom-right', 'fa-check')
                 Session.set('saleDetailObj', {});
                 let params = Router.current().params;
-                Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`)
+                Router.go(
+                    `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`
+                )
             }
         });
         $('.search').focus();
@@ -128,7 +173,7 @@ Template.restaurantSaleList.events({
         }
         Session.set('saleDetailObj', saleDetailObj)
     },
-    'click .category'(e){
+    'click .category' (e) {
         let categoryObj = Session.get('filter');
         if ($(e.currentTarget).prop('checked')) {
             categoryObj[this._id] = this._id;
@@ -150,20 +195,33 @@ Template.restaurantSaleList.events({
             title: 'បញ្ជាក់',
             template: `យល់ព្រមកម្ម៉ង់?`,
             onOk: () => {
-                Meteor.call('insertSaleDetail', selector, function (err, result) {
-                    if (err) {
-                        Bert.alert(`កម្ម៉ង់ត្រូវបានច្រានចោល!`, 'danger', 'growl-bottom-right', 'fa-remove')
-                        Session.set('saleDetailObj', {});
-                    } else {
-                        Bert.alert(`កម្ម៉ង់បានសម្រេច!`, 'success', 'growl-bottom-right', 'fa-check')
-                        Session.set('saleDetailObj', {});
-                        let params = Router.current().params;
-                        Router.go(`/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`)
-                    }
-                });
+                Meteor.call('insertSaleDetail', selector,
+                    function(err, result) {
+                        if (err) {
+                            Bert.alert(
+                                `កម្ម៉ង់ត្រូវបានច្រានចោល!`,
+                                'danger',
+                                'growl-bottom-right',
+                                'fa-remove')
+                            Session.set('saleDetailObj', {});
+                        } else {
+                            Bert.alert(
+                                `កម្ម៉ង់បានសម្រេច!`,
+                                'success',
+                                'growl-bottom-right',
+                                'fa-check')
+                            Session.set('saleDetailObj', {});
+                            let params = Router.current()
+                                .params;
+                            Router.go(
+                                `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}`
+                            )
+                        }
+                    });
             },
-            onCancel: function () {
-                Bert.alert('Cancelled', 'info', 'growl-bottom-right', 'fa-info')
+            onCancel: function() {
+                Bert.alert('Cancelled', 'info',
+                    'growl-bottom-right', 'fa-info')
             }
         });
     },
@@ -174,53 +232,64 @@ Template.restaurantSaleList.events({
 });
 
 Template.restaurantSaleList.helpers({
-    activeSearch(){
-        return Session.get('activeSearch') ? 'active' : '';
-    },
-    activeCategory(){
-        return this._id == Session.get('activeCategoryId') ? 'active' : '';
-    },
-    products: function () {
-        let products = Restaurant.Collection.Products.search(Session.get('searchListQuery'), Session.get('limit'), Session.get('filter'));
-        let arr = [];
-        products.forEach(function (product) {
-            if (product.picture) {
-                arr.push(product.picture);
+        activeScheme() {
+            let instance = Template.instance();
+            return instance.typeScheme.get() ? 'active' : '';
+        },
+        activeSearch() {
+            return Session.get('activeSearch') ? 'active' : '';
+        },
+        activeCategory() {
+            return this._id == Session.get('activeCategoryId') ?
+                'active' : '';
+        },
+        products: function() {
+            let products = Restaurant.Collection.Products.search(
+                Session.get('searchListQuery'), Session.get('limit'),
+                Session.get('filter'));
+            let arr = [];
+            products.forEach(function(product) {
+                if (product.picture) {
+                    arr.push(product.picture);
+                }
+            });
+            Session.set('subImages', arr);
+            return products;
+        },
+        searchListQuery: function() {
+            // return Session.get('searchListQuery');
+        },
+        orderList() {
+            let arr = [];
+            let saleDetails = Session.get("saleDetailObj");
+            for (let k in saleDetails) {
+                arr.push(saleDetails[k]);
             }
-        });
-        Session.set('subImages', arr);
-        return products;
-    },
-    searchListQuery: function () {
-        // return Session.get('searchListQuery');
-    },
-    orderList() {
-        let arr = [];
-        let saleDetails = Session.get("saleDetailObj");
-        for (let k in saleDetails) {
-            arr.push(saleDetails[k]);
+            return arr;
+        },
+        saleDetailExist() {
+            let saleDetails = Session.get('saleDetailObj');
+            if (!_.isEmpty(saleDetails)) {
+                return true;
+            }
+            return false;
+        },
+        categories() {
+            return Restaurant.Collection.Categories.find({}, {
+                sort: {
+                    name: 1
+                }
+            });
         }
-        return arr;
-    },
-    saleDetailExist() {
-        let saleDetails = Session.get('saleDetailObj');
-        if (!_.isEmpty(saleDetails)) {
-            return true;
-        }
-        return false;
-    },
-    categories(){
-        return Restaurant.Collection.Categories.find({}, {sort: {name: 1}});
-    }
 });
 
 Template._saleListItem.helpers({
-    images(){
+    images() {
         let img = Images.findOne(this.picture);
         return img ? img.url() : '';
     }
 });
-Template.restaurantSaleList.onDestroyed(function () {
+Template.restaurantSaleList.onDestroyed(function() {
     Session.set('subImages', undefined);
 });
 var checkDiscount = (e) => {
@@ -228,6 +297,7 @@ var checkDiscount = (e) => {
     let currentPrice = parents.find($('.price')).val()
     let currentDiscount = parents.find('.discount').val();
     let currentQty = parents.find($('.quantity')).val();
-    let totalAmount = (parseFloat(currentPrice) * parseFloat(currentQty)) * (1 - parseFloat(currentDiscount) / 100);
+    let totalAmount = (parseFloat(currentPrice) * parseFloat(currentQty)) *
+        (1 - parseFloat(currentDiscount) / 100);
     return totalAmount;
 }

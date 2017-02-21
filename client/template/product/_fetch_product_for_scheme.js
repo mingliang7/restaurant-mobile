@@ -51,7 +51,7 @@ Template.productScheme.events({
     },
     'keyup .qty-scheme': _.debounce(function(event, instance) {
         let val = $(event.currentTarget).val();
-        if (val == '' || val == '0') {
+        if ( val == '0') {
             $(event.currentTarget).val(1);
         } else {
             $(event.currentTarget).parents('.product-schema').find('.add-qty-scheme').prop('checked', true);

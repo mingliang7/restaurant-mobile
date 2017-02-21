@@ -5,9 +5,14 @@ Template.restaurantSalePayment.created = function() {
   });
 };
 Template.restaurantSalePayment.rendered = function() {
-  $(document).on("keydown", "input", function(e) {
-    if (e.which == 13) e.preventDefault();
+  $(document).on("keydown", function(e) {
+    if (e.which == 13) {
+        $('.savePrint').trigger('click');
+    }
   });
+  Meteor.setTimeout(function(){
+      $("[name='tmpPaidAmount']").select();
+  },300);
   try {
     this.autorun(() => {
       if (!this.subscription.ready()) {

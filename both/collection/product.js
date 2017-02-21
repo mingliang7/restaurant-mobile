@@ -119,20 +119,21 @@ Restaurant.Schema.Products = new SimpleSchema({
     },
     scheme: {
         type: [Object],
-        optional: true
+        optional: true,
+        blackbox: true
     },
-    'scheme.$.itemId': {
-        type: String,
-        optional: true
-    },
-    'scheme.$.price': {
-        type: String,
-        optional: true
-    },
-    'scheme.$.qty': {
-        type: String,
-        optional: true
-    }
+    // 'scheme.$.itemId': {
+    //     type: String,
+    //     optional: true
+    // },
+    // 'scheme.$.price': {
+    //     type: String,
+    //     optional: true
+    // },
+    // 'scheme.$.qty': {
+    //     type: String,
+    //     optional: true
+    // }
 })
 Restaurant.Collection.Products.attachSchema(Restaurant.Schema.Products)
 
@@ -170,7 +171,7 @@ Restaurant.Collection.Products.search = function(query, limit) {
 
     }, {
         categoryId: query
-    }]
+    }, {typeScheme: {$exists: eval(query)}}]
 
     return Restaurant.Collection.Products.find(selector, {
         sort: {

@@ -8,8 +8,8 @@ Meteor.methods({
                 saleId: selector[k].saleId,
                 productId: selector[k]._id,
                 discount: selector[k].discount,
-                amount: selector[k].price * category.increaseChildQty,
-                quantity: category.increaseChildQty,
+                amount: selector[k].typeScheme ? selector[k].amount : selector[k].price * category.increaseChildQty,
+                quantity: selector[k].typeScheme ? selector[k].quantity : category.increaseChildQty,
                 price: selector[k].price
             });
         }

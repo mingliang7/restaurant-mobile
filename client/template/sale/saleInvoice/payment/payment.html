@@ -11,7 +11,6 @@
    {{#ionContent}}
      {{#autoForm collection="Restaurant.Collection.Payments" doc=sale id="activePayment" type="insert"}}
          <div class="bar bar-header" >
-           <button type="submit" class="button button-positive">រក្សាទុក</button>
            <button type="submit" class="button button-balanced savePrint">រក្សាទុក&Print</button>
          </div>
          <div class="content has-header overflow-scroll">
@@ -21,7 +20,7 @@
              <div class="col col-33">{{> afQuickField name='paymentDate' type='datetime-local' label="ថ្ងៃបង់ប្រាក់"}}</div>
            </div>
            {{> afQuickField name='dueAmount' readonly=true label="លុយត្រូវបង់"}}
-           <input type="hidden" name="tmpDueAmount" value="{{sale.dueAmount}}">
+           <input type="hidden" name="tmpDueAmount" value="{{sale.dueAmount}}" >
            {{> afQuickField name='paidAmount' label="ចំនួនទឹកប្រាក់បានបង់ (៛)" type="hidden"}}
            <div class="item item-divider positive">
 
@@ -30,14 +29,14 @@
             <label class="item item-input">
               <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ (៛):</span>
               <input type="text" name="tmpPaidAmount" value="{{sale.dueAmount}}" style="background: #387ef5;
-              color: #fff; padding-left: 5px; font-weight: bold;">
+              color: #fff; padding-left: 5px; font-weight: bold; height: 50px; font-size: 18px;" autofocus="true">
             </label>
           </div>
           <div class="col col-33">
             <label class="item item-input">
               <span class="input-label">ចំនួនទឹកប្រាក់បានបង់ ($):</span>
               <input type="text" name="dollar" style="background: #387ef5;
-              color: #fff; padding-left: 5px; font-weight: bold;">
+              color: #fff; padding-left: 5px; font-weight: bold; height: 50px; font-size: 18px;" autofocus="true">
             </label>
           </div>
 
