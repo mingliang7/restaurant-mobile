@@ -13,7 +13,6 @@ Meteor.methods({
                 price: selector[k].price
             });
         }
-        console.log(saleDetails)
         var sale = Restaurant.Collection.Sales.findOne(saleDetails[0].saleId);
         if (_.isUndefined(sale.total)) {
             Meteor.defer(() => {
@@ -170,7 +169,6 @@ Meteor.methods({
             }
         }
         Meteor.defer(function () {
-            console.log(currentSaleId);
             Sale.sumSaleDetail(currentSaleId); //recalculate saleDetail
             Sale.sumSaleDetail(transferSaleId); //recalculate saleDetail
         })

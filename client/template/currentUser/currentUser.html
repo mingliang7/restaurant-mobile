@@ -35,7 +35,7 @@
             {{#each printedSales}}
                 <div class="col col-25 printedSale" style="cursor: pointer;display: inline-block; ">
                     <div class="card animated fadeIn" >
-                      <div class="item item-text-wrap" style="font-size: 20px;background: #fff;">
+                      <div class="item item-text-wrap" style="font-size: 20px;background: {{#if printStatus}}#fff{{else}}#FFE7A4{{/if}};">
                         <p class="new-order cursor-p" style="color: black; font-size: 20px;"><i class="ion-document-text"></i> {{_id}} <span align="right">{{doc._table._tableLocation.name}}/{{doc._table.name}}</span></p>
                         <p style="font-size: 18px; color:black;padding: 3px;">សរុប: {{numFormat doc.total '0,0.00'}}៛</p>
                         <p style="font-size: 18px; color:black;padding: 3px;">ស្ថានភាព: {{#if printStatus}}មិនទាន់បានព្រីន{{else}}ព្រីនរួចរាល់{{/if}}</p>

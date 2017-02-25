@@ -233,12 +233,12 @@ Meteor.methods({
             if (q) {
                 let active = q.split(':');
                 if (active.length > 1) {
+                    let searchText = active[1] && active[1].substr(1, active[1].length -
+                        1);
+                    let regQuery = new RegExp(searchText &&
+                        searchText.trim(), 'i');
                     let tag = active[1].substr(0, 1);
                     if (tag == 'a') {
-                        let searchText = active[1].substr(1, active[1].length -
-                            1);
-                        let regQuery = new RegExp(searchText &&
-                            searchText.trim(), 'i');
                         saleDetailSelector.isPrinting = true;
                         if (searchText != '') {
                             selector.$or = [{
@@ -253,7 +253,9 @@ Meteor.methods({
                         }
                     }
                 } else {
-                    if (searchText != '') {
+                    if (q != '') {
+                        let regQuery = new RegExp(q, 'i');
+                        saleDetailSelector.isPrinting = false;
                         selector.$or = [{
                             _id: {
                                 $regex: regQuery
@@ -273,49 +275,47 @@ Meteor.methods({
             }
             result = Restaurant.Collection.Sales.aggregate(
                 [{
-                        $match: selector
-                    }, {
-                        $lookup: {
-                            from: 'restaurant_saleDetails',
-                            foreignField: 'saleId',
-                            localField: '_id',
-                            as: 'saleDetailDoc'
-                        }
-                    }, {
-                        $unwind: {
-                            path: '$saleDetailDoc',
-                            preserveNullAndEmptyArrays: true
-                        }
-                    }, {
-                        $redact: {
-                            $cond: [{
-                                $eq: [
-                                    '$saleDetailDoc.isPrinting',
-                                    saleDetailSelector.isPrinting
-                                ]
-                            }, "$$KEEP", "$$PRUNE"]
-                        }
-                    }, {
-                        $group: {
-                            _id: '$_id',
-                            printStatus: {
-                                $last: {
-                                    $cond: [{
-                                        $eq: [
-                                            '$saleDetailDoc.isPrinting',
-                                            true
-                                        ]
-                                    }, true, false]
-                                }
+                    $match: selector
+                }, {
+                    $lookup: {
+                        from: 'restaurant_saleDetails',
+                        foreignField: 'saleId',
+                        localField: '_id',
+                        as: 'saleDetailDoc'
+                    }
+                }, {
+                    $unwind: {
+                        path: '$saleDetailDoc',
+                        preserveNullAndEmptyArrays: true
+                    }
+                }, {
+                    $redact: {
+                        $cond: [{
+                            $eq: [
+                                '$saleDetailDoc.isPrinting',
+                                saleDetailSelector.isPrinting
+                            ]
+                        }, "$$KEEP", "$$PRUNE"]
+                    }
+                }, {
+                    $group: {
+                        _id: '$_id',
+                        printStatus: {
+                            $last: {
+                                $cond: [{
+                                    $eq: [
+                                        '$saleDetailDoc.isPrinting',
+                                        true
+                                    ]
+                                }, true, false]
                             }
                         },
                         doc: {
                             $last: '$$ROOT'
                         }
                     }
-                }
-            ]
-        );
-    return result
-}
+                }]
+            );
+            return result
+        }
 });
