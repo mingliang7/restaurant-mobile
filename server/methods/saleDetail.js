@@ -8,11 +8,12 @@ Meteor.methods({
                 saleId: selector[k].saleId,
                 productId: selector[k]._id,
                 discount: selector[k].discount,
-                amount: selector[k].typeScheme ? selector[k].amount : selector[k].price * category.increaseChildQty,
-                quantity: selector[k].typeScheme ? selector[k].quantity : category.increaseChildQty,
+                amount: selector[k].typeScheme ? selector[k].amount : selector[k].price * category.increaseChildQty || 1,
+                quantity: selector[k].typeScheme ? selector[k].quantity : category.increaseChildQty || 1,
                 price: selector[k].price
             });
         }
+        console.log(saleDetails)
         var sale = Restaurant.Collection.Sales.findOne(saleDetails[0].saleId);
         if (_.isUndefined(sale.total)) {
             Meteor.defer(() => {

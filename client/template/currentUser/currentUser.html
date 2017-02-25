@@ -1,53 +1,49 @@
-<template name="current_user" xmlns="http://www.w3.org/1999/html">
+<template name="current_user">
     {{#if currentUser}}
-
         <div class="container">
             <div class="row">
-                <div class="box-third container-1">
-                    <div class="col">
-                        <img src="/rabbit.jpg" height="260px" width="100%">
+                <div class="col col-67">
+                    <div class="bar bar-header item-input-inset">
+                          <label class="item-input-wrapper">
+                            <i class="icon ion-ios-search placeholder-icon"></i>
+                            <input type="search" placeholder="Search" name="searchPrintedInvoice" autofocus style="font-size: 18px;height: 100px;">
+                          </label>
+                          <button class="button button-clear">
+                            Cancel
+                          </button>
                     </div>
+                </div>
+                <div class="col col-25">
+                    <div class="list">
+                        <label class="item item-input item-select">
+                            <div class="input-label">
+                              Table
+                            </div>
+                            <select name="table">
+                                <option value="all" selected="all">All</option>
+                                 {{#each tables}}
+                                     <option value="{{_id}}">{{_tableLocation.name}}/{{name}}</option>
+                                 {{/each}}
+                            </select>
+                      </label>
+                     </div>
                 </div>
             </div>
-        </div>
-
-
-        <div class="container">
-            <div class="row">
-                <div class="box-second container-1">
-                    <div class="col">
-                        <h4 class="font-one"><i class="fa fa-line-chart hvr-grow"></i> របាយការណ៍លក់ប្រចាំខែនីមួយៗ</h4>
-                    </div>
-                </div>
-
-                <div class="box-second container-1">
-                    <div class="col">
-                        <h4 class="font-one"><i class="fa fa-bar-chart-o hvr-grow"></i> របាយការណ៍លក់ប្រចាំខែនីមួយៗ</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="container">
-            <div class="row">
-                <div class="box-first container">
-                    <div class="col">
-                        {{> chart}}
-                    </div>
-                </div>
-
-                <div class="box-first container">
-                    <div class="col">
-                        {{> barChart}}
-                    </div>
-                </div>
-            </div>
-
 
             <!--Pop Menu-->
             <!--ទិន្នន័យ-->
-            <div class="row">
+            {{#each printedSales}}
+                <div class="col col-25 printedSale" style="cursor: pointer;display: inline-block; ">
+                    <div class="card animated fadeIn" >
+                      <div class="item item-text-wrap" style="font-size: 20px;background: #fff;">
+                        <p class="new-order cursor-p" style="color: black; font-size: 20px;"><i class="ion-document-text"></i> {{_id}} <span align="right">{{doc._table._tableLocation.name}}/{{doc._table.name}}</span></p>
+                        <p style="font-size: 18px; color:black;padding: 3px;">សរុប: {{numFormat doc.total '0,0.00'}}៛</p>
+                        <p style="font-size: 18px; color:black;padding: 3px;">ស្ថានភាព: {{#if printStatus}}មិនទាន់បានព្រីន{{else}}ព្រីនរួចរាល់{{/if}}</p>
+                      </div>
+                    </div>
+                </div>
+            {{/each}}
+            <div class="row" style="bottom: 0;position: absolute;">
                 <div class="box box-1 container hvr-grow-shadow">
                     <div class="col"><br>
                         <div style="text-align: center">

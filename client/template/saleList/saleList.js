@@ -17,14 +17,13 @@ Template.restaurantSaleList.created = function() {
     this.typeScheme = new ReactiveVar(false);
     this.autorun(() => {
         this.subscription = Meteor.subscribe("categories");
-
         if (this.subscription.ready()) {
             let category = Restaurant.Collection.Categories.findOne({}, {
                 sort: {
                     _id: 1
                 }
             });
-            Session.set('searchListQuery', categoryId ? category._id :
+            Session.set('searchListQuery', category ? category._id :
                 '');
             Session.set('activeCategoryId', category ? category._id :
                 '');
@@ -42,6 +41,8 @@ Template.restaurantSaleList.events({
         Session.set('searchListQuery', 'true');
         instance.typeScheme.set(true);
         Session.set('activeSearch', false);
+        Session.set('activeCategoryId', '');
+
     },
     'click .selectCategory': function(event, instance) {
         Session.set('searchListQuery', this._id);
@@ -92,7 +93,6 @@ Template.restaurantSaleList.events({
         }
         Session.set('saleDetailObj', saleDetailObj)
         var selector = Session.get('saleDetailObj');
-        console.log(selector)
         Meteor.call('insertSaleDetail', selector, function(err, result) {
             if (err) {
                 Bert.alert(`កម្ម៉ង់ត្រូវបានច្រានចោល!`, 'danger',

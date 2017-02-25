@@ -1,6 +1,7 @@
 <template name="restaurantSaleTableSaleInvoice">
     {{#contentFor "headerButtonLeft"}}
         {{>ionNavBackButton href="/restaurant/selectTable" text='ត្រលប់ទៅកាន់តុ'}}
+        <a href="/" class="button button-clear">{{> ionIcon icon="ios-home"}}</a>
     {{/contentFor}}
     {{#if isInRole 'setting, cashier'}}
         {{#contentFor "headerButtonRight"}}

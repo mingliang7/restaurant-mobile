@@ -193,7 +193,6 @@ Template.tableHeader.helpers({
 //go to /restaurant/sale/:tableLocationId/table/:tableId/saleInvoice/:invoiceId/editDiscount
 Template.saleInvoiceTotal.events({
     "click .save-officer-cheque" () {
-        debugger
         let invoiceId = Router.current().params.invoiceId;
         Meteor.call('saveOfficerCheque', invoiceId, (err, result) => {
             if (err) {
@@ -217,7 +216,6 @@ Template.saleInvoiceTotal.helpers({
             return `/restaurant/sale/${params.tableLocationId}/table/${params.tableId}/saleInvoice/${params.invoiceId}/payment`;
         },
         multiply: function(val1, val2, id) {
-            debugger;
             if (val1 != null && val2 != null) {
                 var value = (val1 / val2);
                 if (id != null && id == "KHR") {
