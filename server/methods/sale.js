@@ -227,7 +227,8 @@ Meteor.methods({
             let selector = {
                 saleDate: {
                     $gte: saleDate
-                }
+                },
+                status: 'active'
             };
             let result = [];
             if (q) {
