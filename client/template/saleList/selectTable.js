@@ -82,7 +82,7 @@ Template.restaurantSelectTable.events({
     let tableLocationId = this.tableLocationId;;
     let tableId = this._id;
     let selector = {};
-    selector.saleDate = new Date();
+    selector.saleDate = moment().toDate();
     selector.status = "active";
     selector.tableId = tableId;
     selector.tableLocation = tableLocationId;
