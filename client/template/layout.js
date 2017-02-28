@@ -1,5 +1,12 @@
+Template.layout.onRendered(function() {
+    $(window).on("keydown", function(e) {
+        if (e.which == 120) {
+            Router.go('/');
+        }
+    });
+});
 Template.layout.helpers({
-    approved(currentUser){
+    approved(currentUser) {
         debugger
     }
 });
@@ -21,13 +28,13 @@ Template.layout.events({
     'click .setting' () {
         Router.go('restaurant.setting')
     },
-    'click .sale'(){
+    'click .sale' () {
         Router.go('/restaurant/selectTable');
     },
-    'click .activeSaleList'(){
+    'click .activeSaleList' () {
         Router.go('/restaurant/payment');
     },
-    'click .report'(){
+    'click .report' () {
         Router.go('restaurant.report');
     }
 });
