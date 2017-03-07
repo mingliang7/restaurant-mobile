@@ -29,6 +29,20 @@ Meteor.methods({
                 });
             }
         },
+        updateQtyIn(saleDetailDoc, changeQtyIn){
+            if (saleDetailDoc) {
+                let calcQtyAfterQtyIn = changeQtyIn - saleDetailDoc.quantityOut
+                Restaurant.Collection.SaleDetails.update({
+                    _id: saleDetailDoc._id
+                }, {
+                    $set: {
+                        amount: calcQtyAfterQtyIn *
+                            saleDetailDoc.price,
+                        quantity: changeQtyIn - saleDetailDoc.quantityOut,
+                    }
+                });
+            }
+        },
         insertSale(selector, fDate) {
             let fastSell = false;
             if (!selector) {

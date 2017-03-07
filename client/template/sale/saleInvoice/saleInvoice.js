@@ -126,13 +126,28 @@ Template._sale_invoice_tabs.helpers({
 Template.saleDetail.events({
     'change .qtyOut' (event, instance) {
         let currentValue = event.currentTarget.value;
-        if (currentValue == '') {
+        if (currentValue == '' || (currentValue != '' && parseFloat(currentValue) < 0)) {
             $(event.currentTarget).val(this.quantityOut);
         } else {
             Meteor.call('updateQtyOut', this, parseInt(currentValue));
         }
     },
     'keypress .qtyOut': function(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        return !(charCode > 31 && (charCode < 48 || charCode > 57));
+    },
+    'change .qtyIn' (event, instance) {
+        let currentQty = parseFloat($(event.currentTarget).attr('qtyIn'));
+        let currentQtyOut = parseFloat($(event.currentTarget).attr('qtyOut'));
+        let currentValue = event.currentTarget.value;
+        if(currentValue != '' && parseFloat(currentValue) > currentQtyOut){
+            Meteor.call('updateQtyIn', this, parseFloat(currentValue) || null);
+        }else{
+            $(event.currentTarget).val(currentQty);
+        }
+        
+    },
+    'keypress .qtyIn': function(evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         return !(charCode > 31 && (charCode < 48 || charCode > 57));
     },
